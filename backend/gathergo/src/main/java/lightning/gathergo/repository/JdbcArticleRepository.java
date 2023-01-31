@@ -56,7 +56,12 @@ public class JdbcArticleRepository {
         return result;
     }
 
-    public Optional<Article> find
+    public List<Article> findAllArticles()
+    {
+        String query = "select * from articles";
+
+        return jdbcTemplate.query(query, articleRowMapper());
+    }
 
     // U
 
