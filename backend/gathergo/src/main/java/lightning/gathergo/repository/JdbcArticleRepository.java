@@ -63,6 +63,14 @@ public class JdbcArticleRepository {
         return jdbcTemplate.query(query, articleRowMapper());
     }
 
+    public List<Article> findArticlesByHostId(int hostId)
+    {
+        String query = "select * from articles where hostId = ?";
+
+        List<Article> result = jdbcTemplate.query(query, articleRowMapper(), hostId);
+        return result;
+    }
+
     // U
 
     // D
