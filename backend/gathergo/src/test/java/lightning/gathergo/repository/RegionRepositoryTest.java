@@ -63,6 +63,12 @@ class RegionRepositoryTest {
     }
 
     @Test
+    void updateRegion() {
+        Region region = regionRepository.updateRegion(17,"대구광역시 수성구");
+        Assertions.assertThat(region.getName()).isEqualTo("대구광역시 수성구");
+    }
+
+    @Test
     @DisplayName("테이블 삽입 테스트")
     void createRegion() {
         List<Region> regionList = regionRepository.findAll();
