@@ -27,7 +27,7 @@ public class JdbcArticleRepository {
     }
 
     // C
-    public Long addArticle(Article article){
+    public Article addArticle(Article article){
         SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate.getDataSource())
                 .withTableName("articles")
                 .usingGeneratedKeyColumns("id");
@@ -43,8 +43,9 @@ public class JdbcArticleRepository {
         params.put("regionId", article.getRegionId());
         params.put("categoryId", article.getCategoryId());
         Number key = simpleJdbcInsert.executeAndReturnKey(params);
+        article.setId(key.longValue());
 
-        return key.longValue();
+        return article;
     }
 
     // R
@@ -71,9 +72,38 @@ public class JdbcArticleRepository {
         return result;
     }
 
+    public Article findById(Long articleId){
+        String query = "select * from articles where id = ?";
+
+        Article result = jdbcTemplate.queryForObject(query, articleRowMapper(), articleId);
+        return result;
+    }
+
     // U
+    public Article updateArticle(Article article){
+        String query = "update articles set title = ?, curr = ?, total = ?, isClosed = ?," +
+                "content = ?, meetingDay = ?, regionId = ?, categoryId = ? where id = ?";
+        Long articleId = article.getId();
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("title", article.getTitle());
+        params.put("curr", article.getCurr());
+        params.put("total", article.getTotal());
+        params.put("isClosed", article.getClosed());
+        params.put("content", article.getContent());
+        params.put("meetingDay", article.getMeetingDay().getTime());
+        params.put("regionId", article.getRegionId());
+        params.put("categoryId", article.getCategoryId());
+        jdbcTemplate.update(query, params);
+
+        return findById(article.getId());
+    }
 
     // D
+    public void deleteArticle(Long articleId){
+        String query = "delete from articles where id = ?";
+        jdbcTemplate.update(query, articleId);
+    }
 
     private RowMapper<Article> articleRowMapper(){
         return ((rs, rowNum) -> {
