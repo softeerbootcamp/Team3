@@ -21,4 +21,17 @@ public class Region {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Region(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
