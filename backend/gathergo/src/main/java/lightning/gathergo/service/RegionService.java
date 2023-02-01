@@ -22,21 +22,22 @@ public class RegionService {
         return regionRepository.findAll();
     }
 
-    public Optional<Region> getRegionById(String id){
-        Integer identifier = Integer.parseInt(id);
-        return regionRepository.findOneById(identifier);
+    public Optional<Region> getRegionById(Integer id){
+        return regionRepository.findOneById(id);
     }
 
     public Optional<Region> getRegionByName(String name){
         return regionRepository.findOneByName(name);
     }
 
-    public Region createRegion(Region region){
-        return regionRepository.save(region);
+    public Optional<Region> createRegion(String name){
+         regionRepository.save(name);
+         return regionRepository.findOneByName(name);
     }
 
-    public Region updateRegion(Region region){
-        return regionRepository.save(region);
+    public Optional<Region> updateRegion(Integer id, String name){
+         regionRepository.update(id,name);
+        return regionRepository.findOneById(id);
     }
 
     public void deleteRegionById(Integer id){
@@ -46,6 +47,5 @@ public class RegionService {
     public void deleteRegions(){
         regionRepository.deleteAll();
     }
-
 
 }
