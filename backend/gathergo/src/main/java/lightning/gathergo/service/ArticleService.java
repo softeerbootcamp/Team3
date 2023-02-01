@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class ArticleService {
@@ -25,5 +26,9 @@ public class ArticleService {
 
     public Article save(Article article){
         return repo.addArticle(article);
+    }
+
+    public List<Article> getCurrentRegionArticle(int regionId){
+        return repo.findCurrentRegionArticles(regionId);
     }
 }
