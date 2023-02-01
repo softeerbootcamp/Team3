@@ -1,0 +1,136 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>로그인</title>
+    <link rel="stylesheet" type="text/css" href="./login.css">
+    <script type="module" src="./login.ts"></script>
+</head>
+<body>
+<div id="wrap" class="wrap bg-light">
+    <header class="header" role="banner" >
+        <div class="header_inner">
+            <img href="../../index.html" src = '../../assets/logo/mainLogoIcon.svg' class = "main-logo">
+        </img>
+        </div>
+    </header>
+
+    <div id="container" class="container">
+        <div class="content">
+            <div class="login_wrap">
+                <ul class="menu_wrap" role="tablist">
+                    <li class="menu_item" role="presentation">
+                        <a id="qrcode" class="menu_qr" role="tab" aria-selected="true">
+                            <span class="text" style = "color : #757575; font-size : 20px;">ID 로그인</span>
+                        </a>
+                        
+                    </li>
+                </ul>
+                <form id="frmNIDLogin" name="frmNIDLogin" target="_top" AUTOCOMPLETE="off"
+                      action="https://nid.naver.com/nidlogin.login" method="POST">
+                    <input type="hidden" id="localechange" name="localechange" value="">
+                    <input type="hidden" name="dynamicKey" id="dynamicKey" value="cWkr_vByJDD1xINbd0UO8n3iyeUQNc78NR-tHkFsS8QJ7KZ00ZtoNkjyL3nKjctiKmrJgA900hjrZLN5s5G-n2_H5ldpSEwd42HVbpJ3hFA">
+                    <input type="hidden" name="encpw" id="encpw" value="">
+                    <ul class="panel_wrap">
+                        <li class="panel_item" style="display: block;">
+                            <div class="panel_inner" role="tabpanel" aria-controls="loinid">
+                                <div class="id_pw_wrap">
+                                    <div class="input_row" id="id_line">
+                                        <div class="icon_cell" id="id_cell">
+                                            <span class="icon_id">
+                                                <span class="blind">아이디</span>
+                                            </span>
+                                        </div>
+                                        <input type="text" id="id" name="id" placeholder="아이디" title="아이디"
+                                               class="input_text" maxlength="41"
+                                               value="">
+                                        <span role="button" class="btn_delete" id="id_clear" style="display: none;">
+                                            <span class="icon_delete">
+												<span class="blind">삭제</span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="input_row" id="pw_line">
+                                        <div class="icon_cell" id="pw_cell">
+                                            <span class="icon_pw">
+                                                <span class="blind">비밀번호</span>
+                                            </span>
+                                        </div>
+                                        <input type="password" id="pw" name="pw" placeholder="비밀번호" title="비밀번호"
+                                               class="input_text" maxlength="16">
+                                        <span role="button" class="btn_delete" id="pw_clear" style="display: none;">
+                                            <span class="icon_delete">
+                                                <span class="blind">삭제</span>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="login_error_wrap" id="err_capslock" style="display: none;">
+                                    <div class="error_message">
+                                        <strong>CapsLock</strong>이 켜져 있습니다.
+                                    </div>
+                                </div>
+
+                                <div class="login_error_wrap" id="err_empty_id" style="display: none;">
+                                    <div class="error_message">
+                                        <strong>아이디</strong>를 입력해 주세요.
+                                    </div>
+                                </div>
+
+                                <div class="login_error_wrap" id="err_empty_pw" style="display: none;">
+                                    <div class="error_message">
+                                        <strong>비밀번호</strong>를 입력해 주세요.
+                                    </div>
+                                </div>
+                                <div class="login_error_wrap" id="err_common"  style="display:none;">
+                                    <div class="error_message"
+                                         style="width:90%">
+                                        
+                                    </div>
+                                </div>
+                                <div class="btn_login_wrap">
+                                    <button type="button" class="btn btn-primary">
+                                        <h2>로그인</h2>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            <ul class="find_wrap" id="find_wrap">
+
+                <li><a target="_blank" href="http://localhost:5173"
+                       class="find_text">비밀번호 찾기</a></li>
+                <li><a target="_blank" href="http://localhost:5173"
+                       class="find_text">아이디 찾기</a></li>
+                <li><a target="_blank" href="http://localhost:5173" class="find_text">회원가입</a>
+                </li>
+
+            </ul>
+            <div id="gladbanner" class="banner_wrap">
+                &nbsp;
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer_inner">
+            <ul class="footer_link" id="footer_link">
+                <li><a target="_blank" class="footer_item" href="http://localhost:5173"
+                       id="fot.agreement"><span class="text">이용약관</span></a></li>
+                <li><a target="_blank" class="footer_item" href="http://localhost:5173"
+                       id="fot.privacy"><span class="text"><strong>개인정보처리방침</strong></span></a></li>
+                <li><a target="_blank" class="footer_item" href="http://localhost:5173"
+                       id="fot.disclaimer"><span class="text">책임의 한계와 법적고지</span></a></li>
+                <li><a target="_blank" class="footer_item"
+                       href="http://localhost:5173" id="fot.help"><span
+                                class="text">회원정보 고객센터</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
