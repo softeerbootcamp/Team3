@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -21,13 +22,29 @@ public class RegionService {
         return regionRepository.findAll();
     }
 
-    public Region getRegionById(String id){
+    public Optional<Region> getRegionById(String id){
         Integer identifier = Integer.parseInt(id);
         return regionRepository.findOneById(identifier);
     }
 
-    public Region getRegionByName(String name){
+    public Optional<Region> getRegionByName(String name){
         return regionRepository.findOneByName(name);
+    }
+
+    public Region createRegion(Region region){
+        return regionRepository.save(region);
+    }
+
+    public Region updateRegion(Region region){
+        return regionRepository.save(region);
+    }
+
+    public void deleteRegionById(Integer id){
+        regionRepository.deleteById(id);
+    }
+
+    public void deleteRegions(){
+        regionRepository.deleteAll();
     }
 
 
