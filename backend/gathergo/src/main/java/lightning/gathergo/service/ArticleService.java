@@ -15,20 +15,17 @@ public class ArticleService {
 
     private JdbcArticleRepository repo;
 
-    @Autowired
-    ArticleService(DataSource dataSource) {
-        repo = new JdbcArticleRepository(dataSource);
-    }
-
     public byte[] convertMultipartFileToByte(MultipartFile multipartFile) throws IOException {
         return multipartFile.getBytes();
     }
 
     public Article save(Article article){
-        return repo.addArticle(article);
+        repo.save(article);
+        return repo.findById(repo.getLastInsertedId()).get();
     }
 
-    public List<Article> getCurrentRegionArticle(int regionId){
-        return repo.findCurrentRegionArticles(regionId);
+    public List<Article> getCurrentRegionArticles(String regionName){
+        return repo.findCurrentRegionArticles(regionName);
     }
+
 }
