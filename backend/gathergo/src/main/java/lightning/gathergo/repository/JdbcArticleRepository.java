@@ -37,5 +37,10 @@ public interface JdbcArticleRepository extends CrudRepository<Article, Long> {
             "SELECT id FROM category WHERE title = :category)")
     List<Article> findArticlesByCategory(String category);
 
-
+    @Query("UPDATE article" +
+            "SET title=:title, imgPath=:imgPath, curr=:curr, total=:total, isClosed=:isClosed, " +
+            "content=:content, meetingDay=:meetingDay " +
+            "WHERE id=:id")
+    public void updateArticleById(String title, String imgPath, int curr,
+                                  int total, boolean isClosed, String content, Date meetingDay, Long id);
 }
