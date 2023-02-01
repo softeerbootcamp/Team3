@@ -1,0 +1,439 @@
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadein {
+
+    /* Firefox */
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadein {
+
+    /* Safari and Chrome */
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadein {
+
+    /* Opera */
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes fadeout {
+
+    /* Firefox */
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes fadeout {
+
+    /* Safari and Chrome */
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@-o-keyframes fadeout {
+
+    /* Opera */
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
+.navbar {
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.navbar>.container-lg {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+}
+
+.navbar-brand {
+    max-width: 200px;
+}
+
+.navbar-nav {
+    width: 100%;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.navbar-nav.navbar-filter {
+    justify-content: center;
+}
+
+.container-fluid>h1 {
+    display: flex;
+    justify-content: center;
+    margin-right: 3em;
+}
+
+.form-control {
+    line-height: 1;
+    width: 280px;
+}
+
+.nav-item {
+    display: flex;
+    margin-right: 0.7rem;
+}
+
+.nav-icon {
+    height: 25px;
+}
+
+.nav-icon {
+    width: 70%;
+}
+
+.nav-title {
+    width: 100%;
+}
+
+.dot {
+    position: relative;
+    height: 6px;
+    width: 6px;
+    background-color: red;
+    border-radius: 50%;
+    visibility: hidden;
+}
+
+.dot.unread {
+    visibility: visible;
+}
+
+/* side bar */
+#sidebar.active {
+    display: flex;
+}
+
+#sidebar-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#sidebar-body {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    position: fixed;
+    top: 0;
+    right: -40%;
+    z-index: 2;
+    height: 100%;
+    background: var(--bs-gray-100);
+    padding: 1rem 2rem;
+    transition: all 0.3s;
+}
+
+.active #sidebar-body {
+    right: 0;
+}
+
+.active #sidebar-bg {
+    animation: fadein 0.3s;
+    -moz-animation: fadein 0.3s;
+    /* Firefox */
+    -webkit-animation: fadein 0.3s;
+    /* Safari and Chrome */
+    -o-animation: fadein 0.3s;
+    /* Opera */
+    z-index: 1;
+    display: flex;
+}
+
+.line {
+    margin: 1rem 0;
+    border-top: 1px solid var(--bs-border-color);
+}
+
+
+.sidebar-user-info.container-md {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* padding-right: 2rem; */
+}
+
+.sidebar-user-info .container-sm {
+    width: 100%;
+    display: flex;
+
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.space {
+    min-width: 2rem;
+    width: 100%;
+}
+
+.sidebar-user-info button {
+    min-height: 2.25rem;
+    min-width: 7rem;
+    margin: 2rem;
+}
+
+.user-profile {
+    background: var(--bs-body-bg);
+    width: 5rem;
+    height: 5rem;
+    min-width: 5rem;
+    min-height: 5rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.user-profile-img {
+    object-fit: cover;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.user-desc-header {
+    display: flex;
+    align-items: baseline;
+
+}
+
+.user-desc .icon {
+
+    width: 1rem;
+    height: 1rem;
+    min-width: 1rem;
+    min-height: 1rem;
+    /* margin-left: 1rem; */
+}
+
+.user-desc-edit-icon {
+    cursor: pointer;
+}
+
+.user-host-meet-list {
+    padding: 0;
+}
+
+.user-host-meet {
+    align-items: flex-start;
+    display: flex;
+    margin: 2rem 1rem;
+}
+
+.user-host-meet-title {
+    min-width: 18rem;
+    max-width: 18rem;
+}
+
+.user-host-meet-peoples {
+
+    width: 1.2rem;
+    height: 1.2rem;
+    min-width: 1.2rem;
+    min-height: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.people-icon {
+
+    width: 1.2rem;
+    height: 1.2rem;
+    min-width: 1.2rem;
+    min-height: 1.2rem;
+    margin-right: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.user-host-meet-status {
+    align-items: flex-start;
+    display: flex;
+}
+
+.user-host-meet-status> {
+    min-width: 3rem;
+}
+
+.user-host-meet-status-text {
+    line-height: 1.2rem;
+    min-width: 3rem;
+    text-align: right;
+}
+
+.user-host-meet-date {
+    line-height: 1.2rem;
+    margin: 0 0.5rem;
+}
+
+.status-icon {
+    width: 2rem;
+    height: 2rem;
+    min-width: 2rem;
+    min-height: 2rem;
+    margin: 0 1rem;
+}
+
+
+.user-schedule {
+    display: flex;
+    margin-bottom: 2rem;
+}
+
+.schedule-time-badge {
+    width: 4rem;
+    min-width: 4rem;
+    height: 4rem;
+    min-height: 4rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125);
+    padding: 1rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.schedule-date {
+    font-size: 16px;
+    font-weight: 200;
+}
+
+.schedule-time {
+    font-size: 12px;
+    font-weight: 100;
+}
+
+.schedule-info {
+    padding: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.schedule-data {
+    display: flex;
+    /* flex-direction: column; */
+}
+
+
+
+
+.log-list {
+    clear: both;
+    overflow-y: scroll;
+}
+
+.card-wrapper {
+    display: flex;
+    align-items: center;
+    /* justify-content: flex-start; */
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 2rem 4rem;
+    overflow: hidden;
+}
+
+.card {
+    width: 300px;
+    margin: 1rem 1.2rem;
+}
+
+.badge {
+    margin-right: 1rem;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+#modal-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#modal-body{
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    z-index: 2;
+    height: 100%;
+    background: var(--bs-gray-100);
+    padding: 1rem 2rem;
+    transition: all 0.3s;
+}
