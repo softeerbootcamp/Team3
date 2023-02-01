@@ -10,6 +10,8 @@ import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,13 +44,13 @@ class JDBCArticleRepositoryTest {
         // 일단은 다 nullable
 
         //when
-        //Article stored = repo.addArticle(article);
         repo.save(article.getTitle(), article.getImgPath(), article.getCurr(),
                 article.getTotal(), article.getClosed(), article.getContent(), article.getMeetingDay());
+        Long storedId = repo.getLastInsertedId();
 
         //then
-        //Assertions.assertThat(stored.getId()).isEqualTo(article.getId());
-        //Assertions.assertThat(stored).isEqualTo(article);
+        Assertions.assertThat(repo.findById(storedId).get().getTitle())
+                .isEqualTo(article.getTitle());
     }
 
     @Test
