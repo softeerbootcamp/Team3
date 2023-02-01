@@ -1,7 +1,10 @@
 package lightning.gathergo.model;
 
 
+import org.springframework.data.annotation.Id;
+
 public class Region {
+    @Id
     private Integer id;
     private String name;
 
@@ -27,6 +30,15 @@ public class Region {
     }
 
     public void setName(String name) {
+        this.name = name;
+    }
+
+    public Region(){
+        this.id=null;
+        this.name=null;
+    }
+
+    public Region(String name) {
         this.name = name;
     }
 
