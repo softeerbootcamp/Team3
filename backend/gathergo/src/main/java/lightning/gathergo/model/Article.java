@@ -1,20 +1,32 @@
 package lightning.gathergo.model;
 
 
-import java.sql.Date;
+import org.springframework.data.annotation.Id;
 
+import java.sql.Date;
 public class Article {
+    @Id
     private Long id;
     private String title;
-    private Long hostId;
-    private byte[] img;
+    private String imgPath;
     private Integer curr;
     private Integer total;
     private Boolean isClosed = false;
     private String content;
     private Date meetingDay;
-    private Integer regionId;
-    private Integer categoryId;
+    //private Region region;
+    //private Category category;
+    //private List<Comment> comments;
+    // TODO : 위 객체들이 구현되면 주석 풀고 게터세터 만들기
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -22,6 +34,14 @@ public class Article {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 
     public Integer getCurr() {
@@ -64,43 +84,4 @@ public class Article {
         this.meetingDay = meetingDay;
     }
 
-    public Integer getRegionId() {
-        return regionId;
-    }
-
-    public void setRegionId(Integer regionId) {
-        this.regionId = regionId;
-    }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getHostId() {
-        return hostId;
-    }
-
-    public void setHostId(Long hostId) {
-        this.hostId = hostId;
-    }
-
-    public byte[] getImg() {
-        return img;
-    }
-
-    public void setImg(byte[] img) {
-        this.img = img;
-    }
 }
