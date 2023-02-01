@@ -72,10 +72,11 @@ class RegionRepositoryTest {
     }
 
     @Test
+    @DisplayName("특정 로우 수정")
     void updateRegion() {
-        Region modified = new Region(17,"대구광역시 북구");
-        Region region = regionRepository.save(modified);
-        Assertions.assertThat(region.getName()).isEqualTo("대구광역시 북구");
+        regionRepository.update(17,"대구광역시 북구");
+        Optional<Region> region = regionRepository.findOneById(17);
+        Assertions.assertThat(region.get().getName()).isEqualTo("대구광역시 북구");
     }
 
     @Test
@@ -85,9 +86,7 @@ class RegionRepositoryTest {
         int length = regionList.size();
 
         SoftAssertions softAssertions = new SoftAssertions();
-        Region region = new Region("대구시 수성구");
-        Region res = regionRepository.save(region);
-        softAssertions.assertThat(res.getName()).isEqualTo("대구시 수성구");
+        regionRepository.save("대구시 수성구");
         softAssertions.assertThat(regionRepository.findAll().size()).isEqualTo(length+=1);
 
         softAssertions.assertAll();
