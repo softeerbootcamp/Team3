@@ -43,4 +43,7 @@ public interface JdbcArticleRepository extends CrudRepository<Article, Long> {
             "WHERE id=:id")
     public void updateArticleById(String title, String imgPath, int curr,
                                   int total, boolean isClosed, String content, Date meetingDay, Long id);
+
+    @Query("DELETE FROM article WHERE id=:id")
+    public void deleteById(Long id);
 }
