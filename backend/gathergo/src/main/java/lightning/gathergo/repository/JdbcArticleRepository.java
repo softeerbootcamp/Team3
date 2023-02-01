@@ -8,6 +8,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -24,4 +25,17 @@ public interface JdbcArticleRepository extends CrudRepository<Article, Long> {
 
     @Query("SELECT * FROM article WHERE id = :id")
     Optional<Article> findById(Long id);
+
+    @Query("SELECT * FROM article")
+    List<Article> findAllArticles();
+
+    @Query("SELECT  * FROM article WHERE regionId = (" +
+            "SELECT id FROM region WHERE name = :regionName)")
+    List<Article> findCurrentRegionArticles(String regionName);
+
+    @Query("SELECT  * FROM article WHERE categoryId = (" +
+            "SELECT id FROM category WHERE title = :category)")
+    List<Article> findArticlesByCategory(String category);
+
+
 }
