@@ -31,4 +31,12 @@ public class ArticleService {
     public List<Article> getCurrentCategoryArticles(String category){
         return repo.findArticlesByCategory(category);
     }
+
+    public Article setClosedOrNot(Long id, Boolean bool){
+        Article article = repo.findById(id).get();
+        repo.updateArticleById(article.getTitle(), article.getImgPath(), article.getCurr(),
+                article.getTotal(), bool, article.getContent(), article.getMeetingDay(), id);
+        article.setClosed(bool);
+        return article;
+    }
 }
