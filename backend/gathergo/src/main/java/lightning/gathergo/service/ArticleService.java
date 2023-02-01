@@ -28,4 +28,7 @@ public class ArticleService {
         return repo.findCurrentRegionArticles(regionName);
     }
 
+    public List<Article> getCurrentCategoryArticles(String category){
+        return repo.findArticlesByCategory(category);
+    }
 }
