@@ -39,7 +39,7 @@ public class JdbcArticleRepository {
         params.put("total", article.getTotal());
         params.put("isClosed", article.getClosed());
         params.put("content", article.getContent());
-        params.put("meetingDay", article.getMeetingDay().getTime());
+        params.put("meetingDay", article.getMeetingDay());
         params.put("regionId", article.getRegionId());
         params.put("categoryId", article.getCategoryId());
         Number key = simpleJdbcInsert.executeAndReturnKey(params);
