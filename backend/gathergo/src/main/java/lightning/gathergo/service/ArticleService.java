@@ -39,4 +39,11 @@ public class ArticleService {
         article.setClosed(bool);
         return article;
     }
+
+    public Article updateArticle(Long id, Article replacemnt){
+        replacemnt.setId(id);
+        repo.updateArticleById(replacemnt.getTitle(), replacemnt.getImgPath(), replacemnt.getCurr(),
+                replacemnt.getTotal(), replacemnt.getClosed(), replacemnt.getContent(), replacemnt.getMeetingDay(), id);
+        return replacemnt;
+    }
 }
