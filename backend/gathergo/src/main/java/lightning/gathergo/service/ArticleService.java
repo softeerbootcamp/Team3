@@ -46,4 +46,14 @@ public class ArticleService {
                 replacemnt.getTotal(), replacemnt.getClosed(), replacemnt.getContent(), replacemnt.getMeetingDay(), id);
         return replacemnt;
     }
+
+    // TODO : MultipartFile로 넘어온 사진을 File로 변환해주는 메서드
+
+    // TODO : 사진의 uuid 만드는 메서드(사진명과 유저id의 조합을 해쉬하면 어떨까 생각중) 만든 후 사진 이름을 uuid로 변경
+
+    // TODO : 서버에 사진을 저장하는 메서드
+
+    // TODO : 저장된 사진 경로명으로 article.setImgPath()을 해주는 메서드
+
+    // TODO : 경로명을 다시 사진 파일로 변환해주는 메서드(프론트에게 보내기 위하여)
 }
