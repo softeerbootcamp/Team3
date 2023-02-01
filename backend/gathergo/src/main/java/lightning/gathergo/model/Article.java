@@ -7,7 +7,7 @@ public class Article {
     private Long id;
     private String title;
     private Long hostId;
-    // private MultipartFile img;
+    private byte[] img;
     private Integer curr;
     private Integer total;
     private Boolean isClosed = false;
@@ -94,5 +94,13 @@ public class Article {
 
     public void setHostId(Long hostId) {
         this.hostId = hostId;
+    }
+
+    public byte[] getImg() {
+        return img;
+    }
+
+    public void setImg(byte[] img) {
+        this.img = img;
     }
 }
