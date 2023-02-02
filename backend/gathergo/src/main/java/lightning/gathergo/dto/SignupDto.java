@@ -16,6 +16,13 @@ public class SignupDto {
         private String password;
         private String email;
 
+        public SignupInput(String userId, String userName, String password, String email) {
+            this.userId = userId;
+            this.userName = userName;
+            this.password = password;
+            this.email = email;
+        }
+
         public String getUserId() {
             return userId;
         }
