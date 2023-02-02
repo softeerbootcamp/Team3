@@ -38,7 +38,8 @@ public class ArticleService {
     public Article setClosedOrNot(Long id, Boolean bool){
         Article article = repo.findById(id).get();
         repo.updateArticleById(article.getTitle(), article.getThumbnail(), article.getCurr(),
-                article.getTotal(), bool, article.getContent(), article.getMeetingDay(), id);
+                article.getTotal(), bool, article.getContent(), article.getMeetingDay(), article.getLocation(),
+                article.getRegionId(), article.getCategoryId(), article.getId());
         article.setClosed(bool);
         return article;
     }
@@ -46,7 +47,8 @@ public class ArticleService {
     public Article updateArticle(Long id, Article replacemnt){
         replacemnt.setId(id);
         repo.updateArticleById(replacemnt.getTitle(), replacemnt.getThumbnail(), replacemnt.getCurr(),
-                replacemnt.getTotal(), replacemnt.getClosed(), replacemnt.getContent(), replacemnt.getMeetingDay(), id);
+                replacemnt.getTotal(), replacemnt.getClosed(), replacemnt.getContent(), replacemnt.getMeetingDay(),
+                replacemnt.getLocation(), replacemnt.getRegionId(), replacemnt.getCategoryId(), id);
         return replacemnt;
     }
 

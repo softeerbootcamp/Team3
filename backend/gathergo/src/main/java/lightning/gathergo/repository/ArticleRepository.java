@@ -58,12 +58,18 @@ public interface ArticleRepository extends CrudRepository<Article, Long> {
     @Query("SELECT  * FROM article WHERE categoryId = :categoryId")
     List<Article> findArticlesByCategory(int categoryId);
 
-    @Query("UPDATE article" +
-            "SET title=:title, imgPath=:imgPath, curr=:curr, total=:total, isClosed=:isClosed, " +
-            "content=:content, meetingDay=:meetingDay " +
-            "WHERE id=:id")
-    public void updateArticleById(String title, String imgPath, int curr,
-                                  int total, boolean isClosed, String content, Date meetingDay, Long id);
+
+    // id, hostId, title, thumbnail, curr,
+    // total, isClosed, content, meetingDay, location,
+    // regionId, categoryId, uuid
+    @Modifying
+    @Query("UPDATE article " +
+            "SET title = :title, thumbnail = :thumbnail, curr = :curr, total = :total, " +
+            "isClosed = :isClosed, content = :content, meetingDay = :meetingDay, location = :location, " +
+            "regionId = :regionId, categoryId = :categoryId")
+    public void updateArticleById(String title, String thumbnail, int curr,
+                                  int total, boolean isClosed, String content, Date meetingDay, String location,
+                                  int regionId, int categoryId, Long id);
 
     @Modifying
     @Query("DELETE FROM article WHERE id=:id")

@@ -69,7 +69,18 @@ class ArticleRepositoryTest {
     }
 
     @Test
-    void updateArticle() {
+    void 수정이_의도한_대로_되는지_확인() {
+        // given
+        Article article = new Article();
+        article.setTitle("변경 전");
+        Long id = repo.save(article).getId();
+
+        //when
+        repo.updateArticleById("변경 후", null, 0, 0, false, null, null, null, 0, 0, id);
+
+        //then
+        Assertions.assertThat(repo.findById(id).get().getTitle())
+                .isEqualTo("변경 후");
     }
 
     @Test
