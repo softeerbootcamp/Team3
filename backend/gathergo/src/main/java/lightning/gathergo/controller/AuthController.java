@@ -1,6 +1,7 @@
 package lightning.gathergo.controller;
 
 import lightning.gathergo.dto.LoginDto;
+import lightning.gathergo.dto.SignupDto;
 import lightning.gathergo.model.Session;
 import lightning.gathergo.model.User;
 import lightning.gathergo.service.SessionService;
@@ -42,7 +43,7 @@ public class AuthController {
         Optional<User> user = userService.findUserByUserId(loginDto.getUserId());
 
         if (user.isEmpty() || !passwordEncoder.matches(loginDto.getPassword(), user.get().getPassword())) {
-            return new ResponseEntity<>(new LoginDto.LoginFailedResponse("ID나 비밀번호가 일치하지 않습니다", ""), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new LoginDto.LoginFailedResponse("ID나 비밀번호가 일치하지 않습니다", ""), HttpStatus.UNAUTHORIZED);
         }
 
         Session session = sessionService.createSession(user.get().getUserId(), user.get().getUserName());
@@ -52,5 +53,34 @@ public class AuthController {
         // headers.add("Set-Cookie", "sessionId:" + session.getSessionId());
 
         return new ResponseEntity<>(new LoginDto.LoginSuccessfulResponse("로그인 성공", session, "/"), headers, HttpStatus.OK);
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<?> signUp(@RequestBody SignupDto.SignupInput signupDto) {
+        String userId = signupDto.getUserId();
+        String password = signupDto.getPassword();
+        String email = signupDto.getEmail();
+        String UserName = signupDto.getUserName();
+
+        // TODO: Mapper 이용하기
+
+        User user = new User(UUID.randomUUID().toString(), userId, UserName, password, email, "", "");
+
+        try {
+            userService.addUser(user);
+        } catch (Exception e) {
+            logger.error("signUp 실패, {}", e.getMessage());
+        }
+
+        HttpHeaders headers= new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
+        headers.add("Location", "/login");
+        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "회원가입 성공", "/login"), headers, HttpStatus.OK);
+    }
+
+
+        @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<?> methodValidException(MethodArgumentNotValidException e) {
+        return new ResponseEntity<>(e.getBindingResult().getFieldError().getDefaultMessage(), HttpStatus.BAD_REQUEST);
     }
 }
