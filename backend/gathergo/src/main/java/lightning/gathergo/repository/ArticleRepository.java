@@ -65,6 +65,7 @@ public interface ArticleRepository extends CrudRepository<Article, Long> {
     public void updateArticleById(String title, String imgPath, int curr,
                                   int total, boolean isClosed, String content, Date meetingDay, Long id);
 
+    @Modifying
     @Query("DELETE FROM article WHERE id=:id")
     public void deleteById(Long id);
 }

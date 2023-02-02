@@ -73,6 +73,19 @@ class ArticleRepositoryTest {
     }
 
     @Test
-    void deleteArticle() {
+    void 게시물_하나_지우는_기능이_잘_되는지_테스트() {
+        // given
+        Article article = new Article();
+        Article nullArticle = new Article();
+        article.setTitle("dummy");
+        repo.save(article);
+        Long dummyId = repo.getLastInsertedId();
+
+        // when
+        repo.deleteById(dummyId);
+
+        // then
+        Assertions.assertThat(repo.findById(dummyId).orElse(nullArticle))
+                .isEqualTo(nullArticle);
     }
 }
