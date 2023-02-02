@@ -33,12 +33,14 @@ public class RegionService {
     }
 
     public Optional<Region> createRegion(String name){
+        if(getRegionByName(name).isPresent()) throw new CustomGlobalException(ErrorCode.NAME_DUPLICATED);
          regionRepository.save(name);
          return regionRepository.findOneByName(name);
     }
 
     public Optional<Region> updateRegion(Integer id, String name){
-         regionRepository.update(id,name);
+        if(getRegionByName(name).isPresent()) throw new CustomGlobalException(ErrorCode.NAME_DUPLICATED);
+        regionRepository.update(id,name);
         return regionRepository.findOneById(id);
     }
 
