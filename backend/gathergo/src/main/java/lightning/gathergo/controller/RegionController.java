@@ -1,2 +1,76 @@
-package lightning.gathergo.controller;public class RegionController {
+package lightning.gathergo.controller;
+
+import lightning.gathergo.dto.RegionDto;
+import lightning.gathergo.mapper.RegionDtoMapper;
+import lightning.gathergo.model.Region;
+import lightning.gathergo.service.RegionService;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+@RequestMapping(value = "/regions", produces = MediaType.APPLICATION_JSON_VALUE)
+@RestController
+public class RegionController {
+
+    private final RegionService regionService;
+    private final RegionDtoMapper regionDtoMapper;
+    @Autowired
+    public RegionController(RegionService regionService, ModelMapper modelMapper, RegionDtoMapper regionDtoMapper) {
+        this.regionService = regionService;
+        this.regionDtoMapper = regionDtoMapper;
+    }
+
+    @GetMapping
+    public ResponseEntity<Map<String,Object>> getRegions() {
+        List<RegionDto.Response> regions = regionDtoMapper.toRegionResponseList(regionService.getRegions());
+
+        Map<String,Object> result = new HashMap<>();
+        result.put("data",regions);
+        result.put("count",regions.size());
+
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/{regionId}")
+    public ResponseEntity<RegionDto.Response> getRegionById(@PathVariable Integer regionId) {
+        RegionDto.Response region = regionDtoMapper.toRegionResponse(regionService.getRegionById(regionId).get());
+        return ResponseEntity.ok().body(region);
+    }
+
+    @PostMapping
+    public ResponseEntity<RegionDto.Response> createRegion(@RequestBody RegionDto.CreateRequest in) {
+        Region region = regionService.createRegion(in.getName()).get();
+        RegionDto.Response response = regionDtoMapper.toRegionResponse(region);
+        return ResponseEntity.ok().body(response);
+    }
+
+
+    @PutMapping
+    public ResponseEntity<RegionDto.Response> modifyRegion(@RequestBody RegionDto.ModifyRequest in) {
+        Region region = regionDtoMapper.toRegion(in);
+        Optional<Region> modified = regionService.updateRegion(in.getId(), in.getName());
+        RegionDto.Response response = regionDtoMapper.toRegionResponse(modified.get());
+        return ResponseEntity.ok().body(response);
+    }
+
+    @DeleteMapping("/{regionId}")
+    public ResponseEntity<String> deleteRegion(@PathVariable Integer regionId) {
+        regionService.deleteRegionById(regionId);
+        return ResponseEntity.ok().body("deleted");
+    }
+
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteRegions() {
+        regionService.deleteRegions();
+        return ResponseEntity.ok().body("all deleted");
+    }
+
 }
