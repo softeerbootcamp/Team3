@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ArticleService {
@@ -20,7 +21,10 @@ public class ArticleService {
     }
 
     public Article save(Article article){
-        repo.save(article);
+        article.setUuid(generateUuid());
+        //uuid, title, imgPath, curr, total, isClosed, content, meetingDay
+        repo.save(article.getUuid(), article.getTitle(), article.getImgPath(), article.getCurr(), article.getTotal(), article.getClosed(),
+                article.getContent(), article.getMeetingDay());
         return repo.findById(repo.getLastInsertedId()).get();
     }
 
@@ -56,4 +60,10 @@ public class ArticleService {
     // TODO : 저장된 사진 경로명으로 article.setImgPath()을 해주는 메서드
 
     // TODO : 경로명을 다시 사진 파일로 변환해주는 메서드(프론트에게 보내기 위하여)
+
+
+    // TODO : uuid gen - insert 관련 메서드 수정하기
+    private String generateUuid() {
+        return UUID.randomUUID().toString();
+    }
 }

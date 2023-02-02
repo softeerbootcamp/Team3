@@ -15,9 +15,9 @@ import java.util.Optional;
 public interface JdbcArticleRepository extends CrudRepository<Article, Long> {
 
     @Modifying
-    @Query("INSERT INTO article (title, imgPath, curr, total, isClosed, content, meetingDay) " +
-            "values (:title, :imgPath, :curr, :total, :isClosed, :content, :meetingDay);")
-    public void save(String title, String imgPath, int curr,
+    @Query("INSERT INTO article (uuid, title, imgPath, curr, total, isClosed, content, meetingDay) " +
+            "values (:uuid, :title, :imgPath, :curr, :total, :isClosed, :content, :meetingDay);")
+    public void save(String uuid, String title, String imgPath, int curr,
                          int total, boolean isClosed, String content, Date meetingDay);
 
     @Query(value = "SELECT id FROM article ORDER BY id DESC LIMIT 1")

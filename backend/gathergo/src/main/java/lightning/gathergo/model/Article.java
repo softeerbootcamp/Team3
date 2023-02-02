@@ -7,6 +7,7 @@ import java.sql.Date;
 public class Article {
     @Id
     private Long id;
+    private String uuid;
     private String title;
     private String imgPath;
     private Integer curr;
@@ -26,6 +27,14 @@ public class Article {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getTitle() {
