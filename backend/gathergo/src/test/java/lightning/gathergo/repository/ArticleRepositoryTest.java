@@ -88,4 +88,25 @@ class ArticleRepositoryTest {
         Assertions.assertThat(repo.findById(dummyId).orElse(nullArticle))
                 .isEqualTo(nullArticle);
     }
+
+    @Test
+    void 게시물_전부_지우기_테스트(){
+        //given
+        Article a1 = new Article(); a1.setRegionId(1); a1.setTitle("test1"); a1.setCurr(1); a1.setCategoryId(123);
+        Article a2 = new Article(); a2.setRegionId(2);
+        Article a3 = new Article(); a3.setRegionId(3);
+        Article a4 = new Article(); a4.setRegionId(1); a4.setTitle("test"); a4.setCurr(2);
+
+        repo.save(a1);
+        repo.save(a2);
+        repo.save(a3);
+        repo.save(a4);
+
+        //when
+        repo.deleteAll();
+
+        //then
+        Assertions.assertThat(repo.findAllArticles().size())
+                .isEqualTo(0);
+    }
 }
