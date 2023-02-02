@@ -19,8 +19,18 @@ public interface ArticleRepository extends CrudRepository<Article, Long> {
 
     @Override
     default <S extends Article> S save(S entity) {
-        save(entity.getHostId(), entity.getTitle(), entity.getThumbnail(), entity.getCurr(), entity.getTotal(), entity.getClosed(),
-                entity.getContent(), entity.getMeetingDay(), entity.getLocation(), entity.getRegionId(), entity.getCategoryId(), entity.getUuid());
+        save(entity.getHostId(),
+                entity.getTitle(),
+                entity.getThumbnail(),
+                entity.getCurr(),
+                entity.getTotal(),
+                entity.getClosed(),
+                entity.getContent(),
+                entity.getMeetingDay(),
+                entity.getLocation(),
+                entity.getRegionId(),
+                entity.getCategoryId(),
+                entity.getUuid());
         return (S) findById(getLastInsertedId()).get();
     }
 
@@ -42,13 +52,11 @@ public interface ArticleRepository extends CrudRepository<Article, Long> {
     @Query("SELECT * FROM article")
     List<Article> findAllArticles();
 
-    @Query("SELECT  * FROM article WHERE regionId = (" +
-            "SELECT id FROM region WHERE name = :regionName)")
-    List<Article> findCurrentRegionArticles(String regionName);
+    @Query("SELECT * FROM article WHERE regionId = :regionId")
+    List<Article> findCurrentRegionArticles(int regionId);
 
-    @Query("SELECT  * FROM article WHERE categoryId = (" +
-            "SELECT id FROM category WHERE title = :category)")
-    List<Article> findArticlesByCategory(String category);
+    @Query("SELECT  * FROM article WHERE categoryId = :categoryId")
+    List<Article> findArticlesByCategory(int categoryId);
 
     @Query("UPDATE article" +
             "SET title=:title, imgPath=:imgPath, curr=:curr, total=:total, isClosed=:isClosed, " +

@@ -26,11 +26,13 @@ public class ArticleService {
     }
 
     public List<Article> getCurrentRegionArticles(String regionName){
-        return repo.findCurrentRegionArticles(regionName);
+        //return repo.findCurrentRegionArticles(regionName);
+        return null;
     }
 
     public List<Article> getCurrentCategoryArticles(String category){
-        return repo.findArticlesByCategory(category);
+        //return repo.findArticlesByCategory(category);
+        return null;
     }
 
     public Article setClosedOrNot(Long id, Boolean bool){
