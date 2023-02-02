@@ -18,7 +18,8 @@ class RegionDtoMapperTest {
     private Region region;
     private ModelMapper modelMapper;
     private RegionDtoMapper regionDtoMapper;
-    private RegionDto.Request regionRequest;
+    private RegionDto.CreateRequest createRequest;
+    private RegionDto.ModifyRequest modifyRequest;
     private List<Region> regionList;
 
 
@@ -27,8 +28,11 @@ class RegionDtoMapperTest {
         modelMapper = new ModelMapper();
         regionDtoMapper = new RegionDtoMapper(modelMapper);
         region = new Region(1, "Test Region");
-        regionRequest = new RegionDto.Request();
-        regionRequest.setName("Test Region");
+        createRequest = new RegionDto.CreateRequest();
+        createRequest.setName("Test Region");
+
+        modifyRequest = new RegionDto.ModifyRequest();
+        modifyRequest.setName("modified region");
 
         regionList = new ArrayList<>();
         for(int i=0;i<10;i++){
@@ -50,8 +54,14 @@ class RegionDtoMapperTest {
     }
 
     @Test
-    void toRegion() {
-        Region region = regionDtoMapper.toRegion(regionRequest);
+    void toRegionByCreate() {
+        Region region = regionDtoMapper.toRegion(createRequest);
         Assertions.assertThat(region.getName()).isEqualTo("Test Region");
+    }
+
+    @Test
+    void toRegionByModify() {
+        Region region = regionDtoMapper.toRegion(modifyRequest);
+        Assertions.assertThat(region.getName()).isEqualTo("modified region");
     }
 }
