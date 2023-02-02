@@ -4,7 +4,6 @@ import lightning.gathergo.model.Article;
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface JdbcArticleRepository extends CrudRepository<Article, Long> {
+public interface ArticleRepository extends CrudRepository<Article, Long> {
 
     @Modifying
     @Query("INSERT INTO article (uuid, title, imgPath, curr, total, isClosed, content, meetingDay) " +
@@ -22,6 +21,9 @@ public interface JdbcArticleRepository extends CrudRepository<Article, Long> {
 
     @Query(value = "SELECT id FROM article ORDER BY id DESC LIMIT 1")
     Long getLastInsertedId();
+
+    @Query("SELECT uuid FROM article WHERE id = :id")
+    String getUuidById(Long id);
 
     @Query("SELECT * FROM article WHERE id = :id")
     Optional<Article> findById(Long id);

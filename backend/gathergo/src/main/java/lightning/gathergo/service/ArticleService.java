@@ -1,12 +1,10 @@
 package lightning.gathergo.service;
 
 import lightning.gathergo.model.Article;
-import lightning.gathergo.repository.JdbcArticleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lightning.gathergo.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
@@ -14,7 +12,7 @@ import java.util.UUID;
 @Service
 public class ArticleService {
 
-    private JdbcArticleRepository repo;
+    private ArticleRepository repo;
 
     public byte[] convertMultipartFileToByte(MultipartFile multipartFile) throws IOException {
         return multipartFile.getBytes();
@@ -51,18 +49,8 @@ public class ArticleService {
         return replacemnt;
     }
 
-    // TODO : MultipartFile로 넘어온 사진을 File로 변환해주는 메서드
-
-    // TODO : 사진의 uuid 만드는 메서드(사진명과 유저id의 조합을 해쉬하면 어떨까 생각중) 만든 후 사진 이름을 uuid로 변경
-
-    // TODO : 서버에 사진을 저장하는 메서드
-
-    // TODO : 저장된 사진 경로명으로 article.setImgPath()을 해주는 메서드
-
-    // TODO : 경로명을 다시 사진 파일로 변환해주는 메서드(프론트에게 보내기 위하여)
-
-
-    // TODO : uuid gen - insert 관련 메서드 수정하기
+    // TODO : 카테고리 정보를 기준으로 article.setImgPath()을 해주는 메서드
+    
     private String generateUuid() {
         return UUID.randomUUID().toString();
     }

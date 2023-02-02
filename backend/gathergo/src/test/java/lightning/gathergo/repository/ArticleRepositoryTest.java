@@ -2,32 +2,21 @@ package lightning.gathergo.repository;
 
 import lightning.gathergo.model.Article;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
 import java.sql.Date;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("local")
 @DataJdbcTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class JDBCArticleRepositoryTest {
+class ArticleRepositoryTest {
 
     @Autowired
-    private JdbcArticleRepository repo;
+    private ArticleRepository repo;
 
     @Test
     void 정상적으로_게시물이_들어가는지_테스트() {
@@ -44,7 +33,7 @@ class JDBCArticleRepositoryTest {
         // 일단은 다 nullable
 
         //when
-        repo.save(article.getTitle(), article.getImgPath(), article.getCurr(),
+        repo.save(article.getUuid(), article.getTitle(), article.getImgPath(), article.getCurr(),
                 article.getTotal(), article.getClosed(), article.getContent(), article.getMeetingDay());
         Long storedId = repo.getLastInsertedId();
 
