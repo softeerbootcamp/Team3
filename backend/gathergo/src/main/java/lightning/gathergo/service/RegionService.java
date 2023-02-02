@@ -1,5 +1,7 @@
 package lightning.gathergo.service;
 
+import lightning.gathergo.exception.CustomGlobalException;
+import lightning.gathergo.exception.ErrorCode;
 import lightning.gathergo.model.Region;
 import lightning.gathergo.repository.RegionRepository;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,7 @@ public class RegionService {
     }
 
     public Optional<Region> getRegionById(Integer id){
-        return regionRepository.findOneById(id);
+        return Optional.ofNullable(regionRepository.findOneById(id)).orElseThrow(() -> new CustomGlobalException(ErrorCode.NO_RESOURCE));
     }
 
     public Optional<Region> getRegionByName(String name){
