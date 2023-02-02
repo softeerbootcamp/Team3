@@ -7,9 +7,4 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest
 @ActiveProfiles("local")
 class GathergoApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
 }
