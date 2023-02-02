@@ -2,6 +2,7 @@ package lightning.gathergo.model;
 
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 
 import java.sql.Date;
 public class Article {
@@ -14,16 +15,21 @@ public class Article {
     // TODO : 주석처리된 객체들이 구현되면 주석 풀고 게터세터 만들기
     @Id
     private Long id;
+    @Column("hostid")
     private Long hostId;
     private String title;
     private String thumbnail;
-    private Integer curr;
-    private Integer total;
+    private int curr; // 추후에 int를 Integer로 바꾸기!!!!!
+    private int total;
+    @Column("isclosed")
     private Boolean isClosed = false;
     private String content;
+    @Column("meetingday")
     private Date meetingDay;
     private String location;
+    @Column("regionid")
     private int regionId;
+    @Column("categoryid")
     private int categoryId;
     //private List<Comment> comments;
     private String uuid;
