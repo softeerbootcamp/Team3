@@ -1,19 +1,19 @@
 package lightning.gathergo.controller;
 
 import lightning.gathergo.dto.RegionDto;
+import lightning.gathergo.exception.CustomGlobalException;
+import lightning.gathergo.exception.ErrorResponse;
 import lightning.gathergo.mapper.RegionDtoMapper;
 import lightning.gathergo.model.Region;
 import lightning.gathergo.service.RegionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RequestMapping(value = "/regions", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
@@ -39,9 +39,10 @@ public class RegionController {
     }
 
     @GetMapping("/{regionId}")
-    public ResponseEntity<RegionDto.Response> getRegionById(@PathVariable Integer regionId) {
-        RegionDto.Response region = regionDtoMapper.toRegionResponse(regionService.getRegionById(regionId).get());
-        return ResponseEntity.ok().body(region);
+    public ResponseEntity<?> getRegionById(@PathVariable Integer regionId) {
+        RegionDto.Response regionResponse;
+        regionResponse = regionDtoMapper.toRegionResponse(regionService.getRegionById(regionId).get());
+        return new ResponseEntity<RegionDto.Response>(regionResponse, HttpStatus.FOUND);
     }
 
     @PostMapping
