@@ -33,8 +33,9 @@ class ArticleRepositoryTest {
         // 일단은 다 nullable
 
         //when
-        repo.save(article.getUuid(), article.getTitle(), article.getImgPath(), article.getCurr(),
-                article.getTotal(), article.getClosed(), article.getContent(), article.getMeetingDay());
+        repo.save(article.getHostId(), article.getTitle(), article.getThumbnail(), article.getCurr(), article.getTotal(),
+                article.getClosed(), article.getContent(), article.getMeetingDay(), article.getLocation(), article.getRegionId(),
+                article.getCategoryId(), article.getUuid());
         Long storedId = repo.getLastInsertedId();
 
         //then

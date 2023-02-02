@@ -13,11 +13,15 @@ import java.util.Optional;
 @Repository
 public interface ArticleRepository extends CrudRepository<Article, Long> {
 
+    // id, hostId, title, thumbnail, curr,
+    // total, isClosed, content, meetingDay, location,
+    // regionId, categoryId, uuid
+
     @Modifying
-    @Query("INSERT INTO article (uuid, title, imgPath, curr, total, isClosed, content, meetingDay) " +
-            "values (:uuid, :title, :imgPath, :curr, :total, :isClosed, :content, :meetingDay);")
-    public void save(String uuid, String title, String imgPath, int curr,
-                         int total, boolean isClosed, String content, Date meetingDay);
+    @Query("INSERT INTO article (hostId, title, thumbnail, curr, total, isClosed, content, meetingDay, location, regionId, categoryId, uuid) " +
+            "values (:hostId, :title, :thumbnail, :curr, :total, :isClosed, :content, :meetingDay, :location, :regionId, :categoryId, :uuid);")
+    public void save(Long hostId, String title, String thumbnail, int curr,
+                         int total, boolean isClosed, String content, Date meetingDay, String location, int regionId, int categoryId, String uuid);
 
     @Query(value = "SELECT id FROM article ORDER BY id DESC LIMIT 1")
     Long getLastInsertedId();

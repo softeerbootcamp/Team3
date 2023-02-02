@@ -20,9 +20,10 @@ public class ArticleService {
 
     public Article save(Article article){
         article.setUuid(generateUuid());
-        //uuid, title, imgPath, curr, total, isClosed, content, meetingDay
-        repo.save(article.getUuid(), article.getTitle(), article.getImgPath(), article.getCurr(), article.getTotal(), article.getClosed(),
-                article.getContent(), article.getMeetingDay());
+
+        repo.save(article.getHostId(), article.getTitle(), article.getThumbnail(), article.getCurr(), article.getTotal(),
+                article.getClosed(), article.getContent(), article.getMeetingDay(), article.getLocation(), article.getRegionId(),
+                article.getCategoryId(), article.getUuid());
         return repo.findById(repo.getLastInsertedId()).get();
     }
 
@@ -36,7 +37,7 @@ public class ArticleService {
 
     public Article setClosedOrNot(Long id, Boolean bool){
         Article article = repo.findById(id).get();
-        repo.updateArticleById(article.getTitle(), article.getImgPath(), article.getCurr(),
+        repo.updateArticleById(article.getTitle(), article.getThumbnail(), article.getCurr(),
                 article.getTotal(), bool, article.getContent(), article.getMeetingDay(), id);
         article.setClosed(bool);
         return article;
@@ -44,13 +45,13 @@ public class ArticleService {
 
     public Article updateArticle(Long id, Article replacemnt){
         replacemnt.setId(id);
-        repo.updateArticleById(replacemnt.getTitle(), replacemnt.getImgPath(), replacemnt.getCurr(),
+        repo.updateArticleById(replacemnt.getTitle(), replacemnt.getThumbnail(), replacemnt.getCurr(),
                 replacemnt.getTotal(), replacemnt.getClosed(), replacemnt.getContent(), replacemnt.getMeetingDay(), id);
         return replacemnt;
     }
 
     // TODO : 카테고리 정보를 기준으로 article.setImgPath()을 해주는 메서드
-    
+
     private String generateUuid() {
         return UUID.randomUUID().toString();
     }

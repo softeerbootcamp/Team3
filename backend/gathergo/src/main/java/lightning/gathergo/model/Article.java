@@ -5,20 +5,28 @@ import org.springframework.data.annotation.Id;
 
 import java.sql.Date;
 public class Article {
+
+    // id, hostId, title, thumbnail, curr,
+    // total, isClosed, content, meetingDay, location,
+    // regionId, categoryId, uuid
+    // orm : 1대 다 관계에서 1쪽이 다 엔티티를 컬렉션으로 가질 수 있도록 구현
+
+    // TODO : 주석처리된 객체들이 구현되면 주석 풀고 게터세터 만들기
     @Id
     private Long id;
-    private String uuid;
+    private Long hostId;
     private String title;
-    private String imgPath;
+    private String thumbnail;
     private Integer curr;
     private Integer total;
     private Boolean isClosed = false;
     private String content;
     private Date meetingDay;
-    //private Region region;
-    //private Category category;
+    private String location;
+    private int regionId;
+    private int categoryId;
     //private List<Comment> comments;
-    // TODO : 위 객체들이 구현되면 주석 풀고 게터세터 만들기
+    private String uuid;
 
 
     public Long getId() {
@@ -29,12 +37,12 @@ public class Article {
         this.id = id;
     }
 
-    public String getUuid() {
-        return uuid;
+    public Long getHostId() {
+        return hostId;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setHostId(Long hostId) {
+        this.hostId = hostId;
     }
 
     public String getTitle() {
@@ -45,12 +53,12 @@ public class Article {
         this.title = title;
     }
 
-    public String getImgPath() {
-        return imgPath;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public Integer getCurr() {
@@ -91,6 +99,38 @@ public class Article {
 
     public void setMeetingDay(Date meetingDay) {
         this.meetingDay = meetingDay;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public int getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(int regionId) {
+        this.regionId = regionId;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
 }
