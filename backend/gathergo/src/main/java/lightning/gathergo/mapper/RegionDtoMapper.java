@@ -10,6 +10,10 @@ import java.util.stream.Collectors;
 
 public class RegionDtoMapper {
     private ModelMapper modelMapper;
+
+    public RegionDtoMapper(ModelMapper modelMapper){
+        this.modelMapper = modelMapper;
+    }
     //entity to dto
     public RegionDto.Response toRegionResponse(Region region){
         return modelMapper.map(region,RegionDto.Response.class);
@@ -24,4 +28,5 @@ public class RegionDtoMapper {
     public Region toRegion(RegionDto.Request regionRequest){
         return modelMapper.map(regionRequest,Region.class);
     }
+
 }
