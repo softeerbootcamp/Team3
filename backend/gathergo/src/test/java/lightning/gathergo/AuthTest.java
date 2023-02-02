@@ -65,23 +65,23 @@ public class AuthTest {
     @Test
     @DisplayName("로그인시 Session 정보 json으로 발급 확인")
     public void login() throws Exception {
-        String userId = "asdf";
-        String encodedPassword = passwordEncoder.encode("password");
+        // given
+        User user = new User(DUMMY_UUID, "asdf", "gildong", "12345678", "asdf@gmail.com", "", "");
+        userService.addUser(user);
 
-        logger.debug("login - encodedPassword {}", encodedPassword);
-        // userRepository.users.put(userId, new User(userId, "gildong", encodedPassword));
-
-
+        // when
         this.mockMvc.perform(post("/api/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
                                 "\"userId\": \"asdf\",\n" +
-                                "\"password\": \"password\"\n" +
+                                "\"password\": \"12345678\"\n" +
                                 "}")
                 ).andDo(print())
+        // then
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("sessionId")))
-                .andExpect(content().string(containsString("asdf")));
+                .andExpect(content().string(containsString("sessionId")))  // 세션 발급
+                .andExpect(content().string(containsString("asdf"))); // userId, userName 반환
+
     }
 
     @Test
