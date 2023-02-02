@@ -33,22 +33,30 @@ class ArticleRepositoryTest {
         // 일단은 다 nullable
 
         //when
-        repo.save(article.getHostId(), article.getTitle(), article.getThumbnail(), article.getCurr(), article.getTotal(),
-                article.getClosed(), article.getContent(), article.getMeetingDay(), article.getLocation(), article.getRegionId(),
-                article.getCategoryId(), article.getUuid());
+        repo.save(article);
         Long storedId = repo.getLastInsertedId();
 
         //then
         Assertions.assertThat(repo.findById(storedId).get().getTitle())
                 .isEqualTo(article.getTitle());
     }
-
-    @Test
-    void findByUserId() {
-    }
-
     @Test
     void findCurrentRegionArticles() {
+        // given
+        Article a1 = new Article(); a1.setRegionId(1);
+        Article a2 = new Article(); a2.setRegionId(2);
+        Article a3 = new Article(); a3.setRegionId(3);
+        Article a4 = new Article(); a4.setRegionId(1);
+
+        repo.save(a1);
+        repo.save(a2);
+        repo.save(a3);
+        repo.save(a4);
+
+        // when
+
+
+        // then
     }
 
     @Test

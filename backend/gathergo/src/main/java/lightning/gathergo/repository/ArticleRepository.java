@@ -17,6 +17,13 @@ public interface ArticleRepository extends CrudRepository<Article, Long> {
     // total, isClosed, content, meetingDay, location,
     // regionId, categoryId, uuid
 
+    @Override
+    default <S extends Article> S save(S entity) {
+        save(entity.getHostId(), entity.getTitle(), entity.getThumbnail(), entity.getCurr(), entity.getTotal(), entity.getClosed(),
+                entity.getContent(), entity.getMeetingDay(), entity.getLocation(), entity.getRegionId(), entity.getCategoryId(), entity.getUuid());
+        return (S) findById(getLastInsertedId()).get();
+    }
+
     @Modifying
     @Query("INSERT INTO article (hostId, title, thumbnail, curr, total, isClosed, content, meetingDay, location, regionId, categoryId, uuid) " +
             "values (:hostId, :title, :thumbnail, :curr, :total, :isClosed, :content, :meetingDay, :location, :regionId, :categoryId, :uuid);")

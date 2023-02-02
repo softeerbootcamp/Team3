@@ -21,9 +21,7 @@ public class ArticleService {
     public Article save(Article article){
         article.setUuid(generateUuid());
 
-        repo.save(article.getHostId(), article.getTitle(), article.getThumbnail(), article.getCurr(), article.getTotal(),
-                article.getClosed(), article.getContent(), article.getMeetingDay(), article.getLocation(), article.getRegionId(),
-                article.getCategoryId(), article.getUuid());
+        repo.save(article);
         return repo.findById(repo.getLastInsertedId()).get();
     }
 
