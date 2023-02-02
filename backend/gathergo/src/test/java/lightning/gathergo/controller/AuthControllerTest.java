@@ -1,8 +1,7 @@
-package lightning.gathergo;
+package lightning.gathergo.controller;
 
 import lightning.gathergo.model.User;
 import lightning.gathergo.service.UserService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -28,18 +27,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 @AutoConfigureMockMvc
 @ActiveProfiles("local")
-public class AuthTest {
+public class AuthControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
-    private final Logger logger = LoggerFactory.getLogger(AuthTest.class);
+    private final Logger logger = LoggerFactory.getLogger(AuthControllerTest.class);
 
     private static String DUMMY_UUID = "705c5b09-bc17-463a-a560-e07e0ac20b23";
 
     @Autowired
-    public AuthTest(UserService userService, PasswordEncoder passwordEncoder) {
+    public AuthControllerTest(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
