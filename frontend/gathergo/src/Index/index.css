@@ -447,9 +447,9 @@ body {
 
 .card-wrapper {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   /* justify-content: flex-start; */
-  justify-content: space-around;
+  /* justify-content: space-around; */
   flex-wrap: wrap;
   padding: 2rem 4rem;
   overflow: hidden;
@@ -596,8 +596,4 @@ body {
   background: var(--bs-gray-100);
   padding: 1rem 2rem;
   transition: all 0.3s;
-}
-
-.card {
-  border: 0px solid black;
 }
