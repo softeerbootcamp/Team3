@@ -47,7 +47,6 @@ const searchContainer =
   document.querySelector<HTMLDivElement>('.search-container');
 
 window.onscroll = function () {
-  console.log('lkjlk');
   if (header !== null && header.getBoundingClientRect().bottom <= 0) {
     searchContainer?.classList.add('show');
   } else {

@@ -458,12 +458,107 @@ body {
 .card {
   width: 300px;
   margin: 1rem 1.2rem;
+
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 
 .badge {
   margin-right: 1rem;
 }
+.card-title {
+  /* filter: brightness(0.5) opacity(0.8); */
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0.5;
+  height: 200px;
+  background-image: url('../../assets/baseball.jpeg');
+  background-size: cover;
+  color: white;
+  align-items: center;
+  display: flex;
+  /* text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000; */
+  text-shadow: 1px 1px 1px #000;
+}
+.card-title strong {
+  font-size: 2rem;
+  overflow: hidden;
+  margin: 20px;
+}
+.card-text strong {
+  font-size: 1.2rem;
+  /* text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000; */
+}
+.card-thumbnail {
+  opacity: 0.5;
+  height: 200px;
+  object-fit: cover;
 
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.card:hover {
+  border: 1px solid var(--bs-gray-500);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.125);
+}
+.card:hover .card-thumbnail {
+  opacity: 0.8;
+  -webkit-filter: grayscale(0);
+  filter: grayscale(0);
+}
+.card::before {
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  display: block;
+  content: '';
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 100%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+.card:active::before {
+  -webkit-animation: circle 0.75s;
+  animation: circle 0.75s;
+}
+@-webkit-keyframes circle {
+  0% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+  }
+}
+@keyframes circle {
+  0% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+  }
+}
+
+.card-body {
+  display: flex;
+  flex-wrap: wrap;
+}
+.card-body > * {
+  margin-bottom: 5px;
+}
 .card-footer {
   display: flex;
   justify-content: space-between;
