@@ -389,7 +389,10 @@ color:#ff003e;
 vertical-align:middle;
 }
 .btn-login-wrap {
-margin-top:38px;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top:38px;
 }
 
 .btn-ones-wrap {
@@ -537,11 +540,11 @@ padding:0 20px;
 }
 
 .main-logo{
-    width : 250px;
-    height : 250px;
+    width : 200px;
+    height : 200px;
 }
 
-.btn-login-wrap > .btn{
-    width : 100%;
-    height : 10%;
+.btn-login-wrap > .btn {
+    width: 100%;
+    height: 10%;
 }
