@@ -45,7 +45,6 @@ function dropDownEvent() {
     if (dropDownItem === null) return;
 
     if (dropDownItem.classList.contains('category')) {
-      // dropDownToggle.innerHTML = dropDownItem.getAttribute("data-category-title");
       const index: number = getElementIndex(dropDownItem);
       dropDownToggle.innerHTML = category[index + 1];
     } else dropDownToggle.innerHTML = dropDownItem?.innerHTML;
@@ -55,10 +54,7 @@ function dropDownEvent() {
 function dropDownCloseAll() {
   document
     .querySelectorAll<HTMLLIElement>('.nav-item.dropdown')
-    .forEach((element) => {
-      dropDownClose(element);
-      // dropDownOpen(element);
-    });
+    .forEach((element) => dropDownClose(element));
 }
 
 function dropDownOpen(dropDownElement: HTMLLIElement) {
