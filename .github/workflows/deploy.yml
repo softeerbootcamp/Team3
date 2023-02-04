@@ -48,7 +48,6 @@ jobs:
           host: ${{ secrets.SSH_IP }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
           source: 'docker-compose.yml'
           target: 'compose'
           rm: true
