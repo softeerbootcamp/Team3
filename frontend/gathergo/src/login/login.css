@@ -169,10 +169,10 @@ display:block;
 position:relative;
 height:65px;
 padding-top:17px;
-border:1px solid #e3e3e3;
+border: 1px solid #c6c6c6;
 border-bottom:0;
 border-radius:6px 6px 0 0;
-background-color:#f8f9fa;
+background-color:#FFFFFF;
 text-align:center;
 box-sizing:border-box;
 z-index:2;
@@ -206,10 +206,6 @@ border-color:#c6c6c6;
 color:#333;
 }
 
-.menu-qr {
-border-radius:0 6px 0 0;
-}
-
 .menu-qr .menu-text::before {
 background-position:-124px -172px;
 background-repeat:no-repeat;
@@ -232,7 +228,6 @@ margin-top:-8px;
 
 .panel-item {
 border:1px solid #c6c6c6;
-border-radius:6px;
 background-color:#fff;
 box-shadow:0 5px 8px 0 rgba(68,68,68,.04);
 }
@@ -389,7 +384,10 @@ color:#ff003e;
 vertical-align:middle;
 }
 .btn-login-wrap {
-margin-top:38px;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top:38px;
 }
 
 .btn-ones-wrap {
@@ -537,11 +535,12 @@ padding:0 20px;
 }
 
 .main-logo{
-    width : 250px;
-    height : 250px;
+    width : 200px;
+    height : 200px;
 }
 
-.btn-login-wrap > .btn{
-    width : 100%;
-    height : 10%;
+.btn-login-wrap > .btn {
+    width: 100%;
+    height: 45px;
+    margin-bottom : 15px;
 }
