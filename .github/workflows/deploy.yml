@@ -37,7 +37,7 @@ jobs:
         run: cd ./backend/gathergo && docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/gathergo-server:latest
 
       - name: Docker login
-        run:  echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+        run:  echo ${{ secrets.DOCKERHUB_PASSWORD }} | winpty docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       - name: Push image
         run: cd ./backend/gathergo && docker push ${{ secrets.DOCKERHUB_USERNAME }}/gathergo-server:latest
