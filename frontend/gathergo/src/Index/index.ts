@@ -29,7 +29,7 @@ function dropDownEvent() {
     //다른 화면 터치시 모든 dropDown 닫기 event
     const dropDown = target?.closest('.nav-item.dropdown') as HTMLLIElement;
     if (dropDown === null) {
-      dropDownCloseEvent();
+      dropDownCloseAll();
       return;
     }
 
@@ -42,11 +42,17 @@ function dropDownEvent() {
 
     //item 선택
     const dropDownItem = target?.closest('.dropdown-item') as HTMLLIElement;
-    if (dropDownItem) dropDownToggle.innerHTML = dropDownItem?.innerHTML;
+    if (dropDownItem === null) return;
+
+    if (dropDownItem.classList.contains('category')) {
+      // dropDownToggle.innerHTML = dropDownItem.getAttribute("data-category-title");
+      const index: number = getElementIndex(dropDownItem);
+      dropDownToggle.innerHTML = category[index + 1];
+    } else dropDownToggle.innerHTML = dropDownItem?.innerHTML;
   });
 }
 
-function dropDownCloseEvent() {
+function dropDownCloseAll() {
   document
     .querySelectorAll<HTMLLIElement>('.nav-item.dropdown')
     .forEach((element) => {
@@ -56,6 +62,7 @@ function dropDownCloseEvent() {
 }
 
 function dropDownOpen(dropDownElement: HTMLLIElement) {
+  dropDownCloseAll();
   const toggleElement =
     dropDownElement.querySelector<HTMLAnchorElement>('.dropdown-toggle');
   if (toggleElement?.classList.contains('show')) return;
@@ -96,25 +103,60 @@ function searchBarEvent() {
     }
   };
 }
-
-const regionSi: string[] = [
-  '서울특별시',
-  '부산광역시',
-  '대구광역시',
-  '인천광역시',
-  '광주광역시',
-  '대전광역시',
-  '울산광역시',
-  '세종특별자치시',
-  '경기도',
-  '강원도',
-  '충청북도',
-  '충청남도',
-  '전라북도',
-  '전라남도',
-  '경상북도',
-  '경상남도',
-  '제주특별자치도',
-];
+type dropDownType = {
+  [key: number]: string;
+};
+const regionSi: dropDownType = {
+  1: '서울특별시',
+  2: '부산광역시',
+  3: '대구광역시',
+  4: '인천광역시',
+  5: '광주광역시',
+  6: '대전광역시',
+  7: '울산광역시',
+  8: '세종특별자치시',
+  9: '경기도',
+  10: '강원도',
+  11: '충청북도',
+  12: '충청남도',
+  13: '전라북도',
+  14: '전라남도',
+  15: '경상북도',
+  16: '경상남도',
+  17: '제주특별자치도',
+  0: '지역을 선택하세요',
+};
+const category: dropDownType = {
+  1: '아웃도어 / 여행',
+  2: '운동 / 스포츠',
+  3: '인문학 / 책/ 글',
+  4: '업종 / 직무',
+  5: '외국 / 언어',
+  6: '문화 / 공연 / 축제',
+  7: '음악 / 악기',
+  8: '패션 / 뷰티',
+  9: '공예 / 만들기',
+  10: '댄스 / 무용',
+  11: '봉사활동',
+  12: '사교 / 인맥',
+  13: '차 / 오토바이',
+  14: '사진 / 영상',
+  15: '야구관람',
+  16: '게임 / 오락',
+  17: '요리 / 제조',
+  18: '반려동물',
+  19: '자유주제',
+  0: '카테고리를 선택하세요',
+};
 searchBarEvent();
 dropDownEvent();
+
+const getElementIndex = (element: HTMLElement) => {
+  let index = 0;
+  let sibling = element.previousElementSibling;
+  while (sibling) {
+    index++;
+    sibling = sibling.previousElementSibling;
+  }
+  return index;
+};
