@@ -42,13 +42,13 @@ jobs:
         run: cd ./backend/gathergo && ./gradlew clean build -x test
 
       - name: Build image
-        run: docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/gathergo-server:latest
+        run: cd ./backend/gathergo && docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/gathergo-server:latest
 
       - name: Docker login
-        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+        run: cd ./backend/gathergo && echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       - name: Push image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/gathergo-server:latest
+        run: cd ./backend/gathergo && docker push ${{ secrets.DOCKERHUB_USERNAME }}/gathergo-server:latest
 
       - name: Copy Docker files
         uses: appleboy/scp-action@master
