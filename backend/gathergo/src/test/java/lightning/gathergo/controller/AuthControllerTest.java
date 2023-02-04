@@ -69,7 +69,7 @@ public class AuthControllerTest {
         userService.addUser(user);
 
         // when
-        this.mockMvc.perform(post("/api/login")
+        this.mockMvc.perform(post("/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
                                 "\"userId\": \"asdf\",\n" +
@@ -80,7 +80,6 @@ public class AuthControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("sessionId")))  // 세션 발급
                 .andExpect(content().string(containsString("asdf"))); // userId, userName 반환
-
     }
 
     @Test
