@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/assets/Logo/bgLogoIcon.svg" />
+  <link rel="icon" type="image/svg+xml" href="./assets/Logo/bgLogoIcon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./src/bootstrap.css" />
   <link rel="stylesheet" href="./src/index/index.css" />
@@ -190,42 +190,150 @@
         <img class="navbar-brand" src="./assets/Logo/GatherGoLogo.svg" alt="GatherGo" />
       </div>
       <div class="container-fluid">
-        <ul class="navbar-icon me-auto">
+        <ul class="nav-link-wrapper login me-auto show">
           <li class="nav-item">
-            <a class="nav-link" href="#"><img class="nav-icon" src="/assets/Icons/heartIcon.png" alt="Event" /></a>
-            <span class="dot"></span>
+            <a class="nav-link" href="" data-hover="모임 만들기">
+              <span>모임 만들기</span>
+            </a>
           </li>
+          <li class="nav-item divider"></li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><img class="nav-icon" src="/assets/Icons/chatIcon.png" alt="Chat" /></a>
+            <a class="nav-link" href="" data-hover="알람">
+              <span>알람</span>
+            </a>
             <span class="dot unread"></span>
           </li>
+          <li class="nav-item divider"></li>
           <li class="nav-item profile-icon">
-            <a class="nav-link" href="#"><img class="nav-icon" src="/assets/Icons/profileIcon.png" alt="Profile" /></a>
+            <a class="nav-link" href="" data-hover="내 프로필">
+              <span>내 프로필</span>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav-link-wrapper logout me-auto ">
+          <li class="nav-item">
+            <a class="nav-link" href="" data-hover="로그인">
+              <span>로그인</span>
+            </a>
+          </li>
+          <li class="nav-item divider"></li>
+          <li class="nav-item profile-icon">
+            <a class="nav-link" href="" data-hover="회원가입">
+              <span>회원가입</span>
+            </a>
           </li>
         </ul>
       </div>
     </div>
     <ul class="navbar-nav navbar-filter me-auto">
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle show" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-          aria-expanded="true">지역을 선택하세요</a>
-        <div class="dropdown-menu show" data-bs-popper="static">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+        <a class="nav-link dropdown-toggle " data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+          aria-expanded="false">지역을 선택하세요</a>
+        <div class="dropdown-menu  ">
+          <a class="dropdown-item" href="#">서울특별시</a>
+          <a class="dropdown-item" href="#">부산광역시</a>
+          <a class="dropdown-item" href="#">대구광역시</a>
+          <a class="dropdown-item" href="#">인천광역시</a>
+          <a class="dropdown-item" href="#">광주광역시</a>
+          <a class="dropdown-item" href="#">대전광역시</a>
+          <a class="dropdown-item" href="#">울산광역시</a>
+          <a class="dropdown-item" href="#">경기도</a>
+          <a class="dropdown-item" href="#">강원도</a>
+          <a class="dropdown-item" href="#">충청북도</a>
+          <a class="dropdown-item" href="#">충청남도</a>
+          <a class="dropdown-item" href="#">전라북도</a>
+          <a class="dropdown-item" href="#">전라남도</a>
+          <a class="dropdown-item" href="#">경상북도</a>
+          <a class="dropdown-item" href="#">경상남도</a>
+          <a class="dropdown-item" href="#">제주특별자치도</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Separated link</a>
+          <a class="dropdown-item" href="#">지역을 선택하세요</a>
         </div>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown category">
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
           aria-expanded="false">카테고리를 선택하세요</a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <div class="dropdown-item-wrapper category">
+            <div class="dropdown-item category" data-category-title="축구">
+              <img style="width: 25px;" src="./assets/category/icons/1.png" alt="">
+              <span>아웃도어/여행</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/2.png" alt="">
+              <span>운동/스포츠</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/3.png" alt="">
+              <span>인문학/책/글</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/4.png" alt="">
+              <span>업종/직무</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/5.png" alt="">
+              <span>외국/언어</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/6.png" alt="">
+              <span>문화/공연/축제</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/7.png" alt="">
+              <span>음악/악기</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/8.png" alt="">
+              <span>패션/뷰티</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/9.png" alt="">
+              <span>공예/만들기</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/10.png" alt="">
+              <span>댄스/무용</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/11.png" alt="">
+              <span>봉사활동</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/12.png" alt="">
+              <span>사교/인맥</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/13.png" alt="">
+              <span>차/오토바이</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/14.png" alt="">
+              <span>사진/영상</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/15.png" alt="">
+              <span>야구관람</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/16.png" alt="">
+              <span>게임/오락</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/17.png" alt="">
+              <span>요리/제조</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/18.png" alt="">
+              <span>반려동물</span>
+            </div>
+            <div class="dropdown-item category">
+              <img style="width: 25px;" src="./assets/category/icons/19.png" alt="">
+              <span>자유주제</span>
+            </div>
+          </div>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Separated link</a>
+          <a class="dropdown-item" href="#">카테고리를 선택하세요</a>
         </div>
       </li>
       <form class="d-flex">
@@ -243,242 +351,256 @@
     <button type="button" class="btn btn-outline-primary">Search</button>
   </div>
   <div class="card-wrapper">
-    <div class="card mb-3">
-      <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200"
-        aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice"
-        viewBox="0 0 318 180" style="font-size: 1.125rem; text-anchor: middle">
-        <rect width="100%" height="100%" fill="#868e96"></rect>
-        <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-      </svg>
+    <div class="card mb-3" data-hostId="">
+      <div class="card-thumbnail-wrapper">
+        <img class="card-thumbnail" src="./assets/language.jpg" alt="카드 썸네일">
+      </div>
       <div class="card-body">
         <p class="card-text">
-          1월 31일 강남 농민 백암 순대 팟 구해요. 너만 오면 고ㅋ
+          <strong> 강남 농민 백암 순대 팟 구해요</strong>
         </p>
       </div>
       <div class="card-body">
-        <span class="badge rounded-pill bg-secondary">대전광역시 유성구</span>
+        <span class="badge rounded-pill bg-secondary">대전광역시</span>
+        <span class="badge rounded-pill bg-info">유성구</span>
         <span class="badge rounded-pill bg-light">패션</span>
       </div>
       <div class="card-footer">
-        <span class="host-Id">testId1234</span>
-        <span class="text-muted">3일 전</span>
+        <div class="user-host-meet-peoples">
+          <img class="people-icon icon" src="./assets/Icons/peopleIcon.png" alt="User" />
+          <span class="user-host-meet-peoples-status">27/68</span>
+        </div>
+        <span class="card-date text-muted">2월 18일</span>
       </div>
     </div>
-    <div class="card mb-3">
-      <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200"
-        aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice"
-        viewBox="0 0 318 180" style="font-size: 1.125rem; text-anchor: middle">
-        <rect width="100%" height="100%" fill="#868e96"></rect>
-        <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-      </svg>
-      <div class="card-body">
-        <p class="card-text">
-          1월 31일 강남 농민 백암 순대 팟 구해요. 너만 오면 고ㅋ
-        </p>
+    <div class="card mb-3" data-hostId="">
+      <div class="card-thumbnail-wrapper">
+        <img class="card-thumbnail" src="./assets/category/thumbnails/1.jpg" alt="카드 썸네일">
       </div>
-      <div class="card-body">
-        <span class="badge rounded-pill bg-secondary">대전광역시 유성구</span>
-        <span class="badge rounded-pill bg-light">패션</span>
-      </div>
-      <div class="card-footer">
-        <span class="host-Id">testId1234</span>
-        <span class="text-muted">3일 전</span>
-      </div>
-    </div>
-    <div class="card mb-3">
-      <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200"
-        aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice"
-        viewBox="0 0 318 180" style="font-size: 1.125rem; text-anchor: middle">
-        <rect width="100%" height="100%" fill="#868e96"></rect>
-        <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-      </svg>
-      <div class="card-body">
-        <p class="card-text">
-          1월 31일 강남 농민 백암 순대 팟 구해요. 너만 오면 고ㅋ
-        </p>
-      </div>
-      <div class="card-body">
-        <span class="badge rounded-pill bg-secondary">대전광역시 유성구</span>
-        <span class="badge rounded-pill bg-light">패션</span>
-      </div>
-      <div class="card-footer">
-        <span class="host-Id">testId1234</span>
-        <span class="text-muted">3일 전</span>
-      </div>
-    </div>
-    <div class="card mb-3">
-      <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200"
-        aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice"
-        viewBox="0 0 318 180" style="font-size: 1.125rem; text-anchor: middle">
-        <rect width="100%" height="100%" fill="#868e96"></rect>
-        <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-      </svg>
-      <div class="card-body">
-        <p class="card-text">
-          1월 31일 강남 농민 백암 순대 팟 구해요. 너만 오면 고ㅋ
-        </p>
-      </div>
-      <div class="card-body">
-        <span class="badge rounded-pill bg-secondary">대전광역시 유성구</span>
-        <span class="badge rounded-pill bg-light">패션</span>
-      </div>
-      <div class="card-footer">
-        <span class="host-Id">testId1234</span>
-        <span class="text-muted">3일 전</span>
-      </div>
-    </div>
 
-    <div class="card mb-3">
-      <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200"
-        aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice"
-        viewBox="0 0 318 180" style="font-size: 1.125rem; text-anchor: middle">
-        <rect width="100%" height="100%" fill="red"></rect>
-        <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-      </svg>
       <div class="card-body">
         <p class="card-text">
-          1월 31일 강남 농민 백암 순대 팟 구해요. 너만 오면 고ㅋ
+          <strong> 강남 농민 백암 순대 팟 구해요</strong>
         </p>
       </div>
       <div class="card-body">
-        <span class="badge rounded-pill bg-secondary">대전광역시 유성구</span>
+        <span class="badge rounded-pill bg-secondary">대전광역시</span>
+        <span class="badge rounded-pill bg-info">유성구</span>
         <span class="badge rounded-pill bg-light">패션</span>
       </div>
       <div class="card-footer">
-        <span class="host-Id">testId1234</span>
-        <span class="text-muted">3일 전</span>
+        <div class="user-host-meet-peoples">
+          <img class="people-icon icon" src="./assets/Icons/peopleIcon.png" alt="User" />
+          <span class="user-host-meet-peoples-status">27/68</span>
+        </div>
+        <span class="card-date text-muted">2월 18일</span>
       </div>
     </div>
+    <div class="card mb-3" data-hostId="">
+      <div class="card-thumbnail-wrapper">
+        <img class="card-thumbnail" src="./assets/category/thumbnails/2.jpg" alt="카드 썸네일">
+      </div>
 
-    <div class="card mb-3">
-      <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200"
-        aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice"
-        viewBox="0 0 318 180" style="font-size: 1.125rem; text-anchor: middle">
-        <rect width="100%" height="100%" fill="green"></rect>
-        <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-      </svg>
       <div class="card-body">
         <p class="card-text">
-          1월 31일 강남 농민 백암 순대 팟 구해요. 너만 오면 고ㅋ
+          <strong> 강남 농민 백암 순대 팟 구해요</strong>
         </p>
       </div>
       <div class="card-body">
-        <span class="badge rounded-pill bg-secondary">대전광역시 유성구</span>
+        <span class="badge rounded-pill bg-secondary">대전광역시</span>
+        <span class="badge rounded-pill bg-info">유성구</span>
         <span class="badge rounded-pill bg-light">패션</span>
       </div>
       <div class="card-footer">
-        <span class="host-Id">testId1234</span>
-        <span class="text-muted">3일 전</span>
+        <div class="user-host-meet-peoples">
+          <img class="people-icon icon" src="./assets/Icons/peopleIcon.png" alt="User" />
+          <span class="user-host-meet-peoples-status">27/68</span>
+        </div>
+        <span class="card-date text-muted">2월 18일</span>
       </div>
     </div>
+    <div class="card mb-3" data-hostId="">
+      <div class="card-thumbnail-wrapper">
+        <img class="card-thumbnail" src="./assets/category/thumbnails/10.jpg" alt="카드 썸네일">
+      </div>
 
-    <div class="card mb-3">
-      <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200"
-        aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice"
-        viewBox="0 0 318 180" style="font-size: 1.125rem; text-anchor: middle">
-        <rect width="100%" height="100%" fill="#868e96"></rect>
-        <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-      </svg>
       <div class="card-body">
         <p class="card-text">
-          1월 31일 강남 농민 백암 순대 팟 구해요. 너만 오면 고ㅋ
+          <strong> 강남 농민 백암 순대 팟 구해요</strong>
         </p>
       </div>
       <div class="card-body">
-        <span class="badge rounded-pill bg-secondary">대전광역시 유성구</span>
+        <span class="badge rounded-pill bg-secondary">대전광역시</span>
+        <span class="badge rounded-pill bg-info">유성구</span>
         <span class="badge rounded-pill bg-light">패션</span>
       </div>
       <div class="card-footer">
-        <span class="host-Id">testId1234</span>
-        <span class="text-muted">3일 전</span>
+        <div class="user-host-meet-peoples">
+          <img class="people-icon icon" src="./assets/Icons/peopleIcon.png" alt="User" />
+          <span class="user-host-meet-peoples-status">27/68</span>
+        </div>
+        <span class="card-date text-muted">2월 18일</span>
       </div>
     </div>
+    <div class="card mb-3" data-hostId="">
+      <div class="card-thumbnail-wrapper">
+        <img class="card-thumbnail" src="./assets/category/thumbnails/14.jpg" alt="카드 썸네일">
+      </div>
 
-    <div class="card mb-3">
-      <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200"
-        aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice"
-        viewBox="0 0 318 180" style="font-size: 1.125rem; text-anchor: middle">
-        <rect width="100%" height="100%" fill="#868e96"></rect>
-        <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-      </svg>
       <div class="card-body">
         <p class="card-text">
-          1월 31일 강남 농민 백암 순대 팟 구해요. 너만 오면 고ㅋ
+          <strong> 강남 농민 백암 순대 팟 구해요 다같이 모여서 식사합시다</strong>
         </p>
       </div>
       <div class="card-body">
-        <span class="badge rounded-pill bg-secondary">대전광역시 유성구</span>
+        <span class="badge rounded-pill bg-secondary">대전광역시</span>
+        <span class="badge rounded-pill bg-info">유성구</span>
         <span class="badge rounded-pill bg-light">패션</span>
       </div>
       <div class="card-footer">
-        <span class="host-Id">testId1234</span>
-        <span class="text-muted">3일 전</span>
+        <div class="user-host-meet-peoples">
+          <img class="people-icon icon" src="./assets/Icons/peopleIcon.png" alt="User" />
+          <span class="user-host-meet-peoples-status">27/68</span>
+        </div>
+        <span class="card-date text-muted">2월 18일</span>
       </div>
     </div>
+    <div class="card mb-3" data-hostId="">
+      <div class="card-thumbnail-wrapper">
+        <img class="card-thumbnail" src="./assets/category/thumbnails/14.jpg" alt="카드 썸네일">
+      </div>
 
-    <div class="card mb-3">
-      <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200"
-        aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice"
-        viewBox="0 0 318 180" style="font-size: 1.125rem; text-anchor: middle">
-        <rect width="100%" height="100%" fill="#868e96"></rect>
-        <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-      </svg>
       <div class="card-body">
         <p class="card-text">
-          1월 31일 강남 농민 백암 순대 팟 구해요. 너만 오면 고ㅋ
+          <strong> 강남 농민 백암 순대 팟 구해요 다같이 모여서 식사합시다</strong>
         </p>
       </div>
       <div class="card-body">
-        <span class="badge rounded-pill bg-secondary">대전광역시 유성구</span>
+        <span class="badge rounded-pill bg-secondary">대전광역시</span>
+        <span class="badge rounded-pill bg-info">유성구</span>
         <span class="badge rounded-pill bg-light">패션</span>
       </div>
       <div class="card-footer">
-        <span class="host-Id">testId1234</span>
-        <span class="text-muted">3일 전</span>
+        <div class="user-host-meet-peoples">
+          <img class="people-icon icon" src="./assets/Icons/peopleIcon.png" alt="User" />
+          <span class="user-host-meet-peoples-status">27/68</span>
+        </div>
+        <span class="card-date text-muted">2월 18일</span>
       </div>
     </div>
+    <div class="card mb-3" data-hostId="">
+      <div class="card-thumbnail-wrapper">
+        <img class="card-thumbnail" src="./assets/category/thumbnails/14.jpg" alt="카드 썸네일">
+      </div>
 
-    <div class="card mb-3">
-      <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200"
-        aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice"
-        viewBox="0 0 318 180" style="font-size: 1.125rem; text-anchor: middle">
-        <rect width="100%" height="100%" fill="#868e96"></rect>
-        <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-      </svg>
       <div class="card-body">
         <p class="card-text">
-          1월 31일 강남 농민 백암 순대 팟 구해요. 너만 오면 고ㅋ
+          <strong> 강남 농민 백암 순대 팟 구해요 다같이 모여서 식사합시다</strong>
         </p>
       </div>
       <div class="card-body">
-        <span class="badge rounded-pill bg-secondary">대전광역시 유성구</span>
+        <span class="badge rounded-pill bg-secondary">대전광역시</span>
+        <span class="badge rounded-pill bg-info">유성구</span>
         <span class="badge rounded-pill bg-light">패션</span>
       </div>
       <div class="card-footer">
-        <span class="host-Id">testId1234</span>
-        <span class="text-muted">3일 전</span>
+        <div class="user-host-meet-peoples">
+          <img class="people-icon icon" src="./assets/Icons/peopleIcon.png" alt="User" />
+          <span class="user-host-meet-peoples-status">27/68</span>
+        </div>
+        <span class="card-date text-muted">2월 18일</span>
       </div>
     </div>
+    <div class="card mb-3" data-hostId="">
+      <div class="card-thumbnail-wrapper">
+        <img class="card-thumbnail" src="./assets/category/thumbnails/14.jpg" alt="카드 썸네일">
+      </div>
 
-    <div class="card mb-3">
-      <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200"
-        aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice"
-        viewBox="0 0 318 180" style="font-size: 1.125rem; text-anchor: middle">
-        <rect width="100%" height="100%" fill="#868e96"></rect>
-        <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-      </svg>
       <div class="card-body">
         <p class="card-text">
-          1월 31일 강남 농민 백암 순대 팟 구해요. 너만 오면 고ㅋ
+          <strong> 강남 농민 백암 순대 팟 구해요 다같이 모여서 식사합시다</strong>
         </p>
       </div>
       <div class="card-body">
-        <span class="badge rounded-pill bg-secondary">대전광역시 유성구</span>
+        <span class="badge rounded-pill bg-secondary">대전광역시</span>
+        <span class="badge rounded-pill bg-info">유성구</span>
         <span class="badge rounded-pill bg-light">패션</span>
       </div>
       <div class="card-footer">
-        <span class="host-Id">testId1234</span>
-        <span class="text-muted">3일 전</span>
+        <div class="user-host-meet-peoples">
+          <img class="people-icon icon" src="./assets/Icons/peopleIcon.png" alt="User" />
+          <span class="user-host-meet-peoples-status">27/68</span>
+        </div>
+        <span class="card-date text-muted">2월 18일</span>
+      </div>
+    </div>
+    <div class="card mb-3" data-hostId="">
+      <div class="card-thumbnail-wrapper">
+        <img class="card-thumbnail" src="./assets/category/thumbnails/14.jpg" alt="카드 썸네일">
+      </div>
+
+      <div class="card-body">
+        <p class="card-text">
+          <strong> 강남 농민 백암 순대 팟 구해요 다같이 모여서 식사합시다</strong>
+        </p>
+      </div>
+      <div class="card-body">
+        <span class="badge rounded-pill bg-secondary">대전광역시</span>
+        <span class="badge rounded-pill bg-info">유성구</span>
+        <span class="badge rounded-pill bg-light">패션</span>
+      </div>
+      <div class="card-footer">
+        <div class="user-host-meet-peoples">
+          <img class="people-icon icon" src="./assets/Icons/peopleIcon.png" alt="User" />
+          <span class="user-host-meet-peoples-status">27/68</span>
+        </div>
+        <span class="card-date text-muted">2월 18일</span>
+      </div>
+    </div>
+    <div class="card mb-3" data-hostId="">
+      <div class="card-thumbnail-wrapper">
+        <img class="card-thumbnail" src="./assets/category/thumbnails/14.jpg" alt="카드 썸네일">
+      </div>
+
+      <div class="card-body">
+        <p class="card-text">
+          <strong> 강남 농민 백암 순대 팟 구해요 다같이 모여서 식사합시다</strong>
+        </p>
+      </div>
+      <div class="card-body">
+        <span class="badge rounded-pill bg-secondary">대전광역시</span>
+        <span class="badge rounded-pill bg-info">유성구</span>
+        <span class="badge rounded-pill bg-light">패션</span>
+      </div>
+      <div class="card-footer">
+        <div class="user-host-meet-peoples">
+          <img class="people-icon icon" src="./assets/Icons/peopleIcon.png" alt="User" />
+          <span class="user-host-meet-peoples-status">27/68</span>
+        </div>
+        <span class="card-date text-muted">2월 18일</span>
+      </div>
+    </div>
+    <div class="card mb-3" data-hostId="">
+      <div class="card-thumbnail-wrapper">
+        <img class="card-thumbnail" src="./assets/category/thumbnails/14.jpg" alt="카드 썸네일">
+      </div>
+
+      <div class="card-body">
+        <p class="card-text">
+          <strong> 강남 농민 백암 순대 팟 구해요 다같이 모여서 식사합시다</strong>
+        </p>
+      </div>
+      <div class="card-body">
+        <span class="badge rounded-pill bg-secondary">대전광역시</span>
+        <span class="badge rounded-pill bg-info">유성구</span>
+        <span class="badge rounded-pill bg-light">패션</span>
+      </div>
+      <div class="card-footer">
+        <div class="user-host-meet-peoples">
+          <img class="people-icon icon" src="./assets/Icons/peopleIcon.png" alt="User" />
+          <span class="user-host-meet-peoples-status">27/68</span>
+        </div>
+        <span class="card-date text-muted">2월 18일</span>
       </div>
     </div>
   </div>
@@ -487,6 +609,7 @@
     <div id="modal-bg"></div>
     <div id="modal-body"></div>
   </div> -->
+  <!-- <script type="module" src="./src/index/index.js"></script> -->
   <script type="module" src="./src/index/index.ts"></script>
 </body>
 
