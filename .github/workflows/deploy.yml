@@ -29,6 +29,10 @@ jobs:
       - name: Grant execute permission for gradlew
         run: cd ./backend/gathergo/ && chmod +x ./gradlew
         shell: bash
+        
+      - name: get file names
+        run: ls
+        shell: bash
 
       - name: Build with Gradle
         run: ./backend/gathergo/gradlew clean build -x test
