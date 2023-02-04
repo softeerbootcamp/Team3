@@ -606,7 +606,7 @@ li.nav-item.divider {
   transform: translate(-50%, -50%);
   opacity: 0;
 }
-.card:active::before {
+/* .card:active::before {
   -webkit-animation: circle 0.75s;
   animation: circle 0.75s;
 }
@@ -635,7 +635,7 @@ li.nav-item.divider {
     height: 200%;
     opacity: 0;
   }
-}
+} */
 
 .card-body {
   display: flex;
