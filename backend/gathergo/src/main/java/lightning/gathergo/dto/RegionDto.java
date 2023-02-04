@@ -47,9 +47,9 @@ public class RegionDto {
             return name;
         }
 
-        public void setId(Integer id) {
-            Id = id;
-        }
+//        //public void setId(Integer id) {
+//            Id = id;
+//        }
 
         public void setName(String name) {
             this.name = name;
