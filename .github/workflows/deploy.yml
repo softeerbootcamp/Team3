@@ -23,7 +23,8 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Grant execute permission for gradlew
-        run: chmod +x ./backend/gathergo/gradlew
+        run: cd ./backend/gathergo
+             chmod +x ./gradlew
         shell: bash
 
       - name: Build with Gradle
