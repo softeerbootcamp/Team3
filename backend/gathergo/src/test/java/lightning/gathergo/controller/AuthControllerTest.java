@@ -1,5 +1,8 @@
 package lightning.gathergo.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lightning.gathergo.dto.SignupDto;
+import lightning.gathergo.mapper.SignupDtoMapper;
 import lightning.gathergo.model.User;
 import lightning.gathergo.service.UserService;
 import org.junit.jupiter.api.DisplayName;
@@ -28,12 +31,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("local")
 public class AuthControllerTest {
+    private final Logger logger = LoggerFactory.getLogger(AuthControllerTest.class);
+
+    private ObjectMapper objectMapper = new ObjectMapper();
+
     @Autowired
     private MockMvc mockMvc;
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
-    private final Logger logger = LoggerFactory.getLogger(AuthControllerTest.class);
 
     private static String DUMMY_UUID = "705c5b09-bc17-463a-a560-e07e0ac20b23";
 
@@ -80,6 +86,26 @@ public class AuthControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("sessionId")))  // 세션 발급
                 .andExpect(content().string(containsString("asdf"))); // userId, userName 반환
+    }
+
+    @Test
+    @DisplayName("회원가입 확인")
+    public void signup() throws Exception {
+        // given
+        SignupDto.SignupInput input = new SignupDto.SignupInput("asdf", "gildong", "12345678", "gildong@gmail.com");
+
+        String jsonInput = objectMapper.writeValueAsString(input);
+        logger.info(jsonInput);
+
+        // when
+        this.mockMvc.perform(post("/signup")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonInput)
+                ).andDo(print())
+                // then
+                .andExpect(status().isOk())
+                .andExpect(header().string("Location", "/login"));  // 리다이렉트
+
     }
 
     @Test
