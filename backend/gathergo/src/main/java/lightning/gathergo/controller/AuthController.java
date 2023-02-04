@@ -9,10 +9,7 @@ import lightning.gathergo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -38,7 +35,7 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @PostMapping("/api/login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDto.LoginInput loginDto) {
         Optional<User> user = userService.findUserByUserId(loginDto.getUserId());
 
@@ -56,7 +53,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signUp(@RequestBody SignupDto.SignupInput signupDto) {
+    public ResponseEntity<?> signUp(@RequestBody SignupDto.SignupInput signupDto, HttpRequest request) {
         String userId = signupDto.getUserId();
         String password = signupDto.getPassword();
         String email = signupDto.getEmail();
