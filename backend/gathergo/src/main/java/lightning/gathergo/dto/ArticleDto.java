@@ -1,13 +1,17 @@
 package lightning.gathergo.dto;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class ArticleDto {
 
     // TODO regionId, categoryId 부분 develop 브랜치에 머지한 후 Region, Category 객체로 바꾸기
+    // TODO hostId 부분도 user의 uuid를 활용할 수 있도록
+    // TODO TimeStamp <- String 변환 안되는 이유 알아내기
 
     public static class Response{
         private String uuid;
@@ -18,7 +22,8 @@ public class ArticleDto {
         private int total;
         private Boolean isClosed;
         private String content;
-        private Date meetingDay;
+        @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+        private Timestamp meetingDay;
         private String location;
         private int regionId;
         private int categoryId;
@@ -80,11 +85,11 @@ public class ArticleDto {
             this.content = content;
         }
 
-        public Date getMeetingDay() {
+        public Timestamp getMeetingDay() {
             return meetingDay;
         }
 
-        public void setMeetingDay(Date meetingDay) {
+        public void setMeetingDay(Timestamp meetingDay) {
             this.meetingDay = meetingDay;
         }
 
@@ -129,7 +134,9 @@ public class ArticleDto {
         private int regionId;
         private int total;
         private String content;
-        private Date meetingDay;
+        @JsonSerialize(as = Timestamp.class)
+        @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+        private Timestamp meetingDay;
         //private List<Comment> comments;
 
         public Long getHostId() {
@@ -164,11 +171,11 @@ public class ArticleDto {
             this.content = content;
         }
 
-        public Date getMeetingDay() {
+        public Timestamp getMeetingDay() {
             return meetingDay;
         }
 
-        public void setMeetingDay(Date meetingDay) {
+        public void setMeetingDay(Timestamp meetingDay) {
             this.meetingDay = meetingDay;
         }
 
@@ -204,7 +211,9 @@ public class ArticleDto {
         private String location;
         private int regionId;
         private int total;
-        private Date meetingDay;
+        @JsonSerialize(as = Timestamp.class)
+        @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+        private Timestamp meetingDay;
         private String content;
         //private List<Comment> comments;
 
@@ -240,11 +249,11 @@ public class ArticleDto {
             this.content = content;
         }
 
-        public Date getMeetingDay() {
+        public Timestamp getMeetingDay() {
             return meetingDay;
         }
 
-        public void setMeetingDay(Date meetingDay) {
+        public void setMeetingDay(Timestamp meetingDay) {
             this.meetingDay = meetingDay;
         }
 
@@ -291,6 +300,18 @@ public class ArticleDto {
 
         public void setClosed(Boolean closed) {
             isClosed = closed;
+        }
+    }
+
+    public static class ReadRequest{
+        private String uuid;
+
+        public String getUuid() {
+            return uuid;
+        }
+
+        public void setUuid(String uuid) {
+            this.uuid = uuid;
         }
     }
 }

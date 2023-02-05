@@ -44,4 +44,6 @@ public class ArticleMapper {
     public Article toArticle(ArticleDto.CloseRequest dto){
         return modelMapper.map(dto, Article.class);
     }
+
+    public Article toArticle(ArticleDto.ReadRequest dto) { return modelMapper.map(dto, Article.class); }
 }
