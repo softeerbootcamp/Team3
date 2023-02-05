@@ -5,6 +5,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+
 public class Article {
 
     // id, hostId, title, thumbnail, curr,
@@ -25,7 +27,7 @@ public class Article {
     private Boolean isClosed = false;
     private String content;
     @Column("meetingday")
-    private Date meetingDay;
+    private Timestamp meetingDay;
     private String location;
     @Column("regionid")
     private int regionId;
@@ -99,11 +101,11 @@ public class Article {
         this.content = content;
     }
 
-    public Date getMeetingDay() {
+    public Timestamp getMeetingDay() {
         return meetingDay;
     }
 
-    public void setMeetingDay(Date meetingDay) {
+    public void setMeetingDay(Timestamp meetingDay) {
         this.meetingDay = meetingDay;
     }
 
