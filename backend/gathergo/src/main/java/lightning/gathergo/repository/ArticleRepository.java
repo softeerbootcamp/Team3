@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ public interface ArticleRepository extends CrudRepository<Article, Long> {
     @Query("INSERT INTO article (hostId, title, thumbnail, curr, total, isClosed, content, meetingDay, location, regionId, categoryId, uuid) " +
             "values (:hostId, :title, :thumbnail, :curr, :total, :isClosed, :content, :meetingDay, :location, :regionId, :categoryId, :uuid);")
     public void save(Long hostId, String title, String thumbnail, int curr,
-                         int total, boolean isClosed, String content, Date meetingDay, String location, int regionId, int categoryId, String uuid);
+                         int total, boolean isClosed, String content, Timestamp meetingDay, String location, int regionId, int categoryId, String uuid);
 
     @Query(value = "SELECT id FROM article ORDER BY id DESC LIMIT 1")
     Long getLastInsertedId();
@@ -49,14 +50,17 @@ public interface ArticleRepository extends CrudRepository<Article, Long> {
     @Query("SELECT * FROM article WHERE id = :id")
     Optional<Article> findById(Long id);
 
+    @Query("SELECT * FROM article WHERE uuid = :uuid")
+    Optional<Article> findByUuid(String uuid);
+
     @Query("SELECT * FROM article")
     List<Article> findAllArticles();
 
     @Query("SELECT * FROM article WHERE regionId = :regionId")
     List<Article> findCurrentRegionArticles(int regionId);
 
-    @Query("SELECT  * FROM article WHERE categoryId = :categoryId")
-    List<Article> findArticlesByCategory(int categoryId);
+    @Query("SELECT  * FROM article WHERE regionId = :regionId and categoryId = :categoryId")
+    List<Article> findArticlesByRegionAndCategory(int regionId, int categoryId);
 
 
     // id, hostId, title, thumbnail, curr,
@@ -68,7 +72,7 @@ public interface ArticleRepository extends CrudRepository<Article, Long> {
             "isClosed = :isClosed, content = :content, meetingDay = :meetingDay, location = :location, " +
             "regionId = :regionId, categoryId = :categoryId")
     public void updateArticleById(String title, String thumbnail, int curr,
-                                  int total, boolean isClosed, String content, Date meetingDay, String location,
+                                  int total, boolean isClosed, String content, Timestamp meetingDay, String location,
                                   int regionId, int categoryId, Long id);
 
     @Modifying
