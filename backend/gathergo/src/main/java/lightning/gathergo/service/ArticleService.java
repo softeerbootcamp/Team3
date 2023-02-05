@@ -14,10 +14,6 @@ public class ArticleService {
 
     private ArticleRepository repo;
 
-    public byte[] convertMultipartFileToByte(MultipartFile multipartFile) throws IOException {
-        return multipartFile.getBytes();
-    }
-
     public Article save(Article article){
         article.setUuid(generateUuid());
 
@@ -25,26 +21,25 @@ public class ArticleService {
         return repo.findById(repo.getLastInsertedId()).get();
     }
 
-    public List<Article> getCurrentRegionArticles(String regionName){
-        //return repo.findCurrentRegionArticles(regionName);
-        return null;
+    public List<Article> getCurrentRegionArticles(Integer regionId){
+        return repo.findCurrentRegionArticles(regionId);
     }
 
-    public List<Article> getCurrentCategoryArticles(String category){
-        //return repo.findArticlesByCategory(category);
-        return null;
+    public List<Article> getArticlesByRegionAndCategory(Integer regionId, Integer categoryId){
+        return repo.findArticlesByRegionAndCategory(regionId, categoryId);
     }
 
-    public Article setClosedOrNot(Long id, Boolean bool){
-        Article article = repo.findById(id).get();
+    public Article setClosed(String uuid){
+        Article article = repo.findByUuid(uuid).get();
         repo.updateArticleById(article.getTitle(), article.getThumbnail(), article.getCurr(),
-                article.getTotal(), bool, article.getContent(), article.getMeetingDay(), article.getLocation(),
+                article.getTotal(), true, article.getContent(), article.getMeetingDay(), article.getLocation(),
                 article.getRegionId(), article.getCategoryId(), article.getId());
-        article.setClosed(bool);
+        article.setClosed(true);
         return article;
     }
 
-    public Article updateArticle(Long id, Article replacemnt){
+    public Article updateArticle(String uuid, Article replacemnt){
+        Long id = repo.findByUuid(uuid).get().getId();
         replacemnt.setId(id);
         repo.updateArticleById(replacemnt.getTitle(), replacemnt.getThumbnail(), replacemnt.getCurr(),
                 replacemnt.getTotal(), replacemnt.getClosed(), replacemnt.getContent(), replacemnt.getMeetingDay(),
