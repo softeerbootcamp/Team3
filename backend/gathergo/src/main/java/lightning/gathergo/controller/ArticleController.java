@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @RequestMapping(value = "/articles", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -28,16 +27,24 @@ public class ArticleController {
         this.articleMapper = articleMapper;
     }
 
-    ResponseEntity<List<Article>> getArticles(@RequestParam Map<String, Integer> requestParams){
+    ResponseEntity<Map<String, Object>> getArticles(@RequestParam Map<String, Integer> requestParams){
         if(requestParams.isEmpty()){
             // throw error or get current region
         }
         Integer regionId = requestParams.get("region");
         Integer categoryId = requestParams.get("category");
 
+        List<ArticleDto.Response> articleDtoList = new ArrayList<>();
+
         if(null == categoryId)
-            return ResponseEntity.ok(articleService.getCurrentRegionArticles(regionId));
-        return ResponseEntity.ok(articleService.getArticlesByRegionAndCategory(regionId, categoryId));
+            articleDtoList = articleMapper.toArticleResponseList(articleService.getCurrentRegionArticles(regionId));
+        if(null != categoryId)
+            articleDtoList = articleMapper.toArticleResponseList(articleService.getArticlesByRegionAndCategory(regionId, categoryId));
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("articles", articleDtoList);
+        response.put("count", articleDtoList.size());
+        return ResponseEntity.ok().body(response);
     }
 
     ResponseEntity<Article> postArticle(@RequestParam Map<String, String> requestParams){
