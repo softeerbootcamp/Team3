@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @ActiveProfiles("local")
@@ -24,7 +25,7 @@ class ArticleRepositoryTest {
     @Test
     void 정상적으로_게시물이_들어가는지_테스트() {
         //given
-        Date nowDate = new Date(System.currentTimeMillis());
+        Timestamp nowDate = new Timestamp(System.currentTimeMillis());
         Article article = new Article();
         article.setCurr(1);
         article.setTotal(3);
@@ -119,5 +120,19 @@ class ArticleRepositoryTest {
         //then
         Assertions.assertThat(repo.findAllArticles().size())
                 .isEqualTo(0);
+    }
+
+    void Uuid로_잘_얻어와지는지_테스트(){
+        //given
+        Article article = new Article();
+        String uuid = "testestestest";
+        article.setUuid(uuid);
+
+        //when
+        repo.save(article);
+
+        //then
+        Assertions.assertThat(repo.findByUuid(uuid))
+                .isEqualTo(uuid);
     }
 }
