@@ -1,0 +1,193 @@
+@import '../Index/index.css';
+@import '../bootstrap.css';
+
+body{
+    width : 100%;
+    height : 100%;
+    overflow : hidden;
+
+}
+
+.search-container{
+    display : flex;
+    position: relative;
+    background-color :#f8f5f0;
+    top : 0;
+    border-bottom : 1px solid var(--bs-border-color);
+    justify-content: left;
+}
+
+.mypage{
+    display : flex;
+    width : 100%;
+    height : 100px;
+    justify-content: center;
+    align-items: center;
+    color : #325d88;
+    font-size : 30px;
+    border-bottom : 1px solid var(--bs-border-color);
+}
+
+.nav-link{
+    justify-content: center;
+    align-items: center;
+}
+.profile-layout{
+    display : flex;
+    flex-direction: row;
+    width : 100%;
+    height : 100vh;
+}
+
+.profile-sidebar{
+    height : 90%;
+    width : 20%;
+    background-color : #FFF;
+    border-right : solid 1px var(--bs-border-color);
+    
+}
+
+.profile-main{
+    height :90%;
+    width : 100%;
+    background-color : #f8f9fa;
+    justify-content: center;
+    align-items: center;
+    overflow : auto;
+    
+}
+
+#sidebar-body{
+    right : 0;
+    position : relative;
+    width : 100%;
+    height : 88%;
+}
+
+.badge{
+    display : flex;
+}
+
+.tab {
+  float: left;
+  width: 100%;
+  height: 100%;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  border-bottom : 1px var(--bs-border-color) solid;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+#profile-fix{
+    display : none;
+    margin : 50px;
+    flex-direction: column;
+}
+
+.profile-fix-main{
+    display : flex;
+    flex-direction: row;
+
+}
+
+.profile-userInfo{
+    padding-top : 30px;
+    padding-bottom : 75px;
+    padding-left : 20px;
+
+}
+
+.profile-img-name{
+    display : flex;
+    flex-direction: column;
+    width : 30%;
+    align-items: center;
+    justify-content: center;
+    padding-right : 20px;
+    overflow : hidden;
+}
+
+.profile-context{
+    display : flex;
+    flex-direction : column;
+    width : 70%;
+    height : 100%;
+}
+
+.profile-fix-image{
+    position : relative;
+    width : 60%;
+    height : 60%;
+    top : 60px;
+    left : 40px;
+    border-radius : 70%;
+}
+
+.profile-textarea{
+    display : flex;
+    flex-direction :row;
+    margin-bottom : 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-control{
+    background-color: #f1f1f1;
+    border-color : #FFF;
+    height : 34px;
+    padding : 6px 12px;
+    font-size : 14px;
+    line-height : 1.428;
+    border-radius : 4px;
+}
+
+.register-button{
+    width : 75%;
+    margin-top : 20px;
+    margin-left : 100px;
+    margin-bottom : 0px;
+}
+
+.image-button{
+    position : relative;
+}
+
+.profile-fix-image-button{
+    position : relative;
+    width : 40%;
+    height : 40%;
+    bottom : 10px;
+    left : 120px;
+    filter: invert(33%) sepia(11%) saturate(2546%) hue-rotate(169deg) brightness(96%) contrast(89%);
+    cursor : pointer;
+}
+
+#logout {
+    display : "none";
+}
+
+.profile-button{
+    display : flex;
+    flex-direction: row;
+}
