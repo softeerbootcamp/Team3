@@ -73,6 +73,7 @@ jobs:
           envs: SPRING_DATABASE_SCHEMA,SPRING_DATABASE_USERNAME,SPRING_DATABASE_PASSWORD,SPRING_DATABASE_HOST,REDIS_HOST
           script: |
             cd compose
+              
             sudo touch .env
             sudo echo "
             SPRING_DATABASE_SCHEMA=$SPRING_DATABASE_SCHEMA
@@ -80,6 +81,7 @@ jobs:
             SPRING_DATABASE_PASSWORD=$SPRING_DATABASE_PASSWORD
             SPRING_DATABASE_HOST=$SPRING_DATABASE_HOST
             REDIS_HOST=$REDIS_HOST" | sudo tee .env
+              
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/gathergo-server:latest
             sudo docker compose down
             sudo docker-compose up -d
