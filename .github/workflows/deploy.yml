@@ -72,7 +72,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           envs: SPRING_DATABASE_SCHEMA,SPRING_DATABASE_USERNAME,SPRING_DATABASE_PASSWORD,SPRING_DATABASE_HOST,REDIS_HOST
           script: |
-            cd compose
+            cd compose/backend/gathergo/
               
             sudo touch .env
             sudo echo "
