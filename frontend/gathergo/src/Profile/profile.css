@@ -17,6 +17,10 @@ body{
     justify-content: left;
 }
 
+.search-container-logo{
+    margin-left : 50px;
+}
+
 .mypage{
     display : flex;
     width : 100%;
@@ -41,16 +45,25 @@ body{
 
 .profile-sidebar{
     height : 90%;
-    width : 20%;
+    min-width : 200px;
     background-color : #FFF;
     border-right : solid 1px var(--bs-border-color);
     
 }
 
+.user-desc-header{
+    padding : 15px 0px 15px 0px;
+}
+
+.user-host-meet-title{
+    min-width : 200px;
+    max-width : 500px;
+    width : 700px;
+}
+
 .profile-main{
     height :90%;
-    width : 100%;
-    background-color : #f8f9fa;
+    background-color : #FFF;
     justify-content: center;
     align-items: center;
     overflow : auto;
@@ -61,11 +74,13 @@ body{
     right : 0;
     position : relative;
     width : 100%;
-    height : 88%;
+    padding : 80px 200px 80px 100px;
+    background-color : #FFFFFF
 }
 
 .badge{
     display : flex;
+    justify-content: center;
 }
 
 .tab {
@@ -91,17 +106,17 @@ body{
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-  background-color: #ddd;
+  background-color: #f8f9fa;
 }
 
 /* Create an active/current "tab button" class */
 .tab button.active {
-  background-color: #ccc;
+  background-color: #e7e7e7;
 }
 
 #profile-fix{
     display : none;
-    margin : 50px;
+    margin : 0 0 0 200px;
     flex-direction: column;
 }
 
@@ -113,18 +128,18 @@ body{
 
 .profile-userInfo{
     padding-top : 30px;
-    padding-bottom : 75px;
-    padding-left : 20px;
+    padding-left : 96px;
 
 }
 
 .profile-img-name{
     display : flex;
     flex-direction: column;
-    width : 30%;
+    width : 13rem;
+    margin : 0 0 20px 260px;
     align-items: center;
     justify-content: center;
-    padding-right : 20px;
+    padding-right : 31px;
     overflow : hidden;
 }
 
@@ -133,14 +148,14 @@ body{
     flex-direction : column;
     width : 70%;
     height : 100%;
+    margin-right : 100px;
+    margin-left : 100px;
 }
 
 .profile-fix-image{
     position : relative;
-    width : 60%;
-    height : 60%;
-    top : 60px;
-    left : 40px;
+    width : 160px;
+    height : 200px;
     border-radius : 70%;
 }
 
@@ -163,8 +178,7 @@ body{
 }
 
 .register-button{
-    width : 75%;
-    margin-top : 20px;
+    width : 220px;
     margin-left : 100px;
     margin-bottom : 0px;
 }
@@ -174,20 +188,145 @@ body{
 }
 
 .profile-fix-image-button{
-    position : relative;
-    width : 40%;
-    height : 40%;
-    bottom : 10px;
-    left : 120px;
+    position : absolute;
+    width : 40px;
+    height : 40px;
+    bottom : 14px;
+    left : 110px;
     filter: invert(33%) sepia(11%) saturate(2546%) hue-rotate(169deg) brightness(96%) contrast(89%);
     cursor : pointer;
-}
-
-#logout {
-    display : "none";
 }
 
 .profile-button{
     display : flex;
     flex-direction: row;
 }
+
+#logout-modal{
+    display : none;
+    position : absolute;
+    width : 100%;
+    height : 100%;
+    background-color: rgb(0,0,0,0.2);
+    top : 0;
+    left : 0;
+    z-index : 2;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content{
+    background-color : white;
+    width : 325px;
+    height : 160px;
+    text-align: center;
+    border-radius : 12px;
+}
+
+.modal-button{
+    display : flex;
+    flex-direction: row;    
+    justify-content: center;
+    align-items: center;
+    margin-top : 30px;
+}
+h4{
+    margin : 3px;
+}
+
+#button-logout, #button-cancel{
+    width : 96px;
+    height : 40px;
+}
+
+
+/* table */
+
+table {
+  border: 1px #a39485 solid;
+  font-size: .9em;
+  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 5px;
+  overflow: hidden;
+  margin : 25px 0 25px 0;
+}
+
+th {
+  text-align: left;
+}
+  
+thead {
+  font-weight: bold;
+  color: #fff;
+  background: #73685d;
+}
+  
+ td, th {
+  padding: 1em .5em;
+  vertical-align: middle;
+}
+  
+ td {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  background: #fff;
+  cursor : pointer;
+}
+
+td:hover{
+    background : #f8f9fa;
+}
+
+a {
+  color: #73685d;
+}
+  
+ @media all and (max-width: 768px) {
+    
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  
+  th {
+    text-align: right;
+  }
+  
+  table {
+    position: relative; 
+    padding-bottom: 0;
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+  }
+  
+  thead {
+    float: left;
+    white-space: nowrap;
+  }
+  
+  tbody {
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    white-space: nowrap;
+  }
+  
+  tr {
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  th {
+    border-bottom: 1px solid #a39485;
+  }
+  
+  td {
+    border-bottom: 1px solid #e5e5e5;
+  }
+  
+  
+  }
+
+  .nav-link-wrapper{
+    top : 1.5rem;
+  }
