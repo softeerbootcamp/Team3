@@ -30,7 +30,7 @@ public class AmazonS3ResourceRepository {
         String path = System.getProperty("user.dir");
         System.out.println("현재 작업 경로: " + path);
         //MultipartFile을 File 객체의 형태로 변환
-        File file = new File("/home/ubuntu/compose", fullPath);
+        File file = new File("/home/ubuntu", fullPath);
         System.out.println("file path: "+ file.getPath());
         try {
             //위에서 만든 파일객체의 경로와 리네임으로 실제 업로드 하기위해transferTo()메서드로 업로드처리
