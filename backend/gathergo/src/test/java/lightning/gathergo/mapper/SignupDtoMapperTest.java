@@ -42,5 +42,6 @@ public class SignupDtoMapperTest {
                 .build();
 
         softly.assertThat(user).usingRecursiveComparison(configuration).isEqualTo(user);
+        softly.assertAll();
     }
 }
