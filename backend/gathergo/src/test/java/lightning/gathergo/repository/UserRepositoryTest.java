@@ -27,7 +27,8 @@ public class UserRepositoryTest {
     public void testFindByUserId() {
         // given
         User user = new User("uuid", "userId", "userName", "password", "email", "intro", "profilePath");
-        userRepository.save(user);
+        // userRepository.save(user);
+        userRepository.save(user.getUuid(), user.getUserId(), user.getUserName(), user.getPassword(), user.getEmail(), "intro", "profilePath");
 
         // when
         Optional<User> found = userRepository.findUserByUserId("userId");

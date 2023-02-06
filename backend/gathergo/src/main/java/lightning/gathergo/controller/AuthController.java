@@ -68,6 +68,7 @@ public class AuthController {
         try {
             userService.addUser(user);
         } catch (Exception e) {
+            e.printStackTrace();
             logger.error("signUp 실패, {}", e.getMessage());
         }
 
