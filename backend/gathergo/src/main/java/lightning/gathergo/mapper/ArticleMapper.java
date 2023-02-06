@@ -3,6 +3,7 @@ package lightning.gathergo.mapper;
 import lightning.gathergo.dto.ArticleDto;
 import lightning.gathergo.model.Article;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.ui.ModelMap;
@@ -16,6 +17,7 @@ public class ArticleMapper {
 
     ArticleMapper(ModelMapper modelMapper){
         this.modelMapper = modelMapper;
+        this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     // entity to dto
