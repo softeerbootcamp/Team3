@@ -2,6 +2,7 @@ package lightning.gathergo.service;
 
 import lightning.gathergo.model.Article;
 import lightning.gathergo.repository.ArticleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,9 +15,14 @@ public class ArticleService {
 
     private ArticleRepository repo;
 
+    @Autowired
+    ArticleService(ArticleRepository repo){
+        this.repo = repo;
+    }
+
     public Article save(Article article){
         article.setUuid(generateUuid());
-
+        System.out.println(article.getTitle());
         repo.save(article);
         return repo.findById(repo.getLastInsertedId()).get();
     }
@@ -27,6 +33,10 @@ public class ArticleService {
 
     public List<Article> getArticlesByRegionAndCategory(Integer regionId, Integer categoryId){
         return repo.findArticlesByRegionAndCategory(regionId, categoryId);
+    }
+
+    public Article getArticleByUuid(String uuid){
+        return repo.findByUuid(uuid).get();
     }
 
     public Article setClosed(String uuid){
