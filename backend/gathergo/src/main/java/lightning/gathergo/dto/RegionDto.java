@@ -36,7 +36,7 @@ public class RegionDto {
     }
 
     public static class ModifyRequest{
-        private Integer Id;
+        private Integer id;
         private String name;
 
         public Integer getId() {
