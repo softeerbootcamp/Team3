@@ -27,6 +27,7 @@ public class AmazonS3ResourceRepository {
     public void save(String fullPath, MultipartFile multipartFile) {
         //MultipartFile을 File 객체의 형태로 변환
         File file = new File(MultipartUtil.getLocalCurrentDirectory(), fullPath);
+        System.out.println("file path: "+ file.getPath());
         try {
             //위에서 만든 파일객체의 경로와 리네임으로 실제 업로드 하기위해transferTo()메서드로 업로드처리
             multipartFile.transferTo(file);
@@ -34,7 +35,8 @@ public class AmazonS3ResourceRepository {
             amazonS3Client.putObject(new PutObjectRequest(bucket, fullPath, file)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (Exception e) {
-            throw new RuntimeException();
+            e.printStackTrace();
+            //throw new RuntimeException();
         } finally {
             //로컬(서비스가 구동하는 서버)에서 파일이 복사되어 임시파일과 같이 로컬에 저장이되는데 finally 구문에서 해당 파일을 제거해주도록
             if (file.exists()) {
