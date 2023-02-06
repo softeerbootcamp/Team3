@@ -8,18 +8,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class SignupDtoMapperTest {
 
-    private ModelMapper modelMapper = new ModelMapper();;
+    private ModelMapper modelMapper = new ModelMapper();
     private SignupDtoMapper signupDtoMapper = new SignupDtoMapper(modelMapper);
     private SignupDto.SignupInput signupInput;
 
     @BeforeEach
     public void setUp() {
         signupInput = new SignupDto.SignupInput("asdf", "gildong", "12345678", "gildong@gmail.com");
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     @Test
@@ -27,21 +29,25 @@ public class SignupDtoMapperTest {
     public void toUser() {
         // given
         SoftAssertions softly = new SoftAssertions();
+
         // when - signup request
-        User user = signupDtoMapper.toUser(signupInput);
+        User mappedUser = signupDtoMapper.toUser(signupInput);
+        User expectedUser = new User(null, mappedUser.getUserId(), mappedUser.getUserName(), mappedUser.getPassword(), mappedUser.getEmail(), null, null);
+
         // then
-        softly.assertThat(user).hasFieldOrProperty("userId")
+        softly.assertThat(mappedUser).hasFieldOrProperty("userId")
                 .hasFieldOrProperty("userName")
                 .hasFieldOrProperty("password")
                 .hasFieldOrProperty("email");
 
         RecursiveComparisonConfiguration configuration = RecursiveComparisonConfiguration.builder()
                 .withIgnoredFields("introduction")
+                .withIgnoredFields("id")
                 .withIgnoredFields("uuid")
                 .withIgnoredFields("profilePath")
                 .build();
 
-        softly.assertThat(user).usingRecursiveComparison(configuration).isEqualTo(user);
+        softly.assertThat(mappedUser).usingRecursiveComparison(configuration).isEqualTo(expectedUser);
         softly.assertAll();
     }
 }

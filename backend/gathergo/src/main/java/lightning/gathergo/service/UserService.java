@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -23,8 +24,10 @@ public class UserService {
     }
 
     public void addUser(User user) {
+        user.setUuid(String.valueOf(UUID.randomUUID()));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        // userRepository.save(user);
+        userRepository.save(user.getUuid(), user.getUserId(), user.getUserName(), user.getPassword(), user.getEmail(), "", "");
     }
 
     public User save(User user) {
