@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
 public class AuthConfig {
 
     @Bean
-    public FilterRegistrationBean<AuthenticationFilter> loginFilter() {
+    public FilterRegistrationBean<AuthenticationFilter> loginFilter(final AuthenticationFilter filter) {
         // login 필요한 페이지 접속 할 때마다 Session 체크 실행
         FilterRegistrationBean<AuthenticationFilter> registrationBean
                 = new FilterRegistrationBean<>();
 
-        registrationBean.setFilter(new AuthenticationFilter());
+        registrationBean.setFilter(filter);
         registrationBean.addUrlPatterns("/api/write");
         registrationBean.setOrder(1);
 
