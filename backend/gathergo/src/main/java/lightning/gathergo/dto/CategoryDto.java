@@ -35,11 +35,11 @@ public class CategoryDto {
     }
 
     public static class ModifyRequest{
-        private Integer Id;
+        private Integer id;
         private String name;
 
         public Integer getId() {
-            return Id;
+            return id;
         }
 
         public String getName() {
@@ -47,7 +47,7 @@ public class CategoryDto {
         }
 
         public void setId(Integer id) {
-            Id = id;
+            this.id = id;
         }
 
         public void setName(String name) {
