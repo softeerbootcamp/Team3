@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLOutput;
@@ -26,11 +27,14 @@ public class AmazonS3ResourceRepository {
         this.amazonS3Client = amazonS3Client;
     }
 
-    public void save(String fullPath, MultipartFile multipartFile) {
+    public void save(String fullPath, MultipartFile multipartFile) throws IOException {
         //MultipartFile을 File 객체의 형태로 변환
         String parent = System.getProperty("user.dir")+"home/ubuntu/images/";
         new File(parent).mkdir();
         File file = new File(parent, fullPath);
+        if(file.exists() == false) {
+            file.createNewFile();
+        }
         System.out.println("file path: "+ file.getPath());
         Path path = Paths.get(file.getPath()).toAbsolutePath();
         try {
