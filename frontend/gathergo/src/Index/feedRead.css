@@ -1,0 +1,314 @@
+.feed-main-wrapper {
+  overflow: auto;
+  /* height: 0;
+  width: 50%; */
+  /* flex-basis: 0;
+    flex-grow: 1; */
+  display: flex;
+  justify-content: space-between;
+  /* margin: 5rem 10rem 0 10rem; */
+}
+
+.feed-main-info {
+  overflow: auto;
+  flex-basis: 0;
+  flex-grow: 1;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: ; */
+}
+.feed-main-divider {
+  margin: 1rem 1rem;
+  height: inherit;
+  border-left: 1px solid var(--bs-gray-400);
+}
+.map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* padding-bottom: 66.67%; */
+  background: green;
+
+  margin-bottom: 1rem;
+}
+
+.feed-main-content {
+  overflow-y: auto;
+  /* overflow-x: auto; */
+  flex-basis: 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.feed-main-content-scrollable {
+  overflow: auto;
+  height: 100%;
+  border-radius: 5px;
+}
+.schedule-synthesis {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+}
+.schedule-info {
+  flex-grow: 2;
+  min-height: 3rem;
+  line-height: 1.2rem;
+  margin: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.schedule-time-badge {
+  width: 4rem;
+  min-width: 4rem;
+  height: 4rem;
+  min-height: 4rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125);
+  padding: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+.schedule-date {
+  font-size: 16px;
+  font-weight: 200;
+}
+
+.schedule-time {
+  font-size: 12px;
+  font-weight: 100;
+}
+.peoples {
+  display: flex;
+}
+.people-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  min-width: 1.2rem;
+  min-height: 1.2rem;
+  margin-right: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.info-detail {
+  position: relative;
+  bottom: 0;
+}
+/* .join-buttons {
+  display: flex;
+  justify-content: flex-end;
+} */
+.feed-info.btn {
+  min-width: 101px;
+  /* position: absolute;
+  right: 0; */
+  /* display: flex;
+  justify-self: flex-end; */
+  /* width: 100%; */
+  margin: 2rem 0;
+}
+.feed-info.btn > * {
+  font-size: 1.2rem;
+}
+
+.line {
+  margin: 1.5rem 0;
+  border-top: 1px solid var(--bs-border-color);
+}
+
+.user-info.container-md {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-info .container-sm {
+  /* width: 100%; */
+  display: flex;
+
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* .space {
+    min-width: 2rem;
+    width: 100%;
+  } */
+
+.user-info button {
+  min-height: 2.25rem;
+  min-width: 7rem;
+  margin: 2rem;
+}
+
+.user-profile {
+  background: var(--bs-body-bg);
+  width: 2rem;
+  height: 2rem;
+  /* min-width: 5rem;
+  min-height: 5rem; */
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.user-profile-img {
+  object-fit: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.user-info-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.feed-comment-container {
+  background: var(--bs-light);
+  flex-grow: 1;
+  /* overflow: auto; */
+  border-radius: 5px;
+  /* height: 10px; */
+  padding: 1rem;
+}
+.feed-comment {
+  display: flex;
+  margin-bottom: 1rem;
+}
+.comment-user-id {
+  width: 6rem;
+}
+.comment-content {
+  margin: 0 2rem;
+  flex-grow: 1;
+}
+.comment-date {
+  width: 4rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.comment-input {
+  display: flex;
+  margin: 1rem 0.5rem;
+}
+.form-group {
+  position: relative;
+  display: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.form-control {
+  width: -webkit-fill-available;
+}
+.comment-send {
+  margin-left: 0.5rem;
+  width: 5rem;
+}
+
+/* tooltip */
+[tooltip] {
+  position: relative; /* opinion 1 */
+}
+
+/* Applies to all tooltips */
+[tooltip]::before,
+[tooltip]::after {
+  text-transform: none; /* opinion 2 */
+  font-size: 0.9em; /* opinion 3 */
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  display: none;
+  opacity: 0;
+}
+[tooltip]::before {
+  content: '';
+  border: 5px solid transparent; /* opinion 4 */
+  z-index: 1001; /* absurdity 1 */
+}
+[tooltip]::after {
+  content: attr(tooltip); /* magic! */
+
+  /* most of the rest of this is opinion */
+  font-family: Helvetica, sans-serif;
+  text-align: center;
+
+  /* 
+      Let the content set the size of the tooltips 
+      but this will also keep them from being obnoxious
+      */
+  /* min-width: 3em;
+  max-width: 21em; */
+  width: 12rem;
+  /* left: 0; */
+  /* calc(-100%); */
+  /* white-space: nowrap; */
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
+  padding: 1ch 1.5ch;
+  border-radius: 5px;
+  box-shadow: 0 1em 2em -0.5em rgba(0, 0, 0, 0.35);
+  background: #fff;
+  border: 1px solid var(--bs-primary);
+  z-index: 1000; /* absurdity 2 */
+}
+
+/* Make the tooltips respond to hover */
+[tooltip]:hover::before,
+[tooltip]:hover::after {
+  display: block;
+}
+
+/* don't show empty tooltips */
+[tooltip='']::before,
+[tooltip='']::after {
+  display: none !important;
+}
+/* FLOW: DOWN */
+[tooltip][flow^='down']::before {
+  top: 100%;
+  border-top-width: 0;
+  border-bottom-color: var(--bs-primary);
+}
+[tooltip][flow^='down']::after {
+  top: calc(100% + 5px);
+  right: -105px;
+}
+[tooltip][flow^='down']::before,
+[tooltip][flow^='down']::after {
+  transform: translate(-50%, 0.5em);
+}
+/* KEYFRAMES */
+@keyframes tooltips-vert {
+  to {
+    opacity: 0.9;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes tooltips-horz {
+  to {
+    opacity: 0.9;
+    transform: translate(0, -50%);
+  }
+}
+
+/* FX All The Things */
+[tooltip]:not([flow]):hover::before,
+[tooltip]:not([flow]):hover::after,
+[tooltip][flow^='down']:hover::before,
+[tooltip][flow^='down']:hover::after {
+  animation: tooltips-vert 300ms ease-out forwards;
+}

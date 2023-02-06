@@ -1,0 +1,169 @@
+.fgtp {
+  /* position: absolute; */
+  top: 0;
+  left: 0;
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  background-color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  color: #444;
+
+  transform-origin: 20% 5%;
+}
+
+.fgtp.popup.animatePopup {
+  animation: fgtp-pop 0.5s ease-out forwards;
+}
+
+@keyframes fgtp-pop {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.fgtp .fgtp-title {
+  margin: 0;
+  padding: 15px 0;
+  background: #222;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.125em;
+  font-size: inherit;
+  font-weight: normal;
+  text-align: center;
+}
+
+.fgtp .fgtp-hr-block {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  background: #fff;
+}
+
+.fgtp .fgtp-ampm-title {
+  align-self: center;
+  text-align: center;
+  margin: 0;
+  padding: 0 10px;
+  font-size: inherit;
+  font-weight: normal;
+  color: #999;
+}
+
+.fgtp .fgtp-unit-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  width: calc(48px * 6 - 1px);
+  padding: 5px;
+  background: #fff;
+  font-size: 18px;
+  border-left: 1px solid #eee;
+}
+
+/* width adjustment for minutes unit container, 3 per row instead of 6 */
+.fgtp .fgtp-minutes-unit-container {
+  width: calc(48px * 3 - 1px);
+}
+
+.fgtp .fgtp-ampm-block:nth-child(2) .fgtp-unit-container {
+  padding-bottom: 0;
+}
+
+.fgtp .fgtp-ampm-block:last-child .fgtp-unit-container {
+  padding-top: 0;
+}
+
+.fgtp .fgtp-unit {
+  text-align: center;
+  flex-grow: 0;
+  flex-basis: calc(100% / 6 - 2px);
+  line-height: 46px;
+  height: 46px;
+  border: 1px solid transparent;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all ease 0.3s;
+}
+
+/* width adjustment for minutes unit, 3 per row instead of 6 */
+.fgtp .fgtp-minute-unit {
+  flex-basis: calc(100% / 3 - 2px);
+}
+
+.fgtp .fgtp-unit.selected,
+.fgtp .fgtp-unit.selected:hover {
+  background-color: var(--bs-primary);
+  color: #fff;
+}
+
+.fgtp .fgtp-unit:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #000;
+}
+
+@media only screen and (max-width: 600px) {
+  .fgtp .fgtp-unit-container {
+    width: calc(42px * 6 - 1px);
+    padding: 2px;
+  }
+
+  .fgtp .fgtp-minutes-unit-container {
+    width: calc(42px * 6 + 3px);
+    padding: 2px 22px;
+  }
+
+  .fgtp .fgtp-unit {
+    text-align: center;
+    flex-grow: 0;
+    flex-basis: calc(100% / 6 - 2px);
+    line-height: 40px;
+    height: 40px;
+  }
+
+  .fgtp .fgtp-minute-unit {
+    flex-basis: calc(100% / 6 - 2px);
+  }
+}
+
+/* Dark theme */
+
+.fgtp.fgtp-dark {
+  background-color: #222;
+  color: #ccc;
+}
+
+.fgtp.fgtp-dark .fgtp-title {
+  background-color: #666;
+  color: #000;
+}
+
+.fgtp.fgtp-dark .fgtp-hr-block {
+  background-color: #222;
+}
+
+.fgtp.fgtp-dark .fgtp-ampm-title {
+  color: #999;
+}
+
+.fgtp.fgtp-dark .fgtp-unit-container {
+  background: #222;
+  border-left: 1px solid #444;
+}
+
+.fgtp.fgtp-dark .fgtp-unit:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
