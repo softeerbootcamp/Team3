@@ -30,7 +30,7 @@ public class ImageDto {
     public static ImageDto multipartOf(UUID userId, MultipartFile multipartFile) {
         final String fileId = String.valueOf(userId);
         final String format = MultipartUtil.getFormat(multipartFile.getContentType());
-        return new ImageDto(fileId,multipartFile.getOriginalFilename(),format,MultipartUtil.createPath(fileId, format),multipartFile.getSize());
+        return new ImageDto(fileId,multipartFile.getOriginalFilename(),format,MultipartUtil.createFileNameFrom(fileId, format),multipartFile.getSize());
     }
 
     public ImageDto(String id, String name, String format, String path, long bytes) {
