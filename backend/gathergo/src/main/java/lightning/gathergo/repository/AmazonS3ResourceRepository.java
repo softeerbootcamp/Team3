@@ -27,13 +27,17 @@ public class AmazonS3ResourceRepository {
         this.amazonS3Client = amazonS3Client;
     }
 
-    public void save(String fullPath, MultipartFile multipartFile) throws IOException {
+    public void save(String fullPath, MultipartFile multipartFile){
         //MultipartFile을 File 객체의 형태로 변환
         String parent = System.getProperty("user.dir")+"home/ubuntu/images/";
         new File(parent).mkdir();
         File file = new File(parent, fullPath);
-        if(file.exists() == false) {
-            file.createNewFile();
+        try{
+            if(file.exists() == false) {
+                file.createNewFile();
+            }
+        }catch(IOException e){
+            e.printStackTrace();
         }
         System.out.println("file path: "+ file.getPath());
         Path path = Paths.get(file.getPath()).toAbsolutePath();
