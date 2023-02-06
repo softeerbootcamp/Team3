@@ -1,6 +1,7 @@
 package lightning.gathergo.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 
@@ -36,6 +37,11 @@ public class Article {
     //private List<Comment> comments;
     private String uuid;
 
+    public Article(){
+        thumbnail = "default";
+        isClosed = false;
+        curr = 1;
+    }
 
     public Long getId() {
         return id;
