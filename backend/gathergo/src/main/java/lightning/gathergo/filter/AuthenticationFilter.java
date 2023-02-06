@@ -30,10 +30,11 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         // session 정보 존재하는지 확인
-        if(cookieService.retrieveSession(httpRequest.getCookies()) != null)
+        if (cookieService.retrieveSession(httpRequest.getCookies()) == null) {
+            httpResponse.setStatus(HttpServletResponse.SC_FOUND);
+            httpResponse.setHeader("Location", "/login");
+        } else {
             chain.doFilter(request, response);
-
-        httpResponse.setStatus(HttpServletResponse.SC_FOUND);
-        httpResponse.setHeader("Location", "/login");
+        }
     }
 }
