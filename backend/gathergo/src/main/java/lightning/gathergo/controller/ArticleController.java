@@ -5,12 +5,11 @@ import lightning.gathergo.mapper.ArticleMapper;
 import lightning.gathergo.model.Article;
 import lightning.gathergo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -27,12 +26,16 @@ public class ArticleController {
         this.articleMapper = articleMapper;
     }
 
-    ResponseEntity<Map<String, Object>> getArticles(@RequestParam Map<String, Integer> requestParams){
+    @GetMapping
+    ResponseEntity<Map<String, Object>> getArticles(@RequestParam Map<String, String> requestParams){
         if(requestParams.isEmpty()){
             // throw error or get current region
         }
-        Integer regionId = requestParams.get("region");
-        Integer categoryId = requestParams.get("category");
+        Integer regionId = Integer.parseInt(requestParams.get("regionId"));
+        Integer categoryId = new Integer(-1);
+        try{
+            categoryId = Integer.parseInt(requestParams.get("categoryId"));
+        } catch (NullPointerException e) {}
 
         List<ArticleDto.Response> articleDtoList = new ArrayList<>();
 
@@ -47,7 +50,40 @@ public class ArticleController {
         return ResponseEntity.ok().body(response);
     }
 
-    ResponseEntity<Article> postArticle(@RequestParam Map<String, String> requestParams){
-        return null;
+    @PostMapping
+    ResponseEntity<ArticleDto.Response> postArticle(@RequestBody ArticleDto.CreateRequest request){
+        Article article = articleMapper.toArticle(request);
+        System.out.println(article.getTitle());
+        article = articleService.save(article);
+        return ResponseEntity.ok().body(articleMapper.toArticleResponse(article));
+    }
+
+    @GetMapping("/{articleUuid}")
+    ResponseEntity<ArticleDto.Response> getArticle(@PathVariable String articleUuid){
+        Article article = articleService.getArticleByUuid(articleUuid);
+        return new ResponseEntity<ArticleDto.Response>(articleMapper.toArticleResponse(article), HttpStatus.FOUND);
+    }
+
+    @PutMapping("/{articleUuid}")
+    ResponseEntity<ArticleDto.Response> updateArticle(@PathVariable String articleUuid, @RequestBody ArticleDto.UpdateRequest request){
+        Article replacement = articleMapper.toArticle(request);
+        Article replaced = articleService.updateArticle(articleUuid, replacement);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "/api/articles/"+articleUuid);
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(articleMapper.toArticleResponse(replaced));
+    }
+
+    @PutMapping("/{articleUuid}/close")
+    ResponseEntity<ArticleDto.Response> closeArticle(@PathVariable String articleUuid){
+        Article closed = articleService.setClosed(articleUuid);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "index.html");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(articleMapper.toArticleResponse(closed));
     }
 }
