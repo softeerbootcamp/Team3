@@ -23,12 +23,12 @@ public interface RegionRepository extends CrudRepository<Region, Integer> {
     @Query("INSERT INTO region (name) VALUES (:name)")
     public void save(@Param("name")String name);
     @Modifying
-    @Query("UPDATE Region SET name = :name WHERE id = :id")
+    @Query("UPDATE region SET name = :name WHERE id = :id")
     void update(@Param("id")Integer id, @Param("name")String name);
     @Modifying
-    @Query("DELETE FROM Region WHERE id = :id")
+    @Query("DELETE FROM region WHERE id = :id")
     void deleteById(@Param("id")Integer id);
     @Modifying
-    @Query("DELETE FROM Region")
+    @Query("DELETE FROM region")
     public void deleteAll();
 }
