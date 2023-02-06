@@ -2,8 +2,10 @@ package lightning.gathergo.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lightning.gathergo.dto.SignupDto;
-import lightning.gathergo.mapper.SignupDtoMapper;
+import lightning.gathergo.model.Session;
 import lightning.gathergo.model.User;
+import lightning.gathergo.service.CookieService;
+import lightning.gathergo.service.SessionService;
 import lightning.gathergo.service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,13 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import javax.servlet.http.Cookie;
 
+import static lightning.gathergo.service.CookieService.SESSION_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -40,11 +43,17 @@ public class AuthControllerTest {
 
     private final UserService userService;
 
+    private final SessionService sessionService;
+
+    private final CookieService cookieService;
+
     private static String DUMMY_UUID = "705c5b09-bc17-463a-a560-e07e0ac20b23";
 
     @Autowired
-    public AuthControllerTest(UserService userService) {
+    public AuthControllerTest(UserService userService, SessionService sessionService, CookieService cookieService) {
         this.userService = userService;
+        this.sessionService = sessionService;
+        this.cookieService = cookieService;
     }
 
     @Test
@@ -102,11 +111,22 @@ public class AuthControllerTest {
     @Test
     @DisplayName("로그인 필요한 더미 api 접속에 session 있으면 response 확인")
     public void writeWithAuthentication() throws Exception {
-        this.mockMvc.perform(post("/api/write")
+        MockHttpServletResponse response = new MockHttpServletResponse();
+
+        // given
+        Session createdSession = sessionService.createSession("asdf", "gildong");  // 세션 생성
+
+        cookieService.createSessionCookie(SESSION_ID, createdSession.getSessionId(), 0, response); // 쿠키 생성
+        // when
+        Cookie foundCookie = response.getCookie(SESSION_ID);
+
+        // then
+        assert foundCookie != null;
+
+        this.mockMvc.perform(post("/api/write").cookie(foundCookie)
                         .contentType(MediaType.TEXT_PLAIN)
                         .content("hello")
-                        .header("sessionId", DUMMY_UUID)
-                ).andDo(print())
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("write test api")));
     }
