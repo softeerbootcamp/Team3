@@ -5,6 +5,7 @@ import lightning.gathergo.dto.SignupDto;
 import lightning.gathergo.mapper.SignupDtoMapper;
 import lightning.gathergo.model.Session;
 import lightning.gathergo.model.User;
+import lightning.gathergo.service.CookieService;
 import lightning.gathergo.service.SessionService;
 import lightning.gathergo.service.UserService;
 import org.slf4j.Logger;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
@@ -43,7 +43,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDto.LoginInput loginDto, HttpServletResponse response) {
+    public ResponseEntity<?> login(@RequestBody LoginDto.LoginInput loginDto, HttpServletResponse response, CookieService cookieService) {
         Optional<User> user = userService.findUserByUserId(loginDto.getUserId());
 
         if (user.isEmpty() || !passwordEncoder.matches(loginDto.getPassword(), user.get().getPassword())) {
@@ -55,13 +55,7 @@ public class AuthController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // 쿠키 생성
-        Cookie sessionCookie = new Cookie("sessionId", session.getSessionId());
-        sessionCookie.setMaxAge(cookieExpiration);
-        sessionCookie.setHttpOnly(true);
-        sessionCookie.setPath("/");
-
-        response.addCookie(sessionCookie);
+        cookieService.createSessionCookie(CookieService.SESSION_ID, session.getSessionId(), response);
 
         // TODO: SessionDto, SessionMapper 만들기
         return new ResponseEntity<>(new LoginDto.LoginSuccessfulResponse("로그인 성공", session, "/"), headers, HttpStatus.OK);
