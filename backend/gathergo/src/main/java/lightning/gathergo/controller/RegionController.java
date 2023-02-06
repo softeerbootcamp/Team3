@@ -31,8 +31,6 @@ public class RegionController {
 
     @GetMapping
     public ResponseEntity<Map<String,Object>> getRegions() {
-        System.out.println(System.getProperty("user.home"));
-        logger.info(System.getProperty("user.home"));
         List<RegionDto.Response> regions = regionDtoMapper.toRegionResponseList(regionService.getRegions());
 
         Map<String,Object> result = new HashMap<>();
