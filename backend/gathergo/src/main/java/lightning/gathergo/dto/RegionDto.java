@@ -40,7 +40,7 @@ public class RegionDto {
         private String name;
 
         public Integer getId() {
-            return Id;
+            return id;
         }
 
         public String getName() {
