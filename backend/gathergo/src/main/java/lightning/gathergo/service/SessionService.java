@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
@@ -30,9 +31,8 @@ public class SessionService {
         return s;
     }
 
-    public Session findSessionBySID(String sid) {
-        return sessionRepository.findSessionBySid(sid)
-                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+    public Optional<Session> findSessionBySID(String sid) {
+        return sessionRepository.findSessionBySid(sid);
     }
 
     // TODO: Filter에서 수행

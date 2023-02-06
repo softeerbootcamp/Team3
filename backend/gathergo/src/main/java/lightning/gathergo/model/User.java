@@ -3,6 +3,8 @@ package lightning.gathergo.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 
+import java.util.UUID;
+
 public class User {
     @Id
     private Integer id;
@@ -33,6 +35,12 @@ public class User {
         this.introduction = introduction;
         this.profilePath = profilePath;
     }
+
+    public User(String userId, String userName, String password, String email) {
+        this(String.valueOf(UUID.randomUUID()), userId, userName, password, email, "", "");
+    }
+
+    public User() { }
 
     public String getUuid() {
         return uuid;
