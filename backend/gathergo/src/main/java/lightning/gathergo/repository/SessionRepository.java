@@ -4,9 +4,9 @@ import lightning.gathergo.model.Session;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class SessionRepository {
@@ -14,7 +14,8 @@ public class SessionRepository {
      * key: Session id
      * value: Session
      */
-    protected Map<String, Session> sessions = new HashMap<>();  // 테스트 위해 protected
+    protected Map<String, Session> sessions = new ConcurrentHashMap<String, Session>() {
+    };  // 테스트 위해 protected
 
     public Optional<Session> findSessionBySid(String sid) {
         return Optional.ofNullable(this.sessions.get(sid));
