@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLOutput;
 
 @Component
@@ -30,7 +32,9 @@ public class AmazonS3ResourceRepository {
         System.out.println("file path: "+ file.getPath());
         try {
             //위에서 만든 파일객체의 경로와 리네임으로 실제 업로드 하기위해transferTo()메서드로 업로드처리
-            multipartFile.transferTo(file);
+            //multipartFile.transferTo(file);
+            Path path = Paths.get(file.getPath()).toAbsolutePath();
+            multipartFile.transferTo(path);
             //S3에 파일을 업로드할 때에는 해당 파일(S3에서는 객체)의 권한을 CannedAccessControlList.PublicRead 로 설정해주어야 누구나 파일에 접근이 가능
             amazonS3Client.putObject(new PutObjectRequest(bucket, fullPath, file)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
