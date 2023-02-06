@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
@@ -30,6 +32,8 @@ public class AuthController {
     private final UserService userService;
     private final SignupDtoMapper signupDtoMapper;
 
+    private int cookieExpiration = 3600;
+
     @Autowired
     public AuthController(SessionService sessionService, PasswordEncoder passwordEncoder, UserService userService, SignupDtoMapper signupDtoMapper) {
         this.sessionService = sessionService;
@@ -39,7 +43,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDto.LoginInput loginDto) {
+    public ResponseEntity<?> login(@RequestBody LoginDto.LoginInput loginDto, HttpServletResponse response) {
         Optional<User> user = userService.findUserByUserId(loginDto.getUserId());
 
         if (user.isEmpty() || !passwordEncoder.matches(loginDto.getPassword(), user.get().getPassword())) {
@@ -51,7 +55,15 @@ public class AuthController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // TODO: Cookie로 세션 전달, Session mapper 만들기
+        // 쿠키 생성
+        Cookie sessionCookie = new Cookie("sessionId", session.getSessionId());
+        sessionCookie.setMaxAge(cookieExpiration);
+        sessionCookie.setHttpOnly(true);
+        sessionCookie.setPath("/");
+
+        response.addCookie(sessionCookie);
+
+        // TODO: SessionDto, SessionMapper 만들기
         return new ResponseEntity<>(new LoginDto.LoginSuccessfulResponse("로그인 성공", session, "/"), headers, HttpStatus.OK);
     }
 
