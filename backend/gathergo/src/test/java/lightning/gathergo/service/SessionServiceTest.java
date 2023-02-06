@@ -1,9 +1,7 @@
-package lightning.gathergo;
+package lightning.gathergo.service;
 
 import lightning.gathergo.model.Session;
 import lightning.gathergo.repository.SessionRepository;
-import lightning.gathergo.service.SessionService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
