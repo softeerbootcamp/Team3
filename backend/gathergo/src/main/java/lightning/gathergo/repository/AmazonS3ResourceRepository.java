@@ -27,8 +27,8 @@ public class AmazonS3ResourceRepository {
     }
 
     public void save(String fullPath, MultipartFile multipartFile) {
-        String path = System.getProperty("user.dir");
-        System.out.println("현재 작업 경로: " + path);
+        String path = System.getProperty("user.home");
+        System.out.println("user.home 경로: " + path);
         //MultipartFile을 File 객체의 형태로 변환
         File file = new File("/home/ubuntu", fullPath);
         System.out.println("file path: "+ file.getPath());
