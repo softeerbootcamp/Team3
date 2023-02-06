@@ -30,7 +30,7 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<Map<String,Object>> getCategories() {
         List<CategoryDto.Response> categories = categoryDtoMapper.toCategoryResponseList(categoryService.getCategories());
-
+        System.out.println(System.getProperty("user.dir"));
         Map<String,Object> result = new HashMap<>();
         result.put("data",categories);
         result.put("count",categories.size());
