@@ -11,8 +11,8 @@ public final class MultipartUtil {
     /**
      * 로컬에서의 사용자 홈 디렉토리 경로를 반환합니다.
      */
-    public static String getLocalHomeDirectory() {
-        return System.getProperty("user.home");
+    public static String getLocalCurrentDirectory() {
+        return System.getProperty("user.dir");
     }
 
     /**
