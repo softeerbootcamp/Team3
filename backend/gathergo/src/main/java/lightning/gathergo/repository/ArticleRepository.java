@@ -70,7 +70,7 @@ public interface ArticleRepository extends CrudRepository<Article, Long> {
     @Query("update article " +
             "set title = :title, thumbnail = :thumbnail, curr = :curr, total = :total, " +
             "isClosed = :isClosed, content = :content, meetingDay = :meetingDay, location = :location, " +
-            "regionId = :regionId, categoryId = :categoryId")
+            "regionId = :regionId, categoryId = :categoryId where id=:id")
     public void updateArticleById(String title, String thumbnail, int curr,
                                   int total, boolean isClosed, String content, Timestamp meetingDay, String location,
                                   int regionId, int categoryId, Long id);
