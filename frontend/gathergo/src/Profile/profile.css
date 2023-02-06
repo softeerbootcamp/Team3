@@ -82,12 +82,12 @@ body{
 
 .user-profile {
   background: var(--bs-body-bg);
-  width: 5rem;
-  height: 5rem;
-  min-width: 5rem;
-  min-height: 5rem;
+  width: 8rem;
+  height: 8rem;
+  min-width: 20rem;
   border-radius: 50%;
   overflow: hidden;
+  margin : 0 0 40px 240px;
 }
 
 .user-profile-img {
@@ -335,24 +335,23 @@ body{
 .profile-fix-main{
     display : flex;
     flex-direction: row;
-
+    margin-top : 100px;
 }
 
 .profile-userInfo{
-    padding-top : 30px;
-    padding-bottom : 35px;
-    padding-left : 20px;
+    position: absolute;
+    left: 330px;
+    top: 155px;
 
 }
 
 .profile-img-name{
     display : flex;
-    flex-direction: column;
-    width : 30%;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     padding-right : 20px;
-    margin : 0 0 0 200px;
+    margin : 0 0 0 150px;
     overflow : hidden;
 }
 
@@ -369,7 +368,6 @@ body{
     position : relative;
     width : 136px;
     height : 200px;
-    border-radius : 70%;
 }
 
 .profile-textarea{
@@ -397,15 +395,17 @@ body{
 }
 
 .image-button{
+    display : flex;
+    flex-direction : row;
+    width : 100%;
     position : relative;
+    align-items : center;
+    margin : 0 0 30px 0;
 }
 
 .profile-fix-image-button{
-    position : absolute;
     width : 40px;
     height : 40px;
-    bottom : 24px;
-    left : 103px;
     filter: invert(33%) sepia(11%) saturate(2546%) hue-rotate(169deg) brightness(96%) contrast(89%);
     cursor : pointer;
 }
