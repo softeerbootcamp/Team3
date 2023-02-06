@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.UUID;
+
 @Service
 public class ImageService {
 
@@ -15,8 +17,8 @@ public class ImageService {
         this.amazonS3ResourceRepository = amazonS3ResourceRepository;
     }
 
-    public ImageDto save(MultipartFile multipartFile) {
-        ImageDto fileDetail = ImageDto.multipartOf(multipartFile);
+    public ImageDto save(UUID userId, MultipartFile multipartFile) {
+        ImageDto fileDetail = ImageDto.multipartOf(userId,multipartFile);
         amazonS3ResourceRepository.save(fileDetail.getPath(), multipartFile);
         return fileDetail;
     }

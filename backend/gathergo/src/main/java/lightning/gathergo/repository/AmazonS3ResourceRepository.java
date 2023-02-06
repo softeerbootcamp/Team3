@@ -27,7 +27,6 @@ public class AmazonS3ResourceRepository {
     public void save(String fullPath, MultipartFile multipartFile) {
         //MultipartFile을 File 객체의 형태로 변환
         File file = new File(MultipartUtil.getLocalCurrentDirectory(), fullPath);
-        System.out.println(file.getPath());
         try {
             //위에서 만든 파일객체의 경로와 리네임으로 실제 업로드 하기위해transferTo()메서드로 업로드처리
             multipartFile.transferTo(file);

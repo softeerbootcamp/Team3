@@ -4,6 +4,7 @@ import lightning.gathergo.Utils.MultipartUtil;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * 업로드 파일에 대한 핵심 속성을 가지는 데이터 클래스
@@ -26,8 +27,8 @@ public class ImageDto {
 
     private LocalDateTime createdAt;
 
-    public static ImageDto multipartOf(MultipartFile multipartFile) {
-        final String fileId = MultipartUtil.createFileId();
+    public static ImageDto multipartOf(UUID userId, MultipartFile multipartFile) {
+        final String fileId = String.valueOf(userId);
         final String format = MultipartUtil.getFormat(multipartFile.getContentType());
         return new ImageDto(fileId,multipartFile.getOriginalFilename(),format,MultipartUtil.createPath(fileId, format),multipartFile.getSize());
     }
