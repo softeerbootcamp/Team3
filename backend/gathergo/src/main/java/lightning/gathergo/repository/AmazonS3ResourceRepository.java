@@ -30,7 +30,10 @@ public class AmazonS3ResourceRepository {
     public void save(String fullPath, MultipartFile multipartFile){
         //MultipartFile을 File 객체의 형태로 변환
         String parent = System.getProperty("user.dir")+"home/ubuntu/images/";
-        new File(parent).mkdir();
+        File directory = new File(parent);
+        if (!directory.exists()) {       // 원하는 경로에 폴더가 있는지 확인
+            directory.mkdirs();    // 하위폴더를 포함한 폴더를 전부 생성
+        }
         File file = new File(parent, fullPath);
         try{
             if(file.exists() == false) {
