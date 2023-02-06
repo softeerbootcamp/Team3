@@ -4,3 +4,24 @@ spring:
     url: jdbc:mysql://gathergo-mysql:3306/gathergo?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 1234
+
+
+cloud:
+  aws:
+    s3:
+      bucket: team3-gathergo
+    credentials:
+      access-key: AKIA6AMIHSCF62YKZOEF
+      secret-key: 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
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: ERROR
