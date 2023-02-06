@@ -8,6 +8,218 @@ body{
 
 }
 
+#sidebar.active {
+  display: flex;
+}
+
+#sidebar-bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#sidebar-body {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  position: fixed;
+  top: 0;
+  right: -40%;
+  z-index: 2;
+  height: 100%;
+  background: var(--bs-gray-100);
+  padding: 1rem 2rem;
+  transition: all 0.3s;
+}
+
+.active #sidebar-body {
+  right: 0;
+}
+
+.active #sidebar-bg {
+  animation: fadein 0.3s;
+  -moz-animation: fadein 0.3s;
+  -webkit-animation: fadein 0.3s;
+  -o-animation: fadein 0.3s;
+  z-index: 1;
+  display: flex;
+}
+
+.line {
+  margin: 1rem 0;
+  border-top: 1px solid var(--bs-border-color);
+}
+
+.sidebar-user-info.container-md {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-user-info .container-sm {
+  width: 100%;
+  display: flex;
+
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.space {
+  min-width: 2rem;
+  width: 100%;
+}
+
+.sidebar-user-info button {
+  min-height: 2.25rem;
+  min-width: 7rem;
+  margin: 2rem;
+}
+
+.user-profile {
+  background: var(--bs-body-bg);
+  width: 5rem;
+  height: 5rem;
+  min-width: 5rem;
+  min-height: 5rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.user-profile-img {
+  object-fit: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.user-desc-header {
+  display: flex;
+  align-items: baseline;
+}
+
+.user-desc .icon {
+  width: 1rem;
+  height: 1rem;
+  min-width: 1rem;
+  min-height: 1rem;
+}
+
+.user-desc-edit-icon {
+  cursor: pointer;
+}
+
+.user-host-meet-list {
+  padding: 0;
+}
+
+.user-host-meet {
+  align-items: flex-start;
+  display: flex;
+  margin: 2rem 1rem;
+}
+
+.user-host-meet-title {
+  min-width: 18rem;
+  max-width: 18rem;
+}
+
+.user-host-meet-peoples {
+  width: 1.2rem;
+  height: 1.2rem;
+  min-width: 1.2rem;
+  min-height: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.people-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  min-width: 1.2rem;
+  min-height: 1.2rem;
+  margin-right: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.user-host-meet-status {
+  align-items: flex-start;
+  display: flex;
+}
+
+.user-host-meet-status > {
+  min-width: 3rem;
+}
+
+.user-host-meet-status-text {
+  line-height: 1.2rem;
+  min-width: 3rem;
+  text-align: right;
+}
+
+.user-host-meet-date {
+  line-height: 1.2rem;
+  margin: 0 0.5rem;
+}
+
+.status-icon {
+  width: 2rem;
+  height: 2rem;
+  min-width: 2rem;
+  min-height: 2rem;
+  margin: 0 1rem;
+}
+
+.user-schedule {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.schedule-time-badge {
+  width: 4rem;
+  min-width: 4rem;
+  height: 4rem;
+  min-height: 4rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125);
+  padding: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.schedule-date {
+  font-size: 16px;
+  font-weight: 200;
+}
+
+.schedule-time {
+  font-size: 12px;
+  font-weight: 100;
+}
+
+.schedule-info {
+  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.schedule-data {
+  display: flex;
+}
+
+.log-list {
+  clear: both;
+  overflow-y: scroll;
+}
+
+
 .search-container{
     display : flex;
     position: relative;
@@ -116,7 +328,7 @@ body{
 
 #profile-fix{
     display : none;
-    margin : 0 0 0 200px;
+    margin : 0px 100px 0px 365px;
     flex-direction: column;
 }
 
@@ -128,18 +340,19 @@ body{
 
 .profile-userInfo{
     padding-top : 30px;
-    padding-left : 96px;
+    padding-bottom : 35px;
+    padding-left : 20px;
 
 }
 
 .profile-img-name{
     display : flex;
     flex-direction: column;
-    width : 13rem;
-    margin : 0 0 20px 260px;
+    width : 30%;
     align-items: center;
     justify-content: center;
-    padding-right : 31px;
+    padding-right : 20px;
+    margin : 0 0 0 200px;
     overflow : hidden;
 }
 
@@ -149,12 +362,12 @@ body{
     width : 70%;
     height : 100%;
     margin-right : 100px;
-    margin-left : 100px;
+    margin-left : 10px;
 }
 
 .profile-fix-image{
     position : relative;
-    width : 160px;
+    width : 136px;
     height : 200px;
     border-radius : 70%;
 }
@@ -191,8 +404,8 @@ body{
     position : absolute;
     width : 40px;
     height : 40px;
-    bottom : 14px;
-    left : 110px;
+    bottom : 24px;
+    left : 103px;
     filter: invert(33%) sepia(11%) saturate(2546%) hue-rotate(169deg) brightness(96%) contrast(89%);
     cursor : pointer;
 }
@@ -325,8 +538,4 @@ a {
   }
   
   
-  }
-
-  .nav-link-wrapper{
-    top : 1.5rem;
   }
