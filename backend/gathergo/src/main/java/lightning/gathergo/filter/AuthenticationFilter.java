@@ -3,6 +3,7 @@ package lightning.gathergo.filter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 @Order(1)
+@Component
 public class AuthenticationFilter implements Filter {
     // 로그인이 필요한 모든 게시글 url에 대해 동작, 세션이 없으면 로그인 창으로 리다이렉트
     // Session 존재 유무 체크
