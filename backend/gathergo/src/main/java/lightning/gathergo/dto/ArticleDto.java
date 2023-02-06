@@ -137,6 +137,18 @@ public class ArticleDto {
         @JsonSerialize(as = Timestamp.class)
         @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
         private Timestamp meetingDay;
+
+        public CreateRequest(Long hostId, String title, int categoryId, String location, int regionId, int total, String content, Timestamp meetingDay) {
+            this.hostId = hostId;
+            this.title = title;
+            this.categoryId = categoryId;
+            this.location = location;
+            this.regionId = regionId;
+            this.total = total;
+            this.content = content;
+            this.meetingDay = meetingDay;
+        }
+
         //private List<Comment> comments;
 
         public Long getHostId() {
