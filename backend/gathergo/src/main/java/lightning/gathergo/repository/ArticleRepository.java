@@ -36,30 +36,30 @@ public interface ArticleRepository extends CrudRepository<Article, Long> {
     }
 
     @Modifying
-    @Query("INSERT INTO article (hostId, title, thumbnail, curr, total, isClosed, content, meetingDay, location, regionId, categoryId, uuid) " +
+    @Query("insert into article (hostId, title, thumbnail, curr, total, isClosed, content, meetingDay, location, regionId, categoryId, uuid) " +
             "values (:hostId, :title, :thumbnail, :curr, :total, :isClosed, :content, :meetingDay, :location, :regionId, :categoryId, :uuid);")
     public void save(Long hostId, String title, String thumbnail, int curr,
                          int total, boolean isClosed, String content, Timestamp meetingDay, String location, int regionId, int categoryId, String uuid);
 
-    @Query(value = "SELECT id FROM article ORDER BY id DESC LIMIT 1")
+    @Query(value = "select id from article order by id desc LIMIT 1")
     Long getLastInsertedId();
 
-    @Query("SELECT uuid FROM article WHERE id = :id")
+    @Query("select uuid from article where id = :id")
     String getUuidById(Long id);
 
-    @Query("SELECT * FROM article WHERE id = :id")
+    @Query("select * from article where id = :id")
     Optional<Article> findById(Long id);
 
-    @Query("SELECT * FROM article WHERE uuid = :uuid")
+    @Query("select * from article where uuid = :uuid")
     Optional<Article> findByUuid(String uuid);
 
-    @Query("SELECT * FROM article")
+    @Query("select * from article")
     List<Article> findAllArticles();
 
-    @Query("SELECT * FROM article WHERE regionId = :regionId")
+    @Query("select * from article where regionId = :regionId")
     List<Article> findCurrentRegionArticles(int regionId);
 
-    @Query("SELECT  * FROM article WHERE regionId = :regionId and categoryId = :categoryId")
+    @Query("select  * from article where regionId = :regionId and categoryId = :categoryId")
     List<Article> findArticlesByRegionAndCategory(int regionId, int categoryId);
 
 
@@ -67,8 +67,8 @@ public interface ArticleRepository extends CrudRepository<Article, Long> {
     // total, isClosed, content, meetingDay, location,
     // regionId, categoryId, uuid
     @Modifying
-    @Query("UPDATE article " +
-            "SET title = :title, thumbnail = :thumbnail, curr = :curr, total = :total, " +
+    @Query("update article " +
+            "set title = :title, thumbnail = :thumbnail, curr = :curr, total = :total, " +
             "isClosed = :isClosed, content = :content, meetingDay = :meetingDay, location = :location, " +
             "regionId = :regionId, categoryId = :categoryId")
     public void updateArticleById(String title, String thumbnail, int curr,
@@ -76,6 +76,6 @@ public interface ArticleRepository extends CrudRepository<Article, Long> {
                                   int regionId, int categoryId, Long id);
 
     @Modifying
-    @Query("DELETE FROM article WHERE id=:id")
+    @Query("delete from article where id=:id")
     public void deleteById(Long id);
 }
