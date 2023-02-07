@@ -3,11 +3,16 @@ package lightning.gathergo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
+@Table("article")
 public class Article {
 
     // id, hostId, title, thumbnail, curr,
@@ -19,7 +24,7 @@ public class Article {
     @Id
     private Long id;
     @Column("hostid")
-    private Long hostId;
+    private Integer hostId;  // TODO: 로그인에 사용하는 userId(String) 를 쓸지 Integer User.id를 사용할지
     private String title;
     private String thumbnail;
     private int curr; // 추후에 int를 Integer로 바꾸기!!!!!
@@ -43,19 +48,19 @@ public class Article {
         curr = 1;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getHostId() {
+    public Integer getHostId() {
         return hostId;
     }
 
-    public void setHostId(Long hostId) {
+    public void setHostId(Integer hostId) {
         this.hostId = hostId;
     }
 
