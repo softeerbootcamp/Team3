@@ -3,6 +3,9 @@ package lightning.gathergo.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class User {
     @Id
     private Integer id;
@@ -24,6 +27,8 @@ public class User {
     @Column("profilepath")
     private String profilePath;  // 프로필 이미지 경로
 
+    // private Set<UserArticleRelationship> userArticleRelationships = new HashSet<>();
+
     public User(String uuid, String userId, String userName, String password, String email, String introduction, String profilePath) {
         this.uuid = uuid;
         this.userId = userId;
@@ -32,6 +37,10 @@ public class User {
         this.email = email;
         this.introduction = introduction;
         this.profilePath = profilePath;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getUuid() {
@@ -64,5 +73,19 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", uuid='" + uuid + '\'' +
+                ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", introduction='" + introduction + '\'' +
+                ", profilePath='" + profilePath + '\'' +
+                '}';
     }
 }
