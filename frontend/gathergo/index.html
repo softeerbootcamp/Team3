@@ -10,6 +10,10 @@
   <link rel="stylesheet" href="./src/index/modal.css" />
   <link rel="stylesheet" href="./src/index/feedRead.css" />
   <title>GatherGo</title>
+  <!-- <script
+    src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=nmYxxClKN26qrAfnVO4aQ48PaUES6usl4eylCC3x"></script> -->
+  <!-- <script type="module" src="./src/index/index.js"></script> -->
+  <script defer type="module" src="./src/index/index.ts"></script>
 </head>
 
 <body>
@@ -443,7 +447,7 @@
         </div>
         <div class="feed-main-wrapper">
           <div class="feed-main-info">
-            <div class="map"></div>
+            <div id="map-api-readOnly"></div>
             <h3 class="address"><strong>서울시 서초구 강남대로61길 23</strong> </h3>
             <div class="info-detail">
               <div class="schedule-synthesis">
@@ -573,8 +577,9 @@
       </div>
     </div>
   </div>
-  <!-- <script type="module" src="./src/index/index.js"></script> -->
-  <script type="module" src="./src/index/index.ts"></script>
+
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e025d257c750a5635c774ac925157964&libraries=services"></script>
 </body>
 
 </html>

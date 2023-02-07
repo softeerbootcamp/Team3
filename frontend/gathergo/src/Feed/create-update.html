@@ -10,8 +10,10 @@
     <link rel="stylesheet" href="../../src/Feed/create-update.css" />
     <link rel="stylesheet" href="../../src/common/fg.timepicker-master/fg.timepicker.css" />
     <link rel="stylesheet" href="../../node_modules/vanillajs-datepicker/dist/css/datepicker.min.css">
-
+    <link rel="stylesheet" href="../../src/common/kakaoMapAPI/kakaoMapAPI.css">
     <title>GatherGo</title>
+
+    <script defer type="module" src="../../src/index/index.ts"></script>
 </head>
 
 <body>
@@ -175,17 +177,40 @@
                 </div>
             </div>
         </div>
-        <div class="form-address map-toggle">
+        <div class="form-address">
             <h4 class="leading-text">
                 <strong>만남 장소</strong>
             </h4>
             <div class="form-input">
-                <input class="form-control form-control-lg" id="readOnlyAddressInput" type="text"
-                    placeholder="만남 장소를 설정해주세요." readonly value="">
+                <div class="form-input-map">
+                    <div class="form-input-map-doromyeong">
+                        <input class="form-control form-control-lg" id="addressReadOnlyInput" type="text"
+                            placeholder="지도에서 만남 장소를 설정해주세요." readOnly value="">
+                        <div id="form-map-icon" class="map-toggle">
+                            <img src="../../assets/Icons/mapIcon.png" alt="">
+                        </div>
+                    </div><input class="form-control form-control-lg" id="detailAddressInput" type="text"
+                        placeholder="상세 주소를 설정해주세요." value="">
+                </div>
+
             </div>
         </div>
-        <div class="form-map">
-            map
+        <div id="form-map-wrapper" class="show">
+            <div id="form-map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+            <div id="menu_wrap" class="bg_white">
+                <div class="option">
+                    <div>
+                        <form action="#" onsubmit="return false;">
+                            키워드 : <input class="form-control form-control-sm" type="text" value="코드스쿼드" id="keyword"
+                                size="15">
+                            <button type="submit" id="keywordBtn" class="btn btn-primary">검색하기</button>
+                        </form>
+                    </div>
+                </div>
+                <hr>
+                <ul id="placesList"></ul>
+                <div id="pagination"></div>
+            </div>
         </div>
         <div class="form-people">
             <h4 class="leading-text">
@@ -208,8 +233,10 @@
                 만들기</strong></button>
 
     </div>
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e025d257c750a5635c774ac925157964&libraries=services"></script>
 </body>
 
-<script type="module" src="../../src/index/index.ts"></script>
+<!-- <script type="module" src="../../src/index/index.ts"></script> -->
 
 </html>
