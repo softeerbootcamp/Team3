@@ -51,10 +51,10 @@ public class ArticleController {
     }
 
     @PostMapping
-    ResponseEntity<ArticleDto.Response> postArticle(@RequestBody ArticleDto.CreateRequest request){
+    ResponseEntity<ArticleDto.Response> addArticle(@RequestBody ArticleDto.CreateRequest request){
         Article article = articleMapper.toArticle(request);
-        System.out.println(article.getTitle());
-        article = articleService.save(article);
+
+        article = articleService.addArticle(article);
         return ResponseEntity.ok().body(articleMapper.toArticleResponse(article));
     }
 
