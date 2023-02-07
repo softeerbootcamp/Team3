@@ -183,12 +183,16 @@
             </h4>
             <div class="form-input">
                 <div class="form-input-map">
-                    <input class="form-control form-control-lg" id="readOnlyAddressInput" type="text"
-                        placeholder="만남 장소를 설정해주세요." value="">
-                    <div id="form-map-icon" class="map-toggle">
-                        <img src="../../assets/Icons/mapIcon.png" alt="">
-                    </div>
+                    <div class="form-input-map-doromyeong">
+                        <input class="form-control form-control-lg" id="addressReadOnlyInput" type="text"
+                            placeholder="지도에서 만남 장소를 설정해주세요." readOnly value="">
+                        <div id="form-map-icon" class="map-toggle">
+                            <img src="../../assets/Icons/mapIcon.png" alt="">
+                        </div>
+                    </div><input class="form-control form-control-lg" id="detailAddressInput" type="text"
+                        placeholder="상세 주소를 설정해주세요." value="">
                 </div>
+
             </div>
         </div>
         <div id="form-map-wrapper" class="show">
@@ -196,10 +200,10 @@
             <div id="menu_wrap" class="bg_white">
                 <div class="option">
                     <div>
-                        <form onsubmit="searchPlaces(); return false;">
+                        <form action="#" onsubmit="return false;">
                             키워드 : <input class="form-control form-control-sm" type="text" value="코드스쿼드" id="keyword"
                                 size="15">
-                            <button type="submit" class="btn btn-primary">검색하기</button>
+                            <button type="submit" id="keywordBtn" class="btn btn-primary">검색하기</button>
                         </form>
                     </div>
                 </div>

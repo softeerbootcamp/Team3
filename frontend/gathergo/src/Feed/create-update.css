@@ -224,8 +224,13 @@ li.nav-item.divider {
   display: block;
 }
 
-.form-input-map {
+.form-address {
+  align-items: flex-start;
+}
+
+.form-input-map-doromyeong {
   display: flex;
+  margin-bottom: 1rem;
 }
 
 #form-map-icon {
@@ -233,4 +238,9 @@ li.nav-item.divider {
   width: 2rem;
   height: 2rem;
   margin: 10px;
+}
+
+#addressReadOnlyInput {
+  background: var(--bs-gray-100);
+  box-shadow: unset;
 }

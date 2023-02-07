@@ -250,44 +250,43 @@ declare global {
   }
 }
 
-// const geocoder = new window.kakao.maps.services.Geocoder(); // 주소-좌표 변환 객체를 생성합니다
-// ('/frontend/gathergo/src/Feed/create-update.html');
-// // eslint-disable-next-line @typescript-eslint/no-explicit-any
-// geocoder.addressSearch(
-//   '서울시 서초구 강남대로61길 23',
-//   function (result: any, status: any) {
-//     // 정상적으로 검색이 완료됐으면
-//     if (status === window.kakao.maps.services.Status.OK) {
-//       const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
+const geocoder = new window.kakao.maps.services.Geocoder(); // 주소-좌표 변환 객체를 생성합니다
+('/frontend/gathergo/src/Feed/create-update.html');
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+geocoder.addressSearch(
+  '서울시 서초구 강남대로61길 23',
+  function (result: any, status: any) {
+    // 정상적으로 검색이 완료됐으면
+    if (status === window.kakao.maps.services.Status.OK) {
+      const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
 
-//       const container = document.getElementById('map-api-readOnly'); //지도를 담을 영역의 DOM 레퍼런스
+      const container = document.getElementById('map-api-readOnly'); //지도를 담을 영역의 DOM 레퍼런스
 
-//       //지도를 생성할 때 필요한 기본 옵션
-//       const options = {
-//         center: coords, //지도의 중심좌표.
-//         level: 3, //지도의 레벨(확대, 축소 정도)
-//       };
+      //지도를 생성할 때 필요한 기본 옵션
+      const options = {
+        center: coords, //지도의 중심좌표.
+        level: 3, //지도의 레벨(확대, 축소 정도)
+      };
 
-//       const map = new window.kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+      const map = new window.kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
-//       // 결과값으로 받은 위치를 마커로 표시합니다
-//       const marker = new window.kakao.maps.Marker({
-//         map: map,
-//         position: coords,
-//       });
+      // 결과값으로 받은 위치를 마커로 표시합니다
+      const marker = new window.kakao.maps.Marker({
+        map: map,
+        position: coords,
+      });
 
-//       // 인포윈도우로 장소에 대한 설명을 표시합니다
-//       const infowindow = new window.kakao.maps.InfoWindow({
-//         content:
-//           '<div style="width:150px;text-align:center;padding:6px 0;">만남 장소</div>',
-//       });
-//       infowindow.open(map, marker);
-//     }
-//   }
-// );
+      // 인포윈도우로 장소에 대한 설명을 표시합니다
+      const infowindow = new window.kakao.maps.InfoWindow({
+        content:
+          '<div style="width:150px;text-align:center;padding:6px 0;">만남 장소</div>',
+      });
+      infowindow.open(map, marker);
+    }
+  }
+);
 // formMapGenerator();
 
-// export default function formMapGenerator() {
 // 마커를 담을 배열입니다
 let markers: any[] = [];
 
@@ -300,21 +299,20 @@ const mapContainer = document.getElementById('form-map'), // 지도를 표시할
 // 지도를 생성합니다
 const map = new window.kakao.maps.Map(mapContainer, mapOption);
 
-// 지도 우측 하단 스케일 위치변경
-designMapScale(mapContainer);
+// 장소 검색 객체를 생성합니다
+const ps = new window.kakao.maps.services.Places();
 
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 const infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 });
 
+// 지도 우측 하단 스케일 위치변경
+designMapScale(mapContainer);
+
 // 키워드로 장소를 검색합니다
 searchPlaces();
-// }
 
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
-  console.log('check');
-  // eslint-disable-next-line no-debugger
-  debugger;
   const keyword = document.querySelector<HTMLInputElement>('#keyword')?.value;
 
   if (keyword && !keyword.replace(/^\s+|\s+$/g, '')) {
@@ -322,10 +320,44 @@ function searchPlaces() {
     return false;
   }
 
-  // 장소 검색 객체를 생성합니다
-  const ps = new window.kakao.maps.services.Places();
   // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
   ps.keywordSearch(keyword, placesSearchCB);
+
+  placesListClickEvent();
+  return true;
+}
+function placesListClickEvent() {
+  const placesList = document.querySelector<HTMLElement>('#placesList');
+  placesList?.addEventListener('click', (e) => {
+    const target = e.target as Element;
+    const placeItem = target?.closest('.item') as HTMLLIElement;
+    const _i = getElementIndex(placeItem);
+
+    placeClickSetMap(markers[_i].n);
+
+    placeClickSetInput(placeItem);
+  });
+}
+
+function placeClickSetMap(coords: { La: number; Ma: number }) {
+  // 선택된 장소 위치를 기준으로 지도 범위를 재설정합니다
+  map.setCenter(coords);
+  map.setLevel(2, { anchor: coords }, { animate: { duration: 500 } });
+}
+function placeClickSetInput(placeItem: HTMLLIElement) {
+  // 선택된 장소의 주소를 input.value에 재설정합니다
+  const addressValue =
+    placeItem.querySelector<HTMLSpanElement>('.setting-address')?.innerHTML;
+  const addressInputEle = document.querySelector<HTMLInputElement>(
+    '#addressReadOnlyInput'
+  );
+  if (addressValue && addressInputEle) addressInputEle.value = addressValue;
+}
+function markerClickSetInput(adressName: string) {
+  const addressInputEle = document.querySelector<HTMLInputElement>(
+    '#addressReadOnlyInput'
+  );
+  if (addressInputEle) addressInputEle.value = adressName;
 }
 
 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -347,6 +379,8 @@ function placesSearchCB(data: any, status: any, pagination: any) {
 }
 // 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces(places: string | any[]) {
+  // eslint-disable-next-line no-debugger
+  // debugger;
   const listEl = document.getElementById('placesList'),
     menuEl = document.getElementById('menu_wrap'),
     fragment = document.createDocumentFragment(),
@@ -376,21 +410,27 @@ function displayPlaces(places: string | any[]) {
     // 해당 장소에 인포윈도우에 장소명을 표시합니다
     // mouseout 했을 때는 인포윈도우를 닫습니다
     (function (marker, title) {
-      window.kakao.maps.event.addListener(marker, 'mouseover', function () {
-        displayInfowindow(marker, title);
+      // window.kakao.maps.event.addListener(marker, 'mouseover', function () {
+      //   displayInfowindow(marker, title);
+      // });
+
+      // window.kakao.maps.event.addListener(marker, 'mouseout', function () {
+      //   infowindow.close();
+      // });
+
+      // itemEl.onmouseover = function () {
+      //   displayInfowindow(marker, title);
+      // };
+
+      // itemEl.onmouseout = function () {
+      //   infowindow.close();
+      // };
+      window.kakao.maps.event.addListener(marker, 'click', function () {
+        placeClickSetMap(marker.n);
+        console.log(places[i].address_name);
+        // placeClickSetInput();
+        markerClickSetInput(places[i].address_name);
       });
-
-      window.kakao.maps.event.addListener(marker, 'mouseout', function () {
-        infowindow.close();
-      });
-
-      itemEl.onmouseover = function () {
-        displayInfowindow(marker, title);
-      };
-
-      itemEl.onmouseout = function () {
-        infowindow.close();
-      };
     })(marker, places[i].place_name);
 
     fragment.appendChild(itemEl);
@@ -418,14 +458,15 @@ function getListItem(index: number, places: any) {
 
   if (places.road_address_name) {
     itemStr +=
-      '    <span>' +
+      '    <span class="setting-address">' +
       places.road_address_name +
       '</span>' +
       '   <span class="jibun gray">' +
       places.address_name +
       '</span>';
   } else {
-    itemStr += '    <span>' + places.address_name + '</span>';
+    itemStr +=
+      '    <span class="setting-address">' + places.address_name + '</span>';
   }
 
   itemStr += '  <span class="tel">' + places.phone + '</span>' + '</div>';
@@ -525,3 +566,15 @@ function designMapScale(mapEl: HTMLElement | null) {
   (elements[1] as HTMLElement).style.cssText =
     'position: absolute; cursor: default; z-index: 1; margin: 0px 6px; height: 19px; line-height: 14px; right: 0px; bottom: 0px; color: rgb(0, 0, 0);';
 }
+
+function keywordEvent() {
+  const keyword = document.querySelector<HTMLInputElement>('#keyword');
+  keyword?.addEventListener('keydown', (e) => {
+    if (e.key == 'Enter') {
+      searchPlaces();
+    }
+  });
+  const keywordBtn = document.querySelector<HTMLElement>('#keywordBtn');
+  keywordBtn?.addEventListener('click', searchPlaces);
+}
+keywordEvent();
