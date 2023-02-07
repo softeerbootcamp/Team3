@@ -228,12 +228,15 @@
     </script>
     <!-- profile edit event handler  -->
     <script>
-        function addEventProfileEdit(){
-            const [fixButton] = document.getElementsByClassName('profile-fix-image-button')
-            fixButton.addEventListener('click',(event)=>{
-                console.log(document.getElementById('file-input').files[0]);
-
-            })
+        function addEventProfileEdit(value){
+            if(value.files && value.files[0]){
+                let reader = new FileReader();
+                reader.onload = function(e){
+                    document.getElementById('profile-fix-image').src = e.target.result
+                    console.log(e.target.result)
+                }
+                reader.readAsDataURL(value.files[0])
+            }
         }
     </script>
     <!-- logout modal-->
