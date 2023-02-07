@@ -42,10 +42,6 @@ public class User {
 
     public User() { }
 
-    public Integer getId() {
-        return id;
-    }
-
     public String getUuid() {
         return uuid;
     }
@@ -76,20 +72,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", uuid='" + uuid + '\'' +
-                ", userId='" + userId + '\'' +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", introduction='" + introduction + '\'' +
-                ", profilePath='" + profilePath + '\'' +
-                '}';
     }
 
     public void setId(Integer id) {

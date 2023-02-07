@@ -3,16 +3,11 @@ package lightning.gathergo.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 
-@Table("article")
 public class Article {
 
     // id, hostId, title, thumbnail, curr,
@@ -22,9 +17,9 @@ public class Article {
 
     // TODO : 주석처리된 객체들이 구현되면 주석 풀고 게터세터 만들기
     @Id
-    private Integer id;
+    private Long id;
     @Column("hostid")
-    private Integer hostId;  // TODO: 로그인에 사용하는 userId(String) 를 쓸지 Integer User.id를 사용할지
+    private Long hostId;
     private String title;
     private String thumbnail;
     private int curr; // 추후에 int를 Integer로 바꾸기!!!!!
@@ -48,34 +43,19 @@ public class Article {
         curr = 1;
     }
 
-    public Article( Integer hostId, String title, String thumbnail, int curr, int total, Boolean isClosed, String content, Timestamp meetingDay, String location, int regionId, int categoryId, String uuid) {
-        this.hostId = hostId;
-        this.title = title;
-        this.thumbnail = thumbnail;
-        this.curr = curr;
-        this.total = total;
-        this.isClosed = isClosed;
-        this.content = content;
-        this.meetingDay = meetingDay;
-        this.location = location;
-        this.regionId = regionId;
-        this.categoryId = categoryId;
-        this.uuid = uuid;
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getHostId() {
+    public Long getHostId() {
         return hostId;
     }
 
-    public void setHostId(Integer hostId) {
+    public void setHostId(Long hostId) {
         this.hostId = hostId;
     }
 
@@ -167,22 +147,4 @@ public class Article {
         this.uuid = uuid;
     }
 
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", hostId=" + hostId +
-                ", title='" + title + '\'' +
-                ", thumbnail='" + thumbnail + '\'' +
-                ", curr=" + curr +
-                ", total=" + total +
-                ", isClosed=" + isClosed +
-                ", content='" + content + '\'' +
-                ", meetingDay=" + meetingDay +
-                ", location='" + location + '\'' +
-                ", regionId=" + regionId +
-                ", categoryId=" + categoryId +
-                ", uuid='" + uuid + '\'' +
-                '}';
-    }
 }

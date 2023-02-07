@@ -6,12 +6,13 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ArticleRepository extends CrudRepository<Article, Integer> {
+public interface ArticleRepository extends CrudRepository<Article, Long> {
 
     // id, hostId, title, thumbnail, curr,
     // total, isClosed, content, meetingDay, location,
@@ -37,17 +38,17 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     @Modifying
     @Query("insert into article (hostId, title, thumbnail, curr, total, isClosed, content, meetingDay, location, regionId, categoryId, uuid) " +
             "values (:hostId, :title, :thumbnail, :curr, :total, :isClosed, :content, :meetingDay, :location, :regionId, :categoryId, :uuid);")
-    public void save(Integer hostId, String title, String thumbnail, int curr,
+    public void save(Long hostId, String title, String thumbnail, int curr,
                          int total, boolean isClosed, String content, Timestamp meetingDay, String location, int regionId, int categoryId, String uuid);
 
     @Query(value = "select id from article order by id desc LIMIT 1")
-    Integer getLastInsertedId();
+    Long getLastInsertedId();
 
     @Query("select uuid from article where id = :id")
-    String getUuidById(Integer id);
+    String getUuidById(Long id);
 
     @Query("select * from article where id = :id")
-    Optional<Article> findById(Integer id);
+    Optional<Article> findById(Long id);
 
     @Query("select * from article where uuid = :uuid")
     Optional<Article> findByUuid(String uuid);
@@ -72,9 +73,9 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
             "regionId = :regionId, categoryId = :categoryId where id=:id")
     public void updateArticleById(String title, String thumbnail, int curr,
                                   int total, boolean isClosed, String content, Timestamp meetingDay, String location,
-                                  int regionId, int categoryId, Integer id);
+                                  int regionId, int categoryId, Long id);
 
     @Modifying
     @Query("delete from article where id=:id")
-    public void deleteById(Integer id);
+    public void deleteById(Long id);
 }

@@ -38,7 +38,7 @@ class ArticleRepositoryTest {
 
         //when
         repo.save(article);
-        Integer storedId = repo.getLastInsertedId();
+        Long storedId = repo.getLastInsertedId();
 
         //then
         Assertions.assertThat(repo.findById(storedId).get().getTitle())
@@ -74,7 +74,7 @@ class ArticleRepositoryTest {
         // given
         Article article = new Article();
         article.setTitle("변경 전");
-        Integer id = repo.save(article).getId();
+        Long id = repo.save(article).getId();
 
         //when
         repo.updateArticleById("변경 후", null, 0, 0, false, null, null, null, 0, 0, id);
@@ -91,7 +91,7 @@ class ArticleRepositoryTest {
         Article nullArticle = new Article();
         article.setTitle("dummy");
         repo.save(article);
-        Integer dummyId = repo.getLastInsertedId();
+        Long dummyId = repo.getLastInsertedId();
 
         // when
         repo.deleteById(dummyId);
