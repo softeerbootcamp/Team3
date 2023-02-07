@@ -21,4 +21,15 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     @Query(value="select * from user u")
     List<User> findAll();
+
+    // 해당 유저가 게스트로 참여하는 글 조회
+    @Query(value = "select a.* from article a where a.id in (select us.articleId from user u join user_article_relationship us on :id = us.userId)")
+    List<Article> findParticipatingArticlesById(Integer id);
+
+    // 호스팅 모임 조회
+    @Query(value = "select a.* from article a where :id = a.hostId")
+    List<Article> findHostingArticlesById(Integer id);
+
+    @Query(value="insert into user (userId, userName, password, email)")
+    void save(String userId, String userName, String password, String email);
 }
