@@ -1,27 +1,8 @@
-// import {} from "./store.ts";
-// document.addEventListener('click', (e: Event) => {
-//   const target = e.target as Element;
-//   const profileIcon = target?.closest('.profile-icon');
-//   const sidebarBg = target?.closest('#sidebar-bg');
-//   if (profileIcon) {
-//     sidebarActiveEvent();
-//     dropDownCloseEvent();
-//   }
-//   if (sidebarBg) {
-//     sidebarCloseEvent();
-//   }
-// });
+import showMapEvent from '../Feed/feed';
+import { Datepicker } from 'vanillajs-datepicker';
+import moment from 'moment';
+import fg from '../common/fg.timepicker-master/fg.timepicker.js';
 
-// function sidebarActiveEvent() {
-//   document.querySelector<HTMLDivElement>('#sidebar')?.classList.add('active');
-//   //TODO: 모든 dropDown 닫아주기
-//   // https://jess2.xyz/css/fade-in-out/
-// }
-// function sidebarCloseEvent() {
-//   document
-//     .querySelector<HTMLDivElement>('#sidebar')
-//     ?.classList.remove('active');
-// }
 function dropDownEvent() {
   document.addEventListener('click', (e: Event) => {
     const target = e.target as Element;
@@ -144,8 +125,6 @@ const category: dropDownType = {
   19: '자유주제',
   0: '카테고리를 선택하세요',
 };
-searchBarEvent();
-dropDownEvent();
 
 const getElementIndex = (element: HTMLElement) => {
   let index = 0;
@@ -156,3 +135,110 @@ const getElementIndex = (element: HTMLElement) => {
   }
   return index;
 };
+
+function cardReadModalEvent() {
+  document.querySelectorAll<HTMLLIElement>('.card').forEach((element) => {
+    element.addEventListener('click', (e) => {
+      const target = e.target as Element;
+      if (target?.closest('.card')) {
+        // $("#modal-container").removeAttr("class").addClass(buttonId);
+        const modalContainer =
+          document.querySelector<HTMLElement>('#modal-container');
+        modalContainer?.removeAttribute('class');
+        modalContainer?.classList.add('modal-animation');
+        document.body.classList.add('modal-active');
+      }
+    });
+  });
+}
+
+function closeModalEvent() {
+  const modalContainer =
+    document.querySelector<HTMLElement>('#modal-container');
+  modalContainer?.addEventListener('click', (e) => {
+    const target = e.target as Element;
+    if (target.id === 'modal-background') closeModal(modalContainer);
+    const closeIcon = target.closest('#modal-close-icon');
+    if (closeIcon) closeModal(modalContainer);
+  });
+}
+
+function closeModal(modalContainer: HTMLElement) {
+  modalContainer.classList.add('out');
+  document.body.classList.remove('modal-active');
+}
+
+function datePickerEvent() {
+  document
+    .querySelectorAll<HTMLElement>('#readOnlyDateInput')
+    .forEach((elem) => {
+      const datepicker = new Datepicker(elem);
+      // elem.addEventListener('click', () => {
+      // const calendarInput = document.querySelector<HTMLInputElement>(
+      //   '#readOnlyCalendarInput'
+      // );
+      // if (!calendarInput) return;
+      // const formattedDate = moment(datepicker.getDate().toString()).format(
+      //   'YYYY-MM-DD a HH:mm:ss'
+      // );
+      // calendarInput.value = formattedDate;
+      // });
+    });
+}
+
+function timePickerGenerate() {
+  function logEvent(log: string) {
+    // console.log(log);
+    // const timeInput =
+    //   document.querySelector<HTMLInputElement>('readOnlyTimeInput');
+    // if (timeInput === null) return;
+    // timeInput.value = log;
+  }
+  const e1TP = new fg.Timepicker({
+    bindContainer: document.getElementById('timePicker'),
+    bindInput: document.getElementById('readOnlyTimeInput'),
+
+    onTimeChange: function () {
+      logEvent('onTimeChange, new time formatted : ' + e1TP.getFormattedTime());
+    },
+    onHourChange: function () {
+      logEvent('onHourChange, new hour : ' + e1TP.getHour().toString());
+    },
+    onMinuteChange: function () {
+      logEvent('onMinuteChange, new minute : ' + e1TP.getMinute().toString());
+    },
+    onShow: function () {
+      logEvent('onShow triggered');
+    },
+  });
+}
+function timePickerEvent() {
+  const timePicker = document.querySelector<HTMLDivElement>('#timePicker');
+  if (timePicker === null) return;
+  document.addEventListener('click', (e) => {
+    const target = e.target as Element;
+    const readOnlyTimeInput = target?.closest('#readOnlyTimeInput');
+    const formInputTime = target?.closest('.form-input-time');
+
+    if (readOnlyTimeInput) {
+      timePickerOpen(timePicker);
+      return;
+    }
+    if (timePicker.classList.contains('show') && formInputTime === null)
+      timePickerClose(timePicker);
+  });
+}
+function timePickerOpen(timePicker: HTMLElement) {
+  timePicker.classList.add('show');
+}
+function timePickerClose(timePicker: HTMLElement) {
+  timePicker.classList.remove('show');
+}
+searchBarEvent();
+dropDownEvent();
+cardReadModalEvent();
+closeModalEvent();
+showMapEvent();
+datePickerEvent();
+timePickerGenerate();
+timePickerEvent();
