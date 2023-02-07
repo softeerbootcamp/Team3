@@ -43,6 +43,7 @@
             </div>
             <div class = "profile-main">
                 <div class = "tabcontent profile" id="sidebar-body">
+                    <h2 style = "margin : 10px 0 35px 29px"><strong>프로필</strong></h2>
                     <div class="sidebar-user-info container-md">
                         <div class="user-profile">
                             <img class="user-profile-img" src="../../assets/Logo/mainLogo.png" alt="User" />
@@ -101,49 +102,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            
-                            <!-- <ul style = "border : 1px solid black" class="user-host-meet-list">
-                            <li class="user-host-meet">
-                                <strong class="user-host-meet-title">강남 농민 백암 순대에서 같이 점심식사를 할 사람을 구하고
-                                있어요</strong>
-                                <div class="user-host-meet-peoples">
-                                <img class="people-icon icon" src="../../assets/Icons/peopleIcon.png" alt="User" />
-                                <span class="user-host-meet-peoples-status">27/68</span>
-                                </div>
-                                <div class="space"></div>
-                                <div class="user-host-meet-status">
-                                <strong class="user-host-meet-status-text">진행 중</strong>
-                                <strong class="user-host-meet-date text-muted">~2.1</strong>
-                                <img class="status-icon" src="../../assets/Icons/inprogressIcon.png" alt="User" />
-                                </div>
-                            </li>
-                            <li class="user-host-meet">
-                                <strong class="user-host-meet-title">양재역에서 축구 할 사람을 구하고 있어요</strong>
-                                <div class="user-host-meet-peoples">
-                                <img class="people-icon icon" src="../../assets/Icons/peopleIcon.png" alt="User" />
-                                <span class="user-host-meet-peoples-status">27/68</span>
-                                </div>
-                                <div class="space"></div>
-                                <div class="user-host-meet-status">
-                                <strong class="user-host-meet-status-text">완료</strong>
-                                <strong class="user-host-meet-date text-muted">~12.1</strong>
-                                <img class="status-icon" src="../../assets/Icons/doneIcon.png" alt="User" />
-                                </div>
-                            </li>
-                            <li class="user-host-meet">
-                                <strong class="user-host-meet-title">양재역에서 축구 할 사람을 구하고 있어요</strong>
-                                <div class="user-host-meet-peoples">
-                                <img class="people-icon icon" src="../../assets/Icons/peopleIcon.png" alt="User" />
-                                <span class="user-host-meet-peoples-status">27/68</span>
-                                </div>
-                                <div class="space"></div>
-                                <div class="user-host-meet-status">
-                                <strong class="user-host-meet-status-text">완료</strong>
-                                <strong class="user-host-meet-date text-muted">~12.1</strong>
-                                <img class="status-icon" src="../../assets/Icons/doneIcon.png" alt="User" />
-                                </div>
-                            </li>
-                        </ul> -->
                     </div>
                     <div class="line"></div>
                         <div class="user-schedule-wrapper">
@@ -189,19 +147,20 @@
             <div class = "tabcontent profile" id="profile-fix">
                 <div class = "profile-userInfo">
                     <h2>
-                        <strong>프로필 관리</strong>
+                        <strong>프로필 편집</strong>
                     </h2>
                 </div>
                 <div class = "profile-fix-main">
                     <div class = "profile-context">
                         <div class = "profile-img-name">
                             <div class = "image-button">
-                                <img class = "profile-fix-image" src = "../../assets/userProfileImg.jpeg" alt = "USER">
+                                <img class = "profile-fix-image" id = "profile-fix-image" src = "../../assets/userProfileImg.jpeg" alt = "USER">
                                 <div class = "image-upload">
-                                    <label for="file-input">
+                                    <input type = "file" id = "file-input" style = "margin : 0 0 0 40px;" onchange="addEventProfileEdit(this)">
+                                    <!-- <label for="file-input">
                                         <img class = "profile-fix-image-button" src = "../../assets/profileEdit.svg">
                                     </label>
-                                    <input style="display:none" id = "file-input" type = "file"/>
+                                    <input style="display:none" id = "file-input" type = "file"/> -->
                                 </div>
                             </div>
                         </div>
@@ -218,7 +177,9 @@
                             <input type = "text" value = "example1@example.com" class = "form-control" readonly>
                         </div>
                         <div class = "profile-textarea" id = "sentence">
-                            <div style = "width : 100px; height : 100px">한 줄 소개</div>
+                            <div style = "width : 100px; height : 100px; align-items: center; display : flex">
+                                한 줄 소개
+                            </div>
                             <input type = "text" value = "hihi" class = "form-control" style = "height : 100px">
                         </div>
                         <div class = "profile-button">
@@ -267,13 +228,16 @@
     </script>
     <!-- profile edit event handler  -->
     <script>
-        function addEventProfileEdit(){
-            const [fixButton] = document.getElementsByClassName('profile-fix-image-button')
-            fixButton.addEventListener('click',(event)=>{
-                console.log(document.getElementById('file-input').files[0]);
-            })
+        function addEventProfileEdit(value){
+            if(value.files && value.files[0]){
+                let reader = new FileReader();
+                reader.onload = function(e){
+                    document.getElementById('profile-fix-image').src = e.target.result
+                    console.log(e.target.result)
+                }
+                reader.readAsDataURL(value.files[0])
+            }
         }
-        addEventProfileEdit()
     </script>
     <!-- logout modal-->
     <script>
@@ -316,4 +280,5 @@
         }
         logoutModalButton();
     </script>
+
 </html>
