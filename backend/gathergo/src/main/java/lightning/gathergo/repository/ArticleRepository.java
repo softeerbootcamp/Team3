@@ -6,7 +6,6 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
@@ -42,13 +41,13 @@ public interface ArticleRepository extends CrudRepository<Article, Long> {
                          int total, boolean isClosed, String content, Timestamp meetingDay, String location, int regionId, int categoryId, String uuid);
 
     @Query(value = "select id from article order by id desc LIMIT 1")
-    Long getLastInsertedId();
+    Integer getLastInsertedId();
 
     @Query("select uuid from article where id = :id")
-    String getUuidById(Long id);
+    String getUuidById(Integer id);
 
     @Query("select * from article where id = :id")
-    Optional<Article> findById(Long id);
+    Optional<Article> findById(Integer id);
 
     @Query("select * from article where uuid = :uuid")
     Optional<Article> findByUuid(String uuid);
