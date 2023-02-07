@@ -1,5 +1,6 @@
 package lightning.gathergo.repository;
 
+import lightning.gathergo.model.Article;
 import lightning.gathergo.model.User;
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
