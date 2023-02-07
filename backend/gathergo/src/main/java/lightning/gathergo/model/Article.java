@@ -22,7 +22,7 @@ public class Article {
 
     // TODO : 주석처리된 객체들이 구현되면 주석 풀고 게터세터 만들기
     @Id
-    private Long id;
+    private Integer id;
     @Column("hostid")
     private Integer hostId;  // TODO: 로그인에 사용하는 userId(String) 를 쓸지 Integer User.id를 사용할지
     private String title;
@@ -46,6 +46,21 @@ public class Article {
         thumbnail = "default";
         isClosed = false;
         curr = 1;
+    }
+
+    public Article( Integer hostId, String title, String thumbnail, int curr, int total, Boolean isClosed, String content, Timestamp meetingDay, String location, int regionId, int categoryId, String uuid) {
+        this.hostId = hostId;
+        this.title = title;
+        this.thumbnail = thumbnail;
+        this.curr = curr;
+        this.total = total;
+        this.isClosed = isClosed;
+        this.content = content;
+        this.meetingDay = meetingDay;
+        this.location = location;
+        this.regionId = regionId;
+        this.categoryId = categoryId;
+        this.uuid = uuid;
     }
 
     public Integer getId() {
@@ -152,4 +167,22 @@ public class Article {
         this.uuid = uuid;
     }
 
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", hostId=" + hostId +
+                ", title='" + title + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
+                ", curr=" + curr +
+                ", total=" + total +
+                ", isClosed=" + isClosed +
+                ", content='" + content + '\'' +
+                ", meetingDay=" + meetingDay +
+                ", location='" + location + '\'' +
+                ", regionId=" + regionId +
+                ", categoryId=" + categoryId +
+                ", uuid='" + uuid + '\'' +
+                '}';
+    }
 }
