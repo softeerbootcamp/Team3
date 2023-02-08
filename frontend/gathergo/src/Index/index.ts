@@ -578,3 +578,5 @@ function keywordEvent() {
   keywordBtn?.addEventListener('click', searchPlaces);
 }
 keywordEvent();
+
+

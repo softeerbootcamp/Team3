@@ -82,12 +82,11 @@ body{
 
 .user-profile {
   background: var(--bs-body-bg);
-  width: 8rem;
+  width: 100%;
   height: 8rem;
   min-width: 20rem;
   border-radius: 50%;
   overflow: hidden;
-  margin : 0 0 40px 240px;
 }
 
 .user-profile-img {
@@ -230,13 +229,13 @@ body{
 }
 
 .search-container-logo{
-    margin-left : 50px;
+    margin-left : 3.5rem;
 }
 
 .mypage{
     display : flex;
     width : 100%;
-    height : 100px;
+    height : 6.25rem;
     justify-content: center;
     align-items: center;
     color : #325d88;
@@ -328,14 +327,19 @@ body{
 
 #profile-fix{
     display : none;
-    margin : 0px 100px 0px 365px;
     flex-direction: column;
+    width : 100%;
+    align-items : center;
+    justify-content: center;
 }
 
 .profile-fix-main{
     display : flex;
     flex-direction: row;
     margin-top : 100px;
+    width : 70%;
+    justify-content: center;
+
 }
 
 .profile-userInfo{
@@ -351,17 +355,14 @@ body{
     align-items: center;
     justify-content: center;
     padding-right : 20px;
-    margin : 0 0 0 150px;
     overflow : hidden;
 }
 
 .profile-context{
     display : flex;
     flex-direction : column;
-    width : 70%;
+    width : 60%;
     height : 100%;
-    margin-right : 100px;
-    margin-left : 10px;
 }
 
 .profile-fix-image{
@@ -389,15 +390,15 @@ body{
 }
 
 .register-button{
-    width : 220px;
-    margin-left : 100px;
-    margin-bottom : 0px;
+    width : 8rem;
+    font-weight : bold;
 }
 
 .image-button{
     display : flex;
     flex-direction : row;
-    width : 100%;
+    justify-content: space-between;
+    width : 64%;
     position : relative;
     align-items : center;
     margin : 0 0 30px 0;
@@ -413,6 +414,8 @@ body{
 .profile-button{
     display : flex;
     flex-direction: row;
+    width : 100%;
+    justify-content: center;
 }
 
 #logout-modal{
@@ -539,3 +542,13 @@ a {
   
   
   }
+
+  .profile-textarea-text{
+    color : #325d88;
+    text-transform : uppercase;
+    letter-spacing : 1px;
+    margin : 0 1rem 0 0;
+    font-size : 18px;
+    font-weight : bold;
+  }
+
