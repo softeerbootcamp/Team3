@@ -65,12 +65,7 @@ public class AuthController {
     public ResponseEntity<?> signUp(@RequestBody SignupDto.SignupInput signupDto) {
         User user = signupDtoMapper.toUser(signupDto);
 
-        try {
-            userService.addUser(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("signUp 실패, {}", e.getMessage());
-        }
+        userService.addUser(user);
 
         HttpHeaders headers= new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
