@@ -22,7 +22,8 @@ public class GathergoApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://");
+				registry.addMapping("/**")
+						.allowedOrigins("*");
 			}
 		};
 	}
