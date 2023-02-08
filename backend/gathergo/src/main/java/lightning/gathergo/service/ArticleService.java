@@ -1,6 +1,7 @@
 package lightning.gathergo.service;
 
 import lightning.gathergo.model.Article;
+import lightning.gathergo.model.Comment;
 import lightning.gathergo.repository.ArticleRepository;
 import lightning.gathergo.repository.UserArticleRelationshipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,14 @@ public class ArticleService {
 
     // TODO hostId가 string 값으로 날라오도록 변경
     private final ArticleRepository articleRepository;
+    private final CommentService commentService;
 
     private final UserArticleRelationshipRepository relationshipRepository;
 
     @Autowired
-    ArticleService(ArticleRepository articleRepository, UserArticleRelationshipRepository relationshipRepository){
+    ArticleService(ArticleRepository articleRepository, CommentService commentService, UserArticleRelationshipRepository relationshipRepository){
         this.articleRepository = articleRepository;
+        this.commentService = commentService;
         this.relationshipRepository = relationshipRepository;
     }
 
