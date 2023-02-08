@@ -1,6 +1,7 @@
 package lightning.gathergo.repository;
 
 import lightning.gathergo.model.Article;
+import lightning.gathergo.model.Comment;
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,7 +17,6 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     // id, hostId, title, thumbnail, curr,
     // total, isClosed, content, meetingDay, location,
     // regionId, categoryId, uuid
-
     @Override
     default <S extends Article> S save(S entity) {
         save(entity.getHostId(),
@@ -77,4 +77,8 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     @Modifying
     @Query("delete from article where id=:id")
     public void deleteById(Integer id);
+
+    // 게시물에 달린 댓글 조회
+    @Query("select * from comment c join article a where a.uuid = :uuid")
+    List<Comment> findCommentsByArticleId(String uuid);
 }
