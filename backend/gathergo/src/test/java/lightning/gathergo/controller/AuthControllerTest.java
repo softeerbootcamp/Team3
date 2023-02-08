@@ -152,6 +152,7 @@ public class AuthControllerTest {
                         .content("hello")
                 )
                 .andExpect(status().isFound())
-                .andExpect(cookie().doesNotExist(SESSION_ID));
+                .andExpect(cookie().exists(SESSION_ID))
+                .andExpect(cookie().value(SESSION_ID, ""));
     }
 }
