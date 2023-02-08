@@ -25,10 +25,9 @@ public class SessionRepository {
         return this.sessions.put(s.getSessionId(), s) == null;
     }
 
-    public void deleteSessionBySid(String sid) {
-        this.sessions.remove(sid);
+    public Session deleteSessionBySid(String sid) {
+        return this.sessions.remove(sid);
     }
-
 
     public Optional<Collection<Session>> getSessions() {
         return Optional.of(this.sessions.values());
