@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.util.Optional;
 
 @Service
 public class CookieService {
@@ -37,7 +38,7 @@ public class CookieService {
     public void createSessionCookie(String name, String value, int cookieExpiration, HttpServletResponse response) {
         Cookie sessionCookie = new Cookie(name, value);
         sessionCookie.setMaxAge(cookieExpiration);
-        sessionCookie.setHttpOnly(true);
+        sessionCookie.setHttpOnly(false);
         sessionCookie.setPath("/");
 
         response.addCookie(sessionCookie);
@@ -82,5 +83,22 @@ public class CookieService {
 
         // SessionRepository에 접근해 expiration 및 세션 정보 일치하는지 확인
         return sessionService.findSessionBySID(foundCookie.getValue().trim()).orElse(null);
+    }
+    /**
+     * Cookie의 세션 정보(sessionId)를 통해, SessionRepository의 세션 정보 삭제
+     *
+     * @param cookies an array of cookies
+     * @return 세션 정보가 존재하지 않으면 Null, 이외에는 이전 Session 반환
+     */
+    public Session invalidateSession(Cookie[] cookies) {
+        Cookie foundCookie = ifValidCookie(cookies, SESSION_ID);
+
+        if (cookies == null) {
+            return null;
+        }
+
+        String sessionId = foundCookie.getValue().trim();
+
+        return sessionService.deleteSession(sessionId);
     }
 }
