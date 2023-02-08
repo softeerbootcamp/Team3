@@ -14,11 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
@@ -31,15 +29,17 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final SignupDtoMapper signupDtoMapper;
+    private final CookieService cookieService;
 
     private int cookieExpiration = 3600;
 
     @Autowired
-    public AuthController(SessionService sessionService, PasswordEncoder passwordEncoder, UserService userService, SignupDtoMapper signupDtoMapper) {
+    public AuthController(SessionService sessionService, PasswordEncoder passwordEncoder, UserService userService, SignupDtoMapper signupDtoMapper, CookieService cookieService) {
         this.sessionService = sessionService;
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
         this.signupDtoMapper = signupDtoMapper;
+        this.cookieService = cookieService;
     }
 
     @PostMapping("/login")
@@ -57,7 +57,6 @@ public class AuthController {
 
         cookieService.createSessionCookie(CookieService.SESSION_ID, session.getSessionId(), response);
 
-        // TODO: SessionDto, SessionMapper 만들기
         return new ResponseEntity<>(new LoginDto.LoginSuccessfulResponse("로그인 성공", session, "/"), headers, HttpStatus.OK);
     }
 
@@ -74,6 +73,16 @@ public class AuthController {
         return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "회원가입 성공", "/login"), headers, HttpStatus.FOUND);
     }
 
+    @DeleteMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+        cookieService.invalidateSession(request.getCookies(), response);
+
+        HttpHeaders headers= new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
+        // headers.add("Location", request.getHeader("Referer"));
+
+        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "로그아웃 성공", "/"), headers, HttpStatus.FOUND);
+    }
 
         @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> methodValidException(MethodArgumentNotValidException e) {
