@@ -90,15 +90,19 @@ public class CookieService {
      * @param cookies an array of cookies
      * @return 세션 정보가 존재하지 않으면 Null, 이외에는 이전 Session 반환
      */
-    public Session invalidateSession(Cookie[] cookies) {
-        Cookie foundCookie = ifValidCookie(cookies, SESSION_ID);
-
+    public Session invalidateSession(Cookie[] cookies, HttpServletResponse response) {
         if (cookies == null) {
             return null;
         }
 
+        Cookie foundCookie = ifValidCookie(cookies, SESSION_ID);
+        if (foundCookie.equals(nullCookie)) {
+            return null;
+        }
         String sessionId = foundCookie.getValue().trim();
-
+        foundCookie.setMaxAge(0);
+        foundCookie.setValue("");
+        response.addCookie(foundCookie);
         return sessionService.deleteSession(sessionId);
     }
 }
