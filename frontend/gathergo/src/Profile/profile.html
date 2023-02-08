@@ -43,7 +43,7 @@
             </div>
             <div class = "profile-main">
                 <div class = "tabcontent profile" id="sidebar-body">
-                    <h2 style = "margin : 10px 0 35px 29px"><strong>프로필</strong></h2>
+                    <h2 style = "margin : 1rem 0 2rem 2.8rem"><strong>프로필</strong></h2>
                     <div class="sidebar-user-info container-md">
                         <div class="user-profile">
                             <img class="user-profile-img" src="../../assets/Logo/mainLogo.png" alt="User" />
@@ -70,7 +70,7 @@
                     </div>
                     <div class="line"></div>
                         <div class="user-host-meet-list">
-                            <h3 style = "padding : 15px 0 0 0"><strong>내가 호스트한 만남</strong></h3>
+                            <h3 style = "padding : 1rem 0 0 0"><strong>내가 호스트한 만남</strong></h3>
                             <table>
                                 <thead>
                                     <tr>
@@ -105,7 +105,7 @@
                     </div>
                     <div class="line"></div>
                         <div class="user-schedule-wrapper">
-                            <h3 style = "padding-top : 25px; padding-bottom : 25px"><strong>만남 스케쥴</strong></h3>
+                            <h3 style = "padding-top : 1.5rem; padding-bottom : 1.5rem"><strong>만남 스케쥴</strong></h3>
                             <ul class="user-schedule-list">
                             <li class="user-schedule">
                                 <div class="schedule-time-badge badge bg-light">
@@ -156,7 +156,7 @@
                             <div class = "image-button">
                                 <img class = "profile-fix-image" id = "profile-fix-image" src = "../../assets/userProfileImg.jpeg" alt = "USER">
                                 <div class = "image-upload">
-                                    <input type = "file" id = "file-input" style = "margin : 0 0 0 40px;" onchange="addEventProfileEdit(this)">
+                                    <input type = "file" id = "file-input" style = "margin : 0 0 0 2.5rem;" onchange="addEventProfileEdit(this)">
                                     <!-- <label for="file-input">
                                         <img class = "profile-fix-image-button" src = "../../assets/profileEdit.svg">
                                     </label>
@@ -165,29 +165,30 @@
                             </div>
                         </div>
                         <div class = "profile-textarea" id = "name">
-                            <div style = "width : 100px">이름</div>
+                            <div class = "profile-textarea-text" style = "width : 6.25rem">이름</div>
                             <input type = "text" value = "이용자" class = "form-control" readonly>
                         </div>
                         <div class = "profile-textarea" id = "nickname">
-                            <div style = "width : 100px">닉네임</div>
+                            <div class = "profile-textarea-text" style = "width : 6.25rem">닉네임</div>
                             <input type = "text" value = "UserUser1" class = "form-control">
                         </div>
                         <div class = "profile-textarea" id = "email">
-                            <div style = "width : 100px">이메일</div>
+                            <div class = "profile-textarea-text" style = "width : 6.25rem">이메일</div>
                             <input type = "text" value = "example1@example.com" class = "form-control" readonly>
                         </div>
                         <div class = "profile-textarea" id = "sentence">
-                            <div style = "width : 100px; height : 100px; align-items: center; display : flex">
+                            <div class = "profile-textarea-text" style = "width : 6.25rem; height : 6.25rem;">
                                 한 줄 소개
                             </div>
-                            <input type = "text" value = "hihi" class = "form-control" style = "height : 100px">
+                            <textarea onkeydown="resize()" onkeyup="resize()" value = "hihi" class = "form-control" style = "height : 6.25rem"></textarea>
                         </div>
                         <div class = "profile-button">
                             <button type = "button" class = "btn btn-primary register-button">
-                                <h4>변경내용 저장</h4>
+                                변경내용 저장
                             </button>
+                            <div style = "width : 5%"></div>
                             <button type = "button" id = "profileCancelButton" class = "btn btn-outline-danger register-button">
-                                <h4>취소</h4>
+                                취소
                             </button>
                         </div>
                     </div>
@@ -195,11 +196,11 @@
             </div>
             <div id = "logout-modal">
                 <div class = "modal-content">
-                    <h4 style = "margin-top : 35px">
+                    <h4 style = "margin-top : 2rem">
                         <strong>로그아웃 하시겠습니까?</strong></h4> 
                     <div class = "modal-button">
                         <button type="button" class="btn btn-warning" id = "button-logout">로그아웃</button>
-                        <div style="width : 40px"></div>
+                        <div style="width : 2.5rem"></div>
                         <button type="button" class="btn btn-outline-danger" id = "button-cancel">취소</button>
                     </div>   
                 </div>
@@ -280,5 +281,12 @@
         }
         logoutModalButton();
     </script>
-
+    <!-- textarea 설정 -->
+    <script>
+        function resize(){
+            const textarea = document.getElementById('profile-edit-textarea')
+            textarea.style.height = "1px";
+            textarea.style.height = (12+textarea.scrollHeight)+"px";
+        }
+    </script>
 </html>
