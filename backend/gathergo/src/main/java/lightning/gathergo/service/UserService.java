@@ -1,5 +1,6 @@
 package lightning.gathergo.service;
 
+import lightning.gathergo.dto.LoginDto;
 import lightning.gathergo.model.User;
 import lightning.gathergo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +50,14 @@ public class UserService {
 
     public void deleteUserByUserId(String userId) {
         userRepository.deleteUserByUserId(userId);
+    }
+
+    public User loginUser(LoginDto.LoginInput loginDto) {
+        Optional<User> user = findUserByUserId(loginDto.getUserId());
+
+        if(user.isEmpty() || !passwordEncoder.matches(loginDto.getPassword(), user.get().getPassword()))
+            return null;
+
+        return user.get();
     }
 }
