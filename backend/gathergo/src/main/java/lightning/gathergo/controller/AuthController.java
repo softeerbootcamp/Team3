@@ -71,7 +71,7 @@ public class AuthController {
         headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
         headers.add("Location", "/login");
 
-        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "회원가입 성공", "/login"), headers, HttpStatus.OK);
+        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "회원가입 성공", "/login"), headers, HttpStatus.FOUND);
     }
 
 
