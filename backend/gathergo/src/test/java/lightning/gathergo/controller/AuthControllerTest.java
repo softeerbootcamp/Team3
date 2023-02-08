@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lightning.gathergo.dto.SignupDto;
 import lightning.gathergo.model.Session;
 import lightning.gathergo.model.User;
+import lightning.gathergo.repository.SessionRepository;
 import lightning.gathergo.service.CookieService;
 import lightning.gathergo.service.SessionService;
 import lightning.gathergo.service.UserService;
@@ -46,19 +47,22 @@ public class AuthControllerTest {
 
     private final SessionService sessionService;
 
+    private final SessionRepository sessionRepository;
+
     private final CookieService cookieService;
 
     private static String DUMMY_UUID = "705c5b09-bc17-463a-a560-e07e0ac20b23";
 
     @Autowired
-    public AuthControllerTest(UserService userService, SessionService sessionService, CookieService cookieService) {
+    public AuthControllerTest(UserService userService, SessionService sessionService, SessionRepository sessionRepository, CookieService cookieService) {
         this.userService = userService;
         this.sessionService = sessionService;
+        this.sessionRepository = sessionRepository;
         this.cookieService = cookieService;
     }
 
     @Test
-    @DisplayName("로그인시 Session 정보 json으로 발급 확인")
+    @DisplayName("로그인 시 Session 정보 json으로 발급 확인")
     public void login() throws Exception {
         // given
         User user = new User(DUMMY_UUID, "asdf", "gildong", "12345678", "asdf@gmail.com", "", "");
@@ -73,9 +77,28 @@ public class AuthControllerTest {
                                 "}")
                 ).andDo(print())
         // then
-                .andExpect(status().isOk())
                 .andExpect(content().string(containsString("sessionId")))  // 세션 발급
                 .andExpect(content().string(containsString("asdf"))); // userId, userName 반환
+    }
+
+    @Test
+    @DisplayName("로그인 시 Session 정보 생성 확인")
+    public void loginWithSessionCheck() throws Exception {
+        // given
+        User user = new User(DUMMY_UUID, "asdf", "gildong", "12345678", "asdf@gmail.com", "", "");
+        userService.addUser(user);
+
+        // when
+        this.mockMvc.perform(post("/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\n" +
+                                "\"userId\": \"asdf\",\n" +
+                                "\"password\": \"12345678\"\n" +
+                                "}")
+                ).andDo(print());
+
+        assertThat(sessionRepository.getSessions().get().stream().anyMatch(s -> s.getUserId().equals("asdf"))).isTrue();
+                // then
     }
 
     @Test
