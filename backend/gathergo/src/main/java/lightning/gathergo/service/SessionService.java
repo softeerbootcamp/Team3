@@ -31,6 +31,10 @@ public class SessionService {
         return s;
     }
 
+    public Session deleteSession(String sid) {
+        return sessionRepository.deleteSessionBySid(sid);
+    }
+
     public Optional<Session> findSessionBySID(String sid) {
         return sessionRepository.findSessionBySid(sid);
     }
