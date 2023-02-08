@@ -7,6 +7,12 @@ $color__bg: $sub-color;
 $color__sidebar: $white;
 $color__toggle: $sub-color;
 
+@mixin flex-center(){
+    display : flex;
+    text-align : center;
+    justify-content: center;
+    align-items : center;
+}
 // SIZES
 $width__sidebar: 100%;
 
@@ -15,7 +21,7 @@ $width__sidebar: 100%;
     background-color: white;
     height : 100%;
     z-index : 1;
-    width : 15%;
+    width : 20%;
     border-radius : 10px;
     box-shadow : 5px 5px 5px 5px gray;
 
@@ -41,10 +47,14 @@ $width__sidebar: 100%;
 }
 
 .notice-sidebar-title{
-    display : flex;
-    text-align : center;
-    justify-content: center;
-    align-items : center;
+    @include flex-center();
     width : 100%;
     height : 10%;
+}
+
+.notice-sidebar-main{
+    @include flex-center();
+    flex-direction: column;
+    width : 100%;
+    margin : 3px 0 3px 0;
 }
