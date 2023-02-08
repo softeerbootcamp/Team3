@@ -3,6 +3,7 @@ package lightning.gathergo.service;
 import lightning.gathergo.model.User;
 import lightning.gathergo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,8 +27,12 @@ public class UserService {
     public void addUser(User user) {
         user.setUuid(String.valueOf(UUID.randomUUID()));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        // userRepository.save(user);
-        userRepository.save(user.getUuid(), user.getUserId(), user.getUserName(), user.getPassword(), user.getEmail(), "", "");
+        try {
+            userRepository.save(user);
+        } catch (Exception e) {
+            // TODO: Exception 타입에 따라 달리 처리
+            throw new DuplicateKeyException(e.getMessage());
+        }
     }
 
     public User save(User user) {
