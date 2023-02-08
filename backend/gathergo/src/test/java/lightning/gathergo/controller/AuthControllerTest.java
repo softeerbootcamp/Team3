@@ -25,6 +25,7 @@ import javax.servlet.http.Cookie;
 import static lightning.gathergo.service.CookieService.SESSION_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -92,7 +93,7 @@ public class AuthControllerTest {
                         .content(jsonInput)
                 ).andDo(print())
                 // then
-                .andExpect(status().isOk())
+                .andExpect(status().isFound())
                 .andExpect(header().string("Location", "/login"));  // 리다이렉트
 
     }
@@ -129,5 +130,28 @@ public class AuthControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("write test api")));
+    }
+
+    @Test
+    @DisplayName("로그아웃 테스트")
+    public void logout() throws Exception {
+        MockHttpServletResponse response = new MockHttpServletResponse();
+
+        // given
+        Session createdSession = sessionService.createSession("asdf", "gildong");  // 세션 생성
+
+        cookieService.createSessionCookie(SESSION_ID, createdSession.getSessionId(), 3600, response); // 쿠키 생성
+        // when
+        Cookie foundCookie = response.getCookie(SESSION_ID);
+
+        // then
+        assert foundCookie != null;
+
+        this.mockMvc.perform(delete("/logout").cookie(foundCookie)
+                        .contentType(MediaType.TEXT_PLAIN)
+                        .content("hello")
+                )
+                .andExpect(status().isFound())
+                .andExpect(cookie().doesNotExist(SESSION_ID));
     }
 }
