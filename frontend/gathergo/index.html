@@ -9,11 +9,12 @@
   <link rel="stylesheet" href="./src/index/index.css" />
   <link rel="stylesheet" href="./src/index/modal.css" />
   <link rel="stylesheet" href="./src/index/feedRead.css" />
+  <link rel="stylesheet" href="./src/index/notice.css" />
   <title>GatherGo</title>
   <!-- <script
     src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=nmYxxClKN26qrAfnVO4aQ48PaUES6usl4eylCC3x"></script> -->
   <!-- <script type="module" src="./src/index/index.js"></script> -->
-  <script defer type="module" src="./src/index/index.ts"></script>
+  <script defer type="module" src="./src/Index/index.ts"></script>
 </head>
 
 <body>
@@ -32,7 +33,7 @@
             </li>
             <li class="nav-item divider"></li>
             <li class="nav-item">
-              <a class="nav-link" href="" data-hover="알람">
+              <a class="nav-link" data-hover="알람" id = "alarm-button">
                 <span>알람</span>
               </a>
               <span class="dot unread"></span>
@@ -577,9 +578,33 @@
       </div>
     </div>
   </div>
-
+  <div class = "notice-background">
+    <div class="notice-sidebar">
+      <div class = "notice-sidebar-title"><h4><strong>알림</strong></h4></div>
+    </div>
+  </div>
   <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e025d257c750a5635c774ac925157964&libraries=services"></script>
+  <script>
+    function noticeSidebar(){
+      const toggleBtn = document.querySelector('#alarm-button');
+      const sidebar = document.querySelector('.notice-sidebar')
+      const sidebarBackground = document.querySelector('.notice-background');
+
+      toggleBtn.setAttribute('style','cursor : pointer');
+
+      toggleBtn.addEventListener('click', function () {
+        sidebarBackground.classList.toggle('is-closed');
+      });
+      sidebarBackground.addEventListener('click',(e)=>{
+        if(e.target != sidebar){
+          e.stopPropagation();
+          sidebarBackground.classList.toggle('is-closed');
+        }
+      })
+    }
+    noticeSidebar()
+  </script>
 </body>
 
 </html>
