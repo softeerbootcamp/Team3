@@ -44,13 +44,12 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDto.LoginInput loginDto, HttpServletResponse response, CookieService cookieService) {
-        Optional<User> user = userService.findUserByUserId(loginDto.getUserId());
+        User loginUser = userService.loginUser(loginDto);
 
-        if (user.isEmpty() || !passwordEncoder.matches(loginDto.getPassword(), user.get().getPassword())) {
-            return new ResponseEntity<>(new LoginDto.LoginFailedResponse("ID나 비밀번호가 일치하지 않습니다", ""), HttpStatus.UNAUTHORIZED);
-        }
+        if(loginUser == null)
+            new ResponseEntity<>(new LoginDto.LoginFailedResponse("ID나 비밀번호가 일치하지 않습니다", ""), HttpStatus.UNAUTHORIZED);
 
-        Session session = sessionService.createSession(user.get().getUserId(), user.get().getUserName());
+        Session session = sessionService.createSession(loginUser.getUserId(), loginUser.getUserName());
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
