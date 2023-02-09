@@ -1,8 +1,10 @@
 // import {store} from '../store/store';
 
+import { $ } from '../../common/utils/querySelctor';
 import DropdownCategory from '../dropdown/DropdownCategory';
 import DropdownRegion from '../dropdown/DropdownRegion';
 import HeaderNav from './HeaderNav';
+import HeaderSearchSticky from './HeaderSearchSticky';
 
 // import { $ } from '../common/utils/querySelctor';
 class HeaderHome {
@@ -33,12 +35,6 @@ class HeaderHome {
         </form>
       </ul>
     </nav>
-    <div class="search-container">
-      <img class="search-container-logo" src="./assets/Logo/LogoIconChar-theme.svg" alt="">
-      <div class="navbar-divider"></div>
-      <input type="text" class="search-input" placeholder="Search">
-      <button type="button" class="btn btn-outline-primary">Search</button>
-    </div>
     `;
     // this.element.addEventListener('click', (e) => {
     //   console.log('lj');
@@ -64,6 +60,10 @@ class HeaderHome {
     const dropDownCategoryLI = this.element.querySelector('#dropdown-category');
     dropDownCategoryLI?.appendChild(dropDownCategory.toggleElement);
     dropDownCategoryLI?.appendChild(dropDownCategory.itemsElemnt);
+
+    const searchSticky = new HeaderSearchSticky();
+    searchSticky.searchBarEvent(this.element.querySelector('.header'));
+    this.element.appendChild(searchSticky.element);
   }
 }
 
