@@ -1,6 +1,5 @@
 // import {store} from '../store/store';
 
-import { $ } from '../../common/utils/querySelctor';
 import DropdownCategory from '../dropdown/DropdownCategory';
 import DropdownRegion from '../dropdown/DropdownRegion';
 import HeaderNav from './HeaderNav';

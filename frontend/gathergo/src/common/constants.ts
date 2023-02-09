@@ -12,10 +12,44 @@ const routes = [
   { path: /^\/post$/, element: Post },
 ];
 
-type dropDownType = {
+type DropDownType = {
   [key: number]: string;
 };
-const regionSi: dropDownType = {
+
+type Tcard = {
+  id: string;
+  title: string;
+  curr: number;
+  total: number;
+  isClosed: boolean;
+  categoryId: number;
+  regionId: number;
+  meetingDay: Date;
+};
+type TcardDetail =
+  | (Tcard & {
+      hostId: string;
+      hostDesc: string;
+      content: string;
+      location: string;
+      locationDetail: string;
+      //   comments: Tcomment[];
+    })
+  | null;
+type Tcomment = {
+  uuid: string;
+  userId: string;
+  content: string;
+  date: string;
+};
+
+type TinitialState = {
+  cards: Tcard[];
+  readingCard: TcardDetail;
+  comments: Tcomment[];
+};
+
+const regionSi: DropDownType = {
   1: '서울특별시',
   2: '부산광역시',
   3: '대구광역시',
@@ -35,7 +69,7 @@ const regionSi: dropDownType = {
   17: '제주특별자치도',
   //   0: '지역을 선택하세요',
 };
-const category: dropDownType = {
+const category: DropDownType = {
   1: '아웃도어 / 여행',
   2: '운동 / 스포츠',
   3: '인문학 / 책/ 글',
@@ -58,4 +92,13 @@ const category: dropDownType = {
   //   0: '카테고리를 선택하세요',
 };
 
-export { BASE_URL, routes, regionSi, category };
+export {
+  BASE_URL,
+  routes,
+  regionSi,
+  category,
+  Tcard,
+  TcardDetail,
+  Tcomment,
+  TinitialState,
+};

@@ -1,5 +1,3 @@
-import { $ } from '../../common/utils/querySelctor';
-
 class HeaderSearchSticky {
   element: HTMLDivElement;
   constructor() {
@@ -14,13 +12,11 @@ class HeaderSearchSticky {
       <input type="text" class="search-input" placeholder="Search">
       <button type="button" class="btn btn-outline-primary">Search</button>
         `;
-    // this.searchBarEvent();
   }
   //header search바 event
   searchBarEvent(headerelement: HTMLElement | null) {
     const searchContainer = this.element;
     window.onscroll = function () {
-      //   const header = document.querySelector<HTMLDivElement>('.header');
       if (
         headerelement != null &&
         headerelement.getBoundingClientRect().bottom <= 0
