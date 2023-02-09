@@ -59,6 +59,7 @@
 }
 
 .loginCheck-modal, .joinCheck-modal, .gatheringEdit-modal, .gatheringDelete-modal, .commentDelete-modal {
+    
   overflow: hidden;
   background-color: white;
   padding: 40px 30px 30px 30px;
@@ -104,16 +105,16 @@
   -moz-animation: wawes 7s infinite;
   animation: wawes 7s infinite;
 }
-.loginCheck-modal > input, .joinCheck-modal > input, .gatheringEdit-modal > input, .gatheringDelete-modal > input, .commentDelete-modal > input {
+.loginCheck-modal > div, .joinCheck-modal > div, .gatheringEdit-modal > div, .gatheringDelete-modal > div, .commentDelete-modal > div {
   font-family: "Asap", sans-serif;
   display: block;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 25px;
+  font-weight : 600;
   background: transparent;
   width: 100%;
   border: 0;
   padding: 10px 10px;
-  margin: 15px -10px;
 }
 .loginCheck-modal > div > button, .joinCheck-modal > div >  button, .gatheringEdit-modal > div > button, .gatheringDelete-modal > div > button, .commentDelete-modal> div  > button {
   font-family: "Asap", sans-serif;
@@ -127,13 +128,13 @@
   margin-top: 10px;
   margin-left: -5px;
   border-radius: 5px;
-  background-color: #f45b69;
+  background-color: #29abe0;
   -webkit-transition: background-color 300ms;
   -moz-transition: background-color 300ms;
   transition: background-color 300ms;
 }
-.loginCheck-modal > button:hover, .joinCheck-modal > button:hover, .gatheringEdit-modal > button:hover, .gatheringDelete-modal > button:hover, .commentDelete-modal > button:hover {
-  background-color: #f24353;
+.loginCheck-modal > div > button:hover, .joinCheck-modal > div > button:hover, .gatheringEdit-modal > div > button:hover, .gatheringDelete-modal > div >button:hover, .commentDelete-modal > div >button:hover {
+  background-color: #325d88;
 }
 
 @-webkit-keyframes wawes {
@@ -167,12 +168,4 @@
     -o-transform: rotate(360deg);
     transform: rotate(360deg);
   }
-}
-a {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.6);
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  font-size: 12px;
 }
