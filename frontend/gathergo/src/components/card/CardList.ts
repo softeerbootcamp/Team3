@@ -1,5 +1,5 @@
 import Card from './Card';
-
+import store from '../../store/store';
 class CardList {
   element: HTMLDivElement;
   constructor() {
@@ -12,13 +12,20 @@ class CardList {
     this.generateCards();
   }
   generateCards() {
-    //TODO: state.getState();
-    //cardDataList : cardData[]
-    //cardData : { id: string, hostid: string, title: stirng ~~~~}
-    //cardDataList.foreach((cardData)=>{new Card(cardData); this.element.appendChaild(card.element)})
-    const card = new Card(null);
-    this.element.appendChild(card.element);
-    this.element.appendChild(card.element);
+    // type cardDataHome = {
+    //     id: string;
+    //     categoryId: number,
+    //     regionId: number,
+    //     title: string,
+    //     curr: number,
+    //     total: number,
+    //     meetingDay: number,
+    // }
+    const state = store.getState();
+    state.cards.forEach((cardData) => {
+      const card = new Card(cardData);
+      this.element.appendChild(card.element);
+    });
   }
 }
 export default CardList;
