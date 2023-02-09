@@ -20,7 +20,6 @@ public class ArticleDto {
         private String uuid;
         private Long hostId;
         private String title;
-        private String thumbnail;
         private int curr; // 추후에 int를 Integer로 바꾸기!!!!!
         private int total;
         private Boolean isClosed;
@@ -46,14 +45,6 @@ public class ArticleDto {
 
         public void setTitle(String title) {
             this.title = title;
-        }
-
-        public String getThumbnail() {
-            return thumbnail;
-        }
-
-        public void setThumbnail(String thumbnail) {
-            this.thumbnail = thumbnail;
         }
 
         public int getCurr() {
