@@ -619,36 +619,7 @@
     </script>
     <!-- 삭제버튼 -->
     <script>
-    function modalRightClick(){
-      HTMLCollection.prototype.forEach = Array.prototype.forEach
-      const modalRegister = document.getElementsByClassName('feed-comment');
-      modalRegister.forEach(element => {
-        element.addEventListener('contextmenu',(e)=>{
-
-          e.preventDefault();
-          removeAllcontextmenu();
-          const x = e.clientX + 'px';
-          const y = e.clientY + 'px';
-          let div = document.createElement('div')
-          div.classList.add('comment-delete')
-          div.innerHTML = `<button class="custom-btn btn-1">삭제하기</button>`
-          div.style.position = "fixed";
-          div.style.left = `${x}`; 
-          div.style.top = `${y}`;
-          document.getElementById('modal-container').appendChild(div)
-        })
-      });
-    }
-    function removeAllcontextmenu(){
-        const contextmenuList = document.getElementsByClassName('comment-delete')
-        contextmenuList.forEach((element)=>{
-          element.remove()
-        })
-    }
-    window.addEventListener('click',(e)=>{
-      removeAllcontextmenu();
-    })
-    modalRightClick();
+    
   </script>
 </body>
 
