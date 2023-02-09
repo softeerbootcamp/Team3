@@ -10,11 +10,15 @@
   <link rel="stylesheet" href="./src/index/modal.css" />
   <link rel="stylesheet" href="./src/index/feedRead.css" />
   <link rel="stylesheet" href="./src/index/notice.css" />
+  <link rel="stylesheet" href="./checkmodal/checkmodal.css" />
+
   <title>GatherGo</title>
   <!-- <script
     src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=nmYxxClKN26qrAfnVO4aQ48PaUES6usl4eylCC3x"></script> -->
   <!-- <script type="module" src="./src/index/index.js"></script> -->
   <script defer type="module" src="./src/Index/index.ts"></script>
+  <script defer type="module" src="./checkmodal/checkmodal.ts"></script>
+
 </head>
 
 <body>
@@ -467,8 +471,7 @@
                     <span class="peoples-status">27/68</span>
                   </div>
                 </div>
-                <button type="button" class="feed-info btn btn-primary btn-lg "><strong>참가하기</strong></button>
-
+                <button type="button" class="feed-info btn btn-primary btn-lg"><strong>참가하기</strong></button>
               </div>
 
             </div>
@@ -578,17 +581,22 @@
       </div>
     </div>
   </div>
-  <div class = "notice-background">
-    <div class="notice-sidebar">
-      <div class = "notice-sidebar-title"><h4><strong>알림</strong></h4></div>
-      <div class = "notice-sidebar-main">
-        <strong>제목#1</strong>에 참가하였습니다.
-        <strong>제목#1</strong>에 참가를 취소하였습니다.
+  
+  <div class = "notice-container">
+    <div class = "notice-background">
+      <div class="notice-sidebar">
+        <div class = "notice-sidebar-title"><h4><strong>알림</strong></h4></div>
+        <div class = "notice-sidebar-main">
+          <strong>제목#1</strong>에 참가하였습니다.
+          <strong>제목#1</strong>에 참가를 취소하였습니다.
+        </div>
       </div>
     </div>
   </div>
   <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e025d257c750a5635c774ac925157964&libraries=services"></script>
+
+    <!-- 사이드바 -->
   <script>
     function noticeSidebar(){
       const toggleBtn = document.querySelector('#alarm-button');
@@ -608,6 +616,10 @@
       })
     }
     noticeSidebar()
+    </script>
+    <!-- 삭제버튼 -->
+    <script>
+    
   </script>
 </body>
 
