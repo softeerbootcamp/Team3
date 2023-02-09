@@ -41,8 +41,8 @@ function reducer(state = initialState, action: action) {
         대할 때는 상대방의 이야기를 잘 들으려고 항상 노력하였습니다. 그래서
         친구들 사이에서 저는 고민상담사로 통합니다.`,
         content: '나랑 밥먹을래 사귈래',
-        location: '서울 강남구 강남대로62길 23',
-        locationDetail: '4층 코드스쿼드',
+        location: '대전시 유성구 계룡로 92',
+        locationDetail: '101-1501호',
         // comments: [],
       };
       return { ...state };
