@@ -1,4 +1,5 @@
 import { category, regionSi, TcardDetail } from '../../common/constants';
+import formMapGenerator from '../../common/kakaoMapAPI/kakaoMapAPI';
 import store from '../../store/store';
 import CommentInput from '../comment/commentInput';
 import CommentList from '../comment/commentList';
@@ -30,16 +31,7 @@ class CardModal {
     feedWrapper.innerHTML += this.setFeedRightElement();
 
     modalEle?.appendChild(feedWrapper);
-
-    // const commentList = new CommentList();
-    // const commentContainer = this.element.querySelector(
-    //   '.feed-main-contenter-scrollable'
-    // );
-    // commentContainer?.appendChild(commentList.element);
-
-    // const commentInput = new CommentInput();
-    // // const commentContainer = this.element.querySelector('.feed-main-content-scrollable');
-    // commentContainer?.insertAdjacentElement('beforeend', commentInput.element);
+    formMapGenerator(this.readingCard?.location);
   }
   setDefaultModalElement() {
     const modalContainer = document.createElement('div');
