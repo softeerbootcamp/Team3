@@ -2,10 +2,13 @@ package lightning.gathergo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lightning.gathergo.model.Comment;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArticleDto {
 
@@ -27,7 +30,7 @@ public class ArticleDto {
         private String location;
         private int regionId;
         private int categoryId;
-        //private List<Comment> comments;
+        private List<CommentDto.Response> comments = new ArrayList<>();
 
         public Long getHostId() {
             return hostId;
@@ -124,6 +127,14 @@ public class ArticleDto {
         public void setUuid(String uuid) {
             this.uuid = uuid;
         }
+
+        public List<CommentDto.Response> getComments() {
+            return comments;
+        }
+
+        public void setComments(List<CommentDto.Response> comments) {
+            this.comments = comments;
+        }
     }
 
     public static class CreateRequest{
@@ -148,8 +159,6 @@ public class ArticleDto {
             this.content = content;
             this.meetingDay = meetingDay;
         }
-
-        //private List<Comment> comments;
 
         public Long getHostId() {
             return hostId;
@@ -217,7 +226,6 @@ public class ArticleDto {
     }
 
     public static class UpdateRequest{
-        private String uuid;
         private String title;
         private int categoryId;
         private String location;
@@ -228,14 +236,6 @@ public class ArticleDto {
         private Timestamp meetingDay;
         private String content;
         //private List<Comment> comments;
-
-        public String getUuid() {
-            return uuid;
-        }
-
-        public void setUuid(String uuid) {
-            this.uuid = uuid;
-        }
 
         public String getTitle() {
             return title;
@@ -295,16 +295,7 @@ public class ArticleDto {
     }
 
     public static class CloseRequest{
-        String uuid;
         Boolean isClosed = true;
-
-        public String getUuid() {
-            return uuid;
-        }
-
-        public void setUuid(String uuid) {
-            this.uuid = uuid;
-        }
 
         public Boolean getClosed() {
             return isClosed;

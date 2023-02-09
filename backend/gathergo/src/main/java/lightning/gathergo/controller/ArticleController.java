@@ -1,8 +1,11 @@
 package lightning.gathergo.controller;
 
 import lightning.gathergo.dto.ArticleDto;
+import lightning.gathergo.dto.CommentDto;
 import lightning.gathergo.mapper.ArticleMapper;
+import lightning.gathergo.mapper.CommentMapper;
 import lightning.gathergo.model.Article;
+import lightning.gathergo.model.Comment;
 import lightning.gathergo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,11 +22,13 @@ import java.util.*;
 public class ArticleController {
     private final ArticleService articleService;
     private final ArticleMapper articleMapper;
+    private final CommentMapper commentMapper;
 
     @Autowired
-    ArticleController(ArticleService articleService, ArticleMapper articleMapper) {
+    ArticleController(ArticleService articleService, ArticleMapper articleMapper, CommentMapper commentMapper) {
         this.articleService = articleService;
         this.articleMapper = articleMapper;
+        this.commentMapper = commentMapper;
     }
 
     @GetMapping
@@ -60,30 +65,73 @@ public class ArticleController {
 
     @GetMapping("/{articleUuid}")
     ResponseEntity<ArticleDto.Response> getArticle(@PathVariable String articleUuid){
+        // 게시물 디비에서 얻어오기
         Article article = articleService.getArticleByUuid(articleUuid);
-        return new ResponseEntity<ArticleDto.Response>(articleMapper.toArticleResponse(article), HttpStatus.FOUND);
+        ArticleDto.Response result = articleMapper.toArticleResponse(article);
+        // 게시물에 달린 댓글 디비에서 얻어오기
+        result.setComments(commentMapper.toCommentResponseList(articleService.getCommentsByUuid(articleUuid)));
+        return new ResponseEntity<ArticleDto.Response>(result, HttpStatus.FOUND);
     }
 
     @PutMapping("/{articleUuid}")
     ResponseEntity<ArticleDto.Response> updateArticle(@PathVariable String articleUuid, @RequestBody ArticleDto.UpdateRequest request){
         Article replacement = articleMapper.toArticle(request);
         Article replaced = articleService.updateArticle(articleUuid, replacement);
+        ArticleDto.Response result = articleMapper.toArticleResponse(replaced);
+
+        // 게시물에 달린 댓글 디비에서 얻어오기
+        result.setComments(commentMapper.toCommentResponseList(articleService.getCommentsByUuid(articleUuid)));
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "/api/articles/"+articleUuid);
 
         return ResponseEntity.ok()
-                .headers(headers)
-                .body(articleMapper.toArticleResponse(replaced));
+                .body(result);
     }
 
     @PutMapping("/{articleUuid}/close")
     ResponseEntity<ArticleDto.Response> closeArticle(@PathVariable String articleUuid){
         Article closed = articleService.setClosed(articleUuid);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "index.html");
 
         return ResponseEntity.ok()
-                .headers(headers)
                 .body(articleMapper.toArticleResponse(closed));
+    }
+
+    // 댓글 생성
+    @PostMapping("/{articleUuid}/comments/{commentUuid}")
+    ResponseEntity<ArticleDto.Response> addComment(@PathVariable("articleUuid") String articleUuid, @RequestBody CommentDto.CreateRequest request){
+        Comment comment = commentMapper.toComment(request);
+        articleService.addComment(comment);
+
+        ArticleDto.Response result = articleMapper.toArticleResponse(articleService.getArticleByUuid(articleUuid));
+        result.setComments(commentMapper.toCommentResponseList(articleService.getCommentsByUuid(articleUuid)));
+
+        return ResponseEntity.ok()
+                .body(result);
+    }
+
+    // 댓글 수정
+    @PutMapping("/{articleUuid}/comments/{commentUuid}")
+    ResponseEntity<ArticleDto.Response> updateComment(@PathVariable("articleUuid") String articleUuid, @PathVariable("commentUuid") String commentUuid, @RequestBody CommentDto.UpdateReqeust request){
+        Comment replacement = commentMapper.toComment(request);
+        replacement.setUuid(commentUuid);
+        articleService.updateComment(replacement);
+
+        ArticleDto.Response result = articleMapper.toArticleResponse(articleService.getArticleByUuid(articleUuid));
+        result.setComments(commentMapper.toCommentResponseList(articleService.getCommentsByUuid(articleUuid)));
+
+        return ResponseEntity.ok()
+                .body(result);
+    }
+
+    // 댓글 삭제
+    @DeleteMapping("/{articleUuid}/comments/{commentUuid}")
+    ResponseEntity<ArticleDto.Response> deleteComment(@PathVariable("articleUuid") String articleUuid, @PathVariable("commentUuid") String commentUuid, @RequestBody CommentDto.DeleteRequest request){
+        articleService.deleteComment(commentUuid);
+
+        ArticleDto.Response result = articleMapper.toArticleResponse(articleService.getArticleByUuid(articleUuid));
+        result.setComments(commentMapper.toCommentResponseList(articleService.getCommentsByUuid(articleUuid)));
+
+        return ResponseEntity.ok()
+                .body(result);
     }
 }
