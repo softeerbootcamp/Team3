@@ -10,11 +10,15 @@
   <link rel="stylesheet" href="./src/index/modal.css" />
   <link rel="stylesheet" href="./src/index/feedRead.css" />
   <link rel="stylesheet" href="./src/index/notice.css" />
+  <link rel="stylesheet" href="./checkmodal/checkmodal.css" />
+
   <title>GatherGo</title>
   <!-- <script
     src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=nmYxxClKN26qrAfnVO4aQ48PaUES6usl4eylCC3x"></script> -->
   <!-- <script type="module" src="./src/index/index.js"></script> -->
   <script defer type="module" src="./src/Index/index.ts"></script>
+  <script defer type="module" src="./src/checkmodal/checkmodal.ts"></script>
+
 </head>
 
 <body>
@@ -467,8 +471,7 @@
                     <span class="peoples-status">27/68</span>
                   </div>
                 </div>
-                <button type="button" class="feed-info btn btn-primary btn-lg "><strong>참가하기</strong></button>
-
+                <button type="button" class="feed-info btn btn-primary btn-lg"><strong>참가하기</strong></button>
               </div>
 
             </div>
@@ -578,6 +581,7 @@
       </div>
     </div>
   </div>
+  
   <div class = "notice-container">
     <div class = "notice-background">
       <div class="notice-sidebar">
@@ -591,6 +595,8 @@
   </div>
   <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e025d257c750a5635c774ac925157964&libraries=services"></script>
+
+    <!-- 사이드바 -->
   <script>
     function noticeSidebar(){
       const toggleBtn = document.querySelector('#alarm-button');
@@ -610,6 +616,39 @@
       })
     }
     noticeSidebar()
+    </script>
+    <!-- 삭제버튼 -->
+    <script>
+    function modalRightClick(){
+      HTMLCollection.prototype.forEach = Array.prototype.forEach
+      const modalRegister = document.getElementsByClassName('feed-comment');
+      modalRegister.forEach(element => {
+        element.addEventListener('contextmenu',(e)=>{
+
+          e.preventDefault();
+          removeAllcontextmenu();
+          const x = e.clientX + 'px';
+          const y = e.clientY + 'px';
+          let div = document.createElement('div')
+          div.classList.add('comment-delete')
+          div.innerHTML = `<button class="custom-btn btn-1">삭제하기</button>`
+          div.style.position = "fixed";
+          div.style.left = `${x}`; 
+          div.style.top = `${y}`;
+          document.getElementById('modal-container').appendChild(div)
+        })
+      });
+    }
+    function removeAllcontextmenu(){
+        const contextmenuList = document.getElementsByClassName('comment-delete')
+        contextmenuList.forEach((element)=>{
+          element.remove()
+        })
+    }
+    window.addEventListener('click',(e)=>{
+      removeAllcontextmenu();
+    })
+    modalRightClick();
   </script>
 </body>
 

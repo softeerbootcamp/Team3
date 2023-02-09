@@ -1,0 +1,52 @@
+/*삭제 버튼 관련*/
+
+.comment-delete{
+    position: fixed;
+    z-index: 10000;
+    margin : 0 0 0 0;
+}
+
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  padding: 10px 25px;
+  border: 2px solid #000;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.btn-1 {
+  transition: all 0.3s ease;
+}
+.btn-1:hover {
+   box-shadow:
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
+}
+
+/*모달 관련*/
+.loginCheck-modal-container, .joinCheck-modal-container, .gatheringEdit-modal-container, .gatheringDelete-modal-container, .commentDelete-modal-container{
+    position : fixed;
+    display : flex;
+    align-items : center;
+    justify-content: center;
+    left : 0;
+    top : 0;
+    width : 100%;
+    height : 100%;
+
+}
+
+.loginCheck-modal-background, .joinCheck-modal-background, .gatheringEdit-modal-background, .gatheringDelete-modal-background, .commentDelete-modal-background{
+    background: rgba(0, 0, 0, 0);
+    animation: fadeIn 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    transition: 0.7s;
+
+}
