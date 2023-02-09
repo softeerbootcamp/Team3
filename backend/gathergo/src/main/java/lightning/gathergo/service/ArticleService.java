@@ -50,7 +50,7 @@ public class ArticleService {
 
     public Article setClosed(String uuid){
         Article article = articleRepository.findByUuid(uuid).get();
-        articleRepository.updateArticleById(article.getTitle(), article.getThumbnail(), article.getCurr(),
+        articleRepository.updateArticleById(article.getTitle(), article.getCurr(),
                 article.getTotal(), true, article.getContent(), article.getMeetingDay(), article.getLocation(),
                 article.getRegionId(), article.getCategoryId(), article.getId());
         article.setClosed(true);
@@ -60,7 +60,7 @@ public class ArticleService {
     public Article updateArticle(String uuid, Article replacemnt){
         Integer id = articleRepository.findByUuid(uuid).get().getId();
         replacemnt.setId(id);
-        articleRepository.updateArticleById(replacemnt.getTitle(), replacemnt.getThumbnail(), replacemnt.getCurr(),
+        articleRepository.updateArticleById(replacemnt.getTitle(), replacemnt.getCurr(),
                 replacemnt.getTotal(), replacemnt.getClosed(), replacemnt.getContent(), replacemnt.getMeetingDay(),
                 replacemnt.getLocation(), replacemnt.getRegionId(), replacemnt.getCategoryId(), id);
         return replacemnt;
