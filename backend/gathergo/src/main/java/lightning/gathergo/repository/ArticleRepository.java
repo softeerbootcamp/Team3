@@ -21,7 +21,6 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     default <S extends Article> S save(S entity) {
         save(entity.getHostId(),
                 entity.getTitle(),
-                entity.getThumbnail(),
                 entity.getCurr(),
                 entity.getTotal(),
                 entity.getClosed(),
@@ -35,9 +34,9 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     }
 
     @Modifying
-    @Query("insert into article (hostId, title, thumbnail, curr, total, isClosed, content, meetingDay, location, regionId, categoryId, uuid) " +
-            "values (:hostId, :title, :thumbnail, :curr, :total, :isClosed, :content, :meetingDay, :location, :regionId, :categoryId, :uuid);")
-    public void save(Integer hostId, String title, String thumbnail, int curr,
+    @Query("insert into article (hostId, title, curr, total, isClosed, content, meetingDay, location, regionId, categoryId, uuid) " +
+            "values (:hostId, :title, :curr, :total, :isClosed, :content, :meetingDay, :location, :regionId, :categoryId, :uuid);")
+    public void save(Integer hostId, String title, int curr,
                          int total, boolean isClosed, String content, Timestamp meetingDay, String location, int regionId, int categoryId, String uuid);
 
     @Query(value = "select id from article order by id desc LIMIT 1")
@@ -67,12 +66,11 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     // regionId, categoryId, uuid
     @Modifying
     @Query("update article " +
-            "set title = :title, thumbnail = :thumbnail, curr = :curr, total = :total, " +
+            "set title = :title, curr = :curr, total = :total, " +
             "isClosed = :isClosed, content = :content, meetingDay = :meetingDay, location = :location, " +
             "regionId = :regionId, categoryId = :categoryId where id=:id")
-    public void updateArticleById(String title, String thumbnail, int curr,
-                                  int total, boolean isClosed, String content, Timestamp meetingDay, String location,
-                                  int regionId, int categoryId, Integer id);
+    public void updateArticleById(String title, int curr, int total, boolean isClosed, String content,
+                                  Timestamp meetingDay, String location, int regionId, int categoryId, Integer id);
 
     @Modifying
     @Query("delete from article where id=:id")

@@ -26,7 +26,6 @@ public class Article {
     @Column("hostid")
     private Integer hostId;  // TODO: 로그인에 사용하는 userId(String) 를 쓸지 Integer User.id를 사용할지
     private String title;
-    private String thumbnail;
     private int curr; // 추후에 int를 Integer로 바꾸기!!!!!
     private int total;
     @Column("isclosed")
@@ -43,7 +42,6 @@ public class Article {
     private String uuid;
 
     public Article(){
-        thumbnail = "default";
         isClosed = false;
         curr = 1;
     }
@@ -51,7 +49,6 @@ public class Article {
     public Article( Integer hostId, String title, String thumbnail, int curr, int total, Boolean isClosed, String content, Timestamp meetingDay, String location, int regionId, int categoryId, String uuid) {
         this.hostId = hostId;
         this.title = title;
-        this.thumbnail = thumbnail;
         this.curr = curr;
         this.total = total;
         this.isClosed = isClosed;
@@ -85,14 +82,6 @@ public class Article {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
     }
 
     public Integer getCurr() {
@@ -173,7 +162,6 @@ public class Article {
                 "id=" + id +
                 ", hostId=" + hostId +
                 ", title='" + title + '\'' +
-                ", thumbnail='" + thumbnail + '\'' +
                 ", curr=" + curr +
                 ", total=" + total +
                 ", isClosed=" + isClosed +
