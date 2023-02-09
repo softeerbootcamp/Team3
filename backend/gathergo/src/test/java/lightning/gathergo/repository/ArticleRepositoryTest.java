@@ -3,6 +3,7 @@ package lightning.gathergo.repository;
 import lightning.gathergo.model.Article;
 import org.assertj.core.api.AssertionInfo;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
@@ -21,6 +22,11 @@ class ArticleRepositoryTest {
 
     @Autowired
     private ArticleRepository repo;
+
+    @BeforeEach
+    void setting(){
+        repo.deleteAll();
+    }
 
     @Test
     void 정상적으로_게시물이_들어가는지_테스트() {
@@ -77,7 +83,7 @@ class ArticleRepositoryTest {
         Integer id = repo.save(article).getId();
 
         //when
-        repo.updateArticleById("변경 후", null, 0, 0, false, null, null, null, 0, 0, id);
+        repo.updateArticleById("변경 후", 0, 0, false, null, null, null, 0, 0, id);
 
         //then
         Assertions.assertThat(repo.findById(id).get().getTitle())
