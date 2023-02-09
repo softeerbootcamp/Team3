@@ -1,0 +1,171 @@
+/*삭제 버튼 관련*/
+
+.comment-delete{
+    position: fixed;
+    z-index: 10000;
+    margin : 0 0 0 0;
+}
+
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  padding: 10px 25px;
+  border: 2px solid #000;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.btn-1 {
+  transition: all 0.3s ease;
+}
+.btn-1:hover {
+   box-shadow:
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
+}
+
+/*모달 관련*/
+.loginCheck-modal-container, .joinCheck-modal-container, .gatheringEdit-modal-container, .gatheringDelete-modal-container, .commentDelete-modal-container{
+    position : fixed;
+    display : flex;
+    align-items : center;
+    justify-content: center;
+    left : 0;
+    top : 0;
+    width : 100%;
+    height : 100%;
+    z-index: 10002;
+
+}
+
+.loginCheck-modal-background, .joinCheck-modal-background, .gatheringEdit-modal-background, .gatheringDelete-modal-background, .commentDelete-modal-background{
+    position : fixed;
+    display : flex;
+    align-items : center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0);
+    animation: fadeIn 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    transition: 0.7s;
+    width : 100%;
+    height : 100%;
+
+}
+
+.loginCheck-modal, .joinCheck-modal, .gatheringEdit-modal, .gatheringDelete-modal, .commentDelete-modal {
+    
+  overflow: hidden;
+  background-color: white;
+  padding: 40px 30px 30px 30px;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: -webkit-transform 300ms, box-shadow 300ms;
+  -moz-transition: -moz-transform 300ms, box-shadow 300ms;
+  transition: transform 300ms, box-shadow 300ms;
+  box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
+}
+.loginCheck-modal::before, .joinCheck-modal::before, .gatheringEdit-modal::before, .gatheringDelete-modal::before, .commentDelete-modal::before, .loginCheck-modal::after, .joinCheck-modal::after, .gatheringEdit-modal::after, .gatheringDelete-modal::after, .commentDelete-modal::after {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-top-left-radius: 40%;
+  border-top-right-radius: 45%;
+  border-bottom-left-radius: 35%;
+  border-bottom-right-radius: 40%;
+  z-index: -1;
+}
+.loginCheck-modal::before, .joinCheck-modal::before, .gatheringEdit-modal::before, .gatheringDelete-modal::before, .commentDelete-modal::before {
+  left: 40%;
+  bottom: -130%;
+  background-color: rgba(69, 105, 144, 0.15);
+  -webkit-animation: wawes 6s infinite linear;
+  -moz-animation: wawes 6s infinite linear;
+  animation: wawes 6s infinite linear;
+}
+.loginCheck-modal::after, .joinCheck-modal::after, .gatheringEdit-modal::after, .gatheringDelete-modal::after, .commentDelete-modal::after {
+  left: 35%;
+  bottom: -125%;
+  background-color: rgba(2, 128, 144, 0.2);
+  -webkit-animation: wawes 7s infinite;
+  -moz-animation: wawes 7s infinite;
+  animation: wawes 7s infinite;
+}
+.loginCheck-modal > div, .joinCheck-modal > div, .gatheringEdit-modal > div, .gatheringDelete-modal > div, .commentDelete-modal > div {
+  font-family: "Asap", sans-serif;
+  display: block;
+  border-radius: 5px;
+  font-size: 25px;
+  font-weight : 600;
+  background: transparent;
+  width: 100%;
+  border: 0;
+  padding: 10px 10px;
+}
+.loginCheck-modal > div > button, .joinCheck-modal > div >  button, .gatheringEdit-modal > div > button, .gatheringDelete-modal > div > button, .commentDelete-modal> div  > button {
+  font-family: "Asap", sans-serif;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  width: 90px;
+  border: 0;
+  padding: 10px 0;
+  margin-top: 10px;
+  margin-left: -5px;
+  border-radius: 5px;
+  background-color: #29abe0;
+  -webkit-transition: background-color 300ms;
+  -moz-transition: background-color 300ms;
+  transition: background-color 300ms;
+}
+.loginCheck-modal > div > button:hover, .joinCheck-modal > div > button:hover, .gatheringEdit-modal > div > button:hover, .gatheringDelete-modal > div >button:hover, .commentDelete-modal > div >button:hover {
+  background-color: #325d88;
+}
+
+@-webkit-keyframes wawes {
+  from {
+    -webkit-transform: rotate(0);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes wawes {
+  from {
+    -moz-transform: rotate(0);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+@keyframes wawes {
+  from {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
