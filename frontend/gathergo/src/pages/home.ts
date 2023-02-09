@@ -1,6 +1,7 @@
 // import {store} from '../store/store';
 
-import HeaderHome from '../components/header/headerHome';
+import CardList from '../components/card/CardList';
+import HeaderHome from '../components/header/HeaderHome';
 
 // export const HomePage = (store:store) => {
 //   // code to render the HomePage
@@ -33,6 +34,8 @@ class Home {
     this.$container.appendChild(headerHome.element);
 
     // console.log(window.location.href);
+    const cardList = new CardList();
+    this.$container.appendChild(cardList.element);
   }
 }
 

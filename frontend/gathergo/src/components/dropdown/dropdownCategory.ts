@@ -48,15 +48,14 @@ class DropdownCategory {
       </div>`;
     }
 
-    itemWrapper.innerHTML += `<div class="dropdown-divider"></div>`;
+    this.itemsElemnt.append(itemWrapper);
+    this.itemsElemnt.innerHTML += `<div class="dropdown-divider"></div>`;
 
     const defaultItem = document.createElement('a');
     defaultItem.classList.add('dropdown-item');
     defaultItem.href = '#'; //key
     defaultItem.innerHTML = '카테고리 선택하세요';
-    itemWrapper.appendChild(defaultItem);
-
-    this.itemsElemnt.append(itemWrapper);
+    this.itemsElemnt.appendChild(defaultItem);
   }
   handleToggle() {
     if (this.toggleElement.classList.contains('show')) this.dropDownClose();

@@ -1,8 +1,8 @@
 // import {store} from '../store/store';
 
-import DropdownCategory from '../dropdown/dropdownCategory';
-import DropdownRegion from '../dropdown/dropdownREgion';
-import HeaderNav from './headerNav';
+import DropdownCategory from '../dropdown/DropdownCategory';
+import DropdownRegion from '../dropdown/DropdownRegion';
+import HeaderNav from './HeaderNav';
 
 // import { $ } from '../common/utils/querySelctor';
 class HeaderHome {
