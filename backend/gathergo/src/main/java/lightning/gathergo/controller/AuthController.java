@@ -14,11 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
@@ -31,33 +29,33 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
     private final SignupDtoMapper signupDtoMapper;
+    private final CookieService cookieService;
 
     private int cookieExpiration = 3600;
 
     @Autowired
-    public AuthController(SessionService sessionService, PasswordEncoder passwordEncoder, UserService userService, SignupDtoMapper signupDtoMapper) {
+    public AuthController(SessionService sessionService, PasswordEncoder passwordEncoder, UserService userService, SignupDtoMapper signupDtoMapper, CookieService cookieService) {
         this.sessionService = sessionService;
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
         this.signupDtoMapper = signupDtoMapper;
+        this.cookieService = cookieService;
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDto.LoginInput loginDto, HttpServletResponse response, CookieService cookieService) {
-        Optional<User> user = userService.findUserByUserId(loginDto.getUserId());
+        User loginUser = userService.loginUser(loginDto);
 
-        if (user.isEmpty() || !passwordEncoder.matches(loginDto.getPassword(), user.get().getPassword())) {
-            return new ResponseEntity<>(new LoginDto.LoginFailedResponse("ID나 비밀번호가 일치하지 않습니다", ""), HttpStatus.UNAUTHORIZED);
-        }
+        if(loginUser == null)
+            new ResponseEntity<>(new LoginDto.LoginFailedResponse("ID나 비밀번호가 일치하지 않습니다", ""), HttpStatus.UNAUTHORIZED);
 
-        Session session = sessionService.createSession(user.get().getUserId(), user.get().getUserName());
+        Session session = sessionService.createSession(loginUser.getUserId(), loginUser.getUserName());
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         cookieService.createSessionCookie(CookieService.SESSION_ID, session.getSessionId(), response);
 
-        // TODO: SessionDto, SessionMapper 만들기
         return new ResponseEntity<>(new LoginDto.LoginSuccessfulResponse("로그인 성공", session, "/"), headers, HttpStatus.OK);
     }
 
@@ -65,20 +63,25 @@ public class AuthController {
     public ResponseEntity<?> signUp(@RequestBody SignupDto.SignupInput signupDto) {
         User user = signupDtoMapper.toUser(signupDto);
 
-        try {
-            userService.addUser(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("signUp 실패, {}", e.getMessage());
-        }
+        userService.addUser(user);
 
         HttpHeaders headers= new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
         headers.add("Location", "/login");
 
-        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "회원가입 성공", "/login"), headers, HttpStatus.OK);
+        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "회원가입 성공", "/login"), headers, HttpStatus.FOUND);
     }
 
+    @DeleteMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+        cookieService.invalidateSession(request.getCookies(), response);
+
+        HttpHeaders headers= new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
+        // headers.add("Location", request.getHeader("Referer"));
+
+        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "로그아웃 성공", "/"), headers, HttpStatus.FOUND);
+    }
 
         @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> methodValidException(MethodArgumentNotValidException e) {

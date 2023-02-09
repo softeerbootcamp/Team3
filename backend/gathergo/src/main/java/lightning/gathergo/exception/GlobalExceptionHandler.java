@@ -1,5 +1,6 @@
 package lightning.gathergo.exception;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,5 +21,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleLineException(final NoSuchElementException error) {
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.NO_RESOURCE);
         return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(DuplicateKeyException.class)
+    public ResponseEntity<?> handleConstraintViolationException(final DuplicateKeyException error) {
+        ErrorResponse errorResponse = new ErrorResponse(ErrorCode.DUPLICATE_KEY);
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(errorResponse.getStatus()));
     }
 }
