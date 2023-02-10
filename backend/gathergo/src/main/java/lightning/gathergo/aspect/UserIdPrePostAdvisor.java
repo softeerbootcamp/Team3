@@ -14,6 +14,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +25,8 @@ public class UserIdPrePostAdvisor {
     private final ObjectMapper objectMapper;
     private final ArticleMapper articleMapper;
 
-    UserIdPrePostAdvisor(UserRepository userRepository, ArticleMapper articleMapper){
+    @Autowired
+    public UserIdPrePostAdvisor(UserRepository userRepository, ArticleMapper articleMapper){
         this.userRepository = userRepository;
         this.objectMapper = new ObjectMapper();
         this.articleMapper = articleMapper;

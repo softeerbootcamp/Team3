@@ -19,7 +19,6 @@ import java.util.*;
 
 @RequestMapping(value = "/regions", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
-@CrossOrigin
 public class RegionController {
     private final Logger logger = LoggerFactory.getLogger(RegionController.class);
     private final RegionService regionService;
