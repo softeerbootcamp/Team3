@@ -69,13 +69,14 @@ public class ArticleController {
         Article article = articleService.getArticleByUuid(articleUuid);
         ArticleDto.Response result = articleMapper.toArticleResponse(article);
         // 게시물에 달린 댓글 디비에서 얻어오기
-        result.setComments(commentMapper.toCommentResponseList(articleService.getCommentsByUuid(articleUuid)));
+        result.setComments(commentMapper.toCommentResponseList(
+                articleService.getCommentsByUuid(articleUuid)));
         return new ResponseEntity<ArticleDto.Response>(result, HttpStatus.FOUND);
     }
 
     @PutMapping("/{articleUuid}")
     ResponseEntity<ArticleDto.Response> updateArticle(@PathVariable String articleUuid, @RequestBody ArticleDto.UpdateRequest request){
-        Article replacement = articleMapper.toArticle(request);
+        Article replacement = articleMapper.toArticle(request); replacement.setUuid(articleUuid);
         Article replaced = articleService.updateArticle(articleUuid, replacement);
         ArticleDto.Response result = articleMapper.toArticleResponse(replaced);
 
@@ -97,10 +98,10 @@ public class ArticleController {
     }
 
     // 댓글 생성
-    @PostMapping("/{articleUuid}/comments/{commentUuid}")
-    ResponseEntity<ArticleDto.Response> addComment(@PathVariable("articleUuid") String articleUuid, @RequestBody CommentDto.CreateRequest request){
+    @PostMapping("/{articleUuid}/comments")
+    ResponseEntity<ArticleDto.Response> addComment(@PathVariable String articleUuid, @RequestBody CommentDto.CreateRequest request){
         Comment comment = commentMapper.toComment(request);
-        articleService.addComment(comment);
+        articleService.addComment(comment, articleUuid);
 
         ArticleDto.Response result = articleMapper.toArticleResponse(articleService.getArticleByUuid(articleUuid));
         result.setComments(commentMapper.toCommentResponseList(articleService.getCommentsByUuid(articleUuid)));
@@ -125,7 +126,7 @@ public class ArticleController {
 
     // 댓글 삭제
     @DeleteMapping("/{articleUuid}/comments/{commentUuid}")
-    ResponseEntity<ArticleDto.Response> deleteComment(@PathVariable("articleUuid") String articleUuid, @PathVariable("commentUuid") String commentUuid, @RequestBody CommentDto.DeleteRequest request){
+    ResponseEntity<ArticleDto.Response> deleteComment(@PathVariable("articleUuid") String articleUuid, @PathVariable("commentUuid") String commentUuid){
         articleService.deleteComment(commentUuid);
 
         ArticleDto.Response result = articleMapper.toArticleResponse(articleService.getArticleByUuid(articleUuid));
