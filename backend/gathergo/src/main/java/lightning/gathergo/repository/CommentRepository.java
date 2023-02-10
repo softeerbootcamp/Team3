@@ -13,19 +13,17 @@ import java.sql.Timestamp;
 public interface CommentRepository extends CrudRepository<Comment,Integer> {
 
     // 저장
+    @Modifying
     @Override
     default <S extends Comment> S save(S entity){
-        return (S) save(entity.getArticleId(), entity.getUserId(), entity.getDate(), entity.getContent(), entity.getUuid());
+        save(entity.getArticleId(), entity.getUserId(), entity.getDate(), entity.getContent(), entity.getUuid());
+        return (S) findByUuid(entity.getUuid());
     }
 
+    @Modifying
     @Query("insert into comment (articleId, userId, date, content, uuid) " +
-            "values (" +
-            "(select id from article where uuid = :articleUuid), " +
-            "(select id from user where uuid = :userUuid), " +
-            ":date, " +
-            ":content, " +
-            ":uuid)")
-    Comment save(Integer articleId, Integer userId, Date date, String content, String uuid);
+            "values (:articleId, :userId, :date,  :content, :uuid)")
+    void save(Integer articleId, Integer userId, Date date, String content, String uuid);
 
     @Query("select * from comment where uuid=:uuid")
     Comment findByUuid(String uuid);
@@ -37,6 +35,7 @@ public interface CommentRepository extends CrudRepository<Comment,Integer> {
 
 
     // 삭제
+    @Modifying
     @Query("delete from comment where uuid=:uuid")
     void deleteByUuid(String uuid);
 }

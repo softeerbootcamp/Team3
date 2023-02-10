@@ -27,7 +27,7 @@ class ArticleMapperTest {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         String text = "2011-10-02 18:48:05.123";
         Timestamp ts = Timestamp.valueOf(text);
-        request = new ArticleDto.CreateRequest(1L, "test", 1, "test", 1, 1, "test", ts);
+        request = new ArticleDto.CreateRequest("1", "test", 1, "test", 1, 1, "test", ts);
     }
 
     @Test

@@ -77,6 +77,6 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     public void deleteById(Integer id);
 
     // 게시물에 달린 댓글 조회
-    @Query("select * from comment c join article a where a.uuid = :uuid")
-    List<Comment> findCommentsByArticleId(String uuid);
+    @Query("select * from comment c join article a on c.articleId = a.id where a.uuid = :uuid")
+    List<Comment> findCommentsByArticleUuid(String uuid);
 }

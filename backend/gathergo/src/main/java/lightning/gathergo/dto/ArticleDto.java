@@ -18,7 +18,7 @@ public class ArticleDto {
 
     public static class Response{
         private String uuid;
-        private Long hostId;
+        private String hostId;
         private String title;
         private int curr; // 추후에 int를 Integer로 바꾸기!!!!!
         private int total;
@@ -31,11 +31,11 @@ public class ArticleDto {
         private int categoryId;
         private List<CommentDto.Response> comments = new ArrayList<>();
 
-        public Long getHostId() {
+        public String getHostId() {
             return hostId;
         }
 
-        public void setHostId(Long hostId) {
+        public void setHostId(String hostId) {
             this.hostId = hostId;
         }
 
@@ -128,8 +128,29 @@ public class ArticleDto {
         }
     }
 
+    public static class GetArticlesResponse{
+        private List<Response> articles;
+        private Integer count;
+
+        public List<Response> getArticles() {
+            return articles;
+        }
+
+        public void setArticles(List<Response> articles) {
+            this.articles = articles;
+        }
+
+        public Integer getCount() {
+            return count;
+        }
+
+        public void setCount(Integer count) {
+            this.count = count;
+        }
+    }
+
     public static class CreateRequest{
-        private Long hostId;
+        private String hostId;
         private String title;
         private int categoryId;
         private String location;
@@ -140,7 +161,10 @@ public class ArticleDto {
         @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
         private Timestamp meetingDay;
 
-        public CreateRequest(Long hostId, String title, int categoryId, String location, int regionId, int total, String content, Timestamp meetingDay) {
+        public CreateRequest() {
+        }
+
+        public CreateRequest(String hostId, String title, int categoryId, String location, int regionId, int total, String content, Timestamp meetingDay) {
             this.hostId = hostId;
             this.title = title;
             this.categoryId = categoryId;
@@ -151,11 +175,11 @@ public class ArticleDto {
             this.meetingDay = meetingDay;
         }
 
-        public Long getHostId() {
+        public String getHostId() {
             return hostId;
         }
 
-        public void setHostId(Long hostId) {
+        public void setHostId(String hostId) {
             this.hostId = hostId;
         }
 
@@ -308,4 +332,5 @@ public class ArticleDto {
             this.uuid = uuid;
         }
     }
+
 }

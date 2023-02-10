@@ -57,7 +57,10 @@ public class CommentDto {
         private String content;
         @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
         private java.sql.Date date;
-        private String userId; // 사용자 아이디(스트링값)
+        private String userId;
+
+        public CreateRequest() {
+        }
 
         public String getContent() {
             return content;
