@@ -1,10 +1,12 @@
 package lightning.gathergo.model;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Table("session")
 public class Session {
     protected String sessionId;
     protected final LocalDateTime createDate;

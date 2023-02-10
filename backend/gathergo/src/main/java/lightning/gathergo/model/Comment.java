@@ -2,10 +2,12 @@ package lightning.gathergo.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
+@Table("comment")
 public class Comment {
     @Id
     private Long id;
