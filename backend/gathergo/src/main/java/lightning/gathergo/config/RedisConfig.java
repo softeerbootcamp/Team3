@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package lightning.gathergo.config;
 
 import org.springframework.beans.factory.annotation.Value;
