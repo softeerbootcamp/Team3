@@ -42,7 +42,7 @@ class UserArticleRelationshipRepositoryTest {
         final Integer hostId = users.get(0).getId();
         users.forEach(System.out::println);
 
-        Article article = new Article(hostId, "test", "default", 2, 4, false, "test content", new Timestamp(System.currentTimeMillis()), "서울" ,0, 0, String.valueOf(UUID.randomUUID()));
+        Article article = new Article(hostId, "test",  2, 4, false, "test content", new Timestamp(System.currentTimeMillis()), "서울" ,0, 0, String.valueOf(UUID.randomUUID()));
 
         // when
         articleRepository.save(article);
@@ -74,7 +74,7 @@ class UserArticleRelationshipRepositoryTest {
         final Integer myId = users.get(1).getId();  // 2
 
         // 호스트가 hostId인 게시글
-        Article article = new Article(hostId, "testste", "default", 2, 4, false, "test content", new Timestamp(System.currentTimeMillis()), "서울" ,0, 0, String.valueOf(UUID.randomUUID()));
+        Article article = new Article(hostId, "testste", 2, 4, false, "test content", new Timestamp(System.currentTimeMillis()), "서울" ,0, 0, String.valueOf(UUID.randomUUID()));
         articleRepository.save(article);
 
         Integer insertedArticleId = articleRepository.getLastInsertedId();
@@ -113,7 +113,7 @@ class UserArticleRelationshipRepositoryTest {
         int hostId = users.get(users.size()-1).getId();
 
         // 호스트가 hostId인 게시글
-        Article article = new Article(hostId, "testste", "default", 2, 4, false, "test content", new Timestamp(System.currentTimeMillis()), "서울" ,0, 0, String.valueOf(UUID.randomUUID()));
+        Article article = new Article(hostId, "testste", 2, 4, false, "test content", new Timestamp(System.currentTimeMillis()), "서울" ,0, 0, String.valueOf(UUID.randomUUID()));
         articleRepository.save(article);
         Integer insertedArticleId = articleRepository.getLastInsertedId();
         assert insertedArticleId != null;
