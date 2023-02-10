@@ -71,10 +71,6 @@
 | <img src="https://avatars.githubusercontent.com/u/54069713?v=4" width=130> | <img src="https://avatars.githubusercontent.com/u/63828202?v=4" width=130> | <img src="https://avatars.githubusercontent.com/u/33480561?v=4" width=130> |
 | [@sangho0n](https://github.com/sangho0n)                                   | [@JeongA-Shin](https://github.com/JeongA-Shin)                             | [@yunjaeGong](https://github.com/yunjaeGong)                               |
 
-공윤재 ✉️ llegokid@naver.com<br/>
-한상훈 ✉️ tkdgns0917@gmail.com<br/>
-신정아 ✉️ jeonga@khu.ac.kr
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [Vite]: https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white
