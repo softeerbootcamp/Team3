@@ -61,7 +61,7 @@
 
 | 최승호                                                                        |윤성환|
 |----------------------------------------------------------------------------| ---- |
- | <img src="https://avatars.githubusercontent.com/u/76439502?v=4" width=130> |<img src="https://avatars.githubusercontent.com/u/33480561?v=4" width=130>|
+ | <img src="https://avatars.githubusercontent.com/u/76439502?v=4" width=130> |<img src="https://avatars.githubusercontent.com/u/35682200?v=4" width=130>|
  | [@tdmdgh](https://github.com/tdmdghn)                                      |[@SUNGWHANYOON](https://github.com/SUNGWHANYOON)|
 
 
