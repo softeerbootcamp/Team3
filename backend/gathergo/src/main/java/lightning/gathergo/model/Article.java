@@ -24,7 +24,7 @@ public class Article {
     @Id
     private Integer id;
     @Column("hostid")
-    private Integer hostId;  // TODO: 로그인에 사용하는 userId(String) 를 쓸지 Integer User.id를 사용할지
+    private Integer hostId;
     private String title;
     private int curr; // 추후에 int를 Integer로 바꾸기!!!!!
     private int total;
@@ -46,7 +46,7 @@ public class Article {
         curr = 1;
     }
 
-    public Article( Integer hostId, String title, String thumbnail, int curr, int total, Boolean isClosed, String content, Timestamp meetingDay, String location, int regionId, int categoryId, String uuid) {
+    public Article( Integer hostId, String title, int curr, int total, Boolean isClosed, String content, Timestamp meetingDay, String location, int regionId, int categoryId, String uuid) {
         this.hostId = hostId;
         this.title = title;
         this.curr = curr;
