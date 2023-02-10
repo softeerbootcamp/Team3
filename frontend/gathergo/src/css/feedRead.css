@@ -1,5 +1,6 @@
 .feed-main-wrapper {
   overflow: auto;
+  width: 100%;
   /* height: 0;
   width: 50%; */
   /* flex-basis: 0;
@@ -13,16 +14,18 @@
   overflow: auto;
   flex-basis: 0;
   flex-grow: 1;
-  width: 50%;
+  /* width: 60%; */
   display: flex;
   flex-direction: column;
   /* align-items: ; */
 }
+
 .feed-main-divider {
   margin: 1rem 1rem;
   height: inherit;
   border-left: 1px solid var(--bs-gray-400);
 }
+
 #map-api-readOnly {
   position: relative;
   width: 100%;
@@ -41,16 +44,20 @@
   display: flex;
   flex-direction: column;
 }
+
 .feed-main-content-scrollable {
   overflow: auto;
   height: 100%;
+  width: 100%;
   border-radius: 5px;
 }
+
 .schedule-synthesis {
   display: flex;
   align-items: center;
   /* justify-content: space-between; */
 }
+
 .schedule-info {
   flex-grow: 2;
   min-height: 3rem;
@@ -60,6 +67,7 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
 .schedule-time-badge {
   width: 4rem;
   min-width: 4rem;
@@ -72,6 +80,7 @@
   align-items: center;
   justify-content: space-between;
 }
+
 .schedule-date {
   font-size: 16px;
   font-weight: 200;
@@ -81,9 +90,11 @@
   font-size: 12px;
   font-weight: 100;
 }
+
 .peoples {
   display: flex;
 }
+
 .people-icon {
   width: 1.2rem;
   height: 1.2rem;
@@ -98,6 +109,7 @@
   position: relative;
   bottom: 0;
 }
+
 /* .join-buttons {
   display: flex;
   justify-content: flex-end;
@@ -111,7 +123,8 @@
   /* width: 100%; */
   margin: 2rem 0;
 }
-.feed-info.btn > * {
+
+.feed-info.btn>* {
   font-size: 1.2rem;
 }
 
@@ -180,19 +193,23 @@
   /* height: 10px; */
   padding: 1rem;
 }
+
 .feed-comment {
   display: flex;
   margin-bottom: 1rem;
 }
+
 .comment-user-id {
   width: 6rem;
 }
+
 .comment-content {
   margin: 0 2rem;
   flex-grow: 1;
 }
+
 .comment-date {
-  width: 4rem;
+  min-width: 4rem;
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
@@ -202,15 +219,18 @@
   display: flex;
   margin: 1rem 0.5rem;
 }
+
 .form-group {
   position: relative;
   display: fixed;
   bottom: 0;
   width: 100%;
 }
+
 .form-control {
   width: -webkit-fill-available;
 }
+
 .comment-send {
   margin-left: 0.5rem;
   width: 5rem;
@@ -218,14 +238,17 @@
 
 /* tooltip */
 [tooltip] {
-  position: relative; /* opinion 1 */
+  position: relative;
+  /* opinion 1 */
 }
 
 /* Applies to all tooltips */
 [tooltip]::before,
 [tooltip]::after {
-  text-transform: none; /* opinion 2 */
-  font-size: 0.9em; /* opinion 3 */
+  text-transform: none;
+  /* opinion 2 */
+  font-size: 0.9em;
+  /* opinion 3 */
   line-height: 1;
   user-select: none;
   pointer-events: none;
@@ -233,13 +256,18 @@
   display: none;
   opacity: 0;
 }
+
 [tooltip]::before {
   content: '';
-  border: 5px solid transparent; /* opinion 4 */
-  z-index: 1001; /* absurdity 1 */
+  border: 5px solid transparent;
+  /* opinion 4 */
+  z-index: 1001;
+  /* absurdity 1 */
 }
+
 [tooltip]::after {
-  content: attr(tooltip); /* magic! */
+  content: attr(tooltip);
+  /* magic! */
 
   /* most of the rest of this is opinion */
   font-family: Helvetica, sans-serif;
@@ -262,7 +290,8 @@
   box-shadow: 0 1em 2em -0.5em rgba(0, 0, 0, 0.35);
   background: #fff;
   border: 1px solid var(--bs-primary);
-  z-index: 1000; /* absurdity 2 */
+  z-index: 1000;
+  /* absurdity 2 */
 }
 
 /* Make the tooltips respond to hover */
@@ -276,20 +305,24 @@
 [tooltip='']::after {
   display: none !important;
 }
+
 /* FLOW: DOWN */
 [tooltip][flow^='down']::before {
   top: 100%;
   border-top-width: 0;
   border-bottom-color: var(--bs-primary);
 }
+
 [tooltip][flow^='down']::after {
   top: calc(100% + 5px);
   right: -105px;
 }
+
 [tooltip][flow^='down']::before,
 [tooltip][flow^='down']::after {
   transform: translate(-50%, 0.5em);
 }
+
 /* KEYFRAMES */
 @keyframes tooltips-vert {
   to {
