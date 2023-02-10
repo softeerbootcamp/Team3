@@ -66,11 +66,12 @@ public class ArticleService {
     }
 
     public List<Comment> getCommentsByUuid(String articleUuid){
-        return articleRepository.findCommentsByArticleId(articleUuid);
+        return articleRepository.findCommentsByArticleUuid(articleUuid);
     }
 
     // 댓글 생성
-    public Comment addComment(Comment comment){
+    public Comment addComment(Comment comment, String articleUuid){
+        comment.setArticleId(articleRepository.findByUuid(articleUuid).get().getId());
         return commentService.createComment(comment);
     }
 
