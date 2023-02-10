@@ -30,7 +30,6 @@ public class ArticleService {
     @Transactional
     public Article addArticle(Article article){
         article.setUuid(generateUuid());
-        System.out.println(article.getTitle());
         articleRepository.save(article);
         return articleRepository.findById(articleRepository.getLastInsertedId()).get();
     }
@@ -75,10 +74,6 @@ public class ArticleService {
         return commentService.createComment(comment);
     }
 
-    // 댓글 리스트 반환
-    public List<Comment> getCommentsByArticleUuid(String articleUuid){
-        return articleRepository.findCommentsByArticleId(articleUuid);
-    }
 
     // 댓글 수정
     public Comment updateComment(Comment comment){
