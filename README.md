@@ -40,7 +40,7 @@
 <br/>
 
 #### 마이 페이지
-✨ 메인 페이지에서 프로필 아이콘을 누르면 해당 유저에 해당 되는 마이 페이지로 넘어간다.
+✨ 메인 페이지에서 프로필 아이콘을 누르면 해당 유저에 해당 되는 마이 페이지로 넘어간다.</br>
 ✨ 마이 페이지에서 프로필 이미지를 업로드할 수 있다. </br>
 
 #### 번개 상세 모달
@@ -55,16 +55,21 @@
 ✨ 관심 장소 검색시 나타나는 마커를 선택하여 해당 장소를 지정하게 된다.
 
 
-## Contacts
+## 팀원 소개
 
 ##### FRONTEND 
-최승호 ✉️ tdmdgh@gmail.com<br/>
-윤성환 ✉️ tjdghks0214@gmail.com
+
+| 최승호                                                                        |윤성환|
+|----------------------------------------------------------------------------| ---- |
+ | <img src="https://avatars.githubusercontent.com/u/76439502?v=4" width=130> |<img src="https://avatars.githubusercontent.com/u/35682200?v=4" width=130>|
+ | [@tdmdgh](https://github.com/tdmdghn)                                      |[@SUNGWHANYOON](https://github.com/SUNGWHANYOON)|
+
 
 ##### BACKEND
-공윤재 ✉️ llegokid@naver.com<br/>
-한상훈 ✉️ tkdgns0917@gmail.com<br/>
-신정아 ✉️ jeonga@khu.ac.kr
+| 한상훈                                                                        | 신정아                                                                        | 공윤재                                                                        |
+|----------------------------------------------------------------------------|----------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| <img src="https://avatars.githubusercontent.com/u/54069713?v=4" width=130> | <img src="https://avatars.githubusercontent.com/u/63828202?v=4" width=130> | <img src="https://avatars.githubusercontent.com/u/33480561?v=4" width=130> |
+| [@sangho0n](https://github.com/sangho0n)                                   | [@JeongA-Shin](https://github.com/JeongA-Shin)                             | [@yunjaeGong](https://github.com/yunjaeGong)                               |
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
