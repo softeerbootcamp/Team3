@@ -63,15 +63,10 @@ public class CountService {
     public Integer modifyCount(String articleId,Integer newValue){
         hashOperations.put("count",articleId,newValue);
         return this.getCount(articleId);
-
     }
 
     public void deleteCount(String articleId){
         hashOperations.delete("count",articleId);
     }
-
-
-
-
 
 }
