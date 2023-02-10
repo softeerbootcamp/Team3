@@ -58,10 +58,19 @@
 ## Contacts
 
 ##### FRONTEND 
-최승호 ✉️ tdmdgh@gmail.com<br/>
-윤성환 ✉️ tjdghks0214@gmail.com
+
+| 최승호                                                                        |윤성환|
+|----------------------------------------------------------------------------| ---- |
+ | <img src="https://avatars.githubusercontent.com/u/76439502?v=4" width=130> |<img src="https://avatars.githubusercontent.com/u/33480561?v=4" width=130>|
+ | [@tdmdgh](https://github.com/tdmdghn)                                      |[@SUNGWHANYOON](https://github.com/SUNGWHANYOON)|
+
 
 ##### BACKEND
+| 한상훈                                                                        | 신정아                                                                        | 공윤재                                                                        |
+|----------------------------------------------------------------------------|----------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| <img src="https://avatars.githubusercontent.com/u/54069713?v=4" width=130> | <img src="https://avatars.githubusercontent.com/u/63828202?v=4" width=130> | <img src="https://avatars.githubusercontent.com/u/33480561?v=4" width=130> |
+| [@sangho0n](https://github.com/sangho0n)                                   | [@JeongA-Shin](https://github.com/JeongA-Shin)                             | [@yunjaeGong](https://github.com/yunjaeGong)                               |
+
 공윤재 ✉️ llegokid@naver.com<br/>
 한상훈 ✉️ tkdgns0917@gmail.com<br/>
 신정아 ✉️ jeonga@khu.ac.kr
