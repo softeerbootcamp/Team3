@@ -227,8 +227,6 @@ class Post {
             만들기</strong></button>
 
 </div>
-<script type="text/javascript"
-    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e025d257c750a5635c774ac925157964&libraries=services"></script>
         `;
   }
 }
