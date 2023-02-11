@@ -1,11 +1,9 @@
-export function getElementIndex(ele: Element) {
-  if (!ele) return;
-  let _i = 0;
-  while (
-    ele.previousElementSibling != null &&
-    (ele = ele.previousElementSibling) != null
-  ) {
-    _i++;
+export function getElementIndex(element: Element) {
+  let index = 0;
+  let sibling = element.previousElementSibling;
+  while (sibling) {
+    index++;
+    sibling = sibling.previousElementSibling;
   }
-  return _i;
+  return index;
 }

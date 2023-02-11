@@ -12,7 +12,7 @@
 }
 
 .nav-link-wrapper {
-  display: none;
+  display: flex;
   position: absolute;
   top: 2rem;
   right: 5rem;
@@ -20,9 +20,9 @@
   min-width: fit-content;
 }
 
-.nav-link-wrapper.show {
+/* .nav-link-wrapper.show {
   display: flex;
-}
+} */
 
 .nav-link-wrapper a {
   position: relative;
@@ -129,7 +129,7 @@ li.nav-item.divider {
 .dropdown {
   margin: 0;
   border-radius: 0.5rem;
-  border: 1px solid #ced4da;
+  /* border: 1px solid #ced4da; */
   color: #3e3f3a;
 }
 

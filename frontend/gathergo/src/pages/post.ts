@@ -1,3 +1,5 @@
+import store from "../store/store";
+
 class Post {
   $container: HTMLElement;
   constructor($container: HTMLElement) {
@@ -9,6 +11,8 @@ class Post {
   };
 
   render() {
+    console.log(store.getState())
+
     this.$container.innerHTML = `
           
     <nav class="header navbar navbar-expand-lg navbar-light bg-light">
