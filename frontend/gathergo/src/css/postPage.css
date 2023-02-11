@@ -108,10 +108,10 @@
   font-size: 1rem;
 }
 
-li.nav-item.divider {
+/* li.nav-item.divider {
   border-right: 1px solid #000;
   color: black;
-}
+} */
 
 .dot {
   position: relative;
@@ -127,14 +127,14 @@ li.nav-item.divider {
 }
 
 .dropdown {
-  margin: 0;
+  /* margin: 0; */
   border-radius: 0.5rem;
-  /* border: 1px solid #ced4da; */
   color: #3e3f3a;
 }
 
 .form-input.dropdown {
   width: fit-content;
+  border: 1px solid #ced4da;
 }
 
 .dropdown-item-wrapper.category {
@@ -215,7 +215,7 @@ li.nav-item.divider {
   display: none;
   position: absolute;
   top: 51px;
-  z-index: 1;
+  z-index: 2;
   border-radius: 5px;
   width: 100%;
 }
@@ -238,9 +238,22 @@ li.nav-item.divider {
   width: 2rem;
   height: 2rem;
   margin: 10px;
+  cursor: pointer;
 }
 
 #addressReadOnlyInput {
   background: var(--bs-gray-100);
   box-shadow: unset;
+}
+
+.datepicker-controls .button:focus {
+  border-color: var(--bs-primary);
+}
+.datepicker-cell.selected,
+.datepicker-cell.selected:hover {
+    background-color: var(--bs-primary);
+}
+
+#timePicker .fgtp.inline{
+  border-radius: 5px;
 }

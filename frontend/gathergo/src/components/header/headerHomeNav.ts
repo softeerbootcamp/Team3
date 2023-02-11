@@ -1,4 +1,4 @@
-class HeaderNav {
+class HeaderHomeNav {
   islogin: boolean;
   element: HTMLElement;
   constructor(islogin = false) {
@@ -34,17 +34,17 @@ class HeaderNav {
       this.element.classList.add('logout');
       this.element.innerHTML = `
             <li class="nav-item">
-              <a class="nav-link" href="" data-hover="로그인">
+              <a class="nav-link" href="/login" data-hover="로그인">
                 <span>로그인</span>
               </a>
             </li>
             <li class="nav-item divider"></li>
             <li class="nav-item profile-icon">
-              <a class="nav-link" href="" data-hover="회원가입">
+              <a class="nav-link" href="/login/signup" data-hover="회원가입">
                 <span>회원가입</span>
               </a>
             </li>`;
     }
   }
 }
-export default HeaderNav;
+export default HeaderHomeNav;

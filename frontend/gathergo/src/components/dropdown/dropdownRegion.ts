@@ -52,7 +52,7 @@ class DropdownRegion {
     this.itemsElemnt.innerHTML += `<div class="dropdown-divider"></div>`;
 
     const defaultItem = document.createElement('a');
-    defaultItem.classList.add('dropdown-item','default-item');
+    defaultItem.classList.add('dropdown-item','default-item','regionSi');
     defaultItem.href = '#'; //key
     defaultItem.innerHTML = '지역을 선택하세요';
     this.itemsElemnt.appendChild(defaultItem);

@@ -2,7 +2,7 @@
 
 import DropdownCategory from '../dropdown/DropdownCategory';
 import DropdownRegion from '../dropdown/DropdownRegion';
-import HeaderNav from './HeaderNav';
+import HeaderHomeNav from './headerHomeNav';
 import HeaderSearchSticky from './HeaderSearchSticky';
 
 // import { $ } from '../common/utils/querySelctor';
@@ -47,8 +47,8 @@ class HeaderHome {
     //     '/pushpush'
     //   );
     // });
-    const headerNav = new HeaderNav(true);
-    this.element.querySelector('#header-nav')?.appendChild(headerNav.element);
+    const headerHomeNav = new HeaderHomeNav(true);
+    this.element.querySelector('#header-nav')?.appendChild(headerHomeNav.element);
 
     const dropdownRegion = new DropdownRegion();
     const dropdownRegionLI = this.element.querySelector('#dropdown-region');

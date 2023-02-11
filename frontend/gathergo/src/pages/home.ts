@@ -10,9 +10,6 @@ class Home {
     this.$container = $container;
     this.render();
   }
-  //   setState = () => {
-  //     this.render();
-  //   };
 
   render() {
     if (!this.$container) return;
@@ -39,7 +36,6 @@ class Home {
   closeModal(modalContainer: HTMLElement) {
     modalContainer.classList.add('out');
     document.body?.removeAttribute('class');
-    // document.body.classList.remove('modal-active');
   }
 }
 

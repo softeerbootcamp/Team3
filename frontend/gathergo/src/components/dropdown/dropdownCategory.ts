@@ -54,9 +54,9 @@ class DropdownCategory {
     this.itemsElemnt.innerHTML += `<div class="dropdown-divider"></div>`;
 
     const defaultItem = document.createElement('a');
-    defaultItem.classList.add('dropdown-item', 'default-item');
+    defaultItem.classList.add('dropdown-item', 'default-item', 'category');
     defaultItem.href = '#'; //key
-    defaultItem.innerHTML = '카테고리 선택하세요';
+    defaultItem.innerHTML = '카테고리를 선택하세요';
     this.itemsElemnt.appendChild(defaultItem);
   }
   handleToggle() {
