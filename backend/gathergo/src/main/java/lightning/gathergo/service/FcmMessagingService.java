@@ -30,21 +30,21 @@ public class FcmMessagingService {
 
     @PostConstruct
     private void init() {
+        // 1. FCM 연결
         try{
-            FirebaseOptions options = new FirebaseOptions.Builder()
+            FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(new ClassPathResource(credentialPath).getInputStream())).build();
 
             if(FirebaseApp.getApps().isEmpty()){
                 FirebaseApp.initializeApp(options);
             }
             logger.info("FirebaseApp initialization complete");
-        }catch (IOException e){
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     public void subscribeToTopic(String topic, String token) {
-        List<String> registrationTokens = new CopyOnWriteArrayList<>();
         TopicManagementResponse response = null;
 
         // Subscribe the devices corresponding to the registration tokens to the
