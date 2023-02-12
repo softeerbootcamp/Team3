@@ -1,5 +1,6 @@
 package lightning.gathergo.controller;
 
+import lightning.gathergo.dto.CommonResponseDTO;
 import lightning.gathergo.service.FcmMessagingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,11 +28,11 @@ public class DummyController {
     }
 
     @PostMapping("/devices/{deviceToken}")
-    public String pushNotification(@PathVariable String deviceToken) {
+    public ResponseEntity<CommonResponseDTO<?>> pushNotification(@PathVariable String deviceToken) {
         // 기기 토큰을 받고 메시지를 발행하는 테스트 컨트롤러
         System.out.println(deviceToken);
-        String res = fcmMessagingService
-                .sendMessageToToken(deviceToken, "hello", "hello!!");
-        return res;
+        String result = fcmMessagingService
+                .sendMessageToToken(deviceToken, "hello!!");
+        return new ResponseEntity<>(new CommonResponseDTO<>(result.isBlank()?0:1, "hello!", result), HttpStatus.OK);
     }
 }
