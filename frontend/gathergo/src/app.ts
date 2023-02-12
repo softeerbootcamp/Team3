@@ -1,6 +1,4 @@
-import { navigate } from './common/utils/navigate';
-import { $ } from './common/utils/querySelctor';
-import { BASE_URL } from './common/constants';
+import Navigate from './common/utils/navigate';
 import Router from './router';
 
 class App {
@@ -8,18 +6,22 @@ class App {
   constructor($container: HTMLElement | null) {
     this.$container = $container;
     this.init();
+    console.log(window.sessionStorage)
   }
   init = () => {
-    // $(".navbar")?.addEventListener("click", (e) => {
-    //   const target: HTMLAnchorElement= e.target?.closest("a");
-    //   if (!(target instanceof HTMLAnchorElement)) return;
-
-    //   e.preventDefault();
-    //   const targetURL = e.target.href.replace(BASE_URL, "");
-    //   navigate(targetURL);
-    // });
-
-    new Router(this.$container);
+    const router = new Router(this.$container);
+    const navigate = new Navigate(router);
+    window.addEventListener('popstate', () => {
+      router.route();
+    });
+    document.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const path = link.getAttribute('href');
+        if(path===null) return
+        navigate.to(path);
+      });
+    });
   };
 }
 export default App;

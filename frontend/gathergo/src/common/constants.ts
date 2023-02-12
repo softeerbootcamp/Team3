@@ -12,7 +12,7 @@ const routes = [
   { path: /^\/post$/, element: Post },
 ];
 
-type DropDownType = {
+type TdropDown = {
   [key: number]: string;
 };
 
@@ -49,7 +49,7 @@ type TinitialState = {
   comments: Tcomment[];
 };
 
-const regionSi: DropDownType = {
+const regionSi: TdropDown = {
   1: '서울특별시',
   2: '부산광역시',
   3: '대구광역시',
@@ -67,9 +67,9 @@ const regionSi: DropDownType = {
   15: '경상북도',
   16: '경상남도',
   17: '제주특별자치도',
-  //   0: '지역을 선택하세요',
+    0: '지역을 선택하세요',
 };
-const category: DropDownType = {
+const category: TdropDown = {
   1: '아웃도어 / 여행',
   2: '운동 / 스포츠',
   3: '인문학 / 책/ 글',
@@ -89,7 +89,7 @@ const category: DropDownType = {
   17: '요리 / 제조',
   18: '반려동물',
   19: '자유주제',
-  //   0: '카테고리를 선택하세요',
+    0: '카테고리를 선택하세요',
 };
 
 export {

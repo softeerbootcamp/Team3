@@ -2,13 +2,16 @@ import Card from './Card';
 import store from '../../store/store';
 import { readCard } from '../../store/actions';
 import { Tcard } from '../../common/constants';
+import Navigate from '../../common/utils/navigate';
 class CardList {
-  element: HTMLDivElement;
   cardsState: Tcard[];
-  constructor() {
+  element: HTMLDivElement;
+  navigate: Navigate;
+  constructor(navigate:Navigate) {
     this.cardsState = store.getState().cards;
     this.element = document.createElement('div');
     this.element.classList.add('card-wrapper');
+    this.navigate = navigate;
     this.render();
     store.subscribe(() => {
       const newState = store.getState().cards;
@@ -28,6 +31,7 @@ class CardList {
       const card = new Card(cardData);
       this.element.appendChild(card.element);
       card.element.addEventListener('click', () => {
+        this.navigate.to(`/?feed=${cardData.id}`)
         this.openCardModal();
         store.dispatch(readCard(cardData.id));
       });

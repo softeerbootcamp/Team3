@@ -1,5 +1,5 @@
 import { category, regionSi, TcardDetail } from '../../common/constants';
-import formMapGenerator from '../../common/kakaoMapAPI/kakaoMapAPI';
+import {modalMapGenerator} from '../../common/kakaoMapAPI/kakaoMapAPI';
 import store from '../../store/store';
 import CommentInput from '../comment/commentInput';
 import CommentList from '../comment/commentList';
@@ -31,7 +31,7 @@ class CardModal {
     feedWrapper.innerHTML += this.setFeedRightElement();
 
     modalEle?.appendChild(feedWrapper);
-    formMapGenerator(this.readingCard?.location);
+    modalMapGenerator(this.readingCard?.location);
   }
   setDefaultModalElement() {
     const modalContainer = document.createElement('div');

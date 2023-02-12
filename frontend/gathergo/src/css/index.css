@@ -444,7 +444,16 @@ li.nav-item.divider {
   align-items: center;
   padding: 0;
 }
-
+.dropdown-item.category.default-item {
+  min-height: unset;
+  min-width: unset;
+  border-radius: unset;
+  display: flex;
+  flex-direction: column;
+  justify-content: unset;
+  align-items: unset;
+  padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
+}
 /* side bar */
 /* #sidebar.active {
   display: flex;
