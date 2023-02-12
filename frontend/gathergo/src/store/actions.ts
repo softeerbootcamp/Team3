@@ -6,9 +6,10 @@ export const FILTER_REGION = 'FILTER_REGION';
 export const FILTER_CATEGORY = 'FILTER_CATEGORY';
 export const READ_CARD = 'READ_CARD';
 export const USER_LOGIN = 'USER_LOGIN';
+export const USER_LOGOUT = 'USER_LOGOUT';
 export const UPDATE_CARDS = 'UPDATE_CARDS';
-// export const FETCH_CARDS_REQUEST = 'FETCH_CARDS_REQUEST';
-// export const FETCH_CARDS_SUCCESS = 'FETCH_CARDS_SUCCESS';
+export const SEND_COMMENT = 'SEND_COMMENT';
+export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const FETCH_ERROR = 'FETCH_ERROR';
 // export const REFRESH_CARDS = 'REFRESH_CARDS';
 
@@ -51,6 +52,7 @@ export function updateCards (cardsData:Tcard[]) {
     },
   };
 }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function fetchError (error:any) {
   return {
     type: FETCH_ERROR,
@@ -79,5 +81,23 @@ export function userSignup(userSingupData: TsignupData) {
   return {
     type: USER_LOGIN,
     payload: {userSingupData,}
+  };
+}
+export function userLogout() {
+  return {
+    type: USER_LOGOUT,
+    payload: {}
+  };
+}
+export function sendComment() {
+  return {
+    type: SEND_COMMENT,
+    payload: {}
+  };
+}
+export function updateComments(commendResponse:any) {
+  return {
+    type: UPDATE_COMMENT,
+    payload: {commendResponse}
   };
 }

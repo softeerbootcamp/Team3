@@ -1,4 +1,6 @@
-import { category, regionSi, TcardDetail } from '../../common/constants';
+// import { checkLogin } from '../../common/commonFunctions';
+import { category, regionSi, TcardDetail, Tcomment } from '../../common/constants';
+import { fetchGetComments, fetchSendComment } from '../../common/Fetches';
 import {modalMapGenerator} from '../../common/kakaoMapAPI/kakaoMapAPI';
 import store from '../../store/store';
 import CommentInput from '../comment/commentInput';
@@ -32,6 +34,7 @@ class CardModal {
 
     modalEle?.appendChild(feedWrapper);
     modalMapGenerator(this.readingCard?.location);
+    this.commentBtnEvent();
   }
   setDefaultModalElement() {
     const modalContainer = document.createElement('div');
@@ -117,8 +120,45 @@ class CardModal {
       ${commentList.element.outerHTML}
     </div>
     ${commentInput.element.outerHTML}
-
   </div>`;
+  }
+
+  commentBtnEvent() {
+    const inputElement =
+      this.element.querySelector<HTMLInputElement>('#comment-input');
+    const btnElement =
+      this.element.querySelector<HTMLButtonElement>('.comment-send');
+      if(inputElement===null) return
+    inputElement.addEventListener('keyup', (e) => {
+      if (inputElement.value.length == 0) {
+        btnElement?.classList.add('disabled');
+      } else {
+        btnElement?.classList.remove('disabled');
+      }
+      if (e.key == 'Enter') {
+        this.sendComment(inputElement.value);
+      }
+    });
+    btnElement?.addEventListener('click',()=>{this.sendComment(inputElement.value)})
+  }
+  async sendComment(text:string){
+    const userId = store.getState().userLoginId;
+    if(userId==null){
+      //TODO: login modal, => 로그인 페이지로 이동
+      return;
+    }
+    const date = new Date();
+    
+    const commendData:Tcomment = {
+      uuid: this.readingCard?.id,
+      userId: userId,
+      content: text,
+      date: date.toISOString(),
+    };
+    store.dispatch(await fetchSendComment(commendData));
+    store.dispatch(await fetchGetComments(commendData.uuid));
+      
+    console.log(text)
   }
 }
 export default CardModal;

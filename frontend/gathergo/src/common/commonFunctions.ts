@@ -17,7 +17,7 @@ export function checkLogin() {
 }
 
 // Log the user in
-export function logIn() {
+export function logInSuccess() {
   sessionStorage.setItem('isLoggedIn', 'true');
 }
 

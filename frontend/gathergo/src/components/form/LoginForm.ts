@@ -1,6 +1,6 @@
 // import { logIn, logOut } from "../../common/commonFunctions";
 
-import { fetchLogin } from "../../common/Fetches";
+import { fetchLogin, fetchSignup } from "../../common/Fetches";
 import store from "../../store/store";
 
 class LoginForm {
@@ -79,7 +79,7 @@ class LoginForm {
         "email": inputs[5].value,
       };
       console.log(signupData)
-      store.dispatch(await fetchLogin(signupData));
+      store.dispatch(await fetchSignup(signupData));
   }
   switchButtonEvent() {
     const btns = this.element.querySelectorAll('.login-switcher-button');

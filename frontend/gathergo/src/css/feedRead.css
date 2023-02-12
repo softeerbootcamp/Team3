@@ -200,7 +200,7 @@
 }
 
 .comment-user-id {
-  width: 6rem;
+  min-width: 6rem;
 }
 
 .comment-content {
@@ -234,6 +234,7 @@
 .comment-send {
   margin-left: 0.5rem;
   width: 5rem;
+  transition: 0.2s;
 }
 
 /* tooltip */

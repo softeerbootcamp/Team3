@@ -11,7 +11,11 @@ const routes = [
   { path: /^\/login$/, element: Login },
   { path: /^\/post$/, element: Post },
 ];
-
+type Taction = {
+  type: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  payload: any;
+};
 type TdropDown = {
   [key: number]: string;
 };
@@ -37,7 +41,7 @@ type TcardDetail =
     })
   | null;
 type Tcomment = {
-  uuid: string;
+  uuid: string|undefined;
   userId: string;
   content: string;
   date: string;
@@ -117,4 +121,5 @@ export {
   TinitialState,
   TsignupData,
   TloginData,
+  Taction
 };

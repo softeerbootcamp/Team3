@@ -5,27 +5,17 @@ import {
   FILTER_CATEGORY,
   FILTER_REGION,
   READ_CARD,
+  SEND_COMMENT,
   UPDATE_CARDS,
+  UPDATE_COMMENT,
   USER_LOGIN,
+  USER_LOGOUT,
 } from './actions';
 import { initialState } from '../server/initialstate';
-import { getArticles } from '../common/Fetches';
-// import { getArticles } from '../common/Fetches';
-// import store from './store';
-// import {
-//   postColumn,
-//   postLog,
-//   patchColumnTitle,
-//   patchCardList,
-//   deleteColumn,
-// } from '../../server/server.js';
+import { logInSuccess, logOut } from '../common/commonFunctions';
+import { Taction } from '../common/constants';
 
-type action = {
-  type: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  payload: any;
-};
- function reducer(state = initialState, action: action) {
+function reducer(state = initialState, action: Taction) {
   switch (action.type) {
     case FILTER_REGION:
       //  getArticles(action.payload.regionId,state.filterCategory).then(
@@ -36,10 +26,18 @@ type action = {
       //TODO: state.cards <- 이거 다시 받아오기 서버에 요청해서
       // 서버에 요청할때 하나의 함수: pram{reId, caId, }
       // state.cards = await getArticles(action.payload.regionId,state.filterCategory);
-      return { ...state, filterRegion: action.payload.regionId,isLoading: true, };
+      return {
+        ...state,
+        filterRegion: action.payload.regionId,
+        isLoading: true,
+      };
     case FILTER_CATEGORY:
       // getArticles(state.filterRegion,action.payload.categoryId)
-      return { ...state, filterCategory: action.payload.categoryId, isLoading: true, };
+      return {
+        ...state,
+        filterCategory: action.payload.categoryId,
+        isLoading: true,
+      };
 
     // case FETCH_CARDS_REQUEST:
     //   return {
@@ -87,9 +85,26 @@ type action = {
       };
       // state.comments: [{~~~},{},{},]
       return { ...state };
-    case USER_LOGIN:
-      return { ...state,userLoginId:action.payload.userLoginData.userId };
-    default:
+    case SEND_COMMENT:
+      return {
+        ...state,
+        isLoading: true,
+      };
+      case UPDATE_COMMENT:
+        return {...state,comments:[]}
+      // return {
+      //   ...state,
+      //   comments: action.payload.commendResponse,
+      // };
+      case USER_LOGIN:
+        logInSuccess();
+        history.replaceState(null, '', '/');
+        return { ...state, userLoginId: action.payload.userLoginData.userId };
+        case USER_LOGOUT:
+          logOut();
+          history.replaceState(null, '', '/');
+          return { ...state, userLoginId: null };
+        default:
       return state;
   }
 }
