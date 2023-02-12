@@ -5,6 +5,8 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.*;
+import lightning.gathergo.model.Subscription;
+import lightning.gathergo.repository.NotificationSubscriptionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,11 +22,17 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class FcmMessagingService {
     private final Logger logger = LoggerFactory.getLogger(FcmMessagingService.class);
 
+    private final NotificationSubscriptionRepository notificationSubscriptionRepository;
+
+    private final static String notificationTitle = "알림이 도착했습니다";
+
     @Value("${firebase.credential.path}")
     private String credentialPath;  // credential
     private final ObjectMapper objectMapper;
 
-    public FcmMessagingService(ObjectMapper objectMapper) {
+
+    public FcmMessagingService(NotificationSubscriptionRepository notificationSubscriptionRepository, ObjectMapper objectMapper) {
+        this.notificationSubscriptionRepository = notificationSubscriptionRepository;
         this.objectMapper = objectMapper;
     }
 
