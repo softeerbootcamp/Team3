@@ -1,10 +1,10 @@
 import { category } from '../../common/constants';
 import { getElementIndex } from '../../common/commonFunctions';
 class DropdownCategory {
-  toggleElement: HTMLAnchorElement;
+  toggleElement: HTMLElement;
   itemsElemnt: HTMLElement;
   constructor() {
-    this.toggleElement = document.createElement('a');
+    this.toggleElement = document.createElement('div');
     this.itemsElemnt = document.createElement('div');
     this.render();
     // store.subscribe(() => this.render());
@@ -12,7 +12,7 @@ class DropdownCategory {
   render() {
     this.toggleElement.classList.add('nav-link', 'dropdown-toggle', 'category');
     // this.toggleElement.dataset['bs-toggle'] = 'dropdown';
-    this.toggleElement.href = '#';
+    // this.toggleElement.href = '#';
     this.toggleElement.role = 'button';
     this.toggleElement.ariaHasPopup = 'true';
     this.toggleElement.ariaExpanded = 'false';

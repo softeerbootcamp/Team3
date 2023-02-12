@@ -12,7 +12,7 @@ class Post {
   render() {
 
     if (!this.$container) return;
-    const header = new HeaderDefault();
+    const header = new HeaderDefault('post');
     this.$container.appendChild(header.element);
 
     const form = new PostingForm();

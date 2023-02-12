@@ -66,7 +66,7 @@ class PostingForm {
     meetingDay.setTime(meetingDay.getTime() + ms);
     const categoryDropdown = this.element.querySelector('.dropdown-toggle.category');
 
-    const newPost = {
+    const newPostData = {
       userId: "inputs[0].value",
       title: inputs[0].value,
       total: Number(inputs[6].value),
@@ -77,7 +77,8 @@ class PostingForm {
       location: inputs[3].value,
       locationDetail: inputs[4].value,
     };
-    console.log(newPost);
+    //store.dispatch(~~action~~)
+    console.log(newPostData);
   }
 }
 export default PostingForm;

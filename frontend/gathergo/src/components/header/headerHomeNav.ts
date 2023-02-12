@@ -19,14 +19,14 @@ class HeaderHomeNav {
             </li>
             <li class="nav-item divider"></li>
             <li class="nav-item">
-              <a class="nav-link alarm" href="/" data-hover="알람">
+              <a class="nav-link alarm" href="#" data-hover="알람">
                 <span>알람</span>
               </a>
               <span class="dot unread"></span>
             </li>
             <li class="nav-item divider"></li>
             <li class="nav-item profile-icon">
-              <a class="nav-link" href="" data-hover="내 프로필">
+              <a class="nav-link" href="/profile" data-hover="내 프로필">
                 <span>내 프로필</span>
               </a>
             </li>`;
@@ -34,13 +34,13 @@ class HeaderHomeNav {
       this.element.classList.add('logout');
       this.element.innerHTML = `
             <li class="nav-item">
-              <a class="nav-link" href="/login" data-hover="로그인">
+              <a class="nav-link" href="/login?action=login" data-hover="로그인">
                 <span>로그인</span>
               </a>
             </li>
             <li class="nav-item divider"></li>
             <li class="nav-item profile-icon">
-              <a class="nav-link" href="/login/signup" data-hover="회원가입">
+              <a class="nav-link" href="/login?action=signup" data-hover="회원가입">
                 <span>회원가입</span>
               </a>
             </li>`;

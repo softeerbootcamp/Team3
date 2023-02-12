@@ -9,7 +9,6 @@ const routes = [
   { path: /^\/$/, element: Home },
   { path: /^\/profile$/, element: Profile },
   { path: /^\/login$/, element: Login },
-  { path: /#^\/login$/, element: Login },
   { path: /^\/post$/, element: Post },
 ];
 
