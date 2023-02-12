@@ -15,8 +15,10 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class FcmMessagingService {
@@ -30,6 +32,7 @@ public class FcmMessagingService {
     private String credentialPath;  // credential
     private final ObjectMapper objectMapper;
 
+    Map<Integer, List<String>> registrationTokens = new ConcurrentHashMap<>();  // 여러 스레드의 동일 토픽 접근 병행성 제어
 
     public FcmMessagingService(NotificationSubscriptionRepository notificationSubscriptionRepository, ObjectMapper objectMapper) {
         this.notificationSubscriptionRepository = notificationSubscriptionRepository;
