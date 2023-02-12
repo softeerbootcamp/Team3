@@ -1,5 +1,8 @@
 // import { logIn, logOut } from "../../common/commonFunctions";
 
+import { fetchLogin } from "../../common/Fetches";
+import store from "../../store/store";
+
 class LoginForm {
   element: HTMLElement;
   constructor() {
@@ -57,17 +60,17 @@ class LoginForm {
     const signupBtn = this.element.querySelector('#btn-submit-signup')
     signupBtn?.addEventListener('click',this.submitSignup.bind(this))
   }
-  submitSignin(){
+  async submitSignin(){
     const inputs =this.element.querySelectorAll('input');
     const loginData = {
         "userId": inputs[0].value,
         "password": inputs[1].value,
       };
       console.log(loginData)
-      //store.dispatch(~~action~~)
+      store.dispatch(await fetchLogin(loginData));
   }
 
-  submitSignup(){
+  async submitSignup(){
     const inputs =this.element.querySelectorAll('input');
     const signupData = {
         "userId": inputs[2].value,
@@ -76,7 +79,7 @@ class LoginForm {
         "email": inputs[5].value,
       };
       console.log(signupData)
-      //store.dispatch(~~action~~)
+      store.dispatch(await fetchLogin(signupData));
   }
   switchButtonEvent() {
     const btns = this.element.querySelectorAll('.login-switcher-button');

@@ -47,8 +47,22 @@ type TinitialState = {
   cards: Tcard[];
   readingCard: TcardDetail;
   comments: Tcomment[];
+  filterRegion: number;
+  filterCategory: number;
+  isLoading: boolean;
+  userLoginId: string|null;
+  error: Error|null;
 };
-
+type TsignupData= {
+  userId: string;
+  userName: string;
+  password: string;
+  email: string;
+}
+type TloginData= {
+  userId: string;
+  password: string;
+}
 const regionSi: TdropDown = {
   1: '서울특별시',
   2: '부산광역시',
@@ -101,4 +115,6 @@ export {
   TcardDetail,
   Tcomment,
   TinitialState,
+  TsignupData,
+  TloginData,
 };

@@ -160,4 +160,9 @@ export const initialState: TinitialState = {
       content: '눈물 조차 울음조차 닦지 못한 나',
     },
   ],
+  filterRegion: 0,
+  filterCategory: 0,
+  isLoading: false,
+  userLoginId: null,
+  error: null,
 };
