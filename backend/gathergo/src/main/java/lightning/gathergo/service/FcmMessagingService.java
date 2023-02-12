@@ -53,6 +53,16 @@ public class FcmMessagingService {
         } catch (IOException e){
             e.printStackTrace();
         }
+
+        // 2. 서버 재시동 후 DB 참조해 각 게시글 별 구독 정보 불러오기
+        List<Subscription> subscriptions = notificationSubscriptionRepository.findAll();
+
+        subscriptions.forEach(subscription -> {
+            int articleId = subscription.getArticleId();
+            String deviceToken = subscription.getDeviceToken();
+
+            registrationTokens.computeIfAbsent(articleId, k -> new ArrayList<>()).add(deviceToken);
+        });
     }
 
     public void subscribeToTopic(String topic, String token) {
