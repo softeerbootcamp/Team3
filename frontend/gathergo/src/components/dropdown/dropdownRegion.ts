@@ -1,10 +1,11 @@
+import { getElementIndex } from '../../common/commonFunctions';
 import { regionSi } from '../../common/constants';
 
 class DropdownRegion {
-  toggleElement: HTMLAnchorElement;
+  toggleElement: HTMLElement;
   itemsElemnt: HTMLElement;
   constructor() {
-    this.toggleElement = document.createElement('a');
+    this.toggleElement = document.createElement('div');
     this.itemsElemnt = document.createElement('div');
     this.render();
     // store.subscribe(() => this.render());
@@ -12,7 +13,7 @@ class DropdownRegion {
   render() {
     this.toggleElement.classList.add('nav-link', 'dropdown-toggle', 'region');
     // this.toggleElement.dataset['bs-toggle'] = 'dropdown';
-    this.toggleElement.href = '#';
+    // this.toggleElement.href = '#';
     this.toggleElement.role = 'button';
     this.toggleElement.ariaHasPopup = 'true';
     this.toggleElement.ariaExpanded = 'false';
@@ -30,28 +31,29 @@ class DropdownRegion {
       ) as HTMLAnchorElement;
       if (dropDown === null) this.dropDownClose();
       else this.handleToggle();
-    });
 
-    Array.from(this.itemsElemnt.children).forEach((item) => {
-      item.addEventListener('click', () => {
-        this.toggleElement.innerHTML = item.innerHTML;
-      });
+      const dropDownItem = target?.closest('.dropdown-item.regionSi') as HTMLLIElement;
+      if (dropDownItem === null) return;
+      let index: number = getElementIndex(dropDownItem) + 1;
+      if (dropDownItem.classList.contains('default-item')) index = 0;
+      this.toggleElement.innerHTML = regionSi[index];
     });
   }
   generateDropDownItems() {
     for (const key in regionSi) {
-      const item = document.createElement('a');
-      item.classList.add('dropdown-item');
-      item.href = '#'; //key
+      if (key === '0') continue;
+      const item = document.createElement('div');
+      item.classList.add('dropdown-item','regionSi');
+      // item.href = '#'; //key
       item.innerHTML = regionSi[key];
       this.itemsElemnt.appendChild(item);
     }
 
     this.itemsElemnt.innerHTML += `<div class="dropdown-divider"></div>`;
 
-    const defaultItem = document.createElement('a');
-    defaultItem.classList.add('dropdown-item');
-    defaultItem.href = '#'; //key
+    const defaultItem = document.createElement('div');
+    defaultItem.classList.add('dropdown-item','default-item','regionSi');
+    // defaultItem.href = '#'; //key
     defaultItem.innerHTML = '지역을 선택하세요';
     this.itemsElemnt.appendChild(defaultItem);
   }
