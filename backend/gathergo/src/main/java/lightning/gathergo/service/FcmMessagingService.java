@@ -87,6 +87,9 @@ public class FcmMessagingService {
             return false;
         }
 
+        // 2. DB에 구독 정보 추가
+        subscriptionRepository.save(topic, deviceToken);
+
         logger.info("{} tokens were subscribed successfully", response.getSuccessCount());
         return true;
     }
