@@ -64,8 +64,9 @@ public class FcmMessagingService {
             registrationTokens.computeIfAbsent(articleId, k -> new HashSet<>()).add(deviceToken);
         });
     }
+    public boolean subscribeToTopic(int topic, String deviceToken) {
+        registrationTokens.computeIfAbsent(topic, k -> new HashSet<>()).add(deviceToken);
 
-    public void subscribeToTopic(String topic, String token) {
         TopicManagementResponse response = null;
 
         // Subscribe the devices corresponding to the registration tokens to the
