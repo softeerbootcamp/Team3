@@ -23,8 +23,8 @@ public class GathergoApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins("http://localhost:8080","http://localhost:5173")
-						.allowCredentials(true);
+						.allowedOrigins("http://localhost:8080","http://localhost:5173","http://gathergo.kro.kr","https://gathergo.kro.kr");
+						//.allowCredentials(true);
 			}
 		};
 	}
