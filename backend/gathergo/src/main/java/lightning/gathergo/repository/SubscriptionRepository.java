@@ -28,4 +28,9 @@ public interface SubscriptionRepository extends CrudRepository<Subscription, Str
 
     @Query("select articleId, token from subscription where articleId = :articleId")
     List<Subscription> findByArticleId(@Param("articleId") int articleId);
+
+    @Modifying
+    @Query("delete from subscription where articleId = :articleId and token = :token")
+    void deleteByArticleIdAndToken(@Param("articleId") int articleId, @Param("token") String deviceToken);
+
 }

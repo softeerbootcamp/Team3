@@ -6,7 +6,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.*;
 import lightning.gathergo.model.Subscription;
-import lightning.gathergo.repository.NotificationSubscriptionRepository;
+import lightning.gathergo.repository.SubscriptionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -64,6 +64,7 @@ public class FcmMessagingService {
             registrationTokens.computeIfAbsent(articleId, k -> new HashSet<>()).add(deviceToken);
         });
     }
+
     public boolean subscribeToTopic(int topic, String deviceToken) {
         registrationTokens.computeIfAbsent(topic, k -> new HashSet<>()).add(deviceToken);
 
@@ -77,8 +78,9 @@ public class FcmMessagingService {
         List<String> tokensToRegister = new ArrayList<>(registrationTokens.get(topic));
 
         // 매 번 레코드가 추가될 때마다 호출하면 오버헤드 증가
+        // 1. FCM에 추가
         try {
-            FirebaseMessaging.getInstance()
+            response = FirebaseMessaging.getInstance()
                     .subscribeToTopic(tokensToRegister, String.valueOf(topic));
         } catch (FirebaseMessagingException e) {
             logger.error("could not add token to given topic: {}, {}", topic, e.getMessage());
