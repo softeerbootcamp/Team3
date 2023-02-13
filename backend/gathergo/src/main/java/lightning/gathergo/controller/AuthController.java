@@ -83,6 +83,18 @@ public class AuthController {
         return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "로그아웃 성공", "/"), headers, HttpStatus.FOUND);
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> logoutPost(HttpServletRequest request, HttpServletResponse response) {
+        cookieService.invalidateSession(request.getCookies(), response);
+
+        HttpHeaders headers= new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
+        // headers.add("Location", request.getHeader("Referer"));
+        headers.add("Location", "/login");
+
+        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "로그아웃 성공", "/"), headers, HttpStatus.FOUND);
+    }
+
         @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> methodValidException(MethodArgumentNotValidException e) {
         return new ResponseEntity<>(e.getBindingResult().getFieldError().getDefaultMessage(), HttpStatus.BAD_REQUEST);
