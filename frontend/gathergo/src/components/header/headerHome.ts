@@ -36,18 +36,6 @@ class HeaderHome {
       </ul>
     </nav>
     `;
-    // this.element.addEventListener('click', (e) => {
-    //   console.log('lj');
-    //   //   const target = e.target as Element;
-    //   //   const aElement = target?.closest('a') as HTMLAnchorElement;
-    //   //   if (!(aElement instanceof HTMLAnchorElement)) return;
-    //   //   e.preventDefault();
-    //   history.pushState(
-    //     { data: 'pushpush' },
-    //     'title을 pushState로',
-    //     '/pushpush'
-    //   );
-    // });
     
     const headerHomeNav = new HeaderHomeNav(checkLogin());
     this.element.querySelector('#header-nav')?.appendChild(headerHomeNav.element);

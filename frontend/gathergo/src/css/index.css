@@ -202,9 +202,10 @@
   margin-right: 3em;
 }
 
-.form-control {
+.form-control.me-sm-2 {
   line-height: 1;
   width: 280px;
+  background-color: #fff;
 }
 
 .nav-item {

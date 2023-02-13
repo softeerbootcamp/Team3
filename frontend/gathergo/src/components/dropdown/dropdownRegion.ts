@@ -1,43 +1,60 @@
 import { getElementIndex } from '../../common/commonFunctions';
 import { regionSi } from '../../common/constants';
+import { getArticles } from '../../common/Fetches';
+import { fiterRegion } from '../../store/actions';
+import store from '../../store/store';
 
 class DropdownRegion {
+  filterRegionState: number;
   toggleElement: HTMLElement;
   itemsElemnt: HTMLElement;
   constructor() {
+    this.filterRegionState = store.getState().filterRegion;
     this.toggleElement = document.createElement('div');
     this.itemsElemnt = document.createElement('div');
     this.render();
-    // store.subscribe(() => this.render());
+    store.subscribe(() => {
+      const newState = store.getState().filterRegion;
+      if (this.filterRegionState !== newState) {
+        this.filterRegionState = newState;
+        this.toggleElement.innerHTML = regionSi[this.filterRegionState];
+      }
+    });
   }
   render() {
     this.toggleElement.classList.add('nav-link', 'dropdown-toggle', 'region');
-    // this.toggleElement.dataset['bs-toggle'] = 'dropdown';
-    // this.toggleElement.href = '#';
+    
     this.toggleElement.role = 'button';
     this.toggleElement.ariaHasPopup = 'true';
     this.toggleElement.ariaExpanded = 'false';
-    this.toggleElement.innerHTML = '지역을 선택하세요';
+    this.toggleElement.innerHTML = regionSi[this.filterRegionState];
 
     this.itemsElemnt.classList.add('dropdown-menu');
     this.generateDropDownItems();
 
-    // this.toggleElement.addEventListener('click', this.handleToggle.bind(this));
-    // this.itemsElemnt.addEventListener('click', this.handleToggle.bind(this));
-    document.addEventListener('click', (e) => {
+    
+    document.addEventListener('click', async (e) => {
       const target = e.target as Element;
       const dropDown = target?.closest(
         '.dropdown-toggle.region'
       ) as HTMLAnchorElement;
       if (dropDown === null) this.dropDownClose();
       else this.handleToggle();
-
-      const dropDownItem = target?.closest('.dropdown-item.regionSi') as HTMLLIElement;
-      if (dropDownItem === null) return;
-      let index: number = getElementIndex(dropDownItem) + 1;
-      if (dropDownItem.classList.contains('default-item')) index = 0;
-      this.toggleElement.innerHTML = regionSi[index];
+      
+      const regionId = this.getClickedItemIndex(target);
+      if(regionId!==-1) {
+        store.dispatch(fiterRegion(regionId))
+        store.dispatch(await getArticles(regionId,store.getState().filterCategory));
+      }
     });
+  }
+  getClickedItemIndex(target:Element):number{
+    const dropDownItem = target?.closest('.dropdown-item.regionSi') as HTMLLIElement;
+    if (dropDownItem === null) return -1;
+    let index: number = getElementIndex(dropDownItem) + 1;
+    if (dropDownItem.classList.contains('default-item')) index = 0;
+    // this.toggleElement.innerHTML = regionSi[index];
+    return index;
   }
   generateDropDownItems() {
     for (const key in regionSi) {

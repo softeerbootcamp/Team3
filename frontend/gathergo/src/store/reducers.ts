@@ -1,22 +1,61 @@
-import { FILTER_REGION, READ_CARD } from './actions';
+import {
+  FETCH_ERROR,
+  // FETCH_CARDS_REQUEST,
+  // FETCH_CARDS_SUCCESS,
+  FILTER_CATEGORY,
+  FILTER_REGION,
+  READ_CARD,
+  SEND_COMMENT,
+  UPDATE_CARDS,
+  UPDATE_COMMENT,
+  USER_LOGIN,
+  USER_LOGOUT,
+} from './actions';
 import { initialState } from '../server/initialstate';
-// import {
-//   postColumn,
-//   postLog,
-//   patchColumnTitle,
-//   patchCardList,
-//   deleteColumn,
-// } from '../../server/server.js';
+import { logInSuccess, logOut } from '../common/commonFunctions';
+import { Taction } from '../common/constants';
 
-type action = {
-  type: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  payload: any;
-};
-function reducer(state = initialState, action: action) {
+function reducer(state = initialState, action: Taction) {
   switch (action.type) {
     case FILTER_REGION:
-      return { ...state };
+      //  getArticles(action.payload.regionId,state.filterCategory).then(
+      //   (json) => {
+      //     state.cards = json.articles}
+      //     //           store.dispatch(fetchCardsSuccess(json));
+      // )
+      //TODO: state.cards <- 이거 다시 받아오기 서버에 요청해서
+      // 서버에 요청할때 하나의 함수: pram{reId, caId, }
+      // state.cards = await getArticles(action.payload.regionId,state.filterCategory);
+      return {
+        ...state,
+        filterRegion: action.payload.regionId,
+        isLoading: true,
+      };
+    case FILTER_CATEGORY:
+      // getArticles(state.filterRegion,action.payload.categoryId)
+      return {
+        ...state,
+        filterCategory: action.payload.categoryId,
+        isLoading: true,
+      };
+
+    // case FETCH_CARDS_REQUEST:
+    //   return {
+    //     ...state,
+    //     isLoading: true,
+    //   };
+    case UPDATE_CARDS:
+      return {
+        ...state,
+        isLoading: false,
+        cards: action.payload.cardsData,
+      };
+    case FETCH_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error,
+      };
     case READ_CARD:
       //TODO: fetch 해서 cardId던져서, cardId= action.payload.cardId
       //TcardDetail형식의 데이터 받아오기
@@ -43,10 +82,29 @@ function reducer(state = initialState, action: action) {
         content: '나랑 밥먹을래 사귈래',
         location: '대전시 유성구 계룡로 92',
         locationDetail: '101-1501호',
-        // comments: [],
       };
+      // state.comments: [{~~~},{},{},]
       return { ...state };
-    default:
+    case SEND_COMMENT:
+      return {
+        ...state,
+        isLoading: true,
+      };
+      case UPDATE_COMMENT:
+        return {...state,comments:[]}
+      // return {
+      //   ...state,
+      //   comments: action.payload.commendResponse,
+      // };
+      case USER_LOGIN:
+        logInSuccess();
+        history.replaceState(null, '', '/');
+        return { ...state, userLoginId: action.payload.userLoginData.userId };
+        case USER_LOGOUT:
+          logOut();
+          history.replaceState(null, '', '/');
+          return { ...state, userLoginId: null };
+        default:
       return state;
   }
 }
