@@ -16,7 +16,7 @@ jobs:
           cache: npm
 
       - name: Install Dependencies
-        run: npm install
+        run: cd ./frontend/gathergo/ && npm install
 
       - name: Build with Vite
         run:  cd ./frontend/gathergo/ && npm run build
