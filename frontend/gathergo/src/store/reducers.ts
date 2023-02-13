@@ -90,21 +90,21 @@ function reducer(state = initialState, action: Taction) {
         ...state,
         isLoading: true,
       };
-      case UPDATE_COMMENT:
-        return {...state,comments:[]}
-      // return {
-      //   ...state,
-      //   comments: action.payload.commendResponse,
-      // };
-      case USER_LOGIN:
-        logInSuccess();
-        history.replaceState(null, '', '/');
-        return { ...state, userLoginId: action.payload.userLoginData.userId };
-        case USER_LOGOUT:
-          logOut();
-          history.replaceState(null, '', '/');
-          return { ...state, userLoginId: null };
-        default:
+    case UPDATE_COMMENT:
+      return { ...state, comments: [] };
+    // return {
+    //   ...state,
+    //   comments: action.payload.commendResponse,
+    // };
+    case USER_LOGIN:
+      // logInSuccess();
+      // history.replaceState(null, '', '/');
+      return { ...state, userLoginId: action.payload.userLoginData.userId };
+    case USER_LOGOUT:
+      logOut();
+      history.replaceState(null, '', '/');
+      return { ...state, userLoginId: null };
+    default:
       return state;
   }
 }

@@ -8,14 +8,15 @@ import {
 } from '../store/actions';
 import { Tcomment, TloginData, TsignupData } from './constants';
 
-const url = 'https://3.34.153.254/';
+const url = 'https://gathergo.kro.kr/';
 
 
 export async function fetchLogin(loginData: TloginData) {
   try {
     // const query = getQuery(loginData);
-    const response = await fetch(url + 'login', {
+    const response = await fetch(url + 'api/login', {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -26,18 +27,13 @@ export async function fetchLogin(loginData: TloginData) {
       console.log(userLoginData)
     return userLogin(userLoginData);
   } catch (error) {
-    console.log(error);
-    //   return userLogin({
-    //     "userId": "abc",
-    //     "password": "def",
-    //   });
     return fetchError(error);
   }
 }
 export async function fetchSignup(signupData: TsignupData) {
   try {
     // const query = getQuery(loginData);
-    const response = await fetch(url + 'singup', {
+    const response = await fetch(url + 'api/signup/', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -62,7 +58,7 @@ export async function getArticles(regionId: number, categoryId: number) {
       categoryId: categoryId,
     };
     const query = getQuery(params);
-    const response = await fetch(url + 'articles?' + query);
+    const response = await fetch(url + 'api/articles?' + query);
 
     const cardDatas = await response.json();
     return updateCards(cardDatas);
@@ -74,7 +70,7 @@ export async function getArticles(regionId: number, categoryId: number) {
 export async function fetchSendComment(commentData: Tcomment) {
   try {
     // const response =
-    await fetch(url + '/article/' + commentData.uuid + '/comments', {
+    await fetch(url + 'api/article/' + commentData.uuid + '/comments', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -92,7 +88,7 @@ export async function fetchSendComment(commentData: Tcomment) {
 export async function fetchGetComments(cardID: string|undefined) {
     try {
        const response =
-      await fetch(url + '/article/' + cardID + '/comments');
+      await fetch(url + 'api/article/' + cardID + '/comments');
   
       const commendResponse = await response.json();
       return updateComments(commendResponse);
