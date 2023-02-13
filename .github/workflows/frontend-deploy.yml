@@ -12,13 +12,13 @@
 #    steps:
 #      - name: Checkout
 #        uses: actions/checkout@v2
-#
-#      - name: Grant execute permission for gradlew
-#        run:  cd ./frontend/gathergo/ && npm run build
-#        shell: bash
+#        with:
+#          cache: npm
+#        run: npm install
 #
 #      - name: Build with Vite
-#        run: cd ./backend/gathergo && npm run build
+#        run:  cd ./frontend/gathergo/ && npm run build
+#        shell: bash
 #
 #      - name: Copy docker-compose file
 #        uses: appleboy/scp-action@master
@@ -26,6 +26,6 @@
 #          host: ${{ secrets.SSH_IP }}
 #          username: ${{ secrets.SSH_USERNAME }}
 #          key: ${{ secrets.SSH_KEY }}
-#          source: './backend/gathergo/docker-compose.yml'
-#          target: 'compose'
+#          source: './backend/gathergo/dist'
+#          target: 'dist'
 #          rm: true

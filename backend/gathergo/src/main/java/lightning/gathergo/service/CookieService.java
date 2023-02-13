@@ -40,6 +40,7 @@ public class CookieService {
         sessionCookie.setMaxAge(cookieExpiration);
         sessionCookie.setHttpOnly(false);
         sessionCookie.setPath("/; SameSite=None");
+        sessionCookie.setSecure(true);
 
         response.addCookie(sessionCookie);
     }
