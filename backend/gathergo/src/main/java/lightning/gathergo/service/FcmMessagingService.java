@@ -15,9 +15,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
@@ -32,7 +30,9 @@ public class FcmMessagingService {
     private String credentialPath;  // credential
     private final ObjectMapper objectMapper;
 
-    Map<Integer, List<String>> registrationTokens = new ConcurrentHashMap<>();  // 여러 스레드의 동일 토픽 접근 병행성 제어
+    private final Map<Integer, Set<String>> registrationTokens = new ConcurrentHashMap<>();  // 여러 스레드의 동일 토픽 접근 병행성 제어
+    private final Map<Integer, List<String>> pendingUpdates = new ConcurrentHashMap<>();
+
 
     public FcmMessagingService(NotificationSubscriptionRepository notificationSubscriptionRepository, ObjectMapper objectMapper) {
         this.notificationSubscriptionRepository = notificationSubscriptionRepository;
@@ -61,7 +61,7 @@ public class FcmMessagingService {
             int articleId = subscription.getArticleId();
             String deviceToken = subscription.getDeviceToken();
 
-            registrationTokens.computeIfAbsent(articleId, k -> new ArrayList<>()).add(deviceToken);
+            registrationTokens.computeIfAbsent(articleId, k -> new HashSet<>()).add(deviceToken);
         });
     }
 
@@ -77,9 +77,8 @@ public class FcmMessagingService {
             logger.error(e.getMessage());
         }
 
-        // See the TopicManagementResponse reference documentation
-        // for the contents of response.
-        logger.info(response.getSuccessCount() + " tokens were subscribed successfully");
+        logger.info("{} tokens were subscribed successfully", response.getSuccessCount());
+        return true;
     }
 
     public String sendMessageToTopic(String topic, String title, String body) {  // TODO: Article의 멤버들에게 알림 발송
