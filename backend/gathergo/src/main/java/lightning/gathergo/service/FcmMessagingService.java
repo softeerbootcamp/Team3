@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class FcmMessagingService {
     private final Logger logger = LoggerFactory.getLogger(FcmMessagingService.class);
 
-    private final NotificationSubscriptionRepository notificationSubscriptionRepository;
+    private final SubscriptionRepository subscriptionRepository;
 
     private final static String notificationTitle = "알림이 도착했습니다";
 
@@ -34,8 +34,8 @@ public class FcmMessagingService {
     private final Map<Integer, List<String>> pendingUpdates = new ConcurrentHashMap<>();
 
 
-    public FcmMessagingService(NotificationSubscriptionRepository notificationSubscriptionRepository, ObjectMapper objectMapper) {
-        this.notificationSubscriptionRepository = notificationSubscriptionRepository;
+    public FcmMessagingService(SubscriptionRepository subscriptionRepository, ObjectMapper objectMapper) {
+        this.subscriptionRepository = subscriptionRepository;
         this.objectMapper = objectMapper;
     }
 
@@ -55,7 +55,7 @@ public class FcmMessagingService {
         }
 
         // 2. 서버 재시동 후 DB 참조해 각 게시글 별 구독 정보 불러오기
-        List<Subscription> subscriptions = notificationSubscriptionRepository.findAll();
+        List<Subscription> subscriptions = subscriptionRepository.findAll();
 
         subscriptions.forEach(subscription -> {
             int articleId = subscription.getArticleId();
