@@ -128,19 +128,8 @@ public class FcmMessagingService {
                 .putAllData(datas)
                 .setTopic(topic)
                 .build();  // .setCondition 추가하면 한 번에 여러 topic에도 전달 가능
-        String response = "";
 
-        try {
-            // Send a message to the devices subscribed to the provided topic.
-           response = FirebaseMessaging.getInstance().send(message);
-
-            // Response is a message ID string.
-            System.out.println("Successfully sent message: " + response);
-        } catch (FirebaseMessagingException e) {
-            logger.error(e.getMessage());
-        }
-
-        return response;
+        return send(message);
     }
 
     public String sendMessageToToken(String token, String body) {
