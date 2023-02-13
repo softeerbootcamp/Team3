@@ -105,28 +105,30 @@ public class FcmMessagingService {
         return response;
     }
 
-    public String sendMessageToToken(String token, String title, String body) {  // TODO: Article의 멤버들에게 알림 발송
-
-        // See documentation on defining a message payload.
+    public String sendMessageToToken(String token, String body) {
         Message message = Message.builder()
                 .setToken(token)
-                .setWebpushConfig(WebpushConfig.builder().putHeader("ttl", "300")
-                        .setNotification(new WebpushNotification(title,
-                                body))
+                .setWebpushConfig(WebpushConfig.builder()
+                        .putHeader("ttl", "300")
+                        .setNotification(new WebpushNotification(notificationTitle, body))
                         .build())
-                .build();  // .setCondition 추가하면 한 번에 여러 topic에도 전달 가능
+                .build();
+
+        return send(message);
+    }
+
+    private String send(Message message) {
         String response = "";
 
         try {
             // Send a message to the devices subscribed to the provided topic.
             response = FirebaseMessaging.getInstance().send(message);
 
-            // Response is a message ID string.
-            System.out.println("Successfully sent message: " + response);
+            logger.info("Successfully sent message: {}", response);
         } catch (FirebaseMessagingException e) {
             logger.error(e.getMessage());
+            return "";
         }
-
         return response;
     }
 }
