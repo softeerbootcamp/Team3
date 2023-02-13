@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface SubscriptionRepository extends CrudRepository<Subscription, String> {
     @Modifying
-    @Query("insert into subscription (articleId, token) VALUES (:articleId, :deviceToken)")
+    @Query("insert into subscription (articleId, token) VALUES (:articleId, :token)")
     void save(@Param("articleId") int articleId, @Param("token") String deviceToken);
 
     @Query("select articleId, token from subscription")
