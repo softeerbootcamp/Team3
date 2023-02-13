@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface NotificationSubscriptionRepository extends CrudRepository<Subscription, String> {
+public interface SubscriptionRepository extends CrudRepository<Subscription, String> {
     @Modifying
     @Query("insert into subscription (articleId, token) VALUES (:articleId, :deviceToken)")
     void save(@Param("articleId") int articleId, @Param("token") String deviceToken);
