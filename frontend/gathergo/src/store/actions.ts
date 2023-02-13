@@ -95,6 +95,7 @@ export function sendComment() {
     payload: {}
   };
 }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function updateComments(commendResponse:any) {
   return {
     type: UPDATE_COMMENT,

@@ -8,40 +8,8 @@ import {
 } from '../store/actions';
 import { Tcomment, TloginData, TsignupData } from './constants';
 
-const url = 'http://localhost:3000/';
+const url = 'https://3.34.153.254/';
 
-// export async function getJSONdata() {
-//   try {
-//     await fetchColumns();
-//     await fetchLogs()
-//   }
-//   catch (error) {
-//     console.log(error);
-//   }
-// }
-// export async function fetchColumns() {
-//   await fetch(url + "columns").then(response => response.json())
-//     .then(json => {
-//       initialState.columns = [...json]
-//     })
-// }
-// export async function fetchLogs() {
-//   await fetch(url + "logs").then(response => response.json()).then(json => {
-//     initialState.logs = [...json];
-//   })
-// }
-// export function getArticles(regionId:number,categoryId:number) {
-//     const params ={
-//         regionId:regionId,
-//         categoryId:categoryId,
-//     }
-//     const query= getQuery(params);
-//     fetch(url + "articles?"+query).then(response => response.json())
-//     .then(json => {
-//       initialState.columns = [...json]
-//     })
-
-//   }
 
 export async function fetchLogin(loginData: TloginData) {
   try {
@@ -55,10 +23,10 @@ export async function fetchLogin(loginData: TloginData) {
     });
 
     const userLoginData = await response.json();
-    //   console.log(userLoginData)
+      console.log(userLoginData)
     return userLogin(userLoginData);
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     //   return userLogin({
     //     "userId": "abc",
     //     "password": "def",
@@ -71,6 +39,7 @@ export async function fetchSignup(signupData: TsignupData) {
     // const query = getQuery(loginData);
     const response = await fetch(url + 'singup', {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
