@@ -69,13 +69,20 @@ public class FcmMessagingService {
 
         TopicManagementResponse response = null;
 
-        // Subscribe the devices corresponding to the registration tokens to the
-        // topic.
+        registrationTokens.computeIfPresent(topic, (k, v) -> {
+            v.add(deviceToken);
+            return v;
+        });
+
+        List<String> tokensToRegister = new ArrayList<>(registrationTokens.get(topic));
+
+        // 매 번 레코드가 추가될 때마다 호출하면 오버헤드 증가
         try {
-            FirebaseMessaging.getInstance().subscribeToTopic(
-                    registrationTokens, topic);
+            FirebaseMessaging.getInstance()
+                    .subscribeToTopic(tokensToRegister, String.valueOf(topic));
         } catch (FirebaseMessagingException e) {
-            logger.error(e.getMessage());
+            logger.error("could not add token to given topic: {}, {}", topic, e.getMessage());
+            return false;
         }
 
         logger.info("{} tokens were subscribed successfully", response.getSuccessCount());
