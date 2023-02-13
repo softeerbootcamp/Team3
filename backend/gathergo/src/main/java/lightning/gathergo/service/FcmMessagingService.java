@@ -94,13 +94,38 @@ public class FcmMessagingService {
         return true;
     }
 
-    public String sendMessageToTopic(String topic, String title, String body) {  // TODO: Article의 멤버들에게 알림 발송
-        // The topic name can be optionally prefixed with "/topics/".
+    public boolean unsubscribeFromTopic(int topic, String deviceToken) {
+        Set<String> tokens = registrationTokens.get(topic);
+        if (tokens == null || !tokens.contains(deviceToken)) {
+            logger.info("device token not found in topic: {}, {}", topic, deviceToken);
+            return false;
+        }
 
-        // See documentation on defining a message payload.
+        tokens.remove(deviceToken);
+
+        List<String> tokensToUnregister = new ArrayList<>(tokens);
+
+        // 매 번 레코드가 제거될 때마다 호출하면 오버헤드 증가
+        // 1. FCM에서 제거
+        TopicManagementResponse response = null;
+        try {
+            response = FirebaseMessaging.getInstance()
+                    .unsubscribeFromTopic(tokensToUnregister, String.valueOf(topic));
+        } catch (FirebaseMessagingException e) {
+            logger.error("could not remove token from given topic: {}, {}", topic, e.getMessage());
+            return false;
+        }
+
+        // 2. DB에서 구독 정보 제거
+        subscriptionRepository.deleteByArticleIdAndToken(topic, deviceToken);
+
+        logger.info("{} tokens were unsubscribed successfully", response.getSuccessCount());
+        return true;
+    }
+
+    public String sendMessageToTopic(String topic, Map<String, String> datas) {  // TODO: Article의 멤버들에게 알림 발송
         Message message = Message.builder()
-                .putData("score", "850")
-                .putData("time", "2:45")
+                .putAllData(datas)
                 .setTopic(topic)
                 .build();  // .setCondition 추가하면 한 번에 여러 topic에도 전달 가능
         String response = "";
