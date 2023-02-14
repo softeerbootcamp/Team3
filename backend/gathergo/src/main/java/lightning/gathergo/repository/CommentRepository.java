@@ -23,7 +23,7 @@ public interface CommentRepository extends CrudRepository<Comment,Integer> {
     @Modifying
     @Query("insert into comment (articleId, userId, date, content, uuid) " +
             "values (:articleId, :userId, :date,  :content, :uuid)")
-    void save(Integer articleId, Integer userId, Date date, String content, String uuid);
+    void save(Integer articleId, Integer userId, Timestamp date, String content, String uuid);
 
     @Query("select * from comment where uuid=:uuid")
     Comment findByUuid(String uuid);
@@ -31,7 +31,7 @@ public interface CommentRepository extends CrudRepository<Comment,Integer> {
     // 수정
     @Modifying
     @Query("update comment set content = :content, date = :date where uuid = :uuid")
-    void updateByUuid(String content, Date date, String uuid);
+    void updateByUuid(String content, Timestamp date, String uuid);
 
 
     // 삭제
