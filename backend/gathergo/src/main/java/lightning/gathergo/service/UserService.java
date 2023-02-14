@@ -1,6 +1,7 @@
 package lightning.gathergo.service;
 
 import lightning.gathergo.dto.LoginDto;
+import lightning.gathergo.model.Article;
 import lightning.gathergo.model.User;
 import lightning.gathergo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,4 +61,13 @@ public class UserService {
 
         return user.get();
     }
+
+    public List<Article> getParticipatingArticlesByIdd(Integer userId){
+        return userRepository.findParticipatingArticlesById(userId);
+    }
+
+    public List<Article> getHostingArticlesById(Integer userId){
+        return userRepository.findHostingArticlesById(userId);
+    }
+
 }
