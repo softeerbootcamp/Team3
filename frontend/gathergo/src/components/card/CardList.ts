@@ -1,8 +1,8 @@
 import Card from './Card';
 import store from '../../store/store';
-import { readCard } from '../../store/actions';
 import { Tcard } from '../../common/constants';
 import Navigate from '../../common/utils/navigate';
+import { fetchCardDetail } from '../../common/Fetches';
 class CardList {
   cardsState: Tcard[];
   element: HTMLDivElement;
@@ -30,10 +30,10 @@ class CardList {
     state.cards.forEach((cardData: Tcard) => {
       const card = new Card(cardData);
       this.element.appendChild(card.element);
-      card.element.addEventListener('click', () => {
-        this.navigate.to(`/?feed=${cardData.id}`)
+      card.element.addEventListener('click', async () => {
+        this.navigate.to(`/?feed=${cardData.uuid}`)
         this.openCardModal();
-        store.dispatch(readCard(cardData.id));
+        store.dispatch( await fetchCardDetail(cardData.uuid));
       });
     });
   }
@@ -44,8 +44,5 @@ class CardList {
     modalContainer?.classList.add('modal-animation');
     document.body.classList.add('modal-active');
   }
-  //TODO: card 클릭시 이벤트, state.redadingFeed = cardData
-  //구독으로 인해 modal이 render 될때, modal에 클래스에 show 추가,
-  // 생성할때는 아예엘리멘트 안만들기
 }
 export default CardList;

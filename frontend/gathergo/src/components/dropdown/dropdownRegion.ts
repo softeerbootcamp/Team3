@@ -1,23 +1,23 @@
 import { getElementIndex } from '../../common/commonFunctions';
-import { regionSi } from '../../common/constants';
+import { regionSi, Tfilters } from '../../common/constants';
 import { getArticles } from '../../common/Fetches';
-import { fiterRegion } from '../../store/actions';
+import { filterSearch} from '../../store/actions';
 import store from '../../store/store';
 
 class DropdownRegion {
-  filterRegionState: number;
+  filtersState: Tfilters;
   toggleElement: HTMLElement;
   itemsElemnt: HTMLElement;
   constructor() {
-    this.filterRegionState = store.getState().filterRegion;
+    this.filtersState = store.getState().filters;
     this.toggleElement = document.createElement('div');
     this.itemsElemnt = document.createElement('div');
     this.render();
     store.subscribe(() => {
-      const newState = store.getState().filterRegion;
-      if (this.filterRegionState !== newState) {
-        this.filterRegionState = newState;
-        this.toggleElement.innerHTML = regionSi[this.filterRegionState];
+      const newState = store.getState().filters;
+      if (this.filtersState !== newState) {
+        this.filtersState = newState;
+        this.toggleElement.innerHTML = regionSi[this.filtersState.regionId];
       }
     });
   }
@@ -27,7 +27,7 @@ class DropdownRegion {
     this.toggleElement.role = 'button';
     this.toggleElement.ariaHasPopup = 'true';
     this.toggleElement.ariaExpanded = 'false';
-    this.toggleElement.innerHTML = regionSi[this.filterRegionState];
+    this.toggleElement.innerHTML = regionSi[this.filtersState.categoryId];
 
     this.itemsElemnt.classList.add('dropdown-menu');
     this.generateDropDownItems();
@@ -41,10 +41,11 @@ class DropdownRegion {
       if (dropDown === null) this.dropDownClose();
       else this.handleToggle();
       
-      const regionId = this.getClickedItemIndex(target);
-      if(regionId!==-1) {
-        store.dispatch(fiterRegion(regionId))
-        store.dispatch(await getArticles(regionId,store.getState().filterCategory));
+      const newregionId = this.getClickedItemIndex(target);
+      if(newregionId!==-1) {
+        store.dispatch(filterSearch({...this.filtersState, regionId:newregionId}))
+        console.log(this.filtersState)
+        store.dispatch(await getArticles(store.getState().filters));
       }
     });
   }
@@ -53,7 +54,7 @@ class DropdownRegion {
     if (dropDownItem === null) return -1;
     let index: number = getElementIndex(dropDownItem) + 1;
     if (dropDownItem.classList.contains('default-item')) index = 0;
-    // this.toggleElement.innerHTML = regionSi[index];
+
     return index;
   }
   generateDropDownItems() {
@@ -61,7 +62,7 @@ class DropdownRegion {
       if (key === '0') continue;
       const item = document.createElement('div');
       item.classList.add('dropdown-item','regionSi');
-      // item.href = '#'; //key
+
       item.innerHTML = regionSi[key];
       this.itemsElemnt.appendChild(item);
     }
@@ -70,7 +71,7 @@ class DropdownRegion {
 
     const defaultItem = document.createElement('div');
     defaultItem.classList.add('dropdown-item','default-item','regionSi');
-    // defaultItem.href = '#'; //key
+
     defaultItem.innerHTML = '지역을 선택하세요';
     this.itemsElemnt.appendChild(defaultItem);
   }

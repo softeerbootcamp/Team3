@@ -95,9 +95,8 @@ font-size:19px;
   margin-bottom: 1rem;
   }
   .noti-modal-message{
-    line-height: 4rem;
     
-    /* min-height: 3rem; */
+    line-height: 2.5rem;
   }
 .error-modal > div > button{
 cursor: pointer;
@@ -118,43 +117,41 @@ transition: background-color 300ms;
 background-color: #bb4743;
 }
 
-/* .error-modal-header, .loginCheck-modal-header, .joinCheck-modal-header, .gatheringEdit-modal-header, .gatheringDelete-modal-header,.commentDelete-modal-header,.joinCancel-modal-header{ */
 .noti-modal-header{
 height : 2rem;
 }
 
-/* .error-modal-message, .loginCheck-modal-message, .joinCheck-modal-message, .gatheringEdit-modal-message, .gatheringDelete-modal-message,.commentDelete-modal-message,.joinCancel-modal-message{ */
 
 .error-modal-divider{
 margin : 10px 0 20px 0;
 }
 
-/* .loginCheck-modal-button-divider, .joinCheck-modal-button-divider, .gatheringEdit-modal-button-divider, .gatheringDelete-modal-button-divider,.commentDelete-modal-button-divider,.joinCancel-modal-button-divider{ */
 .noti-modal-button-divider{
 padding : 0.5rem;
 }
 
 
 .modal-setting-dropdown.modal-setting-dropdown {
-right: 0;
-left: unset;
+
+  top: 2rem;
+  right: 0;
 }
 
 .modal-join-button {
 min-width: 3rem;
 }
 
-.modal-dropdown-toggle::after {
-content: none;
-}
 
 .setting-icon {
 transform: rotate(0deg);
 transition: 0.3s;
+}
+.nav-item.dropdown{
 cursor: pointer;
+
 }
 
-.setting-icon.rotate {
-transform: rotate(+45deg);
+.rotate .setting-icon {
+transform: rotate(-45deg);
 transition: 0.3s;
 }

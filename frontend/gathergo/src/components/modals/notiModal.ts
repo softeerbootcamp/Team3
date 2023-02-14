@@ -57,7 +57,7 @@ modalClose(){
   setMessage(type: string): string {
     switch (type) {
       case 'NEED_LOGIN':
-        return `로그인이 필요합니다.   로그인 하시겠습니까?`;
+        return `로그인이 필요합니다.  로그인 하시겠습니까?`;
       case 'JOIN':
         return '만남에 참가하시겠습니까?';
 
@@ -71,7 +71,7 @@ modalClose(){
         return '댓글을 삭제하시겠습니까?';
 
       case 'CANCEL_JOIN':
-        return '만남 참가를 취소하시겠습니까?';
+        return '이미 참가 신청한 만남입니다.<br>참가를 취소하시겠습니까?';
       default:
         return 'default';
     }
