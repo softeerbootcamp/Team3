@@ -36,6 +36,8 @@ class Home {
       cardList.openCardModal();
       store.dispatch(readCard(feed));
     }
+
+    this.matchSearchBarValue();
   }
   closeModalEvent(modalEle: HTMLElement) {
     modalEle.addEventListener('click', (e) => {
@@ -50,6 +52,18 @@ class Home {
     modalContainer.classList.add('out');
     document.body?.removeAttribute('class');
     this.navigate.to('/')
+  }
+
+  matchSearchBarValue(){
+    const categorySidebar = document.querySelector('.category-input') as HTMLInputElement;
+    const hideSidebar = document.querySelector('.search-input') as HTMLInputElement;
+    
+    categorySidebar?.addEventListener('keyup',()=>{
+      hideSidebar.value = categorySidebar.value;
+    })
+    hideSidebar?.addEventListener('keyup',()=>{
+      categorySidebar.value = hideSidebar.value;
+    })
   }
 }
 

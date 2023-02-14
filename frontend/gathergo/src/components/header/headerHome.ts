@@ -29,7 +29,7 @@ class HeaderHome {
         <li id="dropdown-region" class="nav-item dropdown region"></li>
         <li id="dropdown-category" class="nav-item dropdown category"></li>
         <form class="d-flex">
-          <input class="form-control me-sm-2" type="search" placeholder="Search" />
+          <input class="form-control me-sm-2 category-input" type="search" placeholder="Search" />
           <button class="btn btn-primary my-2 my-sm-0" type="submit">
             Search
           </button>
