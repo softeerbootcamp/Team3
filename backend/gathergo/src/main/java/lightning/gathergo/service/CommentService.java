@@ -5,6 +5,7 @@ import lightning.gathergo.repository.CommentRepository;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Service
@@ -23,7 +24,7 @@ public class CommentService {
     }
 
     // 수정
-    Comment updateComment(String content, Date date, String commentUuid){
+    Comment updateComment(String content, Timestamp date, String commentUuid){
         Comment comment = commentRepository.findByUuid(commentUuid);
         commentRepository.updateByUuid(content, date, commentUuid);
         comment = commentRepository.findByUuid(commentUuid);
@@ -35,6 +36,13 @@ public class CommentService {
         commentRepository.deleteByUuid(commentUuid);
     }
 
+    boolean hasUserWroteThisComment(String userId, String commentUuid){
+        Comment comment = commentRepository.findByUuid(commentUuid);
+        if(null != commentRepository.findByUuidAndUserId(commentUuid, userId).get()){
+            return true;
+        }
+        return false;
+    }
 
     private String gerneratedUuid(){
         return UUID.randomUUID().toString();

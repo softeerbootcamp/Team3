@@ -3,17 +3,20 @@ package lightning.gathergo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.sql.Timestamp;
+
 public class CommentDto {
 
     public static class Response{
         private String uuid;
         private String userId;
         private String content;
-        private java.sql.Date date;
+        @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+        private Timestamp date;
 
         public Response(){}
 
-        public Response(String uuid, String userId, String content, java.sql.Date date) {
+        public Response(String uuid, String userId, String content, Timestamp date) {
             this.uuid = uuid;
             this.userId = userId;
             this.content = content;
@@ -44,11 +47,11 @@ public class CommentDto {
             this.content = content;
         }
 
-        public java.sql.Date getDate() {
+        public Timestamp getDate() {
             return date;
         }
 
-        public void setDate(java.sql.Date date) {
+        public void setDate(Timestamp date) {
             this.date = date;
         }
     }
@@ -56,8 +59,7 @@ public class CommentDto {
     public static class CreateRequest{
         private String content;
         @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-        private java.sql.Date date;
-        private String userId;
+        private Timestamp date;
 
         public CreateRequest() {
         }
@@ -70,20 +72,12 @@ public class CommentDto {
             this.content = content;
         }
 
-        public java.sql.Date getDate() {
+        public Timestamp getDate() {
             return date;
         }
 
-        public void setDate(java.sql.Date date) {
+        public void setDate(Timestamp date) {
             this.date = date;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
         }
     }
 
@@ -91,7 +85,7 @@ public class CommentDto {
         private String uuid;
         private String content;
         @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-        private java.sql.Date date;
+        private Timestamp date;
 
         public String getUuid() {
             return uuid;
@@ -109,11 +103,11 @@ public class CommentDto {
             this.content = content;
         }
 
-        public java.sql.Date getDate() {
+        public Timestamp getDate() {
             return date;
         }
 
-        public void setDate(java.sql.Date date) {
+        public void setDate(Timestamp date) {
             this.date = date;
         }
     }

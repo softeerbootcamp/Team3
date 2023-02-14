@@ -15,7 +15,7 @@ public class Comment {
     private Integer articleId;
     @Column("userid")
     private Integer userId;
-    private Date date;
+    private Timestamp date;
     private String content;
     private String uuid;
 
@@ -43,11 +43,11 @@ public class Comment {
         this.userId = userId;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 

@@ -4,6 +4,7 @@ import lightning.gathergo.model.Article;
 import lightning.gathergo.model.Comment;
 import lightning.gathergo.repository.ArticleRepository;
 import lightning.gathergo.repository.UserArticleRelationshipRepository;
+import lightning.gathergo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,21 +17,30 @@ public class ArticleService {
 
     // TODO hostId가 string 값으로 날라오도록 변경
     private final ArticleRepository articleRepository;
-    private final CommentService commentService;
-
+    private final UserRepository userRepository;
     private final UserArticleRelationshipRepository relationshipRepository;
+    private final CommentService commentService;
+    private final CountService countService;
 
     @Autowired
-    ArticleService(ArticleRepository articleRepository, CommentService commentService, UserArticleRelationshipRepository relationshipRepository){
+    ArticleService(ArticleRepository articleRepository, UserRepository userRepository,
+                   UserArticleRelationshipRepository relationshipRepository, CommentService commentService,
+                   CountService countService){
         this.articleRepository = articleRepository;
-        this.commentService = commentService;
+        this.userRepository = userRepository;
         this.relationshipRepository = relationshipRepository;
+        this.commentService = commentService;
+        this.countService = countService;
     }
 
     @Transactional
-    public Article addArticle(Article article){
+    public Article addArticle(Article article, String userId){
         article.setUuid(generateUuid());
+        article.setHostId(userRepository.findUserByUserId(userId).get().getId());
         articleRepository.save(article);
+        relationshipRepository.save(
+                article.getHostId()
+                , article.getHostId());
         return articleRepository.findById(articleRepository.getLastInsertedId()).get();
     }
 
@@ -49,7 +59,7 @@ public class ArticleService {
 
     public Article setClosed(String uuid){
         Article article = articleRepository.findByUuid(uuid).get();
-        articleRepository.updateArticleById(article.getTitle(), article.getCurr(),
+        articleRepository.updateArticleById(article.getTitle(),
                 article.getTotal(), true, article.getContent(), article.getMeetingDay(), article.getLocation(),
                 article.getRegionId(), article.getCategoryId(), article.getId());
         article.setClosed(true);
@@ -59,7 +69,7 @@ public class ArticleService {
     public Article updateArticle(String uuid, Article replacemnt){
         Integer id = articleRepository.findByUuid(uuid).get().getId();
         replacemnt.setId(id);
-        articleRepository.updateArticleById(replacemnt.getTitle(), replacemnt.getCurr(),
+        articleRepository.updateArticleById(replacemnt.getTitle(),
                 replacemnt.getTotal(), replacemnt.getClosed(), replacemnt.getContent(), replacemnt.getMeetingDay(),
                 replacemnt.getLocation(), replacemnt.getRegionId(), replacemnt.getCategoryId(), id);
         return replacemnt;
@@ -70,7 +80,8 @@ public class ArticleService {
     }
 
     // 댓글 생성
-    public Comment addComment(Comment comment, String articleUuid){
+    public Comment addComment(Comment comment, String articleUuid, String userId){
+        comment.setUserId(userRepository.findUserByUserId(userId).get().getId());
         comment.setArticleId(articleRepository.findByUuid(articleUuid).get().getId());
         return commentService.createComment(comment);
     }
@@ -84,6 +95,37 @@ public class ArticleService {
     // 댓글 삭제
     public void deleteComment(String commentUuid){
         commentService.deleteCommentByUuid(commentUuid);
+    }
+
+    public void addGuest(String userId, String articleUuid){
+        if(countService.getCount(articleUuid) >=
+                articleRepository.findByUuid(articleUuid).get().getTotal()){
+            // throw exception
+        }
+        relationshipRepository.save(
+                userRepository.findUserByUserId(userId).get().getId(),
+                articleRepository.findByUuid(articleUuid).get().getId()
+        );
+    }
+
+    public void deleteGuest(String userId, String articleUuid){
+        relationshipRepository.deleteByArticleIdUserId(
+                userRepository.findUserByUserId(userId).get().getId(),
+                articleRepository.findByUuid(articleUuid).get().getId()
+        );
+    }
+
+    public boolean judgeJoinedUserOrNot(String userId, String articleUuid){
+        List<Article> articles = userRepository.findParticipatingArticlesById(userRepository.findUserByUserId(userId).get().getId());
+        for(Article article : articles){
+            if(article.getUuid().equals(articleUuid)) return true;
+        }
+        return false;
+    }
+
+    // 댓글 작성 여부 확인
+    public boolean hasUserWroteThisComment(String userId, String commentUuid){
+        return commentService.hasUserWroteThisComment(userId, commentUuid);
     }
 
     private String generateUuid() {

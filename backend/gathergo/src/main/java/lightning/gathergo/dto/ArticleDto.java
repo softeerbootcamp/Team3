@@ -11,16 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleDto {
-
-    // TODO regionId, categoryId 부분 develop 브랜치에 머지한 후 Region, Category 객체로 바꾸기
-    // TODO hostId 부분도 user의 uuid를 활용할 수 있도록
-    // TODO TimeStamp <- String 변환 안되는 이유 알아내기
-
     public static class Response{
         private String uuid;
         private String hostId;
+        private String hostIntroduction;
         private String title;
-        private int curr; // 추후에 int를 Integer로 바꾸기!!!!!
         private int total;
         private Boolean isClosed;
         private String content;
@@ -29,7 +24,6 @@ public class ArticleDto {
         private String location;
         private int regionId;
         private int categoryId;
-        private List<CommentDto.Response> comments = new ArrayList<>();
 
         public String getHostId() {
             return hostId;
@@ -39,20 +33,20 @@ public class ArticleDto {
             this.hostId = hostId;
         }
 
+        public String getHostIntroduction() {
+            return hostIntroduction;
+        }
+
+        public void setHostIntroduction(String hostIntroduction) {
+            this.hostIntroduction = hostIntroduction;
+        }
+
         public String getTitle() {
             return title;
         }
 
         public void setTitle(String title) {
             this.title = title;
-        }
-
-        public int getCurr() {
-            return curr;
-        }
-
-        public void setCurr(int curr) {
-            this.curr = curr;
         }
 
         public int getTotal() {
@@ -118,43 +112,12 @@ public class ArticleDto {
         public void setUuid(String uuid) {
             this.uuid = uuid;
         }
-
-        public List<CommentDto.Response> getComments() {
-            return comments;
-        }
-
-        public void setComments(List<CommentDto.Response> comments) {
-            this.comments = comments;
-        }
-    }
-
-    public static class GetArticlesResponse{
-        private List<Response> articles;
-        private Integer count;
-
-        public List<Response> getArticles() {
-            return articles;
-        }
-
-        public void setArticles(List<Response> articles) {
-            this.articles = articles;
-        }
-
-        public Integer getCount() {
-            return count;
-        }
-
-        public void setCount(Integer count) {
-            this.count = count;
-        }
     }
 
     public static class CreateRequest{
-        private String hostId;
         private String title;
         private int categoryId;
         private String location;
-        private int regionId;
         private int total;
         private String content;
         @JsonSerialize(as = Timestamp.class)
@@ -164,23 +127,13 @@ public class ArticleDto {
         public CreateRequest() {
         }
 
-        public CreateRequest(String hostId, String title, int categoryId, String location, int regionId, int total, String content, Timestamp meetingDay) {
-            this.hostId = hostId;
+        public CreateRequest(String title, int categoryId, String location, int total, String content, Timestamp meetingDay) {
             this.title = title;
             this.categoryId = categoryId;
             this.location = location;
-            this.regionId = regionId;
             this.total = total;
             this.content = content;
             this.meetingDay = meetingDay;
-        }
-
-        public String getHostId() {
-            return hostId;
-        }
-
-        public void setHostId(String hostId) {
-            this.hostId = hostId;
         }
 
         public String getTitle() {
@@ -221,14 +174,6 @@ public class ArticleDto {
 
         public void setLocation(String location) {
             this.location = location;
-        }
-
-        public int getRegionId() {
-            return regionId;
-        }
-
-        public void setRegionId(int regionId) {
-            this.regionId = regionId;
         }
 
         public int getCategoryId() {
@@ -333,4 +278,15 @@ public class ArticleDto {
         }
     }
 
+    public static class JoinRequest{
+        private boolean hasJoined;
+
+        public boolean isHasJoined() {
+            return hasJoined;
+        }
+
+        public void setHasJoined(boolean hasJoined) {
+            this.hasJoined = hasJoined;
+        }
+    }
 }

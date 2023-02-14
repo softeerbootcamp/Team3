@@ -31,6 +31,9 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query(value = "select a.* from article a where :id = a.hostId")
     List<Article> findHostingArticlesById(Integer id);
 
+    @Query("select * from user where uuid = :uuid")
+    User findByUuid(String uuid);
+
     @Query(value="insert into user (userId, userName, password, email)")
     void save(String userId, String userName, String password, String email);
 

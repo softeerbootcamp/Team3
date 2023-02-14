@@ -21,7 +21,6 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     default <S extends Article> S save(S entity) {
         save(entity.getHostId(),
                 entity.getTitle(),
-                entity.getCurr(),
                 entity.getTotal(),
                 entity.getClosed(),
                 entity.getContent(),
@@ -34,9 +33,9 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     }
 
     @Modifying
-    @Query("insert into article (hostId, title, curr, total, isClosed, content, meetingDay, location, regionId, categoryId, uuid) " +
-            "values (:hostId, :title, :curr, :total, :isClosed, :content, :meetingDay, :location, :regionId, :categoryId, :uuid);")
-    public void save(Integer hostId, String title, int curr,
+    @Query("insert into article (hostId, title, total, isClosed, content, meetingDay, location, regionId, categoryId, uuid) " +
+            "values (:hostId, :title,  :total, :isClosed, :content, :meetingDay, :location, :regionId, :categoryId, :uuid);")
+    public void save(Integer hostId, String title,
                          int total, boolean isClosed, String content, Timestamp meetingDay, String location, int regionId, int categoryId, String uuid);
 
     @Query(value = "select id from article order by id desc LIMIT 1")
@@ -54,10 +53,13 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     @Query("select * from article")
     List<Article> findAllArticles();
 
-    @Query("select * from article where regionId = :regionId")
+    @Query("select a.uuid, a.hostId, u.introduction, a.title, a.total, a.isClosed, a.content, " +
+            "a.meetingDay, a.location, a.regionId, a.categoryId from article a join user u on a.hostId = u.id where regionId = :regionId and isClosed = false")
     List<Article> findCurrentRegionArticles(int regionId);
 
-    @Query("select  * from article where regionId = :regionId and categoryId = :categoryId")
+    @Query("select a.uuid, a.hostId, u.introduction, a.title, a.total, a.isClosed, a.content, " +
+            "a.meetingDay, a.location, a.regionId, a.categoryId from article a join user u on a.hostId = u.id " +
+            "where regionId = :regionId and categoryId = :categoryId and isClosed=false")
     List<Article> findArticlesByRegionAndCategory(int regionId, int categoryId);
 
 
@@ -66,10 +68,10 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     // regionId, categoryId, uuid
     @Modifying
     @Query("update article " +
-            "set title = :title, curr = :curr, total = :total, " +
+            "set title = :title, total = :total, " +
             "isClosed = :isClosed, content = :content, meetingDay = :meetingDay, location = :location, " +
             "regionId = :regionId, categoryId = :categoryId where id=:id")
-    public void updateArticleById(String title, int curr, int total, boolean isClosed, String content,
+    public void updateArticleById(String title, int total, boolean isClosed, String content,
                                   Timestamp meetingDay, String location, int regionId, int categoryId, Integer id);
 
     @Modifying
