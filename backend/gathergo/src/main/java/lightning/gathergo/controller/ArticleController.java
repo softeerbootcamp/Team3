@@ -135,4 +135,27 @@ public class ArticleController {
         return ResponseEntity.ok()
                 .body(result);
     }
+
+    // 나가기
+    @DeleteMapping("/{articleUuid}/users")
+    ResponseEntity<?> exitArticle(@PathVariable("articleUuid") String articleUuid, @CookieValue(name = "sessionId") String sessionId){
+        GatheringDto.MessageResponse data = new GatheringDto.MessageResponse();
+        Session session = sessionService.findSessionBySID(sessionId).get();
+        String userId = session.getUserId();
+        Map<String, Object> response = new HashMap<>();
+        articleService.deleteGuest(userId, articleUuid);
+
+
+        data.setArticleUuid(articleUuid);
+        data.setMessage("모임 나가기에 성공했습니다.");
+
+        return ResponseEntity.ok()
+                .body(new CommonResponseDTO<GatheringDto.MessageResponse>(
+                                1,
+                                "게시물 나가기 성공",
+                                data
+                        )
+                );
+    }
+
 }
