@@ -16,6 +16,9 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query(value="select * from user u where u.userId = :userId")
     Optional<User> findUserByUserId(String userId);
 
+    @Query(value="select * from user u where u.uuid = :uuid")
+    Optional<User> findUserByUserUuid(String uuid);
+
     @Modifying
     @Query(value="delete from user u where u.userId = :userId")
     void deleteUserByUserId(String userId);
