@@ -1,6 +1,7 @@
 
 import { fetchLogout } from "../common/Fetches";
-import { HeaderDefault } from '../components/header/headerDefault';
+import profileLayout from "../components/profile/profileLayout"
+import HeaderDefault from "../components/header/headerDefault";
 // import { userLogout } from "../store/actions";
 import store from "../store/store";
 
@@ -16,19 +17,15 @@ class Profile {
 
   render() {
     if (!this.$container) return;
-    const headerDefault = new HeaderDefault('login');
+    const headerDefault = new HeaderDefault('profile');
     this.$container.appendChild(headerDefault.element);
 
-    this.$container.innerHTML = `
-          <main class="profile-page">
-            프로필페이지
-          </main>
-          <button id = "logoutbtn">logout</button>
-        `;
-       this.$container.querySelector<HTMLButtonElement>('#logoutbtn')?.addEventListener(('click'),async ()=>{
-        // logOut();
-        store.dispatch(await fetchLogout())
-       })
+    const profilePageLayout = new profileLayout()
+    this.$container.appendChild(profilePageLayout.element)
+    // this.$container.querySelector<HTMLButtonElement>('#logoutbtn')?.addEventListener(('click'),async ()=>{
+    // // logOut();
+    // store.dispatch(await fetchLogout())
+    // })
   }
 }
 
