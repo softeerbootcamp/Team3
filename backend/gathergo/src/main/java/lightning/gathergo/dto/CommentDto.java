@@ -57,9 +57,8 @@ public class CommentDto {
 
     public static class CreateRequest{
         private String content;
-        @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-ddTHH:mm:ss", timezone = "Asia/Seoul")
+        @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
         private Timestamp date;
-        private String userId;
 
         public CreateRequest() {
         }
@@ -79,19 +78,11 @@ public class CommentDto {
         public void setDate(Timestamp date) {
             this.date = date;
         }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
     }
 
     public static class UpdateReqeust{
         private String content;
-        @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+        @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
         private Timestamp date;
 
         public String getContent() {
