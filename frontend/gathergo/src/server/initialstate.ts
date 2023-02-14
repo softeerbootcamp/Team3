@@ -163,6 +163,9 @@ export const initialState: TinitialState = {
   filterRegion: 0,
   filterCategory: 0,
   isLoading: false,
-  userLoginId: null,
+  // userLoginId: null,
   error: null,
+  modalAction: "",
+  sessionId: '',
+  redirect:null,
 };

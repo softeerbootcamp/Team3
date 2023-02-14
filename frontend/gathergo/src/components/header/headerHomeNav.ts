@@ -1,15 +1,27 @@
+import store from "../../store/store";
+
 class HeaderHomeNav {
-  islogin: boolean;
+  // islogin: boolean;
   element: HTMLElement;
-  constructor(islogin = false) {
-    this.islogin = islogin;
+  sessionIdState: string|null;
+  constructor(/*islogin = false*/) {
+    // this.islogin = islogin;
+    this.sessionIdState = store.getState().sessionId;
     this.element = document.createElement('ul');
     this.element.classList.add('nav-link-wrapper', 'me-auto');
     this.render();
-    // store.subscribe(() => this.render());
+    store.subscribe(() => {
+      const newState = store.getState().sessionId;
+      if (this.sessionIdState !== newState) {
+        this.sessionIdState = newState;
+        if (this.sessionIdState !== null) this.render();
+      }
+    });
   }
   render() {
-    if (this.islogin) {
+    // console.log(store.getState().sessionId)
+    if (this.sessionIdState !="") {
+      // console.log("store.getState()")
       this.element.classList.add('login');
       this.element.innerHTML = `
             <li class="nav-item">
