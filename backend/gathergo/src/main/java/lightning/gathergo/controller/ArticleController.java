@@ -152,7 +152,7 @@ public class ArticleController {
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<String>(
                                 1,
-                                "게시물 닫기 성공",
+                                "댓글 작성 성공",
                                 ""
                         )
                 );
@@ -211,7 +211,7 @@ public class ArticleController {
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.MessageResponse>(
                                 1,
-                                "조회 성공",
+                                "게시물 참가 성공",
                                 data
                         )
                 );
