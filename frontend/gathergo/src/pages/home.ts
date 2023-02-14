@@ -55,8 +55,8 @@ class Home {
   }
 
   matchSearchBarValue(){
-    const categorySidebar = document.querySelector('.category-input') as HTMLInputElement;
-    const hideSidebar = document.querySelector('.search-input') as HTMLInputElement;
+    const categorySidebar = document.querySelector('.keyword-input') as HTMLInputElement;
+    const hideSidebar = document.querySelector('.keyword-input-sticky') as HTMLInputElement;
     
     categorySidebar?.addEventListener('keyup',()=>{
       hideSidebar.value = categorySidebar.value;
