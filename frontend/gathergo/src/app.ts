@@ -1,4 +1,5 @@
 import Navigate from './common/utils/navigate';
+import ErrorModal from './components/modals/errorModal';
 import Router from './router';
 import store from './store/store';
 import NotiModal from '../src/components/modals/notiModal';

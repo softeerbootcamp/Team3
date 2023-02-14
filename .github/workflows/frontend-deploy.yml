@@ -1,0 +1,33 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          cache: npm
+
+      - name: Install Dependencies
+        run: cd ./frontend/gathergo/ && npm install
+
+      - name: Build with Vite
+        run:  cd ./frontend/gathergo/ && npm run build
+        shell: bash
+
+      - name: Copy docker-compose file
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_IP }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          source: './frontend/gathergo/dist'
+          target: 'dist'
+          rm: true
