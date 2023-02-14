@@ -10,8 +10,8 @@ import java.util.UUID;
 public class Session {
     protected String sessionId;
     protected final LocalDateTime createDate;
-    @Value("${session.expiration}")
-    protected int expiration;
+    @Value("${session.duration}")
+    protected int duration;
     protected String userId;
     protected String userName;
 
