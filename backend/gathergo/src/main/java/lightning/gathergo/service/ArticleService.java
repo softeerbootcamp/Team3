@@ -1,9 +1,12 @@
 package lightning.gathergo.service;
 
+import lightning.gathergo.dto.GatheringDto;
 import lightning.gathergo.model.Article;
 import lightning.gathergo.model.Comment;
+import lightning.gathergo.model.User;
 import lightning.gathergo.repository.ArticleRepository;
 import lightning.gathergo.repository.UserArticleRelationshipRepository;
+import lightning.gathergo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,14 +20,18 @@ public class ArticleService {
     // TODO hostId가 string 값으로 날라오도록 변경
     private final ArticleRepository articleRepository;
     private final CommentService commentService;
-
+    private final CountService countService;
+    private final UserRepository userRepository;
     private final UserArticleRelationshipRepository relationshipRepository;
 
     @Autowired
-    ArticleService(ArticleRepository articleRepository, CommentService commentService, UserArticleRelationshipRepository relationshipRepository){
+    ArticleService(ArticleRepository articleRepository, CommentService commentService, CountService countService,
+                   UserRepository userRepository, UserArticleRelationshipRepository relationshipRepository){
         this.articleRepository = articleRepository;
         this.commentService = commentService;
         this.relationshipRepository = relationshipRepository;
+        this.countService = countService;
+        this.userRepository = userRepository;
     }
 
     @Transactional
@@ -67,7 +74,7 @@ public class ArticleService {
 
     public Article setClosed(String uuid){
         Article article = articleRepository.findByUuid(uuid).get();
-        articleRepository.updateArticleById(article.getTitle(), article.getCurr(),
+        articleRepository.updateArticleById(article.getTitle(),
                 article.getTotal(), true, article.getContent(), article.getMeetingDay(), article.getLocation(),
                 article.getRegionId(), article.getCategoryId(), article.getId());
         article.setClosed(true);
@@ -77,7 +84,7 @@ public class ArticleService {
     public Article updateArticle(String uuid, Article replacemnt){
         Integer id = articleRepository.findByUuid(uuid).get().getId();
         replacemnt.setId(id);
-        articleRepository.updateArticleById(replacemnt.getTitle(), replacemnt.getCurr(),
+        articleRepository.updateArticleById(replacemnt.getTitle(),
                 replacemnt.getTotal(), replacemnt.getClosed(), replacemnt.getContent(), replacemnt.getMeetingDay(),
                 replacemnt.getLocation(), replacemnt.getRegionId(), replacemnt.getCategoryId(), id);
         return replacemnt;
