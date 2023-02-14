@@ -23,4 +23,8 @@ public interface UserArticleRelationshipRepository extends CrudRepository<UserAr
 
     @Query("select * from user_article_relationship us where us.userId=:userId")
     List<UserArticleRelationship> findByUserId(Integer userId);
+
+    @Modifying
+    @Query("delete from user_article_relationship where userId=:userId and articleId=:articleId")
+    void deleteByArticleIdUserId(Integer userId, Integer articleId);
 }
