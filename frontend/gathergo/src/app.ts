@@ -1,45 +1,66 @@
 import Navigate from './common/utils/navigate';
-import ErrorModal from './components/modals/errorModal';
 import Router from './router';
 import store from './store/store';
-
+import NotiModal from '../src/components/modals/notiModal';
+import { checkLogin } from './store/actions';
 class App {
   $container: HTMLElement | null;
-  errorState: Error|null
+  // loadingState: boolean;
+  modalActionState: string;
+  router:Router;
+  navigate:Navigate;
+  redirectState: string | null;
   constructor($container: HTMLElement | null) {
     this.$container = $container;
-    this.errorState = store.getState().error;
+    this.router = new Router(this.$container);
+    this.navigate = new Navigate(this.router);
+    // this.loadingState = store.getState().isLoading;
+    this.modalActionState = store.getState().modalAction;
+    this.redirectState = store.getState().redirect;
     this.init();
     store.subscribe(() => {
-      const newState = store.getState().error;
-      if (this.errorState !== newState) {
-        this.errorState = newState;
-       this.openErrorModal(this.errorState);}
+      const newState = store.getState().modalAction;
+      if (this.modalActionState !== newState) {
+        this.modalActionState = newState;
+        if (this.modalActionState !== '') this.setNotiModal(this.modalActionState);
+      }
+    });
+    store.subscribe(() => {
+      const newState = store.getState().redirect;
+      if (this.redirectState !== newState) {
+        this.redirectState = newState;
+        if (this.redirectState !== null) 
+          this.navigate.to(this.redirectState);
+      }
     });
   }
   init = () => {
-    const router = new Router(this.$container);
-    const navigate = new Navigate(router);
+    console.log(store.getState().sessionId)
+    store.dispatch(checkLogin(document.cookie));
+    console.log(store.getState().sessionId)
+    // const router = new Router(this.$container);
+    // const navigate = new Navigate(router);
+
+
     window.addEventListener('popstate', () => {
-      router.route();
+      this.router.route();
     });
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', e => {
+    document.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', (e) => {
         e.preventDefault();
         const path = link.getAttribute('href');
-        if(path===null) return
-        navigate.to(path);
+        if (path === null) return;
+        this.navigate.to(path);
       });
     });
-    // this.setErrorModal();
+    // this.setNotiModal("NEED_LOGIN");
   };
-  // setErrorModal(){
-  //   const errorModal = document.createElement('div')
-  //   this.$container?.appendChild(errorModal)
-  // }
-  openErrorModal(error: Error|null){
-    const errorModal = new ErrorModal(error?.message)
-    this.$container?.appendChild(errorModal.element)
+  setNotiModal(type: string) {
+    new NotiModal(this.$container, type);
   }
+  // openLoadingModal(isLoading:boolean){
+  //   const errorModal = new LoadingModal("error?.message")
+  //   this.$container?.appendChild(errorModal.element)
+  // }
 }
 export default App;

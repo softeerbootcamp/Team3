@@ -2,6 +2,7 @@ import Home from '../pages/home';
 import Profile from '../pages/profile';
 import Login from '../pages/login';
 import Post from '../pages/post';
+// import Navigate from './utils/navigate';
 
 const BASE_URL = 'http://localhost:5173';
 
@@ -54,8 +55,11 @@ type TinitialState = {
   filterRegion: number;
   filterCategory: number;
   isLoading: boolean;
-  userLoginId: string|null;
+  // userLoginId: string|null;
+  sessionId: string;
   error: Error|null;
+  modalAction: string;
+  redirect: string| null;
 };
 type TsignupData= {
   userId: string;

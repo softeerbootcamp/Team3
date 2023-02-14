@@ -4,6 +4,7 @@ import {
   updateCards,
   updateComments,
   userLogin,
+  userLogout,
   userSignup,
 } from '../store/actions';
 import { Tcomment, TloginData, TsignupData } from './constants';
@@ -24,7 +25,8 @@ export async function fetchLogin(loginData: TloginData) {
     });
 
     const userLoginData = await response.json();
-      console.log(userLoginData)
+    if(userLoginData.status == 500) throw new Error("비밀번호가 틀렸습니다.")
+      console.log(userLoginData.status)
     return userLogin(userLoginData);
   } catch (error) {
     return fetchError(error);
@@ -50,7 +52,20 @@ export async function fetchSignup(signupData: TsignupData) {
     return fetchError(error);
   }
 }
-
+export async function fetchLogout() {
+    try {
+        const response = 
+      await fetch(url + 'api/logout/', {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+  console.log(response)
+      return userLogout();
+    } catch (error) {
+      console.log(error);
+      return fetchError(error);
+    }
+  }
 export async function getArticles(regionId: number, categoryId: number) {
   try {
     const params = {

@@ -1,4 +1,5 @@
 import {
+  CHECK_LOGIN,
   FETCH_ERROR,
   // FETCH_CARDS_REQUEST,
   // FETCH_CARDS_SUCCESS,
@@ -6,16 +7,22 @@ import {
   FILTER_REGION,
   READ_CARD,
   SEND_COMMENT,
+  SET_MODAL,
   UPDATE_CARDS,
   UPDATE_COMMENT,
   USER_LOGIN,
   USER_LOGOUT,
 } from './actions';
 import { initialState } from '../server/initialstate';
-import { logInSuccess, logOut } from '../common/commonFunctions';
+// import { logInSuccess, logOut } from '../common/commonFunctions';
 import { Taction } from '../common/constants';
+// import Router from '../router';
+// import Navigate from '../common/utils/navigate';
 
 function reducer(state = initialState, action: Taction) {
+
+  // const router = new Router(document.querySelector('#app'));
+  // const navigate = new Navigate(router);
   switch (action.type) {
     case FILTER_REGION:
       //  getArticles(action.payload.regionId,state.filterCategory).then(
@@ -55,6 +62,7 @@ function reducer(state = initialState, action: Taction) {
         ...state,
         isLoading: false,
         error: action.payload.error,
+        modalAction: 'action.payload.modalAction',
       };
     case READ_CARD:
       //TODO: fetch 해서 cardId던져서, cardId= action.payload.cardId
@@ -96,14 +104,24 @@ function reducer(state = initialState, action: Taction) {
     //   ...state,
     //   comments: action.payload.commendResponse,
     // };
+    case CHECK_LOGIN:
+      console.log( action.payload.cookie)
+      return { ...state, sessionId: action.payload.cookie };
+
     case USER_LOGIN:
-      // logInSuccess();
-      // history.replaceState(null, '', '/');
-      return { ...state, userLoginId: action.payload.userLoginData.userId };
+      // logInSuccess(document.cookie);
+      // console.log(state)
+      // state.navigate.to('/');
+      // console.log(state)
+      // console.log(document.cookie);
+      return { ...state, sessionId: action.payload.cookie, redirect:'/' };
     case USER_LOGOUT:
-      logOut();
-      history.replaceState(null, '', '/');
-      return { ...state, userLoginId: null };
+      // logOut();
+      // history.replaceState(null, '', '/');
+      //TODO: 쿠키의 세션id 제거
+      return { ...state, sessionId: '' };
+    case SET_MODAL:
+      return { ...state, modalAction: action.payload.modalAction };
     default:
       return state;
   }

@@ -12,16 +12,17 @@ export function getKeyByValue(object:any, value:any) {
   return Object.keys(object).find(key => object[key] === value);
 }
 // Check if the user is logged in
-export function checkLogin() {
-  return !!sessionStorage.getItem('isLoggedIn');
-}
+// export function checkLogin() {
+//   return !!sessionStorage.getItem('isLoggedIn');
+// }
 
 // Log the user in
-export function logInSuccess() {
-  sessionStorage.setItem('isLoggedIn', 'true');
-}
+// export function logInSuccess(cookie:string) {
+//   window.localStorage.setItem('cookie', cookie)
+//   // sessionStorage.setItem('isLoggedIn', 'true');
+// }
 
-// Log the user out
-export function logOut() {
-  sessionStorage.removeItem('isLoggedIn');
-}
+// // Log the user out
+// export function logOut() {
+//   // sessionStorage.removeItem('isLoggedIn');
+// }

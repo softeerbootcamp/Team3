@@ -1,6 +1,7 @@
 // import {store} from '../store/store';
 
-import { checkLogin } from '../../common/commonFunctions';
+// import { checkLogin } from '../../common/commonFunctions';
+// import store from '../../store/store';
 import DropdownCategory from '../dropdown/DropdownCategory';
 import DropdownRegion from '../dropdown/DropdownRegion';
 import HeaderHomeNav from './headerHomeNav';
@@ -36,8 +37,8 @@ class HeaderHome {
       </ul>
     </nav>
     `;
-    
-    const headerHomeNav = new HeaderHomeNav(checkLogin());
+    // console.log(store.getState().sessionId)
+    const headerHomeNav = new HeaderHomeNav(/*checkLogin()*/);
     this.element.querySelector('#header-nav')?.appendChild(headerHomeNav.element);
 
     const dropdownRegion = new DropdownRegion();

@@ -2,6 +2,7 @@
 import { category, regionSi, TcardDetail, Tcomment } from '../../common/constants';
 import { fetchGetComments, fetchSendComment } from '../../common/Fetches';
 import {modalMapGenerator} from '../../common/kakaoMapAPI/kakaoMapAPI';
+import { setModal } from '../../store/actions';
 import store from '../../store/store';
 import CommentInput from '../comment/commentInput';
 import CommentList from '../comment/commentList';
@@ -35,6 +36,7 @@ class CardModal {
     modalEle?.appendChild(feedWrapper);
     modalMapGenerator(this.readingCard?.location);
     this.commentBtnEvent();
+    this.joinBtnEvent();
   }
   setDefaultModalElement() {
     const modalContainer = document.createElement('div');
@@ -122,7 +124,20 @@ class CardModal {
     ${commentInput.element.outerHTML}
   </div>`;
   }
+  joinBtnEvent(){
+    const joinBtn = this.element.querySelector<HTMLButtonElement>('.feed-info.btn');
+    joinBtn?.addEventListener('click',()=>{
+      let modaltype = "";
+      if(!store.getState().sessionId)
+       modaltype = 'NEED_LOGIN'
+        
+      else{
+        modaltype = "JOIN"
+      }
 
+      store.dispatch(setModal(modaltype))
+    })
+  }
   commentBtnEvent() {
     const inputElement =
       this.element.querySelector<HTMLInputElement>('#comment-input');
@@ -139,10 +154,16 @@ class CardModal {
         this.sendComment(inputElement.value);
       }
     });
-    btnElement?.addEventListener('click',()=>{this.sendComment(inputElement.value)})
+    btnElement?.addEventListener('click',()=>{
+      if(store.getState().sessionId)
+      this.sendComment(inputElement.value)
+      else{
+        store.dispatch(setModal("NEED_LOGIN"))
+      }
+    })
   }
   async sendComment(text:string){
-    const userId = store.getState().userLoginId;
+    const userId = store.getState()//.userLoginId;
     if(userId==null){
       //TODO: login modal, => 로그인 페이지로 이동
       return;
@@ -151,7 +172,7 @@ class CardModal {
     
     const commendData:Tcomment = {
       uuid: this.readingCard?.id,
-      userId: userId,
+      userId: "userId",
       content: text,
       date: date.toISOString(),
     };

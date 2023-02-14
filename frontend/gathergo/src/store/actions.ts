@@ -1,16 +1,18 @@
 // import { TcardDetail } from '../common/constants';
 
-import { Tcard, TloginData, TsignupData } from "../common/constants";
+import { Tcard, /*TloginData,*/ TsignupData } from "../common/constants";
 
 export const FILTER_REGION = 'FILTER_REGION';
 export const FILTER_CATEGORY = 'FILTER_CATEGORY';
 export const READ_CARD = 'READ_CARD';
+export const CHECK_LOGIN = 'CHECK_LOGIN';
 export const USER_LOGIN = 'USER_LOGIN';
 export const USER_LOGOUT = 'USER_LOGOUT';
 export const UPDATE_CARDS = 'UPDATE_CARDS';
 export const SEND_COMMENT = 'SEND_COMMENT';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const FETCH_ERROR = 'FETCH_ERROR';
+export const SET_MODAL = 'SET_MODAL';
 // export const REFRESH_CARDS = 'REFRESH_CARDS';
 
 export function fiterRegion(regionId:number) {
@@ -70,12 +72,26 @@ export function readCard(cardId: string) {
   };
 }
 
-export function userLogin(userLoginData: TloginData) {
+export function checkLogin(cookie: string) {
   return {
-    type: USER_LOGIN,
-    payload: {userLoginData,}
+    type: CHECK_LOGIN,
+    payload: {cookie}
   };
 }
+
+export function userLogin(cookie: string) {
+  return {
+    type: USER_LOGIN,
+    payload: {cookie,}
+  };
+}
+
+// export function userLogin(userLoginData: TloginData) {
+//   return {
+//     type: USER_LOGIN,
+//     payload: {userLoginData,}
+//   };
+// }
 
 export function userSignup(userSingupData: TsignupData) {
   return {
@@ -100,5 +116,12 @@ export function updateComments(commendResponse:any) {
   return {
     type: UPDATE_COMMENT,
     payload: {commendResponse}
+  };
+}
+
+export function setModal(modalAction:string) {
+  return {
+    type: SET_MODAL,
+    payload: {modalAction}
   };
 }
