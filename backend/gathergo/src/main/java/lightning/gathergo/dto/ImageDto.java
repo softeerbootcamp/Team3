@@ -29,7 +29,11 @@ public class ImageDto {
 
     public static ImageDto multipartOf(UUID userId, MultipartFile multipartFile) {
         final String fileId = String.valueOf(userId);
-        final String format = MultipartUtil.getFormat(multipartFile.getContentType());
+        String format = MultipartUtil.getFormat(multipartFile.getContentType());
+        if(format.contains("svg")){
+            format = "svg";
+        }
+        System.out.println("imagedto format: "+multipartFile.getContentType());
         return new ImageDto(fileId,multipartFile.getOriginalFilename(),format,MultipartUtil.createFileNameFrom(fileId, format),multipartFile.getSize());
     }
 
