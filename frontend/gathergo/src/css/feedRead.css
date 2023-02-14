@@ -192,12 +192,12 @@
   /* overflow: auto; */
   border-radius: 5px;
   /* height: 10px; */
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .feed-comment {
   display: flex;
-  margin-bottom: 1rem;
+  margin: 1rem;
 }
 
 .comment-user-id {

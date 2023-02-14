@@ -20,9 +20,13 @@ type Taction = {
 type TdropDown = {
   [key: number]: string;
 };
-
+type Tfilters = {
+  regionId: number,
+  categoryId: number,
+  keyword: string,
+}
 type Tcard = {
-  id: string;
+  uuid: string;
   title: string;
   curr: number;
   total: number;
@@ -35,10 +39,12 @@ type TcardDetail =
   | (Tcard & {
       hostId: string;
       hostDesc: string;
+      hostProfile:string;
       content: string;
       location: string;
       locationDetail: string;
-      //   comments: Tcomment[];
+      hasJoined:boolean;
+      isHost:boolean;
     })
   | null;
 type Tcomment = {
@@ -46,14 +52,14 @@ type Tcomment = {
   userId: string;
   content: string;
   date: string;
+  isMyComment:boolean;
 };
 
 type TinitialState = {
   cards: Tcard[];
   readingCard: TcardDetail;
   comments: Tcomment[];
-  filterRegion: number;
-  filterCategory: number;
+  filters: Tfilters;
   isLoading: boolean;
   // userLoginId: string|null;
   sessionId: string;
@@ -119,6 +125,7 @@ export {
   routes,
   regionSi,
   category,
+  Tfilters,
   Tcard,
   TcardDetail,
   Tcomment,
