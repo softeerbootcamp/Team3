@@ -88,12 +88,12 @@ body{
   height: 100%;
 }
 
-.user-desc-header {
+.user-profile-desc-header {
   display: flex;
   align-items: baseline;
 }
 
-.user-desc .icon {
+.user-profile-desc .icon {
   width: 1rem;
   height: 1rem;
   min-width: 1rem;
@@ -254,7 +254,7 @@ body{
     
 }
 
-.user-desc-header{
+.user-profile-desc-header{
     padding : 15px 0px 15px 0px;
 }
 
@@ -273,7 +273,7 @@ body{
     
 }
 
-#sidebar-body{
+#sidebar-profile-body{
     right : 0;
     position : relative;
     width : 100%;
