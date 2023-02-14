@@ -81,19 +81,19 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     List<Comment> findCommentsByArticleUuid(String uuid);
 
     // 검색어만 주어진 경우
-    @Query("select a.* from article a where title like '%:keyword%'")
+    @Query("select a.* from article a where title like CONCAT('%', :keyword, '%')")
     List<Article> findByKeyword(String keyword);
 
     // 검색어와 지역이 주어진 경우
-    @Query("select a.* from article a where title like '%:keyword%' and regionId=:regionId")
+    @Query("select a.* from article a where regionId=:regionId and title like CONCAT('%', :keyword, '%')")
     List<Article> findByKeywordAndRegion(String keyword, Integer regionId);
 
     // 검색어와 카테고리가 주어진 경우
-    @Query("select a.* from article a where title like '%:keyword%' and categoryId=:categoryId")
+    @Query("select a.* from article a where categoryId=:categoryId and title like CONCAT('%', :keyword, '%')")
     List<Article> findByKeywordAndCategory(String keyword, Integer categoryId);
 
     // 검색어와 카테고리, 지역 모두 주어진 경우
-    @Query("select a.* from article a where title like '%:keyword%' and regionId=:regionId and categoryId=:categoryId")
+    @Query("select a.* from article a where regionId=:regionId and categoryId=:categoryId and title like CONCAT('%', :keyword, '%')")
     List<Article> findByKeywordAndRegionAndCategory(String keyword, Integer regionId, Integer categoryId);
 
     @Query("select u.* from user u join article a on u.id = a.hostId where a.uuid=:articleUuid")
