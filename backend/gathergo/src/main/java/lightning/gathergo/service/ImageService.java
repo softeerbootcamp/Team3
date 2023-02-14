@@ -13,8 +13,6 @@ import java.util.UUID;
 @Service
 public class ImageService {
 
-    private final Logger logger = LoggerFactory.getLogger(SchedulerService.class);
-
     private final AmazonS3ResourceRepository amazonS3ResourceRepository;
     @Autowired
     public ImageService(AmazonS3ResourceRepository amazonS3ResourceRepository) {
@@ -23,9 +21,6 @@ public class ImageService {
 
     public ImageDto save(UUID userId, MultipartFile multipartFile) {
         ImageDto fileDetail = ImageDto.multipartOf(userId,multipartFile);
-        System.out.println("path: "+fileDetail.getPath());
-        System.out.println("format: "+fileDetail.getFormat()); //format: svg+xml
-        logger.info(fileDetail.toString());
         amazonS3ResourceRepository.save(fileDetail.getPath(), multipartFile);
         return fileDetail;
     }

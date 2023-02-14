@@ -33,7 +33,6 @@ public class ImageDto {
         if(format.contains("svg")){
             format = "svg";
         }
-        System.out.println("imagedto format: "+multipartFile.getContentType());
         return new ImageDto(fileId,multipartFile.getOriginalFilename(),format,MultipartUtil.createFileNameFrom(fileId, format),multipartFile.getSize());
     }
 
