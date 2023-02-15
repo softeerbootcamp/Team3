@@ -38,6 +38,8 @@ services:
     image: redis:6.0
     ports:
       - 6379:6379
+    volumes:
+      - gathergo-redis:/data
     deploy:
       resources:
         limits:
@@ -45,3 +47,4 @@ services:
 
 volumes:
   gathergo-volume:
+  gathergo-redis:
