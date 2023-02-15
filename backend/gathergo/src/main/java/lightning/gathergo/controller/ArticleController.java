@@ -9,10 +9,7 @@ import lightning.gathergo.model.Article;
 import lightning.gathergo.model.Comment;
 import lightning.gathergo.model.Session;
 import lightning.gathergo.model.User;
-import lightning.gathergo.service.ArticleService;
-import lightning.gathergo.service.CookieService;
-import lightning.gathergo.service.SessionService;
-import lightning.gathergo.service.UserService;
+import lightning.gathergo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,15 +25,19 @@ public class ArticleController {
     private final ArticleService articleService;
     private final SessionService sessionService;
     private final UserService userService;
+    private final CountService countService;
+    private final RegionService regionService;
     private final ArticleMapper articleMapper;
     private final CommentMapper commentMapper;
 
     @Autowired
-    ArticleController(ArticleService articleService, SessionService sessionService, UserService userService,
-                      ArticleMapper articleMapper, CommentMapper commentMapper) {
+    ArticleController(ArticleService articleService, SessionService sessionService, UserService userService, CountService countService,
+                      RegionService regionService, ArticleMapper articleMapper, CommentMapper commentMapper) {
         this.articleService = articleService;
         this.sessionService = sessionService;
         this.userService = userService;
+        this.countService = countService;
+        this.regionService = regionService;
         this.articleMapper = articleMapper;
         this.commentMapper = commentMapper;
     }
@@ -54,6 +55,11 @@ public class ArticleController {
         data = new GatheringDto.ArticleListResponse();
         data.setArticles(articleMapper.toArticlePartialDtoList(articles));
 
+        Map<String, Integer> countMap = countService.getCounts();
+        data.getArticles().forEach(articlePartialDto -> {
+            articlePartialDto.setCurr(countMap.get(articlePartialDto.getUuid()));
+        });
+
         return new ResponseEntity<> (new CommonResponseDTO<>(1, "조회 성공", data), HttpStatus.OK);
     }
 
@@ -63,12 +69,16 @@ public class ArticleController {
             @RequestBody GatheringDto.CreateRequest request,
             @CookieValue(name = "sessionId") String sessionId
     ){
+        String regionName = request.getLocation().split(" ")[0];
         articleService.mergeLocation(request);
         Article article = articleMapper.toArticle(request);
         Session session = sessionService.findSessionBySID(sessionId).get();
         article.setHostId(userService.findUserByUserId(session.getUserId()).get().getId());
-
+        article.setRegionId(regionService.getRegionByName(regionName).get().getId());
         article = articleService.addArticle(article);
+
+        countService.createCount(article.getUuid(), 1);
+
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<String>(
                     1,
@@ -79,23 +89,33 @@ public class ArticleController {
 
     // 게시물 상세 조회
     @GetMapping("/{articleUuid}")
-    ResponseEntity<?> getArticle(@PathVariable String articleUuid){
+    ResponseEntity<?> getArticle(@PathVariable String articleUuid, @CookieValue(name = "sessionId") String sessionId){
         GatheringDto.ArticleDetailResponse data = new GatheringDto.ArticleDetailResponse();
+        Integer currCount;
         List<Comment> comments;
         User user = new User();
+        Session session = sessionService.findSessionBySID(sessionId).get();
+        String userId = session.getUserId();
 
         // 게시물 디비에서 얻어오기
         Article article = articleService.getArticleByUuid(articleUuid);
         // 게시물에 달린 댓글 디비에서 얻어오기
         comments = articleService.getCommentsByUuid(articleUuid);
+        List<CommentDto.Response> commentsDto = commentMapper.toCommentResponseList(comments);
+        commentsDto.forEach(commentDto->{
+            commentDto.setUserId(userService.findUserById(Integer.parseInt(commentDto.getUserId())).get().getUserId());
+        });
         // 유저 정보 얻어오기
         user = articleService.getUserInfoByFromArticle(article.getUuid());
 
         data.setArticle(articleMapper.toArticleFullDto(article));
-        data.setComments(commentMapper.toCommentResponseList(comments));
+        data.setComments(commentsDto);
         data.setHost(new GatheringDto.UserDto(user.getUserId(), user.getIntroduction(), user.getProfilePath()));
         articleService.splitLocation(data);
-        articleService.setHasJoinedAndIsHost(data);
+        articleService.setHasJoinedAndIsHost(data, userId);
+
+        currCount = countService.getCount(articleUuid);
+        data.getArticle().setCurr(currCount);
 
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.ArticleDetailResponse>(
@@ -203,10 +223,14 @@ public class ArticleController {
     @PutMapping("/{articleUuid}/users")
     ResponseEntity<?> joinArticle(@PathVariable("articleUuid") String articleUuid, @CookieValue(name = "sessionId") String sessionId){
         GatheringDto.MessageResponse data = new GatheringDto.MessageResponse();
+        Integer currCount;
         Session session = sessionService.findSessionBySID(sessionId).get();
         String userId = session.getUserId();
 
         articleService.addGuest(userId, articleUuid);
+
+        currCount = countService.getCount(articleUuid);
+        countService.modifyCount(articleUuid, currCount+1);
 
         data.setArticleUuid(articleUuid);
         data.setMessage("참가에 성공했습니다.");
@@ -224,11 +248,14 @@ public class ArticleController {
     @DeleteMapping("/{articleUuid}/users")
     ResponseEntity<?> exitArticle(@PathVariable("articleUuid") String articleUuid, @CookieValue(name = "sessionId") String sessionId){
         GatheringDto.MessageResponse data = new GatheringDto.MessageResponse();
+        Integer currCount;
         Session session = sessionService.findSessionBySID(sessionId).get();
         String userId = session.getUserId();
         Map<String, Object> response = new HashMap<>();
         articleService.deleteGuest(userId, articleUuid);
 
+        currCount = countService.getCount(articleUuid);
+        countService.modifyCount(articleUuid, currCount-1);
 
         data.setArticleUuid(articleUuid);
         data.setMessage("모임 나가기에 성공했습니다.");

@@ -17,7 +17,6 @@ import java.util.UUID;
 @Service
 public class ArticleService {
 
-    // TODO hostId가 string 값으로 날라오도록 변경
     private final ArticleRepository articleRepository;
     private final CommentService commentService;
     private final CountService countService;
@@ -147,14 +146,16 @@ public class ArticleService {
         article.setLocationDetail(token[1]);
     }
 
-    public void setHasJoinedAndIsHost(GatheringDto.ArticleDetailResponse data){
+    public void setHasJoinedAndIsHost(GatheringDto.ArticleDetailResponse data, String sessionUserId){
         String hostId = data.getHost().getHostId();
         Integer id = userRepository.findUserByUserId(hostId).get().getId();
 
-//        if(userRepository.findByUuid(data.getArticle().getUuid()).getUserId().equals(id))
-//            data.getArticle().setIsHost(true);
-//        if(relationshipRepository.findGuestsIdByArticleUuid(data.getArticle().getUuid()).contains(id))
-//            data.getArticle().setHasJoined(true);
+        if(hostId.equals(sessionUserId)){
+            data.getArticle().setHasJoined(true);
+            data.getArticle().setIsHost(true);
+        }
+        if(relationshipRepository.findGuestsIdByArticleUuid(data.getArticle().getUuid()).contains(id))
+            data.getArticle().setHasJoined(true);
     }
     private String generateUuid() {
         return UUID.randomUUID().toString();
