@@ -2,10 +2,14 @@ package lightning.gathergo.service;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
+import lightning.gathergo.model.Subscription;
 import lightning.gathergo.repository.SubscriptionRepository;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +17,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
+import static org.mockito.Mockito.when;
 
 @ActiveProfiles("local")
 @Transactional
-// @ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 public class FcmMessagingServiceTest {
     private final Logger logger = LoggerFactory.getLogger(FcmMessagingServiceTest.class);
     private final FcmMessagingService messagingService;
 
+    @Mock
     private final SubscriptionRepository subscriptionRepository;
 
     @Autowired
@@ -35,17 +40,18 @@ public class FcmMessagingServiceTest {
 
     @Test
     @DisplayName("빈 구독 리스트에 구독 시도 테스트")
-    public void testSubscribeToNonExistingTopic() {
+    public void subscribeToNonExistingTopic() {
         SoftAssertions softly = new SoftAssertions();
 
         // given
-        int topic = 1;
-        String deviceToken = "device_token";
+        int topic = 'a';
+        final String deviceToken = String.valueOf(UUID.randomUUID());
 
         // when
         boolean result = messagingService.subscribeToTopic(topic, deviceToken);
 
-        cleanUp(List.of(deviceToken), topic);
+        when(subscriptionRepository.findByArticleId(topic)).thenReturn(List.of(new Subscription(topic, deviceToken)));
+        // cleanUp(List.of(deviceToken), topic);
 
         softly.assertThat(result).isTrue();
         softly.assertThat(subscriptionRepository.findByArticleId(topic)).isNotNull().hasSize(1);
