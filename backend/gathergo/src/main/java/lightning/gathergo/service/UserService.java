@@ -27,7 +27,7 @@ public class UserService {
     }
 
     public void addUser(User user) {
-        if(user.getUuid().isBlank())
+        if(user.getUuid() == null || user.getUuid().isBlank())
             user.setUuid(String.valueOf(UUID.randomUUID()));
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
