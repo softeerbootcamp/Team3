@@ -27,12 +27,12 @@ public class DummyController {
         return new ResponseEntity<>("Authentication Test", HttpStatus.OK);
     }
 
-    @PostMapping("/devices/{deviceToken}")
-    public ResponseEntity<CommonResponseDTO<?>> pushNotification(@PathVariable String deviceToken) {
+    @PostMapping("/devices")
+    public ResponseEntity<CommonResponseDTO<?>> pushNotification(@RequestBody String deviceToken) {
         // 기기 토큰을 받고 메시지를 발행하는 테스트 컨트롤러
         System.out.println(deviceToken);
         String result = fcmMessagingService
                 .sendMessageToToken(deviceToken, "hello!!");
         return new ResponseEntity<>(new CommonResponseDTO<>(result.isBlank()?0:1, "hello!", result), HttpStatus.OK);
-    }
+    }  // TODO: 406 에러는 전역 컨트롤러가 반환
 }
