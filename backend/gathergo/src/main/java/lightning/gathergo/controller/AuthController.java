@@ -67,9 +67,8 @@ public class AuthController {
 
         HttpHeaders headers= new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
-        headers.add("Location", "/login");
 
-        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "회원가입 성공", "/login"), headers, HttpStatus.FOUND);
+        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "회원가입 성공", "/login"), headers, HttpStatus.OK);
     }
 
     @DeleteMapping("/logout")
@@ -78,9 +77,8 @@ public class AuthController {
 
         HttpHeaders headers= new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
-        // headers.add("Location", request.getHeader("Referer"));
 
-        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "로그아웃 성공", "/"), headers, HttpStatus.FOUND);
+        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "로그아웃 성공", "/"), headers, HttpStatus.OK);
     }
 
         @ExceptionHandler(MethodArgumentNotValidException.class)

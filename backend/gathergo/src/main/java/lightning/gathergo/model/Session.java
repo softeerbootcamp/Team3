@@ -70,4 +70,8 @@ public class Session {
     public void setUserUuid(String userUuid) {
         this.userUuid = userUuid;
     }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
 }
