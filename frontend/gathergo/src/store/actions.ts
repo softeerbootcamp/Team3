@@ -13,6 +13,7 @@ export const SEND_COMMENT = 'SEND_COMMENT';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const FETCH_ERROR = 'FETCH_ERROR';
 export const SET_MODAL = 'SET_MODAL';
+export const PROFILE_TAB = 'PROFILE_TAB'
 // export const REFRESH_CARDS = 'REFRESH_CARDS';
 
 export function fiterRegion(regionId:number) {
@@ -124,4 +125,11 @@ export function setModal(modalAction:string) {
     type: SET_MODAL,
     payload: {modalAction}
   };
+}
+
+export function changeProfileTab(tabNumber : number){
+  return {
+    type : PROFILE_TAB,
+    payload: {tabNumber}
+  }
 }

@@ -12,6 +12,7 @@ import {
   UPDATE_COMMENT,
   USER_LOGIN,
   USER_LOGOUT,
+  PROFILE_TAB,
 } from './actions';
 import { initialState } from '../server/initialstate';
 // import { logInSuccess, logOut } from '../common/commonFunctions';
@@ -122,8 +123,11 @@ function reducer(state = initialState, action: Taction) {
       return { ...state, sessionId: '' };
     case SET_MODAL:
       return { ...state, modalAction: action.payload.modalAction };
+    case PROFILE_TAB:
+      state.tabNumber = action.payload.tabNumber;
+      return {...state, profileTab : action.payload.tabNumber}
     default:
-      return state;
+    return state;
   }
 }
 

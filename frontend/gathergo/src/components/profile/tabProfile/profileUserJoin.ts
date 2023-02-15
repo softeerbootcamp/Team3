@@ -10,6 +10,7 @@ class profileUserJoin {
   constructor($userHostData: TuserJoinCard) {
     this.element = document.createElement('li');
     this.element.classList.add('user-schedule')
+    this.element.classList.add('profile-user-join');
 
     this.userJoinData = $userHostData;
     this.render();

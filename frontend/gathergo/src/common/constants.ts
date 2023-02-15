@@ -61,6 +61,7 @@ type TinitialState = {
   modalAction: string;
   redirect: string| null;
   userInfo : TuserInfo;
+  tabNumber : number;
 };
 type TsignupData= {
   userId: string;

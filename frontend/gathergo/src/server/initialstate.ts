@@ -168,6 +168,7 @@ export const initialState: TinitialState = {
   modalAction: '',
   sessionId: '',
   redirect: null,
+  tabNumber : 0,
   userInfo: 
     {
       userName: 'testUser',
@@ -182,7 +183,7 @@ export const initialState: TinitialState = {
           curr: 1,
           total: 4,
           isClosed: false,
-          meetingDay: new Date('1212-01-23T12:40:50'),
+          meetingDay: new Date(),
         },
       ],
       userJoinCards: [
@@ -192,7 +193,7 @@ export const initialState: TinitialState = {
           curr: 3,
           total: 4,
           isClosed: false,
-          meetingDay: new Date('1212-01-23T12:40:50'),
+          meetingDay: new Date(),
           regionId: 9,
           categoryId: 6,
         },
@@ -202,7 +203,7 @@ export const initialState: TinitialState = {
           curr: 9,
           total: 49,
           isClosed: false,
-          meetingDay: new Date('1212-01-23T12:40:50'),
+          meetingDay: new Date(),
           regionId: 10,
           categoryId: 4,
         },

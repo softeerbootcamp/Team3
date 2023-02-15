@@ -4,6 +4,7 @@ import profileLayout from "../components/profile/profileLayout"
 import HeaderDefault from "../components/header/headerDefault";
 // import { userLogout } from "../store/actions";
 import store from "../store/store";
+import { changeProfileTab } from "../store/actions";
 
 class Profile {
   $container: HTMLElement;
@@ -26,6 +27,36 @@ class Profile {
     // // logOut();
     // store.dispatch(await fetchLogout())
     // })
+
+    this.addHostLinkEvent()
+    this.addJoinLinkEvent()
+    this.addTabButtonEvent()
+  }
+
+  addHostLinkEvent(){
+    document.querySelectorAll('tr').forEach((element)=>{
+      element.addEventListener('click',()=>{
+        console.log("hi")
+      })
+    })
+  }
+
+  addJoinLinkEvent(){
+    document.querySelectorAll('.profile-user-join').forEach((element) => {
+      element.addEventListener('click', () => {
+        console.log('hi2');
+      });
+    });
+  }
+  addTabButtonEvent(){
+    const tabMainDom = document.querySelector('#profile-tabMain')
+    tabMainDom?.addEventListener('click',()=>{
+      store.dispatch(changeProfileTab(0));
+    })
+    const tabEditDom = document.querySelector('#profile-tabEdit')
+    tabEditDom?.addEventListener('click',()=>{
+      store.dispatch(changeProfileTab(1));
+    })
   }
 }
 

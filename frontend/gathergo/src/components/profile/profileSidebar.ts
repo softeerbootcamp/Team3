@@ -11,8 +11,8 @@ class profileSidebar {
             <span class="nav-link"><strong>마이페이지</strong></span>
         </div>
         <div class="tab">
-            <button class="tablinks" onclick="openTap(event, 'sidebar-body')">프로필</button>
-            <button class="tablinks" onclick="openTap(event, 'profile-fix')">프로필 편집</button>
+            <button class="tablinks" id = "profile-tabMain">프로필</button>
+            <button class="tablinks" id = "profile-tabEdit">프로필 편집</button>
             <button class="tablinks" id = "logout" style = "color : red">로그아웃</button>
         </div>`;
   }

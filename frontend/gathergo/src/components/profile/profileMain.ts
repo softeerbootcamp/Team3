@@ -1,44 +1,38 @@
-import profileUserInfo from './profileUserInfo/profileUserInfo';
-import profileUserDesc from './profileUserInfo/profileUserDesc';
-import profileUserHost from './profileUserInfo/profileUserHostList';
-import profileUserJoin from './profileUserInfo/profileUserJoinList';
+import tabProfileMain from './tabProfileMain';
+import tabEditMain from './tabEditMain'
+import store from '../../store/store'
 
 class profileMain {
   element: HTMLDivElement;
-  tabcontent: HTMLDivElement;
+  tabNumber : number;
 
   constructor() {
     this.element = document.createElement('div');
     this.element.classList.add('profile-main');
+    this.tabNumber = store.getState().tabNumber;
 
-    this.tabcontent = document.createElement('div');
-    this.tabcontent.classList.add('tabcontent');
-    this.tabcontent.classList.add('profile');
-    this.tabcontent.id = 'sidebar-profile-body';
+    store.subscribe(()=>{
+        const newtabNumber = store.getState().tabNumber;
 
+        if(newtabNumber != this.tabNumber){
+            console.log(this.tabNumber, newtabNumber);
+            this.tabNumber = newtabNumber;
+            this.render()
+        }
+    })
     this.render();
   }
   render() {
-    this.element.appendChild(this.tabcontent);
-    this.tabcontent.innerHTML = `
-        <h2 style = "margin : 1rem 0 2rem 2.8rem"><strong>프로필</strong></h2>
-    `;
-    const profileUserInfoDom = new profileUserInfo();
-    this.tabcontent.appendChild(profileUserInfoDom.element);
-
-    const profileDescDom = new profileUserDesc();
-    this.tabcontent.appendChild(profileDescDom.element);
-
-    this.tabcontent.innerHTML += `<div class="line"></div>`;
-
-    const profileUserHostDom = new profileUserHost();
-    this.tabcontent.appendChild(profileUserHostDom.element)
-
-    this.tabcontent.innerHTML += `<div class="line"></div>`;
-
-    const profileUserJoinDom = new profileUserJoin();
-    this.tabcontent.appendChild(profileUserJoinDom.element)
-
+    if(this.tabNumber == 0){
+        this.element.innerHTML = ''
+        const tabProfileMainDom = new tabProfileMain()
+        this.element.appendChild(tabProfileMainDom.element);
+    }
+    else if(this.tabNumber == 1){
+        this.element.innerHTML = ''
+        const tabProfileEditDom = new tabEditMain()
+        this.element.appendChild(tabProfileEditDom.element)
+    }
 
   }
 }

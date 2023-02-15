@@ -80,9 +80,8 @@
 
 .user-profilepage{
   background: var(--bs-body-bg);
-  width: 100%;
-  height: 8rem;
-  min-width: 20rem;
+  width: 30%;
+  min-width: 3rem;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -235,4 +234,97 @@ ul.user-schedule{
 .user-schedule-wrapper > .user-schedule > .user-schedule:hover{
   background : #f8f9fa;
   cursor : pointer;
+}
+
+
+#profile-fix{
+    flex-direction: column;
+    width : 100%;
+    align-items : center;
+    justify-content: center;
+}
+
+.profile-fix-main{
+    display : flex;
+    flex-direction: row;
+    margin-top : 100px;
+    width : 70%;
+    justify-content: center;
+
+}
+
+.profile-userInfo{
+    position: absolute;
+    left: 330px;
+    top: 155px;
+
+}
+
+.profile-img-name{
+    display : flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-right : 20px;
+    overflow : hidden;
+}
+
+.profile-context{
+    display : flex;
+    flex-direction : column;
+    width : 60%;
+    height : 100%;
+}
+
+.profile-fix-image{
+    position : relative;
+    width : 136px;
+    height : 200px;
+}
+
+.profile-textarea{
+    display : flex;
+    flex-direction :row;
+    margin-bottom : 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-control{
+    background-color: #f1f1f1;
+    border-color : #FFF;
+    height : 34px;
+    padding : 6px 12px;
+    font-size : 14px;
+    line-height : 1.428;
+    border-radius : 4px;
+}
+
+.register-button{
+    width : 8rem;
+    font-weight : bold;
+}
+
+.image-button{
+    display : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    width : 64%;
+    position : relative;
+    align-items : center;
+    margin : 0 0 30px 0;
+}
+
+.profile-fix-image-button{
+    width : 40px;
+    height : 40px;
+    filter: invert(33%) sepia(11%) saturate(2546%) hue-rotate(169deg) brightness(96%) contrast(89%);
+    cursor : pointer;
+}
+
+.profile-button{
+    display : flex;
+    flex-direction: row;
+    width : 100%;
+    justify-content: center;
 }

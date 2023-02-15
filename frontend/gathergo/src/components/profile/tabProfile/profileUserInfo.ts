@@ -24,7 +24,7 @@ class profileUserInfo {
   render() {
     this.element.innerHTML = `
         <div class="user-profilepage">
-            <img class="user-profilepage-img" src="../../assets/Logo/mainLogo.png" alt="User" />
+            <img class="user-profilepage-img" src="../../assets/userProfileImg.jpeg" alt="User" />
         </div>
         <div class="container-sm">
             <strong class="user-id">${this.userInfoData.userId}</strong>
