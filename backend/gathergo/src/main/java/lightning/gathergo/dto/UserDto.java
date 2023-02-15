@@ -1,11 +1,12 @@
 package lightning.gathergo.dto;
 
 import lightning.gathergo.model.Article;
+import lightning.gathergo.model.User;
 
 import java.util.List;
 
 public class UserDto {
-    public static class Response{
+    public static class ProfileResponse {
         private String uuid;
 
         private String userId;
@@ -20,6 +21,27 @@ public class UserDto {
         private String profilePath;
         private List<Article> articleList; //해당 유저가 속한 전체 모임들
         private List<Article> hostingArticleList; // 해당 유저가 호스팅한 모임들
+
+        public ProfileResponse(String uuid, String userId, String userName, String password, String email, String introduction, String profilePath, List<Article> articleList, List<Article> hostingArticleList) {
+            this.uuid = uuid;
+            this.userId = userId;
+            this.userName = userName;
+            this.password = password;
+            this.email = email;
+            this.introduction = introduction;
+            this.profilePath = profilePath;
+
+            // 사본 생성
+            this.articleList = List.copyOf(articleList);
+            this.hostingArticleList = List.copyOf(hostingArticleList);
+        }
+
+        public ProfileResponse(User user, List<Article> articleList, List<Article> hostingArticleList) {
+            this(user.getUuid(), user.getUserId(), user.getUserName(), user.getPassword(), user.getEmail(), user.getIntroduction(), user.getProfilePath(), articleList, hostingArticleList);
+        }
+
+        public ProfileResponse() {
+        }
 
         public String getUuid() {
             return uuid;
