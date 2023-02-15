@@ -31,6 +31,7 @@ public class GatheringDto {
     public static class ArticlePartialDto{
         private String uuid;
         private String title;
+        private Integer curr;
         private Integer total;
         private Boolean isClosed;
         private String content;
@@ -53,6 +54,14 @@ public class GatheringDto {
 
         public void setTitle(String title) {
             this.title = title;
+        }
+
+        public Integer getCurr() {
+            return curr;
+        }
+
+        public void setCurr(Integer curr) {
+            this.curr = curr;
         }
 
         public Integer getTotal() {
@@ -140,6 +149,7 @@ public class GatheringDto {
     public static class ArticleFullDto{
         private String uuid;
         private String title;
+        private Integer curr;
         private Integer total;
         private Boolean isClosed;
         private String content;
@@ -166,6 +176,14 @@ public class GatheringDto {
 
         public void setTitle(String title) {
             this.title = title;
+        }
+
+        public Integer getCurr() {
+            return curr;
+        }
+
+        public void setCurr(Integer curr) {
+            this.curr = curr;
         }
 
         public Integer getTotal() {
