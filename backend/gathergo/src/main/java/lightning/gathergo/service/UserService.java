@@ -37,6 +37,10 @@ public class UserService {
         }
     }
 
+    public Optional<User> findUserByUserUuid(String uuid){
+        return userRepository.findUserByUserUuid(uuid);
+    }
+
     public User save(User user) {
         return userRepository.save(user);
     }

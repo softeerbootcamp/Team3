@@ -6,8 +6,6 @@ import java.util.List;
 
 public class UserDto {
     public static class Response{
-        private Integer id;
-
         private String uuid;
 
         private String userId;
@@ -22,14 +20,6 @@ public class UserDto {
         private String profilePath;
         private List<Article> articleList; //해당 유저가 속한 전체 모임들
         private List<Article> hostingArticleList; // 해당 유저가 호스팅한 모임들
-
-        public Integer getId() {
-            return id;
-        }
-
-        public void setId(Integer id) {
-            this.id = id;
-        }
 
         public String getUuid() {
             return uuid;
