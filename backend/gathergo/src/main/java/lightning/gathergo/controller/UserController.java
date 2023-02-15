@@ -43,10 +43,12 @@ public class UserController {
             Optional<User> foundUser = userService.findUserByUserUuid(session.get().getUserUuid());
 
             // 참여한 모임
-            List<Article> participating = userService.getParticipatingArticlesByIdd(foundUser.get().getId());
+            List<Article> participating = userService.getParticipatingArticlesById(foundUser.get().getId());
+            logger.debug("participating {}", participating.toString());
 
             // 호스팅 하는 모임
-            List<Article> hosting = userService.getParticipatingArticlesByIdd(foundUser.get().getId());
+            List<Article> hosting = userService.getHostingArticlesById(foundUser.get().getId());
+            logger.debug("hosting {}", hosting.toString());
 
             UserDto.ProfileResponse profileResponse = new UserDto.ProfileResponse(foundUser.get(), participating, hosting);
 
