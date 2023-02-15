@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -37,33 +38,26 @@ public class UserController {
         logger.debug("getUserById::SessionId: {}", sessionId);
 
         Optional<Session> session = sessionService.findSessionBySID(sessionId);
-        if(session.isPresent()){
-            //session.get().getUserUuid();
-            Optional<User> user = userService.findUserByUserUuid(session.get().getUserUuid());
-            // 참여한 모임
-            //userService.getParticipatingArticlesByIdd(user.get().getId());
-            //userService.getHostingArticlesById(user.get().getId());
 
-            UserDto.Response response = new UserDto.Response();
-            response.setUuid(user.get().getUuid());
-            response.setUserId(user.get().getUserId());
-            response.setUserName(user.get().getUserName());
-            response.setPassword(user.get().getPassword());
-            response.setEmail(user.get().getEmail());
-            response.setPassword(user.get().getPassword());
-            response.setIntroduction(user.get().getIntroduction());
-            response.setProfilePath(user.get().getProfilePath());
-            response.setArticleList(userService.getParticipatingArticlesByIdd(user.get().getId()));
-            response.setHostingArticleList(userService.getHostingArticlesById(user.get().getId()));
+        if(session.isPresent()) {  // 로그인 유효, 로그인 정보 존재
+            Optional<User> foundUser = userService.findUserByUserUuid(session.get().getUserUuid());
+
+            // 참여한 모임
+            List<Article> participating = userService.getParticipatingArticlesByIdd(foundUser.get().getId());
+
+            // 호스팅 하는 모임
+            List<Article> hosting = userService.getParticipatingArticlesByIdd(foundUser.get().getId());
+
+            UserDto.ProfileResponse profileResponse = new UserDto.ProfileResponse(foundUser.get(), participating, hosting);
 
             return ResponseEntity.ok().body(
-                    new CommonResponseDTO<UserDto.Response>(1,"유저 조회 성공",response)
+                    new CommonResponseDTO<UserDto.ProfileResponse>(1, "유저 조회 성공", profileResponse)
             );
-
         }
+        // 로그인 정보가 존재하지 않거나 유저 정보가 없으면
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.NO_RESOURCE);
         return ResponseEntity.ok().body(
-                new CommonResponseDTO<ErrorResponse>(0,"유저 조회 실패",errorResponse)
+                new CommonResponseDTO<ErrorResponse>(0, "유저 조회 실패", errorResponse)
         );
 
     }
