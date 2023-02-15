@@ -105,6 +105,8 @@ public class ArticleController {
             userId = session.getUserId();
         }
 
+        System.out.println("---second point----");
+
         // 게시물 디비에서 얻어오기
         Article article = articleService.getArticleByUuid(articleUuid);
         // 게시물에 달린 댓글 디비에서 얻어오기
@@ -116,6 +118,8 @@ public class ArticleController {
         // 유저 정보 얻어오기
         user = articleService.getUserInfoByFromArticle(article.getUuid());
 
+        System.out.println("---third point----");
+
         data.setArticle(articleMapper.toArticleFullDto(article));
         data.setComments(commentsDto);
         data.setHost(new GatheringDto.UserDto(user.getUserId(), user.getIntroduction(), user.getProfilePath()));
@@ -124,8 +128,13 @@ public class ArticleController {
         if(null != sessionId)
             articleService.setHasJoinedAndIsHost(data, userId);
 
+        System.out.println("---fourth point----");
+
+
         currCount = countService.getCount(articleUuid);
         data.getArticle().setCurr(currCount);
+
+        System.out.println("---fifth point----");
 
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.ArticleDetailResponse>(
