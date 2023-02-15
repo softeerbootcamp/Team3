@@ -27,7 +27,9 @@ public class UserService {
     }
 
     public void addUser(User user) {
-        user.setUuid(String.valueOf(UUID.randomUUID()));  // TODO: 있을때는 변경 x
+        if(user.getUuid().isBlank())
+            user.setUuid(String.valueOf(UUID.randomUUID()));
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         try {
             userRepository.save(user);
