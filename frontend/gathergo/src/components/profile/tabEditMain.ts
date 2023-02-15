@@ -1,9 +1,10 @@
 import { TuserInfo } from '../../common/constants';
 import store from '../../store/store';
+import { changeProfileTab } from '../../store/actions';
 
 class tabEditMain {
   element: HTMLDivElement;
-    userEditInfo : TuserInfo;
+  userEditInfo: TuserInfo;
   constructor() {
     this.element = document.createElement('div');
     this.element.classList.add('tabcontent');
@@ -11,9 +12,9 @@ class tabEditMain {
     this.element.id = 'profile-fix';
 
     this.userEditInfo = store.getState().userInfo;
-    store.subscribe(()=>{
-        this.render();
-    })
+    store.subscribe(() => {
+      this.render();
+    });
     this.render();
   }
   render() {
@@ -56,16 +57,35 @@ class tabEditMain {
                 <textarea onkeydown="resize()" onkeyup="resize()" value = "hihi" class = "form-control" style = "height : 6.25rem">${this.userEditInfo.userDesc}</textarea>
             </div>
             <div class = "profile-button">
-                <button type = "button" class = "btn btn-primary register-button">
+                <button type = "button" id = "profile-edit-button" class = "btn btn-primary register-button">
                     변경내용 저장
                 </button>
                 <div style = "width : 5%"></div>
-                <button type = "button" id = "profileCancelButton" class = "btn btn-outline-danger register-button">
+                <button type = "button" id = "profile-edit-cancel-button" class = "btn btn-outline-danger register-button">
                     취소
                 </button>
             </div>
         </div>
     </div>`;
+
+    this.profileEditButton();
+    this.profileEditCancelButton();
+  }
+
+  profileEditCancelButton() {
+    const profileCancel = this.element.querySelector(
+      '#profile-edit-cancel-button'
+    ) as HTMLElement;
+    profileCancel.addEventListener('click', () => {
+      store.dispatch(changeProfileTab(0));
+    });
+  }
+  profileEditButton() {
+    const profileEdit = this.element.querySelector('#profile-edit-button')
+    profileEdit?.addEventListener('click',()=>{
+        
+        console.log('fetch!!!');
+    })
   }
 }
 export default tabEditMain;

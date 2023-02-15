@@ -46,6 +46,7 @@ class Profile {
       store.dispatch(changeProfileTab(2));
     })
   }
+
 }
 
 export default Profile;

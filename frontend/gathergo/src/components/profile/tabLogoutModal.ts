@@ -1,4 +1,6 @@
 
+import store from '../../store/store';
+import { changeProfileTab } from '../../store/actions';
 
 class tabLogoutModal {
   element: HTMLDivElement;
@@ -20,6 +22,15 @@ class tabLogoutModal {
             </div>   
         </div>
     </div>`;
+
+    this.logoutModalButton()
   }
+
+    logoutModalButton(){
+    const cancelButton = this.element.querySelector('#button-cancel') as HTMLDivElement;
+    cancelButton.addEventListener('click',()=>{
+        store.dispatch(changeProfileTab(0));
+    })
+    }
 }
 export default tabLogoutModal;

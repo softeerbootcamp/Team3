@@ -12,6 +12,14 @@ body{
   display: flex;
 }
 
+#sidebar-bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
 #sidebar-body {
   overflow: auto;
   display: flex;
@@ -72,7 +80,7 @@ body{
   margin: 2rem;
 }
 
-.user-profilepage{
+.user-profile {
   background: var(--bs-body-bg);
   width: 100%;
   height: 8rem;
@@ -81,19 +89,19 @@ body{
   overflow: hidden;
 }
 
-.user-profilepage-img {
+.user-profile-img {
   object-fit: cover;
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.user-profile-desc-header {
+.user-desc-header {
   display: flex;
   align-items: baseline;
 }
 
-.user-profile-desc .icon {
+.user-desc .icon {
   width: 1rem;
   height: 1rem;
   min-width: 1rem;
@@ -254,7 +262,7 @@ body{
     
 }
 
-.user-profile-desc-header{
+.user-desc-header{
     padding : 15px 0px 15px 0px;
 }
 
@@ -273,7 +281,7 @@ body{
     
 }
 
-#sidebar-profile-body{
+#sidebar-body{
     right : 0;
     position : relative;
     width : 100%;
@@ -411,6 +419,7 @@ body{
 }
 
 #logout-modal{
+    display : none;
     position : absolute;
     width : 100%;
     height : 100%;
@@ -422,7 +431,7 @@ body{
     align-items: center;
 }
 
-.logout-modal-content{
+.modal-content{
     background-color : white;
     width : 325px;
     height : 160px;
@@ -430,7 +439,7 @@ body{
     border-radius : 12px;
 }
 
-.logout-modal-button{
+.modal-button{
     display : flex;
     flex-direction: row;    
     justify-content: center;
@@ -483,6 +492,10 @@ thead {
 
 td:hover{
     background : #f8f9fa;
+}
+
+a {
+  color: #73685d;
 }
   
  @media all and (max-width: 768px) {
