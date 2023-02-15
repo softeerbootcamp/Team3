@@ -1,12 +1,7 @@
-// import {store} from '../store/store';
-
-import { checkLogin } from '../../common/commonFunctions';
 import DropdownCategory from '../dropdown/DropdownCategory';
 import DropdownRegion from '../dropdown/DropdownRegion';
 import HeaderHomeNav from './headerHomeNav';
 import HeaderSearchSticky from './HeaderSearchSticky';
-
-// import { $ } from '../common/utils/querySelctor';
 class HeaderHome {
   element: HTMLElement;
   constructor() {
@@ -27,29 +22,16 @@ class HeaderHome {
       <ul class="navbar-nav navbar-filter me-auto">
         <li id="dropdown-region" class="nav-item dropdown region"></li>
         <li id="dropdown-category" class="nav-item dropdown category"></li>
-        <form class="d-flex">
-          <input class="form-control me-sm-2" type="search" placeholder="Search" />
-          <button class="btn btn-primary my-2 my-sm-0" type="submit">
+        <div class="d-flex">
+          <input class="form-control me-sm-2 keyword-input" type="search" placeholder="Search" />
+          <button class="btn btn-primary my-2 my-sm-0 keyword-search-btn" type="submit">
             Search
           </button>
-        </form>
+        </div>
       </ul>
     </nav>
     `;
-    // this.element.addEventListener('click', (e) => {
-    //   console.log('lj');
-    //   //   const target = e.target as Element;
-    //   //   const aElement = target?.closest('a') as HTMLAnchorElement;
-    //   //   if (!(aElement instanceof HTMLAnchorElement)) return;
-    //   //   e.preventDefault();
-    //   history.pushState(
-    //     { data: 'pushpush' },
-    //     'title을 pushState로',
-    //     '/pushpush'
-    //   );
-    // });
-    
-    const headerHomeNav = new HeaderHomeNav(checkLogin());
+    const headerHomeNav = new HeaderHomeNav();
     this.element.querySelector('#header-nav')?.appendChild(headerHomeNav.element);
 
     const dropdownRegion = new DropdownRegion();

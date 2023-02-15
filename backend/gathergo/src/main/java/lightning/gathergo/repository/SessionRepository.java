@@ -32,4 +32,14 @@ public class SessionRepository {
     public Optional<Collection<Session>> getSessions() {
         return Optional.of(this.sessions.values());
     }
+
+    public Map<String, Session> getCopyOfSessions(){
+        Map<String, Session> deepCopiedSessions = new ConcurrentHashMap<String, Session>();
+        for (Map.Entry<String, Session> entry : sessions.entrySet()) {
+            String key = entry.getKey();
+            Session value = entry.getValue();
+            deepCopiedSessions.put(key, value);
+        }
+        return deepCopiedSessions;
+    }
 }

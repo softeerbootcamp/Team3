@@ -52,8 +52,10 @@ class CookieServiceTest {
         assert cookie != null;
         softly.assertThat(cookie.getName()).isEqualTo(SESSION_ID);
         softly.assertThat(cookie.getPath()).isEqualTo("/");
-        softly.assertThat(cookie.isHttpOnly()).as("HttpOnly 쿠키?").isTrue();
+        softly.assertThat(cookie.isHttpOnly()).as("HttpOnly 쿠키?").isFalse();
         softly.assertThat(cookie.getValue()).isEqualTo(expectedSessionId);
+        softly.assertThat(cookie.getSecure()).as("Secure 쿠키?").isTrue();
+        softly.assertThat(cookie.toString().contains("SameSite")).as("SameSite 쿠키?").isTrue();
 
         softly.assertAll();
     }

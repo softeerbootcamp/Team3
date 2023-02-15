@@ -9,8 +9,8 @@ class HeaderSearchSticky {
     this.element.innerHTML = `
         <img class="search-container-logo" src="./assets/Logo/LogoIconChar-theme.svg" alt="">
       <div class="navbar-divider"></div>
-      <input type="text" class="search-input" placeholder="Search">
-      <button type="button" class="btn btn-outline-primary">Search</button>
+      <input type="text" class="search-input keyword-input-sticky" placeholder="Search">
+      <button type="button" class="btn btn-outline-primary keyword-search-btn">Search</button>
         `;
   }
   //header search바 event

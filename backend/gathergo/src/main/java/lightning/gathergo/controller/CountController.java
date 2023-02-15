@@ -20,16 +20,16 @@ public class CountController {
 
 
     @GetMapping
-    public ResponseEntity<JSONObject> getRegions() {
+    public ResponseEntity<JSONObject> getCounts() {
         JSONObject ob = new JSONObject(countService.getCounts());
         return ResponseEntity.ok().body(ob);
     }
 
-    @GetMapping("/{articleUuid}")
-    public ResponseEntity<?> getRegionById(@PathVariable String articleUuid) {
+    @GetMapping("/{articleId}")
+    public ResponseEntity<?> getCountById(@PathVariable String articleId) {
         JSONObject ob = new JSONObject();
-        ob.put("articleUuid",articleUuid);
-        ob.put("count",countService.getCount(articleUuid));
+        ob.put("articleId",articleId);
+        ob.put("count",countService.getCount(articleId));
         return new ResponseEntity<JSONObject>(ob, HttpStatus.FOUND);
     }
 
@@ -38,7 +38,8 @@ public class CountController {
         countService.createCount(in.getArticleId(), in.getCount());
         JSONObject ob = new JSONObject();
         ob.put("articleUuid",in.getArticleId());
-        ob.put("count",in.getCount());
+        if(in.getCount()==null) ob.put("count", countService.createCount(in.getArticleId(), 1));
+        else ob.put("count",in.getCount());
         return ResponseEntity.ok().body(ob);
     }
 
@@ -50,9 +51,9 @@ public class CountController {
         return ResponseEntity.ok().body(ob);
     }
 
-    @DeleteMapping("/{articleUuid}")
-    public ResponseEntity<?> deleteRegion(@PathVariable String articleUuid) {
-        countService.deleteCount(articleUuid);
+    @DeleteMapping("/{articleId}")
+    public ResponseEntity<?> deleteCount(@PathVariable String articleId) {
+        countService.deleteCount(articleId);
         return ResponseEntity.ok().body("deleted");
     }
 

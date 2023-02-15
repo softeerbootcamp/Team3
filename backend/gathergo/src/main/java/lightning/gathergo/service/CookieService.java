@@ -2,6 +2,7 @@ package lightning.gathergo.service;
 
 import lightning.gathergo.model.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
@@ -11,7 +12,7 @@ import java.util.Optional;
 
 @Service
 public class CookieService {
-    private static final int DEFAULT_COOKIE_EXPIRATION = 3600;
+    private static final long DEFAULT_COOKIE_EXPIRATION = 3600*5L;
     public static final String SESSION_ID = "sessionId";
 
     private static Cookie nullCookie = new Cookie(CookieService.SESSION_ID, "");
@@ -35,13 +36,16 @@ public class CookieService {
      * @param cookieExpiration 쿠키 만료 시간 (초 단위)
      * @param response         HttpServletResponse 객체
      */
-    public void createSessionCookie(String name, String value, int cookieExpiration, HttpServletResponse response) {
-        Cookie sessionCookie = new Cookie(name, value);
-        sessionCookie.setMaxAge(cookieExpiration);
-        sessionCookie.setHttpOnly(false);
-        sessionCookie.setPath("/");
+    public void createSessionCookie(String name, String value, long cookieExpiration, HttpServletResponse response) {
+        ResponseCookie sessionCookie = ResponseCookie.from(name, value)
+                .path("/")
+                .sameSite("None")
+                .httpOnly(false)
+                .maxAge(cookieExpiration)
+                .secure(true)
+                .build();
 
-        response.addCookie(sessionCookie);
+        response.addHeader("Set-Cookie", sessionCookie.toString());
     }
 
     /**

@@ -55,6 +55,7 @@
 .schedule-synthesis {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   /* justify-content: space-between; */
 }
 
@@ -191,16 +192,16 @@
   /* overflow: auto; */
   border-radius: 5px;
   /* height: 10px; */
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .feed-comment {
   display: flex;
-  margin-bottom: 1rem;
+  margin: 1rem;
 }
 
 .comment-user-id {
-  width: 6rem;
+  min-width: 6rem;
 }
 
 .comment-content {
@@ -234,6 +235,7 @@
 .comment-send {
   margin-left: 0.5rem;
   width: 5rem;
+  transition: 0.2s;
 }
 
 /* tooltip */

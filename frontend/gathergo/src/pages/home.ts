@@ -1,10 +1,9 @@
-// import {store} from '../store/store';
 
+import { fetchCardDetail, getArticles } from '../common/Fetches';
 import Navigate from '../common/utils/navigate';
 import CardList from '../components/card/CardList';
 import CardModal from '../components/card/CardModal';
 import HeaderHome from '../components/header/HeaderHome';
-import { readCard } from '../store/actions';
 import store from '../store/store';
 
 class Home {
@@ -16,12 +15,13 @@ class Home {
     this.render();
   }
 
-  render() {
+  async render() {
     if (!this.$container) return;
     const headerHome = new HeaderHome();
     this.$container.appendChild(headerHome.element);
 
     // console.log(window.location.href);
+    store.dispatch(await getArticles(store.getState().filters))
     const cardList = new CardList(this.navigate);
     this.$container.appendChild(cardList.element);
 
@@ -34,8 +34,11 @@ class Home {
     const feed = queryString.get('feed');
     if (feed) {
       cardList.openCardModal();
-      store.dispatch(readCard(feed));
+      store.dispatch( await fetchCardDetail(feed));
     }
+
+    this.matchSearchBarValue();
+    this.keywordSearchEvent();
   }
   closeModalEvent(modalEle: HTMLElement) {
     modalEle.addEventListener('click', (e) => {
@@ -50,6 +53,37 @@ class Home {
     modalContainer.classList.add('out');
     document.body?.removeAttribute('class');
     this.navigate.to('/')
+  }
+
+  matchSearchBarValue(){
+    const categorySidebar = document.querySelector('.keyword-input') as HTMLInputElement;
+    const hideSidebar = document.querySelector('.keyword-input-sticky') as HTMLInputElement;
+    
+    categorySidebar?.addEventListener('keyup',(e)=>{
+      
+      hideSidebar.value = categorySidebar.value;
+      if(e.key==='Enter') this.keywordSearch();
+    })
+    hideSidebar?.addEventListener('keyup',(e)=>{
+      categorySidebar.value = hideSidebar.value;
+      if(e.key==='Enter') this.keywordSearch();
+    })
+  }
+  keywordSearchEvent(){
+    
+    const searchBtns = document.querySelectorAll('.keyword-search-btn');
+    searchBtns.forEach((btn) => {
+        btn.addEventListener('click',()=>{
+          this.keywordSearch();
+        })
+    });
+  }
+  async keywordSearch(){
+    let keywrodValue = document.querySelector<HTMLInputElement>('.keyword-input')?.value;
+    if( !keywrodValue) keywrodValue=""
+    store.dispatch(await getArticles({...store.getState().filters, keyword:keywrodValue}))
+
+    console.log('ljlkjlk')
   }
 }
 

@@ -1,27 +1,37 @@
-import { category } from '../../common/constants';
+import { category, Tfilters } from '../../common/constants';
 import { getElementIndex } from '../../common/commonFunctions';
+import store from '../../store/store';
+import { filterSearch } from '../../store/actions';
+import { getArticles } from '../../common/Fetches';
 class DropdownCategory {
+  filtersState: Tfilters;
   toggleElement: HTMLElement;
   itemsElemnt: HTMLElement;
   constructor() {
+    this.filtersState = store.getState().filters;
     this.toggleElement = document.createElement('div');
     this.itemsElemnt = document.createElement('div');
     this.render();
-    // store.subscribe(() => this.render());
+    store.subscribe(() => {
+      const newState = store.getState().filters;
+      if (this.filtersState !== newState) {
+        this.filtersState = newState;
+        this.toggleElement.innerHTML = category[this.filtersState.categoryId];
+      }
+    });
   }
   render() {
     this.toggleElement.classList.add('nav-link', 'dropdown-toggle', 'category');
-    // this.toggleElement.dataset['bs-toggle'] = 'dropdown';
-    // this.toggleElement.href = '#';
+
     this.toggleElement.role = 'button';
     this.toggleElement.ariaHasPopup = 'true';
     this.toggleElement.ariaExpanded = 'false';
-    this.toggleElement.innerHTML = '카테고리를 선택하세요';
+    this.toggleElement.innerHTML = category[this.filtersState.categoryId];
 
     this.itemsElemnt.classList.add('dropdown-menu');
     this.generateDropDownItems();
 
-    document.addEventListener('click', (e) => {
+    document.addEventListener('click', async (e) => {
       const target = e.target as Element;
       const dropDown = target?.closest(
         '.dropdown-toggle.category'
@@ -29,15 +39,22 @@ class DropdownCategory {
       if (dropDown === null) this.dropDownClose();
       else this.handleToggle();
 
-      const dropDownItem = target?.closest('.dropdown-item.category') as HTMLLIElement;
-      if (dropDownItem === null) return;
+      const newcategoryId = this.getClickedItemIndex(target);
+      if(newcategoryId!==-1) {
+        store.dispatch(filterSearch({...this.filtersState, categoryId:newcategoryId}))
+
+        store.dispatch(await getArticles(store.getState().filters));
+      }
+    });
+  }
+  getClickedItemIndex(target:Element):number{
+    const dropDownItem = target?.closest('.dropdown-item.category') as HTMLLIElement;
+      if (dropDownItem === null) return -1;
 
       let index: number = getElementIndex(dropDownItem) + 1;
       if (dropDownItem.classList.contains('default-item')) index = 0;
-      this.toggleElement.innerHTML = category[index];
 
-      //TODO: dispatch CategoryFilter (index+1)
-    });
+    return index;
   }
   generateDropDownItems() {
     const itemWrapper = document.createElement('div');
@@ -55,7 +72,7 @@ class DropdownCategory {
 
     const defaultItem = document.createElement('a');
     defaultItem.classList.add('dropdown-item', 'default-item', 'category');
-    defaultItem.href = '#'; //key
+
     defaultItem.innerHTML = '카테고리를 선택하세요';
     this.itemsElemnt.appendChild(defaultItem);
   }

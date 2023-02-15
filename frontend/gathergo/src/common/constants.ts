@@ -2,6 +2,7 @@ import Home from '../pages/home';
 import Profile from '../pages/profile';
 import Login from '../pages/login';
 import Post from '../pages/post';
+// import Navigate from './utils/navigate';
 
 const BASE_URL = 'http://localhost:5173';
 
@@ -11,13 +12,21 @@ const routes = [
   { path: /^\/login$/, element: Login },
   { path: /^\/post$/, element: Post },
 ];
-
+type Taction = {
+  type: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  payload: any;
+};
 type TdropDown = {
   [key: number]: string;
 };
-
+type Tfilters = {
+  regionId: number,
+  categoryId: number,
+  keyword: string,
+}
 type Tcard = {
-  id: string;
+  uuid: string;
   title: string;
   curr: number;
   total: number;
@@ -30,25 +39,44 @@ type TcardDetail =
   | (Tcard & {
       hostId: string;
       hostDesc: string;
+      hostProfile:string;
       content: string;
       location: string;
       locationDetail: string;
-      //   comments: Tcomment[];
+      hasJoined:boolean;
+      isHost:boolean;
     })
   | null;
 type Tcomment = {
-  uuid: string;
+  uuid: string|undefined;
   userId: string;
   content: string;
   date: string;
+  isMyComment:boolean;
 };
 
 type TinitialState = {
   cards: Tcard[];
   readingCard: TcardDetail;
   comments: Tcomment[];
+  filters: Tfilters;
+  isLoading: boolean;
+  // userLoginId: string|null;
+  sessionId: string;
+  error: Error|null;
+  modalAction: string;
+  redirect: string| null;
 };
-
+type TsignupData= {
+  userId: string;
+  userName: string;
+  password: string;
+  email: string;
+}
+type TloginData= {
+  userId: string;
+  password: string;
+}
 const regionSi: TdropDown = {
   1: '서울특별시',
   2: '부산광역시',
@@ -97,8 +125,12 @@ export {
   routes,
   regionSi,
   category,
+  Tfilters,
   Tcard,
   TcardDetail,
   Tcomment,
   TinitialState,
+  TsignupData,
+  TloginData,
+  Taction
 };

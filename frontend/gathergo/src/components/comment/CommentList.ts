@@ -6,10 +6,12 @@ class CommentList {
   commentsState: Tcomment[];
   constructor() {
     this.commentsState = store.getState().comments;
+    console.log(this.commentsState)
     this.element = document.createElement('div');
     this.element.classList.add('feed-comment-container');
     this.render();
     store.subscribe(() => {
+      console.log(store.getState().comments)
       const newState = store.getState().comments;
       if (this.commentsState !== newState) {
         this.commentsState = newState;
@@ -19,18 +21,16 @@ class CommentList {
   }
   render() {
     this.element.innerHTML = '';
+    console.log(this.element)
     this.generateComments();
   }
   generateComments() {
     this.commentsState.forEach((commentData: Tcomment) => {
       const comment = new MyComment(commentData);
       this.element.appendChild(comment.element);
-      comment.element.addEventListener('contextmenu', () => {
-        // this.openCardModal();
-        // store.dispatch(readCard(cardData.id));
-      });
     });
   }
+  // TODO:마우스 우클릭시
   //   openCardModal() {
   //     const modalContainer =
   //       document.querySelector<HTMLElement>('#modal-container');

@@ -1,5 +1,12 @@
-import { category, regionSi, TcardDetail } from '../../common/constants';
-import {modalMapGenerator} from '../../common/kakaoMapAPI/kakaoMapAPI';
+// import { checkLogin } from '../../common/commonFunctions';
+import {
+  category,
+  regionSi,
+  TcardDetail,
+} from '../../common/constants';
+import { fetchSendComment } from '../../common/Fetches';
+import { modalMapGenerator } from '../../common/kakaoMapAPI/kakaoMapAPI';
+import { setModal } from '../../store/actions';
 import store from '../../store/store';
 import CommentInput from '../comment/commentInput';
 import CommentList from '../comment/commentList';
@@ -25,22 +32,45 @@ class CardModal {
 
     const feedWrapper = document.createElement('div');
     feedWrapper.classList.add('feed-main-wrapper');
-
-    feedWrapper.innerHTML += this.setFeedLeftElement();
-    feedWrapper.innerHTML += this.setFeedDivderElement();
-    feedWrapper.innerHTML += this.setFeedRightElement();
+    
+    feedWrapper.appendChild(this.setFeedLeftElement());
+    feedWrapper.appendChild(this.setFeedDivderElement());
+    feedWrapper.appendChild(this.setFeedRightElement());
 
     modalEle?.appendChild(feedWrapper);
     modalMapGenerator(this.readingCard?.location);
+    this.commentBtnEvent();
+    this.joinBtnEvent();
+    this.modalDropDownEvent();
+  }
+  modalDropDownEvent(){
+    const dropdownToggle = this.element.querySelector('.nav-item.dropdown');
+    const dropdownItem = this.element.querySelector('.modal-setting-dropdown');
+    dropdownToggle?.addEventListener('click',()=>{
+      dropdownItem?.classList.toggle('show');
+      dropdownToggle.classList.toggle('rotate');
+    })
+    document.addEventListener('click',(e)=>{
+      const target = e.target as HTMLElement;
+      if(target.closest('.nav-item.dropdown')!=dropdownToggle&&dropdownItem?.classList.contains('show')){
+
+      dropdownItem?.classList.toggle('show');
+      dropdownToggle?.classList.toggle('rotate');
+      }
+    })
+    this.element.querySelector('.dropdown-item.delete')?.addEventListener('click',()=>{
+      store.dispatch(setModal('DELETE_MEETING'))
+    })
+
+    this.element.querySelector('.dropdown-item.edit')?.addEventListener('click',()=>{
+      store.dispatch(setModal('EDIT_MEETING'))
+    })
   }
   setDefaultModalElement() {
     const modalContainer = document.createElement('div');
     modalContainer.id = 'modal-container';
     modalContainer.innerHTML = `<div id="modal-background">
-            <div class="modal">
-            
-            </div>
-        </div>`;
+            <div class="modal"></div></div>`;
     return modalContainer;
   }
   setFeedCloseIcon() {
@@ -49,8 +79,12 @@ class CardModal {
   </div>`;
   }
   setFeedLeftElement() {
-    if (this.readingCard?.meetingDay == undefined) return 'error';
-    return `<div class="feed-main-info">
+    const feedLeftElement = document.createElement('div');
+    feedLeftElement.classList.add('feed-main-info');
+
+    if (this.readingCard?.meetingDay == undefined) return feedLeftElement;
+    feedLeftElement.innerHTML = `
+    
     <div id="map-api-readOnly"></div>
     <h3 class="address"><strong>${this.readingCard?.location} ${
       this.readingCard?.locationDetail
@@ -83,42 +117,116 @@ class CardModal {
         <button type="button" class="feed-info btn btn-primary btn-lg "><strong>참가하기</strong></button>
       </div>
     </div>
-  </div>
     `;
+    return feedLeftElement;
   }
   setFeedDivderElement() {
-    return `<div class="feed-main-divider"></div>`;
+    const divider = document.createElement('div');
+    divider.classList.add('feed-main-divider');
+    return divider; 
   }
   setFeedRightElement() {
     const commentList = new CommentList();
     const commentInput = new CommentInput();
-    return `<div class="feed-main-content">
-    <div class="feed-main-content-scrollable">
-      <div class="user-info container-md">
-        <div class="user-profile">
-          <img class="user-profile-img" src="./assets/userProfileImg.jpeg" alt="User" />
-        </div>
-        <div class="container-sm">
-          <strong class="user-id">${this.readingCard?.hostId}</strong>
-        </div>
-        <div class="space"></div>
-        <div>
-          <div class="user-info-icon" tooltip="${this.readingCard?.hostDesc}" flow="down">
-            <img class="user-info-icon icon" src="./assets/Icons/who.png" alt="User" />
-          </div>
-        </div>
+    const feedRigntElement = document.createElement('div');
+    feedRigntElement.classList.add('feed-main-content');
+    const modalIconHTML = this.readingCard?.isHost
+      ? `
+                
+    <li class="nav-item dropdown">
+      <img class="user-info-icon icon setting-icon" src="./assets/Icons/setting icon.png" alt="User" />
 
+      <div class="nav-link dropdown-toggle modal-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+        aria-expanded="false">
+        </div>
+      <div class="dropdown-menu  modal-setting-dropdown">
+        <div class="dropdown-item delete" >삭제하기</div>
+        <div class="dropdown-item edit" >수정하기</div>
       </div>
-      <div class="line"></div>
-      <div class="feed-text-container">
-        <h2 class="feed-title"><strong>${this.readingCard?.title}</strong></h2>
-        <p class="feed-content">${this.readingCard?.content}</p>
-      </div>
-      ${commentList.element.outerHTML}
+    </li>`
+      : `<div>
+    <div class="user-info-icon" tooltip="${this.readingCard?.hostDesc}" flow="down">
+      <img class="user-info-icon icon" src="./assets/Icons/who.png" alt="User" />
     </div>
-    ${commentInput.element.outerHTML}
-
   </div>`;
+    const mainElement = document.createElement('div');
+    mainElement.classList.add('feed-main-content-scrollable');
+    mainElement.innerHTML += `
+    <div class="user-info container-md">
+      <div class="user-profile">
+        <img class="user-profile-img" src="./assets/userProfileImg.jpeg" alt="User" />
+      </div>
+      <div class="container-sm">
+        <strong class="user-id">${this.readingCard?.hostId}</strong>
+      </div>
+      <div class="space"></div>
+      ${modalIconHTML}
+    </div>
+    <div class="line"></div>
+    <div class="feed-text-container">
+      <h2 class="feed-title"><strong>${this.readingCard?.title}</strong></h2>
+      <p class="feed-content">${this.readingCard?.content}</p>
+    </div>`;
+    mainElement.appendChild(commentList.element);
+    feedRigntElement.appendChild(mainElement);
+    feedRigntElement.appendChild(commentInput.element);
+    return feedRigntElement;
+  }
+  joinBtnEvent() {
+    const joinBtn =
+      this.element.querySelector<HTMLButtonElement>('.feed-info.btn');
+    joinBtn?.addEventListener('click', () => {
+      let modaltype = '';
+      if (!store.getState().sessionId) modaltype = 'NEED_LOGIN';
+      else {
+        if(this.readingCard?.hasJoined)
+          modaltype = 'CANCEL_JOIN';
+          else{
+            modaltype = 'JOIN';
+          }
+      }
+
+      store.dispatch(setModal(modaltype));
+    });
+  }
+  commentBtnEvent() {
+    const inputElement =
+      this.element.querySelector<HTMLInputElement>('#comment-input');
+    const btnElement =
+      this.element.querySelector<HTMLButtonElement>('.comment-send');
+    if (inputElement === null) return;
+    inputElement.addEventListener('keyup', (e) => {
+      if (inputElement.value.length == 0) {
+        btnElement?.classList.add('disabled');
+      } else {
+        btnElement?.classList.remove('disabled');
+      }
+      if (e.key == 'Enter') {
+        this.sendComment(inputElement.value);
+      }
+    });
+    btnElement?.addEventListener('click', () => {
+      if (store.getState().sessionId) this.sendComment(inputElement.value);
+      else {
+        store.dispatch(setModal('NEED_LOGIN'));
+      }
+    });
+  }
+  async sendComment(text: string) {
+    const sessionId = store.getState().sessionId;
+    if (this.readingCard?.uuid == null) return;
+    if (sessionId == null) {
+      //TODO: login modal, => 로그인 페이지로 이동
+      return;
+    }
+    const date = new Date();
+    const commentData = {
+      content: text,
+      date: date.toISOString(),
+    };
+    store.dispatch(await fetchSendComment(this.readingCard.uuid, commentData));
+
+    console.log(text);
   }
 }
 export default CardModal;
