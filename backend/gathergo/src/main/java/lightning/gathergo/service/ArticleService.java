@@ -21,17 +21,19 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final CommentService commentService;
     private final CountService countService;
+    private final UserService userService;
     private final UserRepository userRepository;
     private final UserArticleRelationshipRepository relationshipRepository;
 
     @Autowired
     ArticleService(ArticleRepository articleRepository, CommentService commentService, CountService countService,
-                   UserRepository userRepository, UserArticleRelationshipRepository relationshipRepository){
+                   UserRepository userRepository, UserArticleRelationshipRepository relationshipRepository, UserService userService){
         this.articleRepository = articleRepository;
         this.commentService = commentService;
         this.relationshipRepository = relationshipRepository;
         this.countService = countService;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @Transactional
@@ -145,6 +147,15 @@ public class ArticleService {
         article.setLocationDetail(token[1]);
     }
 
+    public void setHasJoinedAndIsHost(GatheringDto.ArticleDetailResponse data){
+        String hostId = data.getHost().getHostId();
+        Integer id = userRepository.findUserByUserId(hostId).get().getId();
+
+//        if(userRepository.findByUuid(data.getArticle().getUuid()).getUserId().equals(id))
+//            data.getArticle().setIsHost(true);
+//        if(relationshipRepository.findGuestsIdByArticleUuid(data.getArticle().getUuid()).contains(id))
+//            data.getArticle().setHasJoined(true);
+    }
     private String generateUuid() {
         return UUID.randomUUID().toString();
     }

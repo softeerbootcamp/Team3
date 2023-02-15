@@ -38,7 +38,6 @@ public class GatheringDto {
         private Timestamp meetingDay;
         private Integer regionId;
         private Integer categoryId;
-        private Integer curr;
 
         public String getUuid() {
             return uuid;
@@ -104,13 +103,6 @@ public class GatheringDto {
             this.categoryId = categoryId;
         }
 
-        public Integer getCurr() {
-            return curr;
-        }
-
-        public void setCurr(Integer curr) {
-            this.curr = curr;
-        }
     }
 
     // 게시물 상세 조회 시 article 상세 정보
@@ -125,6 +117,8 @@ public class GatheringDto {
 
         public void setArticle(ArticleFullDto article) {
             this.article = article;
+            this.article.setHasJoined(false);
+            this.article.setIsHost(false);
         }
 
         public List<CommentDto.Response> getComments() {
@@ -146,7 +140,6 @@ public class GatheringDto {
     public static class ArticleFullDto{
         private String uuid;
         private String title;
-        private Integer curr;
         private Integer total;
         private Boolean isClosed;
         private String content;
@@ -173,14 +166,6 @@ public class GatheringDto {
 
         public void setTitle(String title) {
             this.title = title;
-        }
-
-        public Integer getCurr() {
-            return curr;
-        }
-
-        public void setCurr(Integer curr) {
-            this.curr = curr;
         }
 
         public Integer getTotal() {

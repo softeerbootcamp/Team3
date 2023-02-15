@@ -95,6 +95,7 @@ public class ArticleController {
         data.setComments(commentMapper.toCommentResponseList(comments));
         data.setHost(new GatheringDto.UserDto(user.getUserId(), user.getIntroduction(), user.getProfilePath()));
         articleService.splitLocation(data);
+        articleService.setHasJoinedAndIsHost(data);
 
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.ArticleDetailResponse>(
