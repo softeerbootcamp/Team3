@@ -4,7 +4,7 @@ import lightning.gathergo.model.Comment;
 import lightning.gathergo.repository.CommentRepository;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Service
@@ -23,7 +23,7 @@ public class CommentService {
     }
 
     // 수정
-    Comment updateComment(String content, Date date, String commentUuid){
+    Comment updateComment(String content, Timestamp date, String commentUuid){
         Comment comment = commentRepository.findByUuid(commentUuid);
         commentRepository.updateByUuid(content, date, commentUuid);
         comment = commentRepository.findByUuid(commentUuid);

@@ -1,16 +1,11 @@
 package lightning.gathergo.model;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 
 @Table("article")
 public class Article {
@@ -26,7 +21,6 @@ public class Article {
     @Column("hostid")
     private Integer hostId;
     private String title;
-    private int curr; // 추후에 int를 Integer로 바꾸기!!!!!
     private int total;
     @Column("isclosed")
     private Boolean isClosed = false;
@@ -43,13 +37,11 @@ public class Article {
 
     public Article(){
         isClosed = false;
-        curr = 1;
     }
 
-    public Article( Integer hostId, String title, int curr, int total, Boolean isClosed, String content, Timestamp meetingDay, String location, int regionId, int categoryId, String uuid) {
+    public Article(Integer hostId, String title, int total, Boolean isClosed, String content, Timestamp meetingDay, String location, int regionId, int categoryId, String uuid) {
         this.hostId = hostId;
         this.title = title;
-        this.curr = curr;
         this.total = total;
         this.isClosed = isClosed;
         this.content = content;
@@ -82,14 +74,6 @@ public class Article {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Integer getCurr() {
-        return curr;
-    }
-
-    public void setCurr(Integer curr) {
-        this.curr = curr;
     }
 
     public Integer getTotal() {
@@ -162,7 +146,6 @@ public class Article {
                 "id=" + id +
                 ", hostId=" + hostId +
                 ", title='" + title + '\'' +
-                ", curr=" + curr +
                 ", total=" + total +
                 ", isClosed=" + isClosed +
                 ", content='" + content + '\'' +
