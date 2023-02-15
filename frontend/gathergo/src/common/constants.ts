@@ -155,5 +155,7 @@ export {
   TsignupData,
   TloginData,
   Taction,
-  TuserInfo
+  TuserInfo,
+  TuserHostCard,
+  TuserJoinCard
 };

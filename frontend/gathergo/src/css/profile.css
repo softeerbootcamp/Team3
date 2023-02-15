@@ -1,6 +1,3 @@
-@import './index.css';
-@import './bootstrap.css';
-
 .profile-layout{
     display : flex;
     flex-direction: row;
@@ -132,4 +129,110 @@
   height: 1rem;
   min-width: 1rem;
   min-height: 1rem;
+}
+
+
+table {
+  border: 1px #a39485 solid;
+  font-size: .9em;
+  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 5px;
+  overflow: hidden;
+  margin : 25px 0 25px 0;
+}
+
+th {
+  text-align: left;
+}
+  
+thead {
+  font-weight: bold;
+  color: #fff;
+  background: #73685d;
+}
+  
+ td, th {
+  padding: 1em .5em;
+  vertical-align: middle;
+}
+  
+ td {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  background: transparent;
+  cursor : pointer;
+}
+
+tbody > tr:hover{
+  background : #f8f9fa;
+}
+  
+ @media all and (max-width: 768px) {
+    
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  
+  th {
+    text-align: right;
+  }
+  
+  table {
+    position: relative; 
+    padding-bottom: 0;
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+  }
+  
+  thead {
+    float: left;
+    white-space: nowrap;
+  }
+  
+  tbody {
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    white-space: nowrap;
+  }
+  
+  tr {
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  th {
+    border-bottom: 1px solid #a39485;
+  }
+  
+  td {
+    border-bottom: 1px solid #e5e5e5;
+  }
+  
+  
+  }
+.user-schedule {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.schedule-info {
+  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+ul.user-schedule{
+  flex-direction: column;
+}
+
+.schedule-data {
+  display: flex;
+}
+
+.user-schedule-wrapper > .user-schedule > .user-schedule:hover{
+  background : #f8f9fa;
+  cursor : pointer;
 }

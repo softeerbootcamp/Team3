@@ -1,37 +1,21 @@
-import { TuserInfo } from '../../../common/constants';
-import store from '../../../store/store';
+import { TuserHostCard } from '../../../common/constants';
 
-class profileUserInfo {
+class profileUserHost {
   element: HTMLDivElement;
-  userInfoData: TuserInfo;
+  userHostData: TuserHostCard;
 
-  constructor() {
-    this.element = document.createElement('div');
-    this.element.classList.add('sidebar-user-info');
-    this.element.classList.add('container-md');
-    this.userInfoData = store.getState().userInfo;
-
+  constructor($userHostData : TuserHostCard) {
+    this.element = document.createElement('tr');
+    this.userHostData = $userHostData;
     this.render();
-
-    store.subscribe(() => {
-      const newUserProfileInfo = store.getState().userInfo;
-      if (newUserProfileInfo !== this.userInfoData) {
-        this.userInfoData = newUserProfileInfo;
-        this.render();
-      }
-    });
   }
   render() {
     this.element.innerHTML = `
-        <div class="user-profilepage">
-            <img class="user-profilepage-img" src="../../assets/Logo/mainLogo.png" alt="User" />
-        </div>
-        <div class="container-sm">
-            <strong class="user-id">${this.userInfoData.userId}</strong>
-            <span class="user-email">${this.userInfoData.email}</span>
-        </div>
-        <div class="profile-space"></div>
-    </div>`;
+        <td><strong>${this.userHostData.title}</strong></td>
+        <td>${this.userHostData.curr}/${this.userHostData.total}</td>
+        <td>${this.userHostData.isClosed}</td>
+        <td>${this.userHostData.meetingDay}</td>
+`;
   }
 }
-export default profileUserInfo;
+export default profileUserHost;

@@ -1,5 +1,7 @@
 import profileUserInfo from './profileUserInfo/profileUserInfo';
 import profileUserDesc from './profileUserInfo/profileUserDesc';
+import profileUserHost from './profileUserInfo/profileUserHostList';
+import profileUserJoin from './profileUserInfo/profileUserJoinList';
 
 class profileMain {
   element: HTMLDivElement;
@@ -28,6 +30,16 @@ class profileMain {
     this.tabcontent.appendChild(profileDescDom.element);
 
     this.tabcontent.innerHTML += `<div class="line"></div>`;
+
+    const profileUserHostDom = new profileUserHost();
+    this.tabcontent.appendChild(profileUserHostDom.element)
+
+    this.tabcontent.innerHTML += `<div class="line"></div>`;
+
+    const profileUserJoinDom = new profileUserJoin();
+    this.tabcontent.appendChild(profileUserJoinDom.element)
+
+
   }
 }
 export default profileMain;
