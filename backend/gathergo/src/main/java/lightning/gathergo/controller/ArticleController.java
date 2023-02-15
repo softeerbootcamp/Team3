@@ -105,6 +105,7 @@ public class ArticleController {
                 );
     }
 
+    // 게시물 수정
     @PutMapping("/{articleUuid}")
     ResponseEntity<?> updateArticle(@PathVariable String articleUuid,  @RequestBody GatheringDto.UpdateRequest request){
         Article replacement = articleMapper.toArticle(request); replacement.setUuid(articleUuid);
@@ -123,6 +124,7 @@ public class ArticleController {
                 );
     }
 
+    // 게시물 닫기(soft delete)
     @PutMapping("/{articleUuid}/close")
     ResponseEntity<?> closeArticle(@PathVariable String articleUuid){
         Article closed = articleService.setClosed(articleUuid);

@@ -11,6 +11,7 @@ public class CommentDto {
         private String uuid;
         private String userId;
         private String content;
+        @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
         private Timestamp date;
 
         public Response(){}

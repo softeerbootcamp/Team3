@@ -83,7 +83,7 @@ class ArticleRepositoryTest {
         Integer id = repo.save(article).getId();
 
         //when
-        repo.updateArticleById("변경 후", 0, 0, false, null, null, null, 0, 0, id);
+        repo.updateArticleById("변경 후", 0, false, null, null, null, 0, 0, id);
 
         //then
         Assertions.assertThat(repo.findById(id).get().getTitle())
