@@ -28,26 +28,10 @@ class Profile {
     // store.dispatch(await fetchLogout())
     // })
 
-    this.addHostLinkEvent()
-    this.addJoinLinkEvent()
+
     this.addTabButtonEvent()
   }
 
-  addHostLinkEvent(){
-    document.querySelectorAll('tr').forEach((element)=>{
-      element.addEventListener('click',()=>{
-        console.log("hi")
-      })
-    })
-  }
-
-  addJoinLinkEvent(){
-    document.querySelectorAll('.profile-user-join').forEach((element) => {
-      element.addEventListener('click', () => {
-        console.log('hi2');
-      });
-    });
-  }
   addTabButtonEvent(){
     const tabMainDom = document.querySelector('#profile-tabMain')
     tabMainDom?.addEventListener('click',()=>{
@@ -56,6 +40,10 @@ class Profile {
     const tabEditDom = document.querySelector('#profile-tabEdit')
     tabEditDom?.addEventListener('click',()=>{
       store.dispatch(changeProfileTab(1));
+    })
+    const tabLogoutDom = document.querySelector('#profile-logout')
+    tabLogoutDom?.addEventListener('click',()=>{
+      store.dispatch(changeProfileTab(2));
     })
   }
 }

@@ -168,7 +168,7 @@ export const initialState: TinitialState = {
   modalAction: '',
   sessionId: '',
   redirect: null,
-  tabNumber : 0,
+  tabNumber : 1,
   userInfo: 
     {
       userName: 'testUser',

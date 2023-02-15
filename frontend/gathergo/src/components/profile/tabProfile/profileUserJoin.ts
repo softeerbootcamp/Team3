@@ -9,7 +9,7 @@ class profileUserJoin {
 
   constructor($userHostData: TuserJoinCard) {
     this.element = document.createElement('li');
-    this.element.classList.add('user-schedule')
+    this.element.classList.add('user-schedule');
     this.element.classList.add('profile-user-join');
 
     this.userJoinData = $userHostData;
@@ -24,15 +24,28 @@ class profileUserJoin {
         <div class="schedule-info">
         <strong class="scheduel-title">${this.userJoinData.title}</strong>
         <div class="schedule-data">
-            <span class="badge rounded-pill bg-secondary">${this.userJoinData.regionId}</span>
-            <span class="badge rounded-pill bg-light">${this.userJoinData.categoryId}</span>
+            <span class="badge rounded-pill bg-secondary">${
+              this.userJoinData.regionId
+            }</span>
+            <span class="badge rounded-pill bg-light">${
+              this.userJoinData.categoryId
+            }</span>
             <div class="user-host-meet-peoples">
             <img class="people-icon icon" src="../../assets/Icons/peopleIcon.png" alt="User" />
-            <span class="user-host-meet-peoples-status">${this.userJoinData.curr}/${this.userJoinData.total}</span>
+            <span class="user-host-meet-peoples-status">${
+              this.userJoinData.curr
+            }/${this.userJoinData.total}</span>
             </div>
         </div>
         </div>
 `;
+this.addJoinLinkEvent()
+  }
+
+  addJoinLinkEvent() {
+      this.element.addEventListener('click', () => {
+        console.log(this.userJoinData.id);
+      });
   }
 }
 export default profileUserJoin;

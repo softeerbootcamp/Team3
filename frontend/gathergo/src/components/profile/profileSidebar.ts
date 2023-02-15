@@ -13,7 +13,7 @@ class profileSidebar {
         <div class="tab">
             <button class="tablinks" id = "profile-tabMain">프로필</button>
             <button class="tablinks" id = "profile-tabEdit">프로필 편집</button>
-            <button class="tablinks" id = "logout" style = "color : red">로그아웃</button>
+            <button class="tablinks" id = "profile-logout" style = "color : red">로그아웃</button>
         </div>`;
   }
 }

@@ -1,5 +1,6 @@
 import tabProfileMain from './tabProfileMain';
 import tabEditMain from './tabEditMain'
+import tabLogoutModal from './tabLogoutModal';
 import store from '../../store/store'
 
 class profileMain {
@@ -15,7 +16,6 @@ class profileMain {
         const newtabNumber = store.getState().tabNumber;
 
         if(newtabNumber != this.tabNumber){
-            console.log(this.tabNumber, newtabNumber);
             this.tabNumber = newtabNumber;
             this.render()
         }
@@ -32,6 +32,10 @@ class profileMain {
         this.element.innerHTML = ''
         const tabProfileEditDom = new tabEditMain()
         this.element.appendChild(tabProfileEditDom.element)
+    }
+    else if(this.tabNumber == 2){
+        const tabLogoutModalDom = new tabLogoutModal()
+        this.element.appendChild(tabLogoutModalDom.element)
     }
 
   }
