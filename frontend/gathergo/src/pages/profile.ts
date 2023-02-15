@@ -34,15 +34,22 @@ class Profile {
 
   addTabButtonEvent(){
     const tabMainDom = document.querySelector('#profile-tabMain')
+    const tabEditDom = document.querySelector('#profile-tabEdit');
+    const tabLogoutDom = document.querySelector('#profile-logout');
+    
+    tabMainDom?.classList.add('active');
+    tabEditDom?.classList.remove('active');
+    
     tabMainDom?.addEventListener('click',()=>{
       store.dispatch(changeProfileTab(0));
+
     })
-    const tabEditDom = document.querySelector('#profile-tabEdit')
     tabEditDom?.addEventListener('click',()=>{
       store.dispatch(changeProfileTab(1));
+
     })
-    const tabLogoutDom = document.querySelector('#profile-logout')
     tabLogoutDom?.addEventListener('click',()=>{
+
       store.dispatch(changeProfileTab(2));
     })
   }

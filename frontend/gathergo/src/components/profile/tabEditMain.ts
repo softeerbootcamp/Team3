@@ -30,7 +30,7 @@ class tabEditMain {
                 <div class = "image-button">
                     <img class = "profile-fix-image" id = "profile-fix-image" src = "../../assets/userProfileImg.jpeg" alt = "USER">
                     <div class = "image-upload">
-                        <input type = "file" accept = ".png" id = "file-input" style = "margin : 0 0 0 2.5rem;" onchange="addEventProfileEdit(this)">
+                        <input type = "file" accept = ".png" id = "profile-file-input" style = "margin : 0 0 0 2.5rem;">
                         <!-- <label for="file-input">
                             <img class = "profile-fix-image-button" src = "../../assets/profileEdit.svg">
                         </label>
@@ -42,19 +42,19 @@ class tabEditMain {
                 <div class = "profile-textarea-text" style = "width : 6.25rem">이름</div>
                 <input type = "text" value = ${this.userEditInfo.userName} class = "form-control" readonly>
             </div>
-            <div class = "profile-textarea" id = "nickname">
+            <div class = "profile-textarea" id = "userid">
                 <div class = "profile-textarea-text" style = "width : 6.25rem">아이디</div>
-                <input type = "text" value = ${this.userEditInfo.userId} class = "form-control" readonly>
+                <input type = "text" id = "profile-id-edit" value = ${this.userEditInfo.userId} class = "form-control">
             </div>
             <div class = "profile-textarea" id = "email">
                 <div class = "profile-textarea-text" style = "width : 6.25rem">이메일</div>
-                <input type = "text" value = ${this.userEditInfo.email} class = "form-control" readonly>
+                <input type = "text" id = "profile-email-edit" value = ${this.userEditInfo.email} class = "form-control" readonly>
             </div>
             <div class = "profile-textarea" id = "sentence">
                 <div class = "profile-textarea-text" style = "width : 6.25rem; height : 6.25rem;">
                     한 줄 소개
                 </div>
-                <textarea onkeydown="resize()" onkeyup="resize()" value = "hihi" class = "form-control" style = "height : 6.25rem">${this.userEditInfo.userDesc}</textarea>
+                <textarea id = "profile-desc-edit" onkeydown="resize()" onkeyup="resize()" value = "hihi" class = "form-control" style = "height : 6.25rem">${this.userEditInfo.userDesc}</textarea>
             </div>
             <div class = "profile-button">
                 <button type = "button" id = "profile-edit-button" class = "btn btn-primary register-button">
@@ -70,6 +70,7 @@ class tabEditMain {
 
     this.profileEditButton();
     this.profileEditCancelButton();
+    this.addEventProfileEdit();
   }
 
   profileEditCancelButton() {
@@ -82,10 +83,35 @@ class tabEditMain {
   }
   profileEditButton() {
     const profileEdit = this.element.querySelector('#profile-edit-button')
+    const emailEdit = this.element.querySelector('#profile-id-edit') as HTMLTextAreaElement;
+    const descEdit = this.element.querySelector('#profile-desc-edit') as HTMLTextAreaElement;
     profileEdit?.addEventListener('click',()=>{
-        
-        console.log('fetch!!!');
+        const profileFileEdit = this.element.querySelector(
+            '#profile-fix-image'
+            ) as HTMLImageElement;
+        const EditFetch = {
+            profile : profileFileEdit.src,
+            email : emailEdit.value,
+            desc : descEdit.value
+        };
+        console.log(EditFetch);
+    
     })
+
   }
+    addEventProfileEdit(){
+    const profileFileEdit = this.element.querySelector('#profile-file-input')
+    profileFileEdit?.addEventListener('change',()=>{
+        const value = profileFileEdit as HTMLInputElement;
+    if(value.files && value.files[0]){
+        const reader = new FileReader();
+        reader.onload = function(e){
+            const imageDom = document.getElementById('profile-fix-image') as HTMLImageElement;
+            imageDom.src = e.target?.result as string;
+        }
+        reader.readAsDataURL(value.files[0])
+        }
+    })
+}
 }
 export default tabEditMain;

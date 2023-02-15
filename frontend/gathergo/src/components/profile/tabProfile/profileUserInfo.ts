@@ -30,8 +30,8 @@ class profileUserInfo {
             <strong class="user-id">${this.userInfoData.userId}</strong>
             <span class="user-email">${this.userInfoData.email}</span>
         </div>
-        <div class="profile-space"></div>
-    </div>`;
+    </div>
+    `;
   }
 }
 export default profileUserInfo;
