@@ -17,7 +17,6 @@ import java.util.UUID;
 @Service
 public class ArticleService {
 
-    // TODO hostId가 string 값으로 날라오도록 변경
     private final ArticleRepository articleRepository;
     private final CommentService commentService;
     private final CountService countService;
