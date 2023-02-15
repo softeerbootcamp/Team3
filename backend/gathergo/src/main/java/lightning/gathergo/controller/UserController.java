@@ -4,11 +4,14 @@ import lightning.gathergo.dto.CommonResponseDTO;
 import lightning.gathergo.dto.UserDto;
 import lightning.gathergo.exception.ErrorCode;
 import lightning.gathergo.exception.ErrorResponse;
+import lightning.gathergo.model.Article;
 import lightning.gathergo.model.Session;
 import lightning.gathergo.model.User;
 import lightning.gathergo.service.CookieService;
 import lightning.gathergo.service.SessionService;
 import lightning.gathergo.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +22,7 @@ import java.util.Optional;
 @RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class UserController {
-
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
     private final SessionService sessionService;
 
@@ -30,9 +33,9 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getUserById(@CookieValue String sessionId) {
-        System.out.println(sessionId);
-        //String realSessionId = sessionId.trim().split(";")[0];
+    public ResponseEntity<CommonResponseDTO<?>> getUserProfile(@CookieValue String sessionId) {  // 프로필 페이지
+        logger.debug("getUserById::SessionId: {}", sessionId);
+
         Optional<Session> session = sessionService.findSessionBySID(sessionId);
         if(session.isPresent()){
             //session.get().getUserUuid();
