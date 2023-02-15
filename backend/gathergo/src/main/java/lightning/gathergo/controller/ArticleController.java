@@ -90,6 +90,9 @@ public class ArticleController {
     // 게시물 상세 조회
     @GetMapping("/{articleUuid}")
     ResponseEntity<?> getArticle(@PathVariable String articleUuid, @CookieValue(name = "sessionId", required = false) String sessionId){
+        System.out.println(articleUuid);
+        System.out.println(sessionId);
+        System.out.println("------");
         GatheringDto.ArticleDetailResponse data = new GatheringDto.ArticleDetailResponse();
         Integer currCount;
         List<Comment> comments;
