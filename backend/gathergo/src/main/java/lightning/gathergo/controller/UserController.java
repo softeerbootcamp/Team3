@@ -28,7 +28,7 @@ public class UserController {
     private final SessionService sessionService;
 
     @Autowired
-    public UserController(UserService userService, SessionService sessionService, CookieService cookieService) {
+    public UserController(UserService userService, SessionService sessionService) {
         this.userService = userService;
         this.sessionService = sessionService;
     }
