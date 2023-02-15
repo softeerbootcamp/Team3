@@ -81,7 +81,7 @@ public class ArticleController {
 
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<String>(
-                    1,
+                        1,
                         "작성 성공",
                         article.getUuid()
                 ));
@@ -89,13 +89,18 @@ public class ArticleController {
 
     // 게시물 상세 조회
     @GetMapping("/{articleUuid}")
-    ResponseEntity<?> getArticle(@PathVariable String articleUuid, @CookieValue(name = "sessionId") String sessionId){
+    ResponseEntity<?> getArticle(@PathVariable String articleUuid, @CookieValue(name = "sessionId", required = false) String sessionId){
         GatheringDto.ArticleDetailResponse data = new GatheringDto.ArticleDetailResponse();
         Integer currCount;
         List<Comment> comments;
         User user = new User();
-        Session session = sessionService.findSessionBySID(sessionId).get();
-        String userId = session.getUserId();
+        Session session;
+        String userId = new String();
+
+        if(null != sessionId){
+            session = sessionService.findSessionBySID(sessionId).get();
+            userId = session.getUserId();
+        }
 
         // 게시물 디비에서 얻어오기
         Article article = articleService.getArticleByUuid(articleUuid);
@@ -112,16 +117,18 @@ public class ArticleController {
         data.setComments(commentsDto);
         data.setHost(new GatheringDto.UserDto(user.getUserId(), user.getIntroduction(), user.getProfilePath()));
         articleService.splitLocation(data);
-        articleService.setHasJoinedAndIsHost(data, userId);
+
+        if(null != sessionId)
+            articleService.setHasJoinedAndIsHost(data, userId);
 
         currCount = countService.getCount(articleUuid);
         data.getArticle().setCurr(currCount);
 
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.ArticleDetailResponse>(
-                        1,
-                        "조회 성공",
-                            data
+                                1,
+                                "조회 성공",
+                                data
                         )
                 );
     }
@@ -270,3 +277,4 @@ public class ArticleController {
     }
 
 }
+
