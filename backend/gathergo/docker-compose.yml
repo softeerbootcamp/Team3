@@ -23,7 +23,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - gathergo-volume:/var/lib/mysql
+      - gathergo-volume: /var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${SPRING_DATABASE_PASSWORD}
       MYSQL_DATABASE: ${SPRING_DATABASE_SCHEMA}
@@ -38,10 +38,13 @@ services:
     image: redis:6.0
     ports:
       - 6379:6379
+    volumes:
+      - gathergo-redis-volume: /data
     deploy:
       resources:
         limits:
           memory: 200M
 
 volumes:
-  gathergo-volume:
+  - gathergo-volume:
+  - gathergo-redis-volume:
