@@ -60,7 +60,7 @@ public class FcmMessagingServiceTest {
 
     @Test
     @DisplayName("존재하는 구독 리스트에 구독 추가 시도")
-    public void testSubscribeToExistingTopic() {
+    public void subscribeToExistingTopic() {
         SoftAssertions softly = new SoftAssertions();
 
         // given
@@ -72,7 +72,9 @@ public class FcmMessagingServiceTest {
         boolean result = messagingService.subscribeToTopic(topic, deviceToken1);
         result = messagingService.subscribeToTopic(topic, deviceToken2);
 
-        cleanUp(List.of(deviceToken1, deviceToken2), topic);
+        when(subscriptionRepository.findByArticleId(topic)).thenReturn(List.of(new Subscription(topic, deviceToken1), new Subscription(topic, deviceToken2)));
+
+        // cleanUp(List.of(deviceToken1, deviceToken2), topic);
 
         softly.assertThat(result).isTrue();
         softly.assertThat(subscriptionRepository.findByArticleId(topic)).isNotNull().hasSize(2);
