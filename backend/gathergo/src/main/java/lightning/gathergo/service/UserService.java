@@ -66,7 +66,7 @@ public class UserService {
         return user.get();
     }
 
-    public List<Article> getParticipatingArticlesByIdd(Integer userId){
+    public List<Article> getParticipatingArticlesById(Integer userId){
         return userRepository.findParticipatingArticlesById(userId);
     }
 
