@@ -20,17 +20,17 @@ public interface SubscriptionRepository extends CrudRepository<Subscription, Str
 
     @Modifying
     @Query("delete from subscription where articleId = :articleId")
-    void deleteByArticleId(@Param("articleId") int articleId);
+    int deleteByArticleId(@Param("articleId") int articleId);
 
     @Modifying
     @Query("delete from subscription where token = :token")
-    void deleteByDeviceToken(@Param("token") int deviceToken);
+    int deleteByDeviceToken(@Param("token") String deviceToken);
 
     @Query("select articleId, token from subscription where articleId = :articleId")
     List<Subscription> findByArticleId(@Param("articleId") int articleId);
 
     @Modifying
     @Query("delete from subscription where articleId = :articleId and token = :token")
-    void deleteByArticleIdAndToken(@Param("articleId") int articleId, @Param("token") String deviceToken);
+    int deleteByArticleIdAndToken(@Param("articleId") int articleId, @Param("token") String deviceToken);
 
 }
