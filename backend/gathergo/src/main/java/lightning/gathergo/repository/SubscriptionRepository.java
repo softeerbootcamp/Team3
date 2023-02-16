@@ -12,25 +12,25 @@ import java.util.List;
 @Repository
 public interface SubscriptionRepository extends CrudRepository<Subscription, String> {
     @Modifying
-    @Query("insert into subscription (articleId, token) VALUES (:articleId, :token)")
-    void save(@Param("articleId") int articleId, @Param("token") String deviceToken);
+    @Query("insert into subscription (articleId, token) VALUES (:uuid, :token)")
+    void save(@Param("uuid") String articleUuid, @Param("token") String deviceToken);
 
     @Query("select articleId, token from subscription")
     List<Subscription> findAll();
 
     @Modifying
-    @Query("delete from subscription where articleId = :articleId")
-    int deleteByArticleId(@Param("articleId") int articleId);
+    @Query("delete from subscription where articleId = :uuid")
+    int deleteByArticleId(@Param("uuid") String articleUuid);
 
     @Modifying
     @Query("delete from subscription where token = :token")
     int deleteByDeviceToken(@Param("token") String deviceToken);
 
-    @Query("select articleId, token from subscription where articleId = :articleId")
-    List<Subscription> findByArticleId(@Param("articleId") int articleId);
+    @Query("select articleId, token from subscription where articleId = :uuid")
+    List<Subscription> findByArticleId(@Param("uuid") String articleUuid);
 
     @Modifying
-    @Query("delete from subscription where articleId = :articleId and token = :token")
-    int deleteByArticleIdAndToken(@Param("articleId") int articleId, @Param("token") String deviceToken);
+    @Query("delete from subscription where articleId = :uuid and token = :token")
+    int deleteByArticleIdAndToken(@Param("uuid") String articleUuid, @Param("token") String deviceToken);
 
 }

@@ -28,7 +28,7 @@ public class NotificationController {
         CommonResponseDTO<Object> responseDto;
 
         String deviceToken = param.get("deviceToken");
-        int articleId = Integer.parseInt(param.get("articleId"));
+        String articleId = param.get("articleId");
 
         logger.info("topic 구독 {}, {}", articleId, deviceToken);
 
@@ -47,7 +47,7 @@ public class NotificationController {
         CommonResponseDTO<Object> responseDto;
 
         String deviceToken = param.get("deviceToken");
-        int articleId = Integer.parseInt(param.get("articleId"));
+        String articleId = param.get("articleId");
 
         logger.info("topic 구독 해제 {}, {}", articleId, deviceToken);
 
