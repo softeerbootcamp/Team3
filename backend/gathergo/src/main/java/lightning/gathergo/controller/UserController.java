@@ -1,12 +1,15 @@
 package lightning.gathergo.controller;
 
 import lightning.gathergo.dto.CommonResponseDTO;
+import lightning.gathergo.dto.GatheringDto;
 import lightning.gathergo.dto.UserDto;
 import lightning.gathergo.exception.ErrorCode;
 import lightning.gathergo.exception.ErrorResponse;
+import lightning.gathergo.mapper.ArticleMapper;
 import lightning.gathergo.model.Article;
 import lightning.gathergo.model.Session;
 import lightning.gathergo.model.User;
+import lightning.gathergo.service.CountService;
 import lightning.gathergo.service.SessionService;
 import lightning.gathergo.service.UserService;
 import org.slf4j.Logger;
@@ -25,11 +28,15 @@ public class UserController {
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
     private final SessionService sessionService;
+    private final CountService countService;
+    private final ArticleMapper articleMapper;
 
     @Autowired
-    public UserController(UserService userService, SessionService sessionService) {
+    public UserController(UserService userService, SessionService sessionService, CountService countService, ArticleMapper articleMapper) {
         this.userService = userService;
         this.sessionService = sessionService;
+        this.countService = countService;
+        this.articleMapper = articleMapper;
     }
 
     @GetMapping
