@@ -58,6 +58,7 @@ export async function fetchLogout() {
       method: 'DELETE',
       credentials: 'include',
     });
+    document.cookie = 'sessionId=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     return userLogout();
   } catch (error) {
     return fetchError(error);
