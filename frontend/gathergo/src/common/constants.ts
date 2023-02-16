@@ -67,6 +67,7 @@ type TinitialState = {
   redirect: string| null;
   userInfo : TuserInfo;
   tabNumber : number;
+  deleteCommentuuid: string;
 };
 type TsignupData= {
   userId: string;

@@ -18,7 +18,7 @@ import { initialState } from '../server/initialstate';
 import { Taction } from '../common/constants';
 
 function reducer(state = initialState, action: Taction) {
-
+  
   switch (action.type) {
       case SET_NAVIGATE:
         return {
@@ -62,8 +62,11 @@ function reducer(state = initialState, action: Taction) {
       return { ...state, sessionId: action.payload.cookie, redirect:'/' };
     case USER_LOGOUT:
       return { ...state, sessionId: "", redirect:'/' };
-    case SET_MODAL:
-      return { ...state, modalAction: action.payload.modalAction };
+    case SET_MODAL:{
+  console.log(action.payload.modalAction);
+
+      return { ...state, modalAction: action.payload.modalAction, deleteCommentuuid:action.payload.uuid };
+    }
     case POST_CARD:
       return { ...state, redirect:'/', filters:{
         regionId: 0,
@@ -81,7 +84,7 @@ function reducer(state = initialState, action: Taction) {
       state.userInfo.userJoinCards = action.payload.userInfoResponse.articleList;
       return {...state}
     default:
-    return state;
+      return state;
   }
 }
 

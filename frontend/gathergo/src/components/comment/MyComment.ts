@@ -1,5 +1,7 @@
 import { timeDiff } from '../../common/commonFunctions';
 import { Tcomment } from '../../common/constants';
+import { setModal } from '../../store/actions';
+import store from '../../store/store';
 
 class MyComment {
   element: HTMLDivElement;
@@ -11,29 +13,29 @@ class MyComment {
     this.render();
   }
   render() {
-    console.log(this.commentsData.isMyComment)
-    this.element.innerHTML = `<strong class="comment-user-id">${this.commentsData.userId}</strong>
+    console.log(this.commentsData.isMyComment);
+    this.element.innerHTML = `<strong class="comment-user-id">${
+      this.commentsData.userId
+    }</strong>
     <span class="comment-content">${this.commentsData.content}</span>
-    <span class="comment-date text-muted">${timeDiff( this.commentsData.date)}</span>
-    ${this.commentsData.isMyComment?`<div class="circCont"><button class="circle" data-animation="simpleRotate" data-remove="200"></button></div>`:``}
+    <span class="comment-date text-muted">${timeDiff(
+      this.commentsData.date
+    )}</span>
+    ${
+      this.commentsData.isMyComment
+        ? `<div class="circCont"><button class="circle" data-commentuuid="${this.commentsData.uuid}" data-animation="simpleRotate" data-remove="200"></button></div>`
+        : ``
+    }
     `;
     this.closeEvent();
   }
-  closeEvent(){
-    const closeBtn = document.querySelector('.circle');
-    closeBtn?.addEventListener('click',()=>{
-      if (closeBtn.classList.contains('simpleRotate')) {
-        closeBtn.classList.remove('200');
-      } else {
-        closeBtn.classList.add('simpleRotate');
-        // if (typeof '200' !== 'undefined') {
-          const el = closeBtn;
-          setTimeout(function() {
-            el.classList.remove('simpleRotate');
-          }, 200);
-        // }
-      }
-    })
+  closeEvent() {
+    const closeBtn = this.element.querySelector<HTMLElement>('.circle');
+    closeBtn?.addEventListener('click', () => {
+     store.dispatch( setModal('DELETE_COMMENT',closeBtn.dataset.commentuuid))
+    //  console.log(closeBtn.dataset.commentuuid);
+      
+    });
   }
 }
 export default MyComment;

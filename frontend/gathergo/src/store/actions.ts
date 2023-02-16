@@ -158,10 +158,10 @@ export function getComments(commentData:Tcomment[]) {
   };
 }
 
-export function setModal(modalAction:string) {
+export function setModal(modalAction:string,uuid="") {
   return {
     type: SET_MODAL,
-    payload: {modalAction}
+    payload: {modalAction,uuid}
   };
 }
 
