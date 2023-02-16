@@ -26,7 +26,7 @@ public class ArticleController {
     private final SessionService sessionService;
     private final UserService userService;
     private final CountService countService;
-입    private final CommentService commentService;
+    private final CommentService commentService;
     private final RegionService regionService;
     private final ArticleMapper articleMapper;
     private final CommentMapper commentMapper;
