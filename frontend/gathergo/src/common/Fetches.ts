@@ -150,7 +150,10 @@ export async function fetchSendComment(
 export async function fetchGetComments(cardId: string) {
   try {
     console.log('getcomm');
-    const response = await fetch(url + 'api/articles/' + cardId);
+    const response = await fetch(url + 'api/articles/' + cardId, {
+      method: 'GET',
+      credentials: 'include',
+    });
 
     //    const response =
     //   await fetch(url + 'api/articles/' + cardID );

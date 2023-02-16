@@ -76,7 +76,6 @@ function reducer(state = initialState, action: Taction) {
     case SET_PROFILE:
       console.log(action.payload.userInfoResponse)
       state.userInfo = action.payload.userInfoResponse;
-      action.payload.userInfoResponse.userHostCards = action.payload.userInfoResponse.hostingArticleList;
       state.userInfo.profileImg = action.payload.userInfoResponse.profilePath;
       state.userInfo.userHostCards = action.payload.userInfoResponse.hostingArticleList;
       state.userInfo.userJoinCards = action.payload.userInfoResponse.articleList;
