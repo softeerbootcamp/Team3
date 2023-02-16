@@ -1,6 +1,7 @@
 package lightning.gathergo.controller;
 
 import lightning.gathergo.dto.CommonResponseDTO;
+import lightning.gathergo.dto.SubscriptionDto;
 import lightning.gathergo.service.FcmMessagingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +25,11 @@ public class NotificationController {
     }
 
     @PostMapping
-    public ResponseEntity<CommonResponseDTO<?>> subscribe(@RequestBody HashMap<String, String> param) {
+    public ResponseEntity<CommonResponseDTO<?>> subscribe(@RequestBody SubscriptionDto.Request request) {
         CommonResponseDTO<Object> responseDto;
 
-        String deviceToken = param.get("deviceToken");
-        String articleId = param.get("articleId");
+        String deviceToken = request.getDeviceToken();
+        String articleId = request.getArticleId();
 
         logger.info("topic 구독 {}, {}", articleId, deviceToken);
 
@@ -43,11 +44,11 @@ public class NotificationController {
     }
 
     @DeleteMapping
-    public ResponseEntity<CommonResponseDTO<?>> unsubscribe(@RequestBody HashMap<String, String> param) {
+    public ResponseEntity<CommonResponseDTO<?>> unsubscribe(@RequestBody SubscriptionDto.Request request) {
         CommonResponseDTO<Object> responseDto;
 
-        String deviceToken = param.get("deviceToken");
-        String articleId = param.get("articleId");
+        String deviceToken = request.getDeviceToken();
+        String articleId = request.getArticleId();
 
         logger.info("topic 구독 해제 {}, {}", articleId, deviceToken);
 
