@@ -43,4 +43,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Modifying
     @Query(value="insert into user (uuid, userId, userName, password, email, introduction, profilePath) values(:uuid, :userId, :userName, :password, :email, :introduction,  :profilePath)")
     void save(@Param("uuid") String uuid, @Param("userId") String userId, @Param("userName") String userName, @Param("password") String password, @Param("email") String email, @Param("introduction") String introduction, @Param("profilePath") String profilePath);
+
+    @Modifying
+    @Query(value="update user set introduction = :introduction where uuid = :uuid")
+    int updateIntroductionByUuid(@Param("uuid") String uuid, @Param("introduction") String introduction);
 }
