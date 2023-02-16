@@ -34,11 +34,14 @@ public class ArticleScheduler {
         now = now.truncatedTo(ChronoUnit.MINUTES);
         logger.debug("close scheduler was called : "+now);
         System.out.println(now);
-
         currTimestamp = Timestamp.valueOf(now);
+        System.out.println(currTimestamp);
+
         List<Article> closableArticles = articleRepository.findClosableArticles(currTimestamp);
         if(closableArticles.size()==0) return;
 
+        System.out.println("after return");
+        
         closableArticles.forEach(article -> {
             articleRepository.updateArticleById(article.getTitle(), article.getTotal(), true, article.getContent(),
                     article.getMeetingDay(), article.getLocation(), article.getRegionId(), article.getCategoryId(),
