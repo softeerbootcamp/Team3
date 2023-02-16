@@ -41,6 +41,7 @@ public class UserController {
         if(session.isPresent()) {  // 로그인 유효, 로그인 정보 존재
             Optional<User> foundUser = userService.findUserByUserUuid(session.get().getUserUuid());
 
+            // TODO: GatheringDto로 변경
             // 참여한 모임
             List<Article> participating = userService.getParticipatingArticlesById(foundUser.get().getId());
             logger.debug("participating {}", participating.toString());
@@ -61,6 +62,31 @@ public class UserController {
                 new CommonResponseDTO<ErrorResponse>(0, "유저 조회 실패", errorResponse)
         );
 
+    }
+
+    @PutMapping
+    public ResponseEntity<CommonResponseDTO<?>> modifyUserProfile(@CookieValue String sessionId, @RequestBody UserDto.PutProfile profile) {
+        logger.debug("getUserById::SessionId: {}", sessionId);
+
+        Optional<Session> session = sessionService.findSessionBySID(sessionId);
+
+        if(session.isPresent()) {  // 로그인 유효, 로그인 정보 존재
+            // Optional<User> foundUser = userService.findUserByUserUuid(session.get().getUserUuid());
+
+            String uuid = session.get().getUserUuid();
+            // TODO: GatheringDto로 변경
+
+            boolean result = userService.updateIntroduction(uuid, profile.getIntroduction());
+
+            return ResponseEntity.ok().body(
+                    new CommonResponseDTO<>(1, "유저 정보 수정 성공", null)
+            );
+        }
+        // 로그인 정보가 존재하지 않거나 유저 정보가 없으면
+        ErrorResponse errorResponse = new ErrorResponse(ErrorCode.NO_RESOURCE);
+        return ResponseEntity.ok().body(
+                new CommonResponseDTO<ErrorResponse>(0, "유저 정보 수정 실패", errorResponse)
+        );
     }
 
 }
