@@ -33,6 +33,7 @@ public class NotificationController {
         logger.info("topic 구독 {}, {}", articleId, deviceToken);
 
         boolean subscribed = messagingService.subscribeToTopic(articleId, deviceToken);
+
         if(subscribed)
             responseDto = new CommonResponseDTO<>(1, articleId + " 구독 성공", null);
         else
