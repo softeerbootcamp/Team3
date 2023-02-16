@@ -53,12 +53,10 @@ public class ArticleService {
         if(regionId == 0 && categoryId == 0)
             return (List<Article>) articleRepository.findAll();
         if(categoryId == 0)
-            return getArticlesByRegion(regionId);
+            return articleRepository.findCurrentRegionArticles(regionId);
+        if(regionId == 0)
+            return articleRepository.findArticlesByCategoryId(categoryId);
         return articleRepository.findArticlesByRegionAndCategory(regionId, categoryId);
-    }
-
-    public List<Article> getArticlesByRegion(Integer regionId){
-        return articleRepository.findCurrentRegionArticles(regionId);
     }
 
     private List<Article> searchArticlesByKeyword(Integer regionId, Integer categoryId, String keyword){
