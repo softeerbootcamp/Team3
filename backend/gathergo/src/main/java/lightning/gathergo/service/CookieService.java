@@ -2,6 +2,7 @@ package lightning.gathergo.service;
 
 import lightning.gathergo.model.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +46,7 @@ public class CookieService {
                 .secure(true)
                 .build();
 
-        response.addHeader("Set-Cookie", sessionCookie.toString());
+        response.addHeader(HttpHeaders.SET_COOKIE, sessionCookie.toString());
     }
 
     /**
@@ -56,15 +57,15 @@ public class CookieService {
      * @param name    the name of the cookie to find
      * @return the first matching cookie if it exists and its value is not blank, otherwise returns null
      */
-    public Cookie ifValidCookie(Cookie[] cookies, String name) {
-        Cookie cookie = Arrays.stream(cookies)
-                .filter((c) -> c.getName().equals(name))
+    public Cookie getValidCookie(Cookie[] cookies, String name) {
+        Cookie foundCookie = Arrays.stream(cookies)
+                .filter(cookie -> cookie.getName().equals(name))
                 .findFirst().orElse(nullCookie);
 
-        String cookieValue = cookie.getValue().trim();
+        String cookieValue = foundCookie.getValue().trim();
 
         if(!cookieValue.isBlank())
-            return cookie;
+            return foundCookie;
         else
             return null;
     }
@@ -81,7 +82,7 @@ public class CookieService {
             return null;
         }
 
-        Cookie foundCookie = ifValidCookie(cookies, SESSION_ID);
+        Cookie foundCookie = getValidCookie(cookies, SESSION_ID);
         if(foundCookie == null)
             return null;
 
@@ -99,14 +100,13 @@ public class CookieService {
             return null;
         }
 
-        Cookie foundCookie = ifValidCookie(cookies, SESSION_ID);
+        Cookie foundCookie = getValidCookie(cookies, SESSION_ID);
         if (foundCookie.equals(nullCookie)) {
             return null;
         }
-        String sessionId = foundCookie.getValue().trim();
-        foundCookie.setMaxAge(0);
-        foundCookie.setValue("");
-        response.addCookie(foundCookie);
-        return sessionService.deleteSession(sessionId);
+
+        createSessionCookie(SESSION_ID, foundCookie.getValue(), 0, response);
+
+        return sessionService.deleteSession(foundCookie.getValue());
     }
 }
