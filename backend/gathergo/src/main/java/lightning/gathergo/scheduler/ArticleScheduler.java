@@ -33,6 +33,7 @@ public class ArticleScheduler {
         now = LocalDateTime.now();
         now = now.truncatedTo(ChronoUnit.MINUTES);
         logger.debug("close scheduler was called : "+now);
+        System.out.println(now);
 
         currTimestamp = Timestamp.valueOf(now);
         List<Article> closableArticles = articleRepository.findClosableArticles(currTimestamp);
