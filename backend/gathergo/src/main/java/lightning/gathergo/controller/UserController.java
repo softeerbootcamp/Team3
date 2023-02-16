@@ -7,7 +7,6 @@ import lightning.gathergo.exception.ErrorResponse;
 import lightning.gathergo.model.Article;
 import lightning.gathergo.model.Session;
 import lightning.gathergo.model.User;
-import lightning.gathergo.service.CookieService;
 import lightning.gathergo.service.SessionService;
 import lightning.gathergo.service.UserService;
 import org.slf4j.Logger;
@@ -50,10 +49,10 @@ public class UserController {
             List<Article> hosting = userService.getHostingArticlesById(foundUser.get().getId());
             logger.debug("hosting {}", hosting.toString());
 
-            UserDto.ProfileResponse profileResponse = new UserDto.ProfileResponse(foundUser.get(), participating, hosting);
+            UserDto.GetProfileResponse profileResponse = new UserDto.GetProfileResponse(foundUser.get(), participating, hosting);
 
             return ResponseEntity.ok().body(
-                    new CommonResponseDTO<UserDto.ProfileResponse>(1, "유저 조회 성공", profileResponse)
+                    new CommonResponseDTO<UserDto.GetProfileResponse>(1, "유저 조회 성공", profileResponse)
             );
         }
         // 로그인 정보가 존재하지 않거나 유저 정보가 없으면
