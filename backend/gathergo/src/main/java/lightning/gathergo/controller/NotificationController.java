@@ -1,12 +1,12 @@
 package lightning.gathergo.controller;
 
+import lightning.gathergo.dto.CommonResponseDTO;
 import lightning.gathergo.service.FcmMessagingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -24,13 +24,20 @@ public class NotificationController {
     }
 
     @PostMapping
-    public void setSubscription(@RequestBody HashMap<String, String> param) {
-        // TODO: DTO로 변경하기
+    public ResponseEntity<CommonResponseDTO<?>> subscribe(@RequestBody HashMap<String, String> param) {
+        CommonResponseDTO<Object> responseDto;
+
         String deviceToken = param.get("deviceToken");
         int articleId = Integer.parseInt(param.get("articleId"));
 
         logger.info("topic 구독 {}, {}", articleId, deviceToken);
 
-        boolean result = messagingService.subscribeToTopic(articleId, deviceToken);
+        boolean subscribed = messagingService.subscribeToTopic(articleId, deviceToken);
+        if(subscribed)
+            responseDto = new CommonResponseDTO<>(1, articleId + " 구독 성공", null);
+        else
+            responseDto = new CommonResponseDTO<>(0, articleId + " 구독 실패", null);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }
