@@ -51,7 +51,7 @@ public class ArticleService {
 
     public List<Article> getArticlesByRegionAndCategory(Integer regionId, Integer categoryId){
         if(regionId == 0 && categoryId == 0)
-            return (List<Article>) articleRepository.findAll();
+            return articleRepository.findAllArticles();
         if(categoryId == 0)
             return articleRepository.findCurrentRegionArticles(regionId);
         if(regionId == 0)
