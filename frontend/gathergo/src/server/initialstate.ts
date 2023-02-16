@@ -15,6 +15,7 @@ export const initialState: TinitialState = {
   modalAction: '',
   sessionId: '',
   redirect: null,
+  deleteCommentuuid: '',
   tabNumber : 0,
   userInfo: 
     {

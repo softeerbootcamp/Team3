@@ -50,8 +50,12 @@
   height: 100%;
   width: 100%;
   border-radius: 5px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
-
+.feed-main-content-scrollable::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
 .schedule-synthesis {
   display: flex;
   align-items: center;
@@ -164,7 +168,7 @@
 .user-profile {
   background: var(--bs-body-bg);
   width: 2rem;
-  height: 2rem;
+  /* height: 2rem; */
   /* min-width: 5rem;
   min-height: 5rem; */
   border-radius: 50%;
@@ -179,8 +183,8 @@
 }
 
 .user-info-icon {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.2rem;
+  height: 1.2rem;
   margin-right: 0.5rem;
   display: flex;
   align-items: center;
@@ -189,10 +193,7 @@
 .feed-comment-container {
   background: var(--bs-light);
   flex-grow: 1;
-  /* overflow: auto; */
   border-radius: 5px;
-  /* height: 10px; */
-  /* padding: 1rem; */
 }
 
 .feed-comment {
@@ -201,7 +202,8 @@
   margin: 1rem;
   margin-right: 0;
 }
-.comment-icon-threedot{
+.comment-icon-delete{
+  margin: 0 0.5rem;
 }
 .comment-user-id {
   min-width: 6rem;
@@ -351,3 +353,69 @@
 [tooltip][flow^='down']:hover::after {
   animation: tooltips-vert 300ms ease-out forwards;
 }
+
+ .container {
+	 max-width: 560px;
+	 display: inline-block;
+}
+ .circCont {
+	 display: inline-block;
+}
+ .circle {
+	 width: 1.2rem;
+	 height: 1.2rem;
+	 background: transparent;
+	 border: 0px solid var(--bs-gray-400);
+	 border-radius: 50%;
+	 position: relative;
+	 cursor: pointer;
+	 display: inline-block;
+	 margin: 0.3rem;
+}
+ .circle:after {
+	 width: 1.2rem;
+	 height: 2px;
+	 background-color: var(--bs-secondary);
+	 content: "";
+	 left: 50%;
+	 top: 50%;
+	 margin-left: -0.6rem;
+	 margin-top: -1px;
+	 position: absolute;
+	 transform: rotate(-45deg);
+}
+ .circle:before {
+	 left: 50%;
+	 top: 50%;
+	 margin-left: -0.6rem;
+	 margin-top: -1px;
+	 width: 1.2rem;
+	 height: 2px;
+	 background-color: var(--bs-secondary);
+	 content: "";
+	 position: absolute;
+	 transform: rotate(45deg);
+}
+ .circle + p {
+	 text-transform: lowercase;
+	 font-size: 14px;
+	 margin-bottom: 10px;
+}
+ .simpleRotate {
+	 animation: rotate 0.1s 2 ease-in-out alternate;
+}
+ @keyframes rotate {
+	 0% {
+		 transform: scale(1);
+	}
+	 100% {
+		 transform: scale(0.8);
+	}
+}
+ .circle[data-animation="simpleRotate"]:not(.simpleRotate) {
+	 transition: transform 200ms cubic-bezier(0.175, 0.885, 0.52, 1.775);
+}
+ .circle[data-animation="simpleRotate"]:not(.simpleRotate):hover {
+	 transform: scale(1.2);
+}
+ 

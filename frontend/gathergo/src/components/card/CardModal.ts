@@ -154,7 +154,7 @@ class CardModal {
     mainElement.innerHTML += `
     <div class="user-info container-md">
       <div class="user-profile">
-        <img class="user-profile-img" src="./assets/userProfileImg.jpeg" alt="User" />
+        <img class="user-profile-img" src="${this.readingCard?.hostProfile?this.readingCard?.hostProfile:`./assets/blankProfile.png`}" alt="User" />
       </div>
       <div class="container-sm">
         <strong class="user-id">${this.readingCard?.hostId}</strong>

@@ -147,10 +147,13 @@ export async function fetchSendComment(
     return fetchError(error);
   }
 }
-export async function fetchGetComments(cardId: string) {
+export async function fetchGetComments(cardId: string|undefined) {
   try {
     console.log('getcomm');
-    const response = await fetch(url + 'api/articles/' + cardId);
+    const response = await fetch(url + 'api/articles/' + cardId, {
+      method: 'GET',
+      credentials: 'include',
+    });
 
     //    const response =
     //   await fetch(url + 'api/articles/' + cardID );
@@ -162,22 +165,20 @@ export async function fetchGetComments(cardId: string) {
       }
     );
     return getComments(commentsData);
-    //   return getComments(cardDetailData.data.comments);
-    //  return getComments([{
-    //     uuid: '100001',
-    //     userId: '101',
-    //     date: '3일전',
-    //     content: '바람도 서롤 감싸게 했죠',
-    //     isMyComment: true,
-    //   },
-    //   {
-    //     uuid: '100002',
-    //     userId: '103',
-    //     date: '3일전',
-    //     content: '햇살은 우릴 위해 내리고',
-    //     isMyComment: false,
-    //   },])
   } catch (error) {
+    return fetchError(error);
+  }
+}
+export async function deleteComment(articleuuid:string|undefined,commentuuid:string) {
+  try {
+    await fetch(url + 'api/articles/'+articleuuid+'/comments/'+commentuuid, {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+    return fetchGetComments(articleuuid);
+    // return;// setModal('DELETE_COMMENT_SUCCESS');
+  } catch (error) {
+    console.log(error);
     return fetchError(error);
   }
 }
@@ -193,7 +194,7 @@ export async function fetchPostCard(postCardData: TpostCard) {
     });
     const cardDetailData = await response.json();
     console.log(cardDetailData);
-    return postCard('POSING');
+    return postCard('POSTING');
   } catch (error) {
     console.log(error);
     return fetchError(error);
@@ -212,7 +213,7 @@ export async function fetchEditCard(postCardData: TpostCard, uuid: string) {
     });
     const cardDetailData = await response.json();
     console.log(cardDetailData);
-    return postCard('POSING');
+    return postCard('POSTING');
   } catch (error) {
     console.log(error);
     return fetchError(error);

@@ -1,3 +1,4 @@
+import { deleteComment } from '../../common/Fetches';
 import Navigate from '../../common/utils/navigate';
 import { setModal } from '../../store/actions';
 import store from '../../store/store';
@@ -10,7 +11,11 @@ class NotiModal {
   message: string;
   need2btns: boolean;
   btnMessage: string;
-  constructor($container: HTMLElement | null, navigate:Navigate,type: string) {
+  constructor(
+    $container: HTMLElement | null,
+    navigate: Navigate,
+    type: string
+  ) {
     this.$container = $container;
     this.navigate = navigate;
     this.type = type;
@@ -70,8 +75,8 @@ class NotiModal {
     );
   }
   mainBtnCallback(type: string) {
-    document.body.classList.remove('modal-active')
-    store.dispatch(setModal(''))
+    document.body.classList.remove('modal-active');
+    // store.dispatch(setModal(''));
     switch (type) {
       case 'SIGNUP_SUCCESS':
         return () => {
@@ -92,19 +97,29 @@ class NotiModal {
         };
       case 'NEED_LOGIN':
         return () => {
-            
-     this.navigate.to('/login')
+          this.navigate.to('/login');
         };
-    case 'EDIT_MEETING':
-        return ()=>{
-            const queryString = new URLSearchParams(window.location.search);
-    const feed = queryString.get('feed');
-            this.navigate.to(`/post?feed=${feed}`)
-        // history.replaceState(store.getState(), "", `/post?feed=${cardData.uuid}`);
-        
+      case 'EDIT_MEETING':
+        return () => {
+          const queryString = new URLSearchParams(window.location.search);
+          const feed = queryString.get('feed');
+          this.navigate.to(`/post?feed=${feed}`);
+          // history.replaceState(store.getState(), "", `/post?feed=${cardData.uuid}`);
+        };
+      case 'DELETE_COMMENT':
+        // this.modalClose();
+        return async () => {
+          store.dispatch(
+            await deleteComment(store.getState().readingCard?.uuid, store.getState().deleteCommentuuid)
+            );
+          this.modalClose();
+          store.dispatch(setModal('DELETE_COMMENT_SUCCESS'));
         }
-      default:
+      default:{
+        console.log('lkjkl');
+        
         return this.modalClose;
+      }
     }
   }
 
@@ -136,6 +151,8 @@ class NotiModal {
         return '만남을 삭제하시겠습니까?';
       case 'DELETE_COMMENT':
         return '댓글을 삭제하시겠습니까?';
+      case 'DELETE_COMMENT_SUCCESS':
+        return '댓글이 삭제되었습니다.';
       case 'SIGNUP_SUCCESS':
         return '회원가입이 성공했습니다. 다시 로그인 해주세요.';
       case 'CANCEL_JOIN':
