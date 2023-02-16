@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -84,19 +85,21 @@ public class FcmMessagingService {
         List<String> tokensToRegister = new ArrayList<>(registrationTokens.get(topic));
 
         // 매 번 레코드가 추가될 때마다 호출하면 오버헤드 증가
-        // 1. FCM에 추가
         try {
+            // 1. FCM에 추가
             response = FirebaseMessaging.getInstance()
                     .subscribeToTopic(tokensToRegister, String.valueOf(topic));
+            // 2. DB에 구독 정보 추가
+            subscriptionRepository.save(topic, deviceToken);
+
+            logger.info("{} tokens were subscribed successfully", response.getSuccessCount());
         } catch (FirebaseMessagingException e) {
             logger.error("could not add token to given topic: {}, {}", topic, e.getMessage());
             return false;
+        } catch (DataIntegrityViolationException e) {  // 이미 등록된 토큰
+            logger.error("토큰 중복: {}, {}", topic, e.getMessage());
         }
 
-        // 2. DB에 구독 정보 추가
-        subscriptionRepository.save(topic, deviceToken);
-
-        logger.info("{} tokens were subscribed successfully", response.getSuccessCount());
         return true;
     }
 
