@@ -84,7 +84,7 @@ type TloginData= {
 type TuserInfo={
   userName : string;
   email : string;
-  profileImg : string;
+  profilePath : string;
   userDesc : string;
   userId : string;
   userHostCards : TuserHostCard[];

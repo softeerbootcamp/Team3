@@ -28,7 +28,7 @@ class tabEditMain {
         <div class = "profile-context">
             <div class = "profile-img-name">
                 <div class = "image-button">
-                    <img class = "profile-fix-image" id = "profile-fix-image" src = ${this.userEditInfo.profileImg} alt = "USER">
+                    <img class = "profile-fix-image" id = "profile-fix-image" src = ${this.userEditInfo.profilePath} alt = "USER">
                     <div class = "image-upload">
                         <input type = "file" accept = ".png" id = "profile-file-input" style = "margin : 0 0 0 2.5rem;">
                         <!-- <label for="file-input">
@@ -94,7 +94,7 @@ class tabEditMain {
             desc : descEdit.value
         };
         console.log(EditFetch);
-    
+        store.dispatch(changeProfileTab(0))
     })
 
   }

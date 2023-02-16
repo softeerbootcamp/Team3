@@ -21,7 +21,7 @@ export const initialState: TinitialState = {
     {
       userName: 'testUser',
       email: 'hyundai@naver.com',
-      profileImg: '',
+      profilePath: '',
       userDesc: '반갑습니다',
       userId: 'hyundai',
       userHostCards: [
