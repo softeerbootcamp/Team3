@@ -54,11 +54,14 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     @Query("select * from article")
     List<Article> findAllArticles();
 
+    // 지역만 주어진 경우
     @Query("select * from article where regionId = :regionId order by meetingDay")
     List<Article> findCurrentRegionArticles(int regionId);
+
+    // 카테고리만 주어진 경우
     @Query("select * from article where categoryId = :categoryId order by meetingDay")
     List<Article> findArticlesByCategoryId(int categoryId);
-
+    // 지역과 카테고리만 주어진 경우
     @Query("select * from article where regionId = :regionId and categoryId = :categoryId order by meetingDay")
     List<Article> findArticlesByRegionAndCategory(int regionId, int categoryId);
 
@@ -82,6 +85,17 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     @Query("select * from comment c join article a on c.articleId = a.id where a.uuid = :uuid order by c.date")
     List<Comment> findCommentsByArticleUuid(String uuid);
 
+    // 검색어와 카테고리만 주어진 경우
+    @Query("select a.* from article a where categoryId=:categoryId and title like CONCAT('%', :keyword, '%') order by meetingDay")
+    List<Article> findByKeywordAndCategory(String keyword, Integer categoryId);
+
+
+    // 검색어와 지역만 주어진 경우
+    @Query("select a.* from article a where regionId=:regionId and title like CONCAT('%', :keyword, '%') order by meetingDay")
+    List<Article> findByKeywordAndRegion(String keyword, Integer regionId);
+
+    @Query("select a.* from article a where title like CONCAT('%', :keyword, '%') order by meetingDay")
+    List<Article> findByKeyword(String keyword);
 
     // 검색어와 카테고리, 지역 모두 주어진 경우
     @Query("select a.* from article a where regionId=:regionId and categoryId=:categoryId and title like CONCAT('%', :keyword, '%') order by meetingDay")

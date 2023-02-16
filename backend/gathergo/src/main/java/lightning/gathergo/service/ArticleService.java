@@ -64,6 +64,8 @@ public class ArticleService {
             return articleRepository.findByKeyword(keyword);
         if(categoryId == 0)
             return articleRepository.findByKeywordAndRegion(keyword, regionId);
+        if(regionId == 0)
+            return articleRepository.findByKeywordAndCategory(keyword, categoryId);
         return articleRepository.findByKeywordAndRegionAndCategory(keyword, regionId, categoryId);
     }
 
