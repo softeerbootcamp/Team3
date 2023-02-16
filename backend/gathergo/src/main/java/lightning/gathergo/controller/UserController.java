@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
@@ -48,19 +49,29 @@ public class UserController {
         if(session.isPresent()) {  // 로그인 유효, 로그인 정보 존재
             Optional<User> foundUser = userService.findUserByUserUuid(session.get().getUserUuid());
 
-            // TODO: GatheringDto로 변경
             // 참여한 모임
-            List<Article> participating = userService.getParticipatingArticlesById(foundUser.get().getId());
+            List<Article> participatingArticles = userService.getParticipatingArticlesById(foundUser.get().getId());
+
+            List<GatheringDto.ArticlePartialDto> participating
+                    = participatingArticles.stream()
+                    .map((Article article) -> new GatheringDto.ArticlePartialDto(article, countService.getCount(article.getUuid())))
+                    .collect(Collectors.toList());
+
             logger.debug("participating {}", participating.toString());
 
             // 호스팅 하는 모임
-            List<Article> hosting = userService.getHostingArticlesById(foundUser.get().getId());
+            List<Article> hostingArticles = userService.getHostingArticlesById(foundUser.get().getId());
+
+            List<GatheringDto.ArticlePartialDto> hosting
+                    = hostingArticles.stream()
+                    .map((Article article) -> new GatheringDto.ArticlePartialDto(article, countService.getCount(article.getUuid())))
+                    .collect(Collectors.toList());
+
             logger.debug("hosting {}", hosting.toString());
 
             UserDto.GetProfileResponse profileResponse = new UserDto.GetProfileResponse(foundUser.get(), participating, hosting);
-
             return ResponseEntity.ok().body(
-                    new CommonResponseDTO<UserDto.GetProfileResponse>(1, "유저 조회 성공", profileResponse)
+                    new CommonResponseDTO<>(1, "유저 조회 성공", profileResponse)
             );
         }
         // 로그인 정보가 존재하지 않거나 유저 정보가 없으면
@@ -81,7 +92,6 @@ public class UserController {
             // Optional<User> foundUser = userService.findUserByUserUuid(session.get().getUserUuid());
 
             String uuid = session.get().getUserUuid();
-            // TODO: GatheringDto로 변경
 
             boolean result = userService.updateIntroduction(uuid, profile.getIntroduction());
 
