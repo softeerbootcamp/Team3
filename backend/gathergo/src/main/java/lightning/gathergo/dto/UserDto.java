@@ -93,7 +93,7 @@ public class UserDto {
         }
 
         public void setArticleList(List<Article> articleList) {
-            this.articleList = articleList;
+            this.articleList = List.copyOf(articleList);
         }
 
         public List<Article> getHostingArticleList() {
@@ -101,7 +101,7 @@ public class UserDto {
         }
 
         public void setHostingArticleList(List<Article> hostingArticleList) {
-            this.hostingArticleList = hostingArticleList;
+            this.hostingArticleList = List.copyOf(hostingArticleList);
         }
     }
 
