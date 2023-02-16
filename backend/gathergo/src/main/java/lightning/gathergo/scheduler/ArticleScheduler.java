@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -37,6 +38,9 @@ public class ArticleScheduler {
         logger.debug("close scheduler was called : "+now);
         System.out.println(now);
         currTimestamp = Timestamp.valueOf(now);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.format(currTimestamp);
         System.out.println(currTimestamp);
 
         List<Article> closableArticles = articleRepository.findClosableArticles(currTimestamp);
