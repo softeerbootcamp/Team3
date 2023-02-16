@@ -26,19 +26,17 @@ public class ArticleController {
     private final SessionService sessionService;
     private final UserService userService;
     private final CountService countService;
-입    private final CommentService commentService;
     private final RegionService regionService;
     private final ArticleMapper articleMapper;
     private final CommentMapper commentMapper;
 
     @Autowired
     ArticleController(ArticleService articleService, SessionService sessionService, UserService userService, CountService countService,
-                      CommentService commentService, RegionService regionService, ArticleMapper articleMapper, CommentMapper commentMapper) {
+                      RegionService regionService, ArticleMapper articleMapper, CommentMapper commentMapper) {
         this.articleService = articleService;
         this.sessionService = sessionService;
         this.userService = userService;
         this.countService = countService;
-        this.commentService = commentService;
         this.regionService = regionService;
         this.articleMapper = articleMapper;
         this.commentMapper = commentMapper;
@@ -123,10 +121,8 @@ public class ArticleController {
         data.setHost(new GatheringDto.UserDto(user.getUserId(), user.getIntroduction(), user.getProfilePath()));
         articleService.splitLocation(data);
 
-        if(!userId.isBlank()){
+        if(null != sessionId)
             articleService.setHasJoinedAndIsHost(data, userId);
-            commentService.setIsMyComment(data, userId);
-        }
 
 
         System.out.println("----------444--------");
