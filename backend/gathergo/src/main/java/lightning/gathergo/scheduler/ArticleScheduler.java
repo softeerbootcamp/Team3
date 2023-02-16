@@ -35,19 +35,15 @@ public class ArticleScheduler {
         now = LocalDateTime.now();
         now = now.truncatedTo(ChronoUnit.MINUTES);
         logger.debug("close scheduler was called : "+now);
-        System.out.println(now);
         currTimestamp = String.valueOf(now);
 
         List<Article> closableArticles = articleRepository.findClosableArticles(currTimestamp);
         if(closableArticles.size()==0) return;
 
-        System.out.println("after return");
-
         closableArticles.forEach(article -> {
             articleRepository.updateArticleById(article.getTitle(), article.getTotal(), true, article.getContent(),
                     article.getMeetingDay(), article.getLocation(), article.getRegionId(), article.getCategoryId(),
                     article.getId());
-            System.out.println("--------sth closed-----");
             logger.debug("article whose uuid is "+article.getUuid()+" was closed");
         });
     }
