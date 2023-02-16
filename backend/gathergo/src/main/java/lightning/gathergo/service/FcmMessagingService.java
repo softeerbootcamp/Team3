@@ -31,8 +31,8 @@ public class FcmMessagingService {
     private String credentialPath;  // credential
     private final ObjectMapper objectMapper;
 
-    private final Map<Integer, Set<String>> registrationTokens = new ConcurrentHashMap<>();  // 여러 스레드의 동일 토픽 접근 병행성 제어
-    private final Map<Integer, List<String>> pendingUpdates = new ConcurrentHashMap<>();
+    private final Map<String, Set<String>> registrationTokens = new ConcurrentHashMap<>();  // 여러 스레드의 동일 토픽 접근 병행성 제어
+    private final Map<String, List<String>> pendingUpdates = new ConcurrentHashMap<>();
 
 
     public FcmMessagingService(SubscriptionRepository subscriptionRepository, ObjectMapper objectMapper) {
@@ -59,7 +59,7 @@ public class FcmMessagingService {
         List<Subscription> subscriptions = subscriptionRepository.findAll();
 
         subscriptions.forEach(subscription -> {
-            int articleId = subscription.getArticleId();
+            String articleId = subscription.getArticleId();
             String deviceToken = subscription.getDeviceToken();
 
             registrationTokens.computeIfAbsent(articleId, k -> new HashSet<>()).add(deviceToken);
@@ -72,7 +72,7 @@ public class FcmMessagingService {
      * @param deviceToken 기기 식별토큰
      * @return 성공 여부
      */
-    public boolean subscribeToTopic(int topic, String deviceToken) {
+    public boolean subscribeToTopic(String topic, String deviceToken) {
         registrationTokens.computeIfAbsent(topic, k -> new HashSet<>()).add(deviceToken);
 
         TopicManagementResponse response = null;
@@ -109,7 +109,7 @@ public class FcmMessagingService {
      * @param deviceToken 기기 식별토큰
      * @return 성공 여부
      */
-    public boolean unsubscribeFromTopic(int topic, String deviceToken) {
+    public boolean unsubscribeFromTopic(String topic, String deviceToken) {
         TopicManagementResponse response = null;
         int affectedRows;  // DB에서 삭제된 구독 정보의 수, 정상 동작은 1을 반환
 
