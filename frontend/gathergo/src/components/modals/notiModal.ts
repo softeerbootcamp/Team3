@@ -1,4 +1,4 @@
-import { deleteComment } from '../../common/Fetches';
+import { deleteComment, fetchCloseMeeting, fetchJoin, fetchJoinCancel } from '../../common/Fetches';
 import Navigate from '../../common/utils/navigate';
 import { setModal } from '../../store/actions';
 import store from '../../store/store';
@@ -75,13 +75,13 @@ class NotiModal {
     );
   }
   mainBtnCallback(type: string) {
-    document.body.classList.remove('modal-active');
     // store.dispatch(setModal(''));
     switch (type) {
       case 'SIGNUP_SUCCESS':
         return () => {
           history.replaceState(store.getState(), '', '/login?action=login');
           this.modalClose();
+          document.body.classList.remove('modal-active');
           document
             .querySelector('.login-content-signin')
             ?.classList.remove('ng-hide');
@@ -98,16 +98,17 @@ class NotiModal {
       case 'NEED_LOGIN':
         return () => {
           this.navigate.to('/login');
+          document.body.classList.remove('modal-active');
         };
       case 'EDIT_MEETING':
         return () => {
           const queryString = new URLSearchParams(window.location.search);
           const feed = queryString.get('feed');
           this.navigate.to(`/post?feed=${feed}`);
+          document.body.classList.remove('modal-active');
           // history.replaceState(store.getState(), "", `/post?feed=${cardData.uuid}`);
         };
       case 'DELETE_COMMENT':
-        // this.modalClose();
         return async () => {
           store.dispatch(
             await deleteComment(store.getState().readingCard?.uuid, store.getState().deleteCommentuuid)
@@ -115,8 +116,32 @@ class NotiModal {
           this.modalClose();
           store.dispatch(setModal('DELETE_COMMENT_SUCCESS'));
         }
+      case 'JOIN':
+        return async () =>{
+          store.dispatch(
+            await fetchJoin(store.getState().readingCard?.uuid)
+            );
+            this.modalClose();
+            store.dispatch(setModal('JOIN_SUCCESS'));
+        }
+      case 'JOIN_CANCEL':
+        return async () =>{
+          store.dispatch(
+            await fetchJoinCancel(store.getState().readingCard?.uuid)
+            );
+            this.modalClose();
+            store.dispatch(setModal('JOIN_CANCEL_SUCCESS'));
+        }
+      case 'CLOSE_MEETING':
+        return async () =>{
+          // store.dispatch(
+            await fetchCloseMeeting(store.getState().readingCard?.uuid)
+            // );
+            this.modalClose();
+            this.navigate.to('/');
+            document.body.classList.remove('modal-active');
+        }
       default:{
-        console.log('lkjkl');
         
         return this.modalClose;
       }
@@ -145,22 +170,26 @@ class NotiModal {
         return `로그인이 필요합니다.  로그인 하시겠습니까?`;
       case 'JOIN':
         return '만남에 참가하시겠습니까?';
+      case 'JOIN_SUCCESS':
+        return '참가에 성공했습니다. 감사합니다.'
       case 'EDIT_MEETING':
         return '만남을 수정하시겠습니까?';
-      case 'DELETE_MEETING':
-        return '만남을 삭제하시겠습니까?';
+      case 'CLOSE_MEETING':
+        return '만남 모집을 마감합니다.<br> 다른 사람들은 더 이상 확인할 수 없습니다.';
       case 'DELETE_COMMENT':
         return '댓글을 삭제하시겠습니까?';
       case 'DELETE_COMMENT_SUCCESS':
         return '댓글이 삭제되었습니다.';
       case 'SIGNUP_SUCCESS':
         return '회원가입이 성공했습니다. 다시 로그인 해주세요.';
-      case 'CANCEL_JOIN':
+      case 'JOIN_CANCEL':
         return '이미 참가 신청한 만남입니다.<br>참가를 취소하시겠습니까?';
+      case 'JOIN_CANCEL_SUCCESS':
+        return '참가가 취소되었습니다.';
       case 'ERROR': {
-        const message = '알 수 없는 에러가 발생했습니다.';
         if (store.getState().error !== null)
           return store.getState().error?.message as string;
+        const message = '알 수 없는 에러가 발생했습니다.';
         return message;
       }
       default:
@@ -173,23 +202,14 @@ class NotiModal {
         return true;
       case 'JOIN':
         return true;
-
       case 'EDIT_MEETING':
         return true;
-
-      case 'DELETE_MEETING':
+      case 'CLOSE_MEETING':
         return true;
-
       case 'DELETE_COMMENT':
         return true;
-
-      case 'CANCEL_JOIN':
+      case 'JOIN_CANCEL':
         return true;
-
-      case 'SIGNUP_SUCCESS':
-        return false;
-      case 'ERROR':
-        return false;
       default:
         return false;
     }
@@ -200,25 +220,14 @@ class NotiModal {
         return '로그인';
       case 'JOIN':
         return '참가';
-
       case 'EDIT_MEETING':
         return '수정';
-
-      case 'DELETE_MEETING':
-        return '삭제';
-
+      case 'CLOSE_MEETING':
+        return '마감하기';
       case 'DELETE_COMMENT':
         return '삭제';
-
-      case 'SIGN_UP':
-        return '확인';
-      case 'CANCEL_JOIN':
+      case 'JOIN_CANCEL':
         return '참가 취소';
-
-      case 'SIGNUP_SUCCESS':
-        return '확인';
-      case 'ERROR':
-        return '확인';
       default:
         return '확인';
     }

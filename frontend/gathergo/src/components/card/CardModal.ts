@@ -59,7 +59,7 @@ class CardModal {
       }
     })
     this.element.querySelector('.dropdown-item.delete')?.addEventListener('click',()=>{
-      store.dispatch(setModal('DELETE_MEETING'))
+      store.dispatch(setModal('CLOSE_MEETING'))
     })
 
     this.element.querySelector('.dropdown-item.edit')?.addEventListener('click',()=>{
@@ -140,7 +140,7 @@ class CardModal {
         aria-expanded="false">
         </div>
       <div class="dropdown-menu  modal-setting-dropdown">
-        <div class="dropdown-item delete" >삭제하기</div>
+        <div class="dropdown-item delete" >마감하기</div>
         <div class="dropdown-item edit" >수정하기</div>
       </div>
     </li>`
@@ -180,7 +180,7 @@ class CardModal {
       if (!store.getState().sessionId) modaltype = 'NEED_LOGIN';
       else {
         if(this.readingCard?.hasJoined)
-          modaltype = 'CANCEL_JOIN';
+          modaltype = 'JOIN_CANCEL';
           else{
             modaltype = 'JOIN';
           }

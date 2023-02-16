@@ -63,8 +63,6 @@ function reducer(state = initialState, action: Taction) {
     case USER_LOGOUT:
       return { ...state, sessionId: "", redirect:'/' };
     case SET_MODAL:{
-  console.log(action.payload.modalAction);
-
       return { ...state, modalAction: action.payload.modalAction, deleteCommentuuid:action.payload.uuid };
     }
     case POST_CARD:

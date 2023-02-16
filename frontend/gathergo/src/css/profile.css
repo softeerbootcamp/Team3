@@ -296,7 +296,7 @@ ul.user-schedule{
     justify-content: center;
 }
 
-.form-control{
+/* .form-control{
     background-color: #f1f1f1;
     border-color : #FFF;
     height : 34px;
@@ -304,7 +304,7 @@ ul.user-schedule{
     font-size : 14px;
     line-height : 1.428;
     border-radius : 4px;
-}
+} */
 
 .register-button{
     width : 8rem;
