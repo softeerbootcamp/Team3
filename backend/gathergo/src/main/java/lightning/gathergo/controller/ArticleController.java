@@ -121,8 +121,9 @@ public class ArticleController {
         data.setHost(new GatheringDto.UserDto(user.getUserId(), user.getIntroduction(), user.getProfilePath()));
         articleService.splitLocation(data);
 
-        if(null != sessionId)
+        if(null != sessionId){
             articleService.setHasJoinedAndIsHost(data, userId);
+        }
 
 
         System.out.println("----------444--------");
