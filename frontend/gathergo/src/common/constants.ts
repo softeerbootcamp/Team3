@@ -2,7 +2,6 @@ import Home from '../pages/home';
 import Profile from '../pages/profile';
 import Login from '../pages/login';
 import Post from '../pages/post';
-// import Navigate from './utils/navigate';
 
 const BASE_URL = 'http://localhost:5173';
 
@@ -51,17 +50,17 @@ type Tcomment = {
   uuid: string|undefined;
   userId: string;
   content: string;
-  date: string;
+  date: Date;
   isMyComment:boolean;
 };
 
 type TinitialState = {
+  // navigate: Navigate|null;
   cards: Tcard[];
   readingCard: TcardDetail;
   comments: Tcomment[];
   filters: Tfilters;
   isLoading: boolean;
-  // userLoginId: string|null;
   sessionId: string;
   error: Error|null;
   modalAction: string;
@@ -76,6 +75,15 @@ type TsignupData= {
 type TloginData= {
   userId: string;
   password: string;
+}
+type TpostCard= {
+  title: string,
+categoryId: number,
+location: string,
+locationDetail: string,
+total: number,
+meetingDay: string,
+content: string
 }
 const regionSi: TdropDown = {
   1: '서울특별시',
@@ -132,5 +140,6 @@ export {
   TinitialState,
   TsignupData,
   TloginData,
-  Taction
+  Taction,
+  TpostCard
 };

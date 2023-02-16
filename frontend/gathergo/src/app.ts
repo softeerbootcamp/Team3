@@ -1,5 +1,4 @@
 import Navigate from './common/utils/navigate';
-//import ErrorModal from './components/modals/errorModal';
 import Router from './router';
 import store from './store/store';
 import NotiModal from '../src/components/modals/notiModal';
@@ -42,9 +41,16 @@ class App {
     // const router = new Router(this.$container);
     // const navigate = new Navigate(router);
 
-
-    window.addEventListener('popstate', () => {
+    // store.dispatch(setNavigate(this.navigate))
+    console.log(store.getState())
+    window.addEventListener('popstate', (e) => {
+     
+      if(document.body.classList.contains('modal-active')) {
+         e.preventDefault();
+      }
+      else{
       this.router.route();
+      }
     });
     document.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', (e) => {
@@ -57,7 +63,7 @@ class App {
     // this.setNotiModal("NEED_LOGIN");
   };
   setNotiModal(type: string) {
-    new NotiModal(this.$container, type);
+    new NotiModal(this.$container,this.navigate, type);
   }
   // openLoadingModal(isLoading:boolean){
   //   const errorModal = new LoadingModal("error?.message")

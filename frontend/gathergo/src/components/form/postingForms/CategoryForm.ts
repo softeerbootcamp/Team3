@@ -13,6 +13,7 @@ class CategoryForm {
         <strong>상세 관심사</strong>
     </h4>`
     this.element.appendChild(this.genertateInputCategoryDropdonw())
+   
     }
     genertateInputCategoryDropdonw(){
         const dropdown = document.createElement('div');

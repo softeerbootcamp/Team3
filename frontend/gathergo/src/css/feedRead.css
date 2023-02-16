@@ -196,10 +196,13 @@
 }
 
 .feed-comment {
+  align-items: center;
   display: flex;
   margin: 1rem;
+  margin-right: 0;
 }
-
+.comment-icon-threedot{
+}
 .comment-user-id {
   min-width: 6rem;
 }
@@ -214,6 +217,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
+  margin-right: 0.5rem;
 }
 
 .comment-input {
