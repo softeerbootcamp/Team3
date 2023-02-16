@@ -1,6 +1,8 @@
 package lightning.gathergo.service;
 
 import lightning.gathergo.dto.GatheringDto;
+import lightning.gathergo.exception.CustomGlobalException;
+import lightning.gathergo.exception.ErrorCode;
 import lightning.gathergo.model.Article;
 import lightning.gathergo.model.Comment;
 import lightning.gathergo.model.User;
@@ -96,7 +98,7 @@ public class ArticleService {
     public void addGuest(String userId, String articleUuid){
         if(countService.getCount(articleUuid) >=
                 articleRepository.findByUuid(articleUuid).get().getTotal()){
-            // throw exception
+            throw new CustomGlobalException(ErrorCode.ALREADY_FULLED);
         }
         relationshipRepository.save(
                 userRepository.findUserByUserId(userId).get().getId(),
