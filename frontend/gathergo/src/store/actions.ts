@@ -196,6 +196,7 @@ export function getUserInfo(userInfoResponse: TuserInfo) {
 
 export function changeProfileImg(imageSrc : string){
   return{
-    
+    type : CHANGE_PROFILEIMG,
+    payload :{imageSrc}
   }
 }

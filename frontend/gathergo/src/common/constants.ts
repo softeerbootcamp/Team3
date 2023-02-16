@@ -89,6 +89,7 @@ type TuserInfo={
   userId : string;
   userHostCards : TuserHostCard[];
   userJoinCards : TuserJoinCard[];
+  uuid : string;
 }
 type TuserHostCard={
   id : string;

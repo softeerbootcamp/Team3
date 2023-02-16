@@ -1,6 +1,7 @@
 import { TuserInfo } from '../../common/constants';
 import store from '../../store/store';
 import { changeProfileTab } from '../../store/actions';
+import { changeUserProfileImg } from '../../common/Fetches';
 
 class tabEditMain {
   element: HTMLDivElement;
@@ -16,6 +17,10 @@ class tabEditMain {
       this.render();
     });
     this.render();
+
+    store.subscribe(()=>{
+        this.render;
+    })
   }
   render() {
     this.element.innerHTML = `    
@@ -85,7 +90,7 @@ class tabEditMain {
   profileEditButton() {
     const profileEdit = this.element.querySelector('#profile-edit-button')
     const descEdit = this.element.querySelector('#profile-desc-edit') as HTMLTextAreaElement;
-    profileEdit?.addEventListener('click',()=>{
+    profileEdit?.addEventListener('click',async()=>{
         const profileFileEdit = this.element.querySelector(
             '#profile-fix-image'
             ) as HTMLImageElement;
@@ -93,12 +98,17 @@ class tabEditMain {
             profile : profileFileEdit.src,
             desc : descEdit.value
         };
-        console.log(EditFetch);
+        store.dispatch(
+          await changeUserProfileImg(
+            profileFileEdit.src,
+            this.userEditInfo.uuid
+          )
+        );
         store.dispatch(changeProfileTab(0))
     })
 
   }
-    addEventProfileEdit(){
+    async addEventProfileEdit(){
     const profileFileEdit = this.element.querySelector('#profile-file-input')
     profileFileEdit?.addEventListener('change',()=>{
         const value = profileFileEdit as HTMLInputElement;

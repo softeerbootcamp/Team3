@@ -1,5 +1,4 @@
 import { TuserHostCard } from '../../../common/constants';
-import Navigate from '../../../common/utils/navigate';
 
 class profileUserHost {
   element: HTMLDivElement;

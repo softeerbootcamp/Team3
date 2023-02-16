@@ -1,4 +1,5 @@
 import {
+  changeProfileImg,
   fetchError,
   getComments,
   getUserInfo,
@@ -273,6 +274,26 @@ export async function fetchGetUserInfo() {
     console.log(userInfoResponse);
     return getUserInfo(userInfoResponse.data);
   } catch (error) {
+    console.log(error);
+    return fetchError(error);
+  }
+}
+
+export async function changeUserProfileImg(imageSrc: string, useruuId : string){
+
+  const formData = new FormData();
+  formData.append('file', imageSrc);
+  console.log(formData)
+  try{
+    const response = await fetch(url + 'api/image/'+useruuId, {
+      method: 'POST',
+      credentials: 'include',
+      body : formData,
+    });
+    const postImgResponse = await response.json();
+    console.log(postImgResponse)
+    return changeProfileImg(imageSrc)
+  }catch(error){
     console.log(error);
     return fetchError(error);
   }

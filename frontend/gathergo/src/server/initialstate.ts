@@ -24,6 +24,7 @@ export const initialState: TinitialState = {
       profilePath: '',
       introduction: '반갑습니다',
       userId: 'hyundai',
+      uuid : '',
       userHostCards: [
         {
           id: '1',
