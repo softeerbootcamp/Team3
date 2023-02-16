@@ -128,8 +128,13 @@ function reducer(state = initialState, action: Taction) {
       state.tabNumber = action.payload.tabNumber;
       return {...state, profileTab : action.payload.tabNumber}
     case SET_PROFILE:
-      state.userInfo = action.payload.userInfo;
-      return {...state, userInfo : action.payload.userInfo}
+      console.log(action.payload.userInfoResponse)
+      // state.userInfo = action.payload.userInfoResponse;
+      // action.payload.userInfoResponse.userHostCards = action.payload.userInfoResponse.hostingArticleList;
+      // state.userInfo.profileImg = action.payload.userInfoResponse.profilePath;
+      // state.userInfo.userHostCards = action.payload.userInfoResponse.hostingArticleList;
+      // state.userInfo.userJoinCards = action.payload.userInfoResponse.articleList;
+      return {...state}
     default:
     return state;
   }

@@ -17,8 +17,8 @@ class profileUserJoin {
   render() {
     this.element.innerHTML = `
         <div class="schedule-time-badge badge bg-light">
-        <span class="schedule-date">${this.userJoinData.meetingDay.getMonth()}.${this.userJoinData.meetingDay.getDay()}</span>
-        <span class="schedule-time">${this.userJoinData.meetingDay.getHours()}:${this.userJoinData.meetingDay.getMinutes()}</span>
+        <span class="schedule-date">${new Date(this.userJoinData.meetingDay).getMonth()+1}.${new Date(this.userJoinData.meetingDay).getDate()}</span>
+        <span class="schedule-time">${new Date(this.userJoinData.meetingDay).getHours()}:${new Date(this.userJoinData.meetingDay).getMinutes()}</span>
         </div>
         <div class="schedule-info">
         <strong class="scheduel-title">${this.userJoinData.title}</strong>

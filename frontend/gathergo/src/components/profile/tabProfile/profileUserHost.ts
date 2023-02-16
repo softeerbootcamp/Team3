@@ -19,9 +19,10 @@ class profileUserHost {
     else this.element.innerHTML += `<td>진행중</td>`;
 
     this.element.innerHTML += `
-        <td>${this.userHostData.meetingDay.getFullYear()}년 ${this.userHostData.meetingDay.getMonth()}월 ${this.userHostData.meetingDay.getDay()}일</td>
+        <td>${new Date(this.userHostData.meetingDay).getFullYear()}년 ${new Date(this.userHostData.meetingDay).getMonth()+1}월 ${new Date(this.userHostData.meetingDay).getDate()}일</td>
         `;
     this.addHostLinkEvent()
+
   }
 
   addHostLinkEvent() {

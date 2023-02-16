@@ -12,7 +12,6 @@ import { Tcomment, TloginData, TsignupData } from './constants';
 
 const url = 'https://gathergo.kro.kr/';
 
-
 export async function fetchLogin(loginData: TloginData) {
   try {
     // const query = getQuery(loginData);
@@ -26,8 +25,8 @@ export async function fetchLogin(loginData: TloginData) {
     });
 
     const userLoginData = await response.json();
-    if(userLoginData.status == 500) throw new Error("비밀번호가 틀렸습니다.")
-      console.log(userLoginData.status)
+    if (userLoginData.status == 500) throw new Error('비밀번호가 틀렸습니다.');
+    console.log(userLoginData.status);
     return userLogin(userLoginData);
   } catch (error) {
     return fetchError(error);
@@ -54,19 +53,18 @@ export async function fetchSignup(signupData: TsignupData) {
   }
 }
 export async function fetchLogout() {
-    try {
-        const response = 
-      await fetch(url + 'api/logout/', {
-        method: 'DELETE',
-        credentials: 'include',
-      });
-  console.log(response)
-      return userLogout();
-    } catch (error) {
-      console.log(error);
-      return fetchError(error);
-    }
+  try {
+    const response = await fetch(url + 'api/logout/', {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+    console.log(response);
+    return userLogout();
+  } catch (error) {
+    console.log(error);
+    return fetchError(error);
   }
+}
 export async function getArticles(regionId: number, categoryId: number) {
   try {
     const params = {
@@ -101,25 +99,27 @@ export async function fetchSendComment(commentData: Tcomment) {
     return fetchError(error);
   }
 }
-export async function fetchGetComments(cardID: string|undefined) {
-    try {
-       const response =
-      await fetch(url + 'api/article/' + cardID + '/comments');
-  
-      const commendResponse = await response.json();
-      return updateComments(commendResponse);
-    } catch (error) {
-      console.log(error);
-      return fetchError(error);
-    }
-  }
-
-export async function fetchGetUserInfo(){
+export async function fetchGetComments(cardID: string | undefined) {
   try {
-    const response = await fetch(url + 'api/users');
-    console.log(response);
+    const response = await fetch(url + 'api/article/' + cardID + '/comments');
+
+    const commendResponse = await response.json();
+    return updateComments(commendResponse);
+  } catch (error) {
+    console.log(error);
+    return fetchError(error);
+  }
+}
+
+export async function fetchGetUserInfo() {
+  try {
+    const response = await fetch(url + 'api/users/', {
+      method: 'GET',
+      credentials: 'include',
+    });
     const userInfoResponse = await response.json();
-    return getUserInfo(userInfoResponse);
+    console.log(userInfoResponse)
+    return getUserInfo(userInfoResponse.data);
   } catch (error) {
     console.log(error);
     return fetchError(error);

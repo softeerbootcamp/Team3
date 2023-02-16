@@ -1,5 +1,5 @@
 
-import { fetchLogout } from "../common/Fetches";
+import { fetchLogout, fetchGetUserInfo } from "../common/Fetches";
 import profileLayout from "../components/profile/profileLayout"
 import HeaderDefault from "../components/header/headerDefault";
 // import { userLogout } from "../store/actions";
@@ -12,15 +12,16 @@ class Profile {
     this.$container = $container;
     this.render();
 
-    store.subscribe(() => {
-      //fetch??
-    });
+    // store.subscribe(async() => {
+    //   store.dispatch(await fetchGetUserInfo());
+    // });
   }
   setState = () => {
     this.render();
   };
 
-  render() {
+  async render(){
+    store.dispatch(await fetchGetUserInfo());
     if (!this.$container) return;
     const headerDefault = new HeaderDefault('profile');
     this.$container.appendChild(headerDefault.element);
@@ -32,9 +33,8 @@ class Profile {
     // store.dispatch(await fetchLogout())
     // })
 
-
     this.addTabButtonEvent()
-  }
+  } 
 
   addTabButtonEvent(){
     const tabMainDom = document.querySelector('#profile-tabMain')
@@ -57,7 +57,6 @@ class Profile {
       store.dispatch(changeProfileTab(2));
     })
   }
-
 }
 
 export default Profile;
