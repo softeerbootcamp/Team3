@@ -110,32 +110,32 @@ public class FcmMessagingService {
      * @return 성공 여부
      */
     public boolean unsubscribeFromTopic(int topic, String deviceToken) {
-        Set<String> tokens = registrationTokens.get(topic);
-        if (tokens == null || !tokens.contains(deviceToken)) {
-            logger.info("device token not found in topic: {}, {}", topic, deviceToken);
-            return false;
-        }
-
-        tokens.remove(deviceToken);
-
-        List<String> tokensToUnregister = new ArrayList<>(tokens);
-
-        // 매 번 레코드가 제거될 때마다 호출하면 오버헤드 증가
-        // 1. FCM에서 제거
         TopicManagementResponse response = null;
+        int affectedRows;  // DB에서 삭제된 구독 정보의 수, 정상 동작은 1을 반환
+
+        Set<String> tokens = registrationTokens.computeIfPresent(topic, (t, existingTokens) -> {  // atomic operation
+            if (existingTokens.contains(deviceToken)) {
+                existingTokens.remove(deviceToken);
+                return existingTokens;
+            } else {
+                logger.info("device token not found in topic: {}, {}", topic, deviceToken);
+                return existingTokens;
+            }
+        });
+
         try {
+            // 1. FCM에 추가
             response = FirebaseMessaging.getInstance()
-                    .unsubscribeFromTopic(tokensToUnregister, String.valueOf(topic));
+                    .unsubscribeFromTopic(List.of(deviceToken), String.valueOf(topic));
+            // 2. DB에 구독 정보 제거
+            affectedRows = subscriptionRepository.deleteByArticleIdAndToken(topic, deviceToken);
+
+            logger.info("{} tokens were unsubscribed successfully", response.getSuccessCount());
         } catch (FirebaseMessagingException e) {
-            logger.error("could not remove token from given topic: {}, {}", topic, e.getMessage());
+            logger.error("could not add token to given topic: {}, {}", topic, e.getMessage());
             return false;
         }
-
-        // 2. DB에서 구독 정보 제거
-        subscriptionRepository.deleteByArticleIdAndToken(topic, deviceToken);
-
-        logger.info("{} tokens were unsubscribed successfully", response.getSuccessCount());
-        return true;
+        return affectedRows != 0;
     }
 
     public String sendMessageToTopic(String topic, Map<String, String> datas) {  // TODO: Article의 멤버들에게 알림 발송
