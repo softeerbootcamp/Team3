@@ -90,9 +90,6 @@ public class ArticleController {
     // 게시물 상세 조회
     @GetMapping("/{articleUuid}")
     ResponseEntity<?> getArticle(@PathVariable String articleUuid, @CookieValue(name = "sessionId", required = false) String sessionId){
-        System.out.println(articleUuid);
-        System.out.println(sessionId);
-        System.out.println("------");
         GatheringDto.ArticleDetailResponse data = new GatheringDto.ArticleDetailResponse();
         Integer currCount;
         List<Comment> comments;
@@ -100,13 +97,13 @@ public class ArticleController {
         Session session;
         String userId = new String();
 
+        System.out.println("----------111--------");
         if(null != sessionId){
             session = sessionService.findSessionBySID(sessionId).get();
             userId = session.getUserId();
         }
 
-        System.out.println("---second point----");
-
+        System.out.println("----------222--------");
         // 게시물 디비에서 얻어오기
         Article article = articleService.getArticleByUuid(articleUuid);
         // 게시물에 달린 댓글 디비에서 얻어오기
@@ -118,8 +115,7 @@ public class ArticleController {
         // 유저 정보 얻어오기
         user = articleService.getUserInfoByFromArticle(article.getUuid());
 
-        System.out.println("---third point----");
-
+        System.out.println("----------333--------");
         data.setArticle(articleMapper.toArticleFullDto(article));
         data.setComments(commentsDto);
         data.setHost(new GatheringDto.UserDto(user.getUserId(), user.getIntroduction(), user.getProfilePath()));
@@ -128,14 +124,13 @@ public class ArticleController {
         if(null != sessionId)
             articleService.setHasJoinedAndIsHost(data, userId);
 
-        System.out.println("---fourth point----");
 
-
+        System.out.println("----------444--------");
         currCount = countService.getCount(articleUuid);
         data.getArticle().setCurr(currCount);
 
-        System.out.println("---fifth point----");
 
+        System.out.println("----------555--------");
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.ArticleDetailResponse>(
                                 1,
@@ -147,9 +142,23 @@ public class ArticleController {
 
     // 게시물 수정
     @PutMapping("/{articleUuid}")
-    ResponseEntity<?> updateArticle(@PathVariable String articleUuid,  @RequestBody GatheringDto.UpdateRequest request){
+    ResponseEntity<?> updateArticle(@PathVariable String articleUuid,
+                                    @RequestBody GatheringDto.UpdateRequest request,
+                                    @CookieValue(name = "sessionId") String sessionId
+    ){
+        articleService.mergeLocation(request);
+        Session session;
+        String userId = new String();
+        session = sessionService.findSessionBySID(sessionId).get();
+        userId = session.getUserId();
+        // TODO sessionId validation
+
+
         Article replacement = articleMapper.toArticle(request); replacement.setUuid(articleUuid);
-        Article replaced = articleService.updateArticle(articleUuid, replacement);
+        String regionName = request.getLocation().split(" ")[0];
+        replacement.setRegionId(regionService.getRegionByName(regionName).get().getId());
+
+        articleService.updateArticle(articleUuid, replacement);
 
         GatheringDto.MessageResponse data = new GatheringDto.MessageResponse();
         data.setMessage("수정에 성공했습니다.");

@@ -137,6 +137,9 @@ public class ArticleService {
     public void mergeLocation(GatheringDto.CreateRequest request){
         request.setLocation(request.getLocation() + "-=-=-=-=-=" + request.getLocationDetail());
     }
+    public void mergeLocation(GatheringDto.UpdateRequest request){
+        request.setLocation(request.getLocation() + "-=-=-=-=-=" + request.getLocationDetail());
+    }
     public void splitLocation(GatheringDto.ArticleDetailResponse data){
         GatheringDto.ArticleFullDto article = data.getArticle();
         String location = article.getLocation();
