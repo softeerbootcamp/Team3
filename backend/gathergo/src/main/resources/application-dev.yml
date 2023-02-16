@@ -10,7 +10,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${SPRING_DATABASE_HOST}:3306/${SPRING_DATABASE_SCHEMA}?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${SPRING_DATABASE_HOST}:3306/${SPRING_DATABASE_SCHEMA}?characterEncoding=UTF-8&serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
     username: ${SPRING_DATABASE_USERNAME}
     password: ${SPRING_DATABASE_PASSWORD}
   redis:
