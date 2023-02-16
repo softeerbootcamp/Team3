@@ -22,7 +22,7 @@ export const initialState: TinitialState = {
       userName: 'testUser',
       email: 'hyundai@naver.com',
       profilePath: '',
-      userDesc: '반갑습니다',
+      introduction: '반갑습니다',
       userId: 'hyundai',
       userHostCards: [
         {

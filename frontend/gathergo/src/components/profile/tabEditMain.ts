@@ -55,7 +55,7 @@ class tabEditMain {
                 <div class = "profile-textarea-text" style = "width : 6.25rem; height : 6.25rem;">
                     한 줄 소개
                 </div>
-                <textarea id = "profile-desc-edit" onkeydown="resize()" onkeyup="resize()" value = "hihi" class = "form-control" style = "height : 6.25rem">${this.userEditInfo.userDesc}</textarea>
+                <textarea id = "profile-desc-edit" onkeydown="resize()" onkeyup="resize()" value = "hihi" class = "form-control" style = "height : 6.25rem">${this.userEditInfo.introduction}</textarea>
             </div>
             <div class = "profile-button">
                 <button type = "button" id = "profile-edit-button" class = "btn btn-primary register-button">
