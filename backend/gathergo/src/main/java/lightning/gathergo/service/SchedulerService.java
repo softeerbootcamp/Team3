@@ -46,10 +46,4 @@ public class SchedulerService {
             }
         }
     }
-
-    @Scheduled(cron = "*/10 * * * * *")
-    public void run(){
-        System.out.println("hi");
-    }
-
 }
