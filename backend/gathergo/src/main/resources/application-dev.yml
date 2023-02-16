@@ -14,7 +14,7 @@ spring:
     username: ${SPRING_DATABASE_USERNAME}
     password: ${SPRING_DATABASE_PASSWORD}
   redis:
-    host: localhost
+    host: gathergo-redis
     port: 6379
 
 session:

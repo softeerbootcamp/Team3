@@ -10,6 +10,7 @@ import {
 } from '../store/actions';
 import { Tcomment, Tfilters, TloginData, TpostCard, TsignupData } from './constants';
 
+
 const url = 'https://gathergo.kro.kr/';
 
 export async function fetchLogin(loginData: TloginData) {
@@ -172,7 +173,6 @@ export async function fetchGetComments(cardId: string) {
     //     isMyComment: false,
     //   },])
   } catch (error) {
-    console.log(error);
     return fetchError(error);
   }
 }

@@ -14,6 +14,7 @@ public class Session {
     protected int duration;
     protected String userId;
     protected String userName;
+    protected String userUuid;
 
     public Session(String userId, String userName) {
         this.sessionId = String.valueOf(UUID.randomUUID());
@@ -21,11 +22,17 @@ public class Session {
         this.userName = userName;
         this.createDate = LocalDateTime.now();
     }
+
     public Session(String sessionId, String userId, String userName, LocalDateTime createDate) {
         this.sessionId = sessionId;
         this.userId = userId;
         this.userName = userName;
         this.createDate = createDate;
+    }
+
+    public Session(String userId, String userName, String userUuid) {
+        this(userId, userName);
+        this.userUuid = userUuid;
     }
 
     public String getSessionId() {
@@ -42,5 +49,29 @@ public class Session {
 
     public String getUserName() {
         return userName;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserUuid() {
+        return userUuid;
+    }
+
+    public void setUserUuid(String userUuid) {
+        this.userUuid = userUuid;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }
