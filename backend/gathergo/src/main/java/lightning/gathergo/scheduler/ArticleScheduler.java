@@ -21,8 +21,7 @@ public class ArticleScheduler {
     private final Logger logger = LoggerFactory.getLogger(ArticleScheduler.class);
 
     private ArticleRepository articleRepository;
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
-    private Timestamp currTimestamp;
+    private String currTimestamp;
     private LocalDateTime now;
 
 
@@ -37,11 +36,7 @@ public class ArticleScheduler {
         now = now.truncatedTo(ChronoUnit.MINUTES);
         logger.debug("close scheduler was called : "+now);
         System.out.println(now);
-        currTimestamp = Timestamp.valueOf(now);
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        dateFormat.format(currTimestamp);
-        System.out.println(currTimestamp);
+        currTimestamp = String.valueOf(now);
 
         List<Article> closableArticles = articleRepository.findClosableArticles(currTimestamp);
         if(closableArticles.size()==0) return;

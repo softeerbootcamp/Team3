@@ -105,6 +105,6 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     User findUserInfoByArticleHostId(String articleUuid);
 
     @Query("select * from article where meetingDay=:currentTimestamp and isClosed = 0")
-    List<Article> findClosableArticles(Timestamp currentTimestamp);
+    List<Article> findClosableArticles(String currentTimestamp);
 }
 
