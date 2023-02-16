@@ -51,7 +51,7 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     @Query("select * from article where uuid = :uuid")
     Optional<Article> findByUuid(String uuid);
 
-    @Query("select * from article")
+    @Query("select * from article order by meetingDay")
     List<Article> findAllArticles();
 
     // 지역만 주어진 경우
