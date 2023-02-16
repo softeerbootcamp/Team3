@@ -1,5 +1,6 @@
 import {
   changeProfileImg,
+  changeUserIntroduction,
   fetchError,
   getComments,
   getUserInfo,
@@ -282,8 +283,8 @@ export async function fetchGetUserInfo() {
 export async function changeUserProfileImg(imageSrc: string, useruuId : string){
 
   const formData = new FormData();
-  formData.append('file', imageSrc);
-  console.log(formData)
+  formData.append("file", new Blob([JSON.stringify(imageSrc)]));
+
   try{
     const response = await fetch(url + 'api/image/'+useruuId, {
       method: 'POST',
@@ -297,6 +298,27 @@ export async function changeUserProfileImg(imageSrc: string, useruuId : string){
     console.log(error);
     return fetchError(error);
   }
+}
+
+export async function changeUserProfileIntroduction(introduction : string, id : string){
+    try {
+      const response = await fetch(url + 'api/users', {
+        method: 'PUT',
+        credentials: 'include',
+        headers : {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          "introduction" : introduction
+        }),
+      });
+      const postIntroResponse = await response.json();
+      console.log(postIntroResponse);
+      return changeUserIntroduction(introduction);
+    } catch (error) {
+      console.log(error);
+      return fetchError(error);
+    }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

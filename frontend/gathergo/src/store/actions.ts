@@ -29,6 +29,7 @@ export const EDIT_CARD = 'EDIT_CARD';
 export const PROFILE_TAB = 'PROFILE_TAB';
 export const SET_PROFILE = 'SET_PROFIlE';
 export const CHANGE_PROFILEIMG = 'CHANGE_PROFILEIMG';
+export const CHANGE_PROFILEINTRO = 'CHANGE_PROFILEINTRO'
 
 // export const REFRESH_CARDS = 'REFRESH_CARDS';
 
@@ -198,5 +199,12 @@ export function changeProfileImg(imageSrc : string){
   return{
     type : CHANGE_PROFILEIMG,
     payload :{imageSrc}
+  }
+}
+
+export function changeUserIntroduction(introduction : string){
+  return {
+    type : CHANGE_PROFILEINTRO,
+    payload : {introduction}
   }
 }
