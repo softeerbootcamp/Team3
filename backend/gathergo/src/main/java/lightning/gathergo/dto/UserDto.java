@@ -6,7 +6,7 @@ import lightning.gathergo.model.User;
 import java.util.List;
 
 public class UserDto {
-    public static class ProfileResponse {
+    public static class GetProfileResponse {
         private String uuid;
 
         private String userId;
@@ -17,10 +17,10 @@ public class UserDto {
 
         private String introduction;
         private String profilePath;
-        private List<Article> articleList; //해당 유저가 속한 전체 모임들
-        private List<Article> hostingArticleList; // 해당 유저가 호스팅한 모임들
+        private List<GatheringDto.ArticlePartialDto> articleList; //해당 유저가 속한 전체 모임들
+        private List<GatheringDto.ArticlePartialDto> hostingArticleList; // 해당 유저가 호스팅한 모임들
 
-        public ProfileResponse(String uuid, String userId, String userName, String email, String introduction, String profilePath, List<Article> articleList, List<Article> hostingArticleList) {
+        public GetProfileResponse(String uuid, String userId, String userName, String email, String introduction, String profilePath, List<GatheringDto.ArticlePartialDto> articleList, List<GatheringDto.ArticlePartialDto> hostingArticleList) {
             this.uuid = uuid;
             this.userId = userId;
             this.userName = userName;
@@ -33,11 +33,11 @@ public class UserDto {
             this.hostingArticleList = List.copyOf(hostingArticleList);
         }
 
-        public ProfileResponse(User user, List<Article> articleList, List<Article> hostingArticleList) {
+        public GetProfileResponse(User user, List<GatheringDto.ArticlePartialDto> articleList, List<GatheringDto.ArticlePartialDto> hostingArticleList) {
             this(user.getUuid(), user.getUserId(), user.getUserName(), user.getEmail(), user.getIntroduction(), user.getProfilePath(), articleList, hostingArticleList);
         }
 
-        public ProfileResponse() {
+        public GetProfileResponse() {
         }
 
         public String getUuid() {
@@ -88,21 +88,40 @@ public class UserDto {
             this.profilePath = profilePath;
         }
 
-        public List<Article> getArticleList() {
+        public List<GatheringDto.ArticlePartialDto> getArticleList() {
             return articleList;
         }
 
-        public void setArticleList(List<Article> articleList) {
+        public void setArticleList(List<GatheringDto.ArticlePartialDto> articleList) {
             this.articleList = List.copyOf(articleList);
         }
 
-        public List<Article> getHostingArticleList() {
+        public List<GatheringDto.ArticlePartialDto> getHostingArticleList() {
             return hostingArticleList;
         }
 
-        public void setHostingArticleList(List<Article> hostingArticleList) {
+        public void setHostingArticleList(List<GatheringDto.ArticlePartialDto> hostingArticleList) {
             this.hostingArticleList = List.copyOf(hostingArticleList);
         }
     }
 
+
+    public static class PutProfile {
+        private String introduction;
+
+        public PutProfile(String introduction) {
+            this.introduction = introduction;
+        }
+
+        public PutProfile() {
+        }
+
+        public String getIntroduction() {
+            return introduction;
+        }
+
+        public void setIntroduction(String introduction) {
+            this.introduction = introduction;
+        }
+    }
 }

@@ -62,6 +62,12 @@ public class UserService {
         userRepository.deleteUserByUserId(userId);
     }
 
+    public boolean updateIntroduction(String uuid, String introduction) {
+        int affectedRows = userRepository.updateIntroductionByUuid(uuid, introduction);
+
+        return affectedRows == 1;
+    }
+
     public User loginUser(LoginDto.LoginInput loginDto) {
         Optional<User> user = findUserByUserId(loginDto.getUserId());
 
