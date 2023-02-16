@@ -40,4 +40,23 @@ public class NotificationController {
 
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
+
+    @DeleteMapping
+    public ResponseEntity<CommonResponseDTO<?>> unsubscribe(@RequestBody HashMap<String, String> param) {
+        CommonResponseDTO<Object> responseDto;
+
+        String deviceToken = param.get("deviceToken");
+        int articleId = Integer.parseInt(param.get("articleId"));
+
+        logger.info("topic 구독 해제 {}, {}", articleId, deviceToken);
+
+        boolean unSubscribed = messagingService.unsubscribeFromTopic(articleId, deviceToken);
+
+        if(unSubscribed)
+            responseDto = new CommonResponseDTO<>(1, articleId + " 구독 해제 성공", null);
+        else
+            responseDto = new CommonResponseDTO<>(0, articleId + " 구독 해제 실패", null);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
 }
