@@ -1,6 +1,7 @@
 import {
   fetchError,
   getComments,
+  getUserInfo,
   postCard,
   readCard,
   setModal,
@@ -8,8 +9,13 @@ import {
   userLogin,
   userLogout,
 } from '../store/actions';
-import { Tcomment, Tfilters, TloginData, TpostCard, TsignupData } from './constants';
-
+import {
+  Tcomment,
+  Tfilters,
+  TloginData,
+  TpostCard,
+  TsignupData,
+} from './constants';
 
 const url = 'https://gathergo.kro.kr/';
 
@@ -36,8 +42,7 @@ export async function fetchLogin(loginData: TloginData) {
 export async function fetchSignup(signupData: TsignupData) {
   try {
     // console.log(signupData)
-    const response = 
-    await fetch(url + 'api/signup/', {
+    const response = await fetch(url + 'api/signup/', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -47,8 +52,8 @@ export async function fetchSignup(signupData: TsignupData) {
     });
 
     const userSignupData = await response.json();
-    if(userSignupData.status == 409) throw new Error(userSignupData.message)
-    return setModal("SIGNUP_SUCCESS")//(userSignupData);
+    if (userSignupData.status == 409) throw new Error(userSignupData.message);
+    return setModal('SIGNUP_SUCCESS'); //(userSignupData);
   } catch (error) {
     return fetchError(error);
   }
@@ -84,7 +89,7 @@ export async function getArticles(filters: Tfilters) {
         return { ...article, meetingDay: new Date(article.meetingDay) };
       }
     );
-    console.log(cardDatas)
+    console.log(cardDatas);
     return updateCards(cardDatas);
   } catch (error) {
     return fetchError(error);
@@ -96,8 +101,8 @@ export async function fetchCardDetail(cardId: string) {
     //TODO: response 잘 들어오는지 확인하고 cardDataDetail에 넣어주고 return
 
     const response = await fetch(url + 'api/articles/' + cardId, {
-        method: 'GET',
-        credentials: 'include'
+      method: 'GET',
+      credentials: 'include',
     });
 
     const responseData = await response.json();
@@ -177,43 +182,56 @@ export async function fetchGetComments(cardId: string) {
   }
 }
 export async function fetchPostCard(postCardData: TpostCard) {
-    try {
-      const response =await fetch(url + 'api/articles' , {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(postCardData),
-      });
-      const cardDetailData = await response.json();
-      console.log(cardDetailData)
-      return postCard("POSING");
-    } catch (error) {
-      console.log(error);
-      return fetchError(error);
-    }
+  try {
+    const response = await fetch(url + 'api/articles', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(postCardData),
+    });
+    const cardDetailData = await response.json();
+    console.log(cardDetailData);
+    return postCard('POSING');
+  } catch (error) {
+    console.log(error);
+    return fetchError(error);
   }
+}
 
-  export async function fetchEditCard(postCardData: TpostCard,uuid:string) {
-    try {
-      const response =await fetch(url + 'api/articles/'+uuid , {
-        method: 'PUT',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(postCardData),
-      });
-      const cardDetailData = await response.json();
-      console.log(cardDetailData)
-      return postCard("POSING");
-    } catch (error) {
-      console.log(error);
-      return fetchError(error);
-    }
+export async function fetchEditCard(postCardData: TpostCard, uuid: string) {
+  try {
+    const response = await fetch(url + 'api/articles/' + uuid, {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(postCardData),
+    });
+    const cardDetailData = await response.json();
+    console.log(cardDetailData);
+    return postCard('POSING');
+  } catch (error) {
+    console.log(error);
+    return fetchError(error);
   }
-
+}
+export async function fetchGetUserInfo() {
+  try {
+    const response = await fetch(url + 'api/users/', {
+      method: 'GET',
+      credentials: 'include',
+    });
+    const userInfoResponse = await response.json();
+    console.log(userInfoResponse);
+    return getUserInfo(userInfoResponse.data);
+  } catch (error) {
+    console.log(error);
+    return fetchError(error);
+  }
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getQuery(params: any): string {

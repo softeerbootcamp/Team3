@@ -1,0 +1,554 @@
+@import '../Index/index.css';
+@import '../bootstrap.css';
+
+body{
+    width : 100%;
+    height : 100%;
+    overflow : hidden;
+
+}
+
+#sidebar.active {
+  display: flex;
+}
+
+#sidebar-bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#sidebar-body {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  position: fixed;
+  top: 0;
+  right: -40%;
+  z-index: 2;
+  height: 100%;
+  background: var(--bs-gray-100);
+  padding: 1rem 2rem;
+  transition: all 0.3s;
+}
+
+.active #sidebar-body {
+  right: 0;
+}
+
+.active #sidebar-bg {
+  animation: fadein 0.3s;
+  -moz-animation: fadein 0.3s;
+  -webkit-animation: fadein 0.3s;
+  -o-animation: fadein 0.3s;
+  z-index: 1;
+  display: flex;
+}
+
+.line {
+  margin: 1rem 0;
+  border-top: 1px solid var(--bs-border-color);
+}
+
+.sidebar-user-info.container-md {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-user-info .container-sm {
+  width: 100%;
+  display: flex;
+
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.space {
+  min-width: 2rem;
+  width: 100%;
+}
+
+.sidebar-user-info button {
+  min-height: 2.25rem;
+  min-width: 7rem;
+  margin: 2rem;
+}
+
+.user-profile {
+  background: var(--bs-body-bg);
+  width: 100%;
+  height: 8rem;
+  min-width: 20rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.user-profile-img {
+  object-fit: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.user-desc-header {
+  display: flex;
+  align-items: baseline;
+}
+
+.user-desc .icon {
+  width: 1rem;
+  height: 1rem;
+  min-width: 1rem;
+  min-height: 1rem;
+}
+
+.user-desc-edit-icon {
+  cursor: pointer;
+}
+
+.user-host-meet-list {
+  padding: 0;
+}
+
+.user-host-meet {
+  align-items: flex-start;
+  display: flex;
+  margin: 2rem 1rem;
+}
+
+.user-host-meet-title {
+  min-width: 18rem;
+  max-width: 18rem;
+}
+
+.user-host-meet-peoples {
+  width: 1.2rem;
+  height: 1.2rem;
+  min-width: 1.2rem;
+  min-height: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.people-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  min-width: 1.2rem;
+  min-height: 1.2rem;
+  margin-right: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.user-host-meet-status {
+  align-items: flex-start;
+  display: flex;
+}
+
+.user-host-meet-status > {
+  min-width: 3rem;
+}
+
+.user-host-meet-status-text {
+  line-height: 1.2rem;
+  min-width: 3rem;
+  text-align: right;
+}
+
+.user-host-meet-date {
+  line-height: 1.2rem;
+  margin: 0 0.5rem;
+}
+
+.status-icon {
+  width: 2rem;
+  height: 2rem;
+  min-width: 2rem;
+  min-height: 2rem;
+  margin: 0 1rem;
+}
+
+.user-schedule {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.schedule-time-badge {
+  width: 4rem;
+  min-width: 4rem;
+  height: 4rem;
+  min-height: 4rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125);
+  padding: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.schedule-date {
+  font-size: 16px;
+  font-weight: 200;
+}
+
+.schedule-time {
+  font-size: 12px;
+  font-weight: 100;
+}
+
+.schedule-info {
+  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.schedule-data {
+  display: flex;
+}
+
+.log-list {
+  clear: both;
+  overflow-y: scroll;
+}
+
+
+.search-container{
+    display : flex;
+    position: relative;
+    background-color :#f8f5f0;
+    top : 0;
+    border-bottom : 1px solid var(--bs-border-color);
+    justify-content: left;
+}
+
+.search-container-logo{
+    margin-left : 3.5rem;
+}
+
+.mypage{
+    display : flex;
+    width : 100%;
+    height : 6.25rem;
+    justify-content: center;
+    align-items: center;
+    color : #325d88;
+    font-size : 30px;
+    border-bottom : 1px solid var(--bs-border-color);
+}
+
+.nav-link{
+    justify-content: center;
+    align-items: center;
+}
+.profile-layout{
+    display : flex;
+    flex-direction: row;
+    width : 100%;
+    height : 100vh;
+}
+
+.profile-sidebar{
+    height : 90%;
+    min-width : 200px;
+    background-color : #FFF;
+    border-right : solid 1px var(--bs-border-color);
+    
+}
+
+.user-desc-header{
+    padding : 15px 0px 15px 0px;
+}
+
+.user-host-meet-title{
+    min-width : 200px;
+    max-width : 500px;
+    width : 700px;
+}
+
+.profile-main{
+    height :90%;
+    background-color : #FFF;
+    justify-content: center;
+    align-items: center;
+    overflow : auto;
+    
+}
+
+#sidebar-body{
+    right : 0;
+    position : relative;
+    width : 100%;
+    padding : 80px 200px 80px 100px;
+    background-color : #FFFFFF
+}
+
+.badge{
+    display : flex;
+    justify-content: center;
+}
+
+.tab {
+  float: left;
+  width: 100%;
+  height: 100%;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  border-bottom : 1px var(--bs-border-color) solid;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #f8f9fa;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: #e7e7e7;
+}
+
+#profile-fix{
+    display : none;
+    flex-direction: column;
+    width : 100%;
+    align-items : center;
+    justify-content: center;
+}
+
+.profile-fix-main{
+    display : flex;
+    flex-direction: row;
+    margin-top : 100px;
+    width : 70%;
+    justify-content: center;
+
+}
+
+.profile-userInfo{
+    position: absolute;
+    left: 330px;
+    top: 155px;
+
+}
+
+.profile-img-name{
+    display : flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-right : 20px;
+    overflow : hidden;
+}
+
+.profile-context{
+    display : flex;
+    flex-direction : column;
+    width : 60%;
+    height : 100%;
+}
+
+.profile-fix-image{
+    position : relative;
+    width : 136px;
+    height : 200px;
+}
+
+.profile-textarea{
+    display : flex;
+    flex-direction :row;
+    margin-bottom : 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-control{
+    background-color: #f1f1f1;
+    border-color : #FFF;
+    height : 34px;
+    padding : 6px 12px;
+    font-size : 14px;
+    line-height : 1.428;
+    border-radius : 4px;
+}
+
+.register-button{
+    width : 8rem;
+    font-weight : bold;
+}
+
+.image-button{
+    display : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    width : 64%;
+    position : relative;
+    align-items : center;
+    margin : 0 0 30px 0;
+}
+
+.profile-fix-image-button{
+    width : 40px;
+    height : 40px;
+    filter: invert(33%) sepia(11%) saturate(2546%) hue-rotate(169deg) brightness(96%) contrast(89%);
+    cursor : pointer;
+}
+
+.profile-button{
+    display : flex;
+    flex-direction: row;
+    width : 100%;
+    justify-content: center;
+}
+
+#logout-modal{
+    display : none;
+    position : absolute;
+    width : 100%;
+    height : 100%;
+    background-color: rgb(0,0,0,0.2);
+    top : 0;
+    left : 0;
+    z-index : 2;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content{
+    background-color : white;
+    width : 325px;
+    height : 160px;
+    text-align: center;
+    border-radius : 12px;
+}
+
+.modal-button{
+    display : flex;
+    flex-direction: row;    
+    justify-content: center;
+    align-items: center;
+    margin-top : 30px;
+}
+h4{
+    margin : 3px;
+}
+
+#button-logout, #button-cancel{
+    width : 96px;
+    height : 40px;
+}
+
+
+/* table */
+
+table {
+  border: 1px #a39485 solid;
+  font-size: .9em;
+  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 5px;
+  overflow: hidden;
+  margin : 25px 0 25px 0;
+}
+
+th {
+  text-align: left;
+}
+  
+thead {
+  font-weight: bold;
+  color: #fff;
+  background: #73685d;
+}
+  
+ td, th {
+  padding: 1em .5em;
+  vertical-align: middle;
+}
+  
+ td {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  background: #fff;
+  cursor : pointer;
+}
+
+td:hover{
+    background : #f8f9fa;
+}
+
+a {
+  color: #73685d;
+}
+  
+ @media all and (max-width: 768px) {
+    
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  
+  th {
+    text-align: right;
+  }
+  
+  table {
+    position: relative; 
+    padding-bottom: 0;
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+  }
+  
+  thead {
+    float: left;
+    white-space: nowrap;
+  }
+  
+  tbody {
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    white-space: nowrap;
+  }
+  
+  tr {
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  th {
+    border-bottom: 1px solid #a39485;
+  }
+  
+  td {
+    border-bottom: 1px solid #e5e5e5;
+  }
+  
+  
+  }
+
+  .profile-textarea-text{
+    color : #325d88;
+    text-transform : uppercase;
+    letter-spacing : 1px;
+    margin : 0 1rem 0 0;
+    font-size : 18px;
+    font-weight : bold;
+  }
+

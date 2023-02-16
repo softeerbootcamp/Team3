@@ -1,7 +1,14 @@
 // import { TcardDetail } from '../common/constants';
 
-import { Tcard, TcardDetail, Tcomment, Tfilters, /*TloginData,*/ } from "../common/constants";
-import Navigate from "../common/utils/navigate";
+import {
+  Tcard,
+  TcardDetail,
+  Tcomment,
+  Tfilters,
+  /*TloginData,*/ TsignupData,
+  TuserInfo
+} from '../common/constants';
+import Navigate from '../common/utils/navigate';
 
 export const SET_NAVIGATE = 'SET_NAVIGATE';
 export const FILTER_REGION = 'FILTER_REGION';
@@ -20,6 +27,8 @@ export const FETCH_ERROR = 'FETCH_ERROR';
 export const SET_MODAL = 'SET_MODAL';
 export const POST_CARD = 'POST_CARD';
 export const EDIT_CARD = 'EDIT_CARD';
+export const PROFILE_TAB = 'PROFILE_TAB';
+export const SET_PROFILE = 'SET_PROFIlE'
 // export const REFRESH_CARDS = 'REFRESH_CARDS';
 
 export function setNavigate(navigate:Navigate) {
@@ -168,4 +177,19 @@ export function editCard(modalAction:string) {
     type: EDIT_CARD,
     payload: {modalAction}
   };
+}
+
+
+export function changeProfileTab(tabNumber : number){
+  return {
+    type : PROFILE_TAB,
+    payload: {tabNumber}
+  }
+}
+
+export function getUserInfo(userInfoResponse : TuserInfo){
+  return {
+    type : SET_PROFILE,
+    payload : {userInfoResponse}
+  }
 }

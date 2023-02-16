@@ -65,6 +65,8 @@ type TinitialState = {
   error: Error|null;
   modalAction: string;
   redirect: string| null;
+  userInfo : TuserInfo;
+  tabNumber : number;
 };
 type TsignupData= {
   userId: string;
@@ -76,6 +78,36 @@ type TloginData= {
   userId: string;
   password: string;
 }
+
+
+type TuserInfo={
+  userName : string;
+  email : string;
+  profileImg : string;
+  userDesc : string;
+  userId : string;
+  userHostCards : TuserHostCard[];
+  userJoinCards : TuserJoinCard[];
+}
+type TuserHostCard={
+  id : string;
+  title : string;
+  curr : number;
+  total : number;
+  isClosed : boolean;
+  meetingDay : Date;
+}
+type TuserJoinCard = {
+  id: string;
+  title: string;
+  curr: number;
+  total: number;
+  isClosed: boolean;
+  meetingDay: Date;
+  regionId : number;
+  categoryId : number;
+};
+
 type TpostCard= {
   title: string,
 categoryId: number,
@@ -85,6 +117,7 @@ total: number,
 meetingDay: string,
 content: string
 }
+
 const regionSi: TdropDown = {
   1: '서울특별시',
   2: '부산광역시',
@@ -141,5 +174,8 @@ export {
   TsignupData,
   TloginData,
   Taction,
+  TuserInfo,
+  TuserHostCard,
+  TuserJoinCard,
   TpostCard
 };
