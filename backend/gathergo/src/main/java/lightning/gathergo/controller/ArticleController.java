@@ -75,6 +75,7 @@ public class ArticleController {
         articleService.mergeLocation(request);
         Article article = articleMapper.toArticle(request);
         Session session = sessionService.findSessionBySID(sessionId).get();
+
         article.setHostId(userService.findUserByUserId(session.getUserId()).get().getId());
         article.setRegionId(regionService.getRegionByName(regionName).get().getId());
         article = articleService.addArticle(article);
