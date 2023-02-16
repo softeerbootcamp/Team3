@@ -125,6 +125,7 @@ public class ArticleController {
 
         if(!userId.isBlank()){
             articleService.setHasJoinedAndIsHost(data, userId);
+            commentService.setIsMyComment(data, userId);
         }
 
 
