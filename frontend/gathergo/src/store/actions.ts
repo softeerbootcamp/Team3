@@ -1,6 +1,6 @@
 // import { TcardDetail } from '../common/constants';
 
-import { Tcard, /*TloginData,*/ TsignupData } from "../common/constants";
+import { Tcard, /*TloginData,*/ TsignupData, TuserInfo } from "../common/constants";
 
 export const FILTER_REGION = 'FILTER_REGION';
 export const FILTER_CATEGORY = 'FILTER_CATEGORY';
@@ -13,7 +13,8 @@ export const SEND_COMMENT = 'SEND_COMMENT';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 export const FETCH_ERROR = 'FETCH_ERROR';
 export const SET_MODAL = 'SET_MODAL';
-export const PROFILE_TAB = 'PROFILE_TAB'
+export const PROFILE_TAB = 'PROFILE_TAB';
+export const SET_PROFILE = 'SET_PROFIlE'
 // export const REFRESH_CARDS = 'REFRESH_CARDS';
 
 export function fiterRegion(regionId:number) {
@@ -131,5 +132,12 @@ export function changeProfileTab(tabNumber : number){
   return {
     type : PROFILE_TAB,
     payload: {tabNumber}
+  }
+}
+
+export function getUserInfo(userInfoResponse : TuserInfo){
+  return {
+    type : SET_PROFILE,
+    payload : {userInfoResponse}
   }
 }

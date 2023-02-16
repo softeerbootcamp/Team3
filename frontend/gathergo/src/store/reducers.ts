@@ -13,6 +13,7 @@ import {
   USER_LOGIN,
   USER_LOGOUT,
   PROFILE_TAB,
+  SET_PROFILE,
 } from './actions';
 import { initialState } from '../server/initialstate';
 // import { logInSuccess, logOut } from '../common/commonFunctions';
@@ -126,6 +127,9 @@ function reducer(state = initialState, action: Taction) {
     case PROFILE_TAB:
       state.tabNumber = action.payload.tabNumber;
       return {...state, profileTab : action.payload.tabNumber}
+    case SET_PROFILE:
+      state.userInfo = action.payload.userInfo;
+      return {...state, userInfo : action.payload.userInfo}
     default:
     return state;
   }

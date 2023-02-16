@@ -6,6 +6,7 @@ import {
   userLogin,
   userLogout,
   userSignup,
+  getUserInfo,
 } from '../store/actions';
 import { Tcomment, TloginData, TsignupData } from './constants';
 
@@ -112,6 +113,18 @@ export async function fetchGetComments(cardID: string|undefined) {
       return fetchError(error);
     }
   }
+
+export async function fetchGetUserInfo(){
+  try {
+    const response = await fetch(url + 'api/users');
+    console.log(response);
+    const userInfoResponse = await response.json();
+    return getUserInfo(userInfoResponse);
+  } catch (error) {
+    console.log(error);
+    return fetchError(error);
+  }
+}
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getQuery(params: any): string {
   return Object.keys(params)

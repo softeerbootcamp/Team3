@@ -11,6 +11,10 @@ class Profile {
   constructor($container: HTMLElement) {
     this.$container = $container;
     this.render();
+
+    store.subscribe(() => {
+      //fetch??
+    });
   }
   setState = () => {
     this.render();
