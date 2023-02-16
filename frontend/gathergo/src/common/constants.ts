@@ -2,7 +2,6 @@ import Home from '../pages/home';
 import Profile from '../pages/profile';
 import Login from '../pages/login';
 import Post from '../pages/post';
-// import Navigate from './utils/navigate';
 
 const BASE_URL = 'http://localhost:5173';
 
@@ -20,9 +19,13 @@ type Taction = {
 type TdropDown = {
   [key: number]: string;
 };
-
+type Tfilters = {
+  regionId: number,
+  categoryId: number,
+  keyword: string,
+}
 type Tcard = {
-  id: string;
+  uuid: string;
   title: string;
   curr: number;
   total: number;
@@ -35,27 +38,29 @@ type TcardDetail =
   | (Tcard & {
       hostId: string;
       hostDesc: string;
+      hostProfile:string;
       content: string;
       location: string;
       locationDetail: string;
-      //   comments: Tcomment[];
+      hasJoined:boolean;
+      isHost:boolean;
     })
   | null;
 type Tcomment = {
   uuid: string|undefined;
   userId: string;
   content: string;
-  date: string;
+  date: Date;
+  isMyComment:boolean;
 };
 
 type TinitialState = {
+  // navigate: Navigate|null;
   cards: Tcard[];
   readingCard: TcardDetail;
   comments: Tcomment[];
-  filterRegion: number;
-  filterCategory: number;
+  filters: Tfilters;
   isLoading: boolean;
-  // userLoginId: string|null;
   sessionId: string;
   error: Error|null;
   modalAction: string;
@@ -73,6 +78,7 @@ type TloginData= {
   userId: string;
   password: string;
 }
+
 
 type TuserInfo={
   userName : string;
@@ -101,6 +107,17 @@ type TuserJoinCard = {
   regionId : number;
   categoryId : number;
 };
+
+type TpostCard= {
+  title: string,
+categoryId: number,
+location: string,
+locationDetail: string,
+total: number,
+meetingDay: string,
+content: string
+}
+
 const regionSi: TdropDown = {
   1: '서울특별시',
   2: '부산광역시',
@@ -149,6 +166,7 @@ export {
   routes,
   regionSi,
   category,
+  Tfilters,
   Tcard,
   TcardDetail,
   Tcomment,
@@ -158,5 +176,6 @@ export {
   Taction,
   TuserInfo,
   TuserHostCard,
-  TuserJoinCard
+  TuserJoinCard,
+  TpostCard
 };

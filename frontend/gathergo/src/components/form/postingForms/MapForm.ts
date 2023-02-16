@@ -1,6 +1,8 @@
 class MapForm {
     element: HTMLElement;
-    constructor() {
+    location:string;
+    constructor(location="현대자동차본사") {
+        this.location = location;
       this.element = document.createElement('div');
       this.element.id= 'form-map-wrapper'
       this.element.classList.add('show');
@@ -13,7 +15,7 @@ class MapForm {
             <div class="option">
                 <div>
                     <form action="#" onsubmit="return false;">
-                        키워드 : <input class="form-control form-control-sm" type="text" value="코드스쿼드" id="keyword"
+                        키워드 : <input class="form-control form-control-sm" type="text" value="${this.location}" id="keyword"
                             size="15">
                         <button type="submit" id="keywordBtn" class="btn btn-primary">검색하기</button>
                     </form>

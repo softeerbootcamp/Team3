@@ -31,6 +31,14 @@ public class SessionService {
         return s;
     }
 
+    public Session createSession(String userId, String userName, String userUuid) throws IllegalStateException {
+
+        Session s = new Session(userId, userName, userUuid);
+        sessionRepository.createSession(s);
+
+        return s;
+    }
+
     public Session deleteSession(String sid) {
         return sessionRepository.deleteSessionBySid(sid);
     }

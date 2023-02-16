@@ -1,6 +1,7 @@
 package lightning.gathergo.service;
 
 import lightning.gathergo.dto.LoginDto;
+import lightning.gathergo.model.Article;
 import lightning.gathergo.model.User;
 import lightning.gathergo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,9 @@ public class UserService {
     }
 
     public void addUser(User user) {
-        user.setUuid(String.valueOf(UUID.randomUUID()));
+        if(user.getUuid() == null || user.getUuid().isBlank())
+            user.setUuid(String.valueOf(UUID.randomUUID()));
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         try {
             userRepository.save(user);
@@ -34,6 +37,10 @@ public class UserService {
             // TODO: Exception 타입에 따라 달리 처리
             throw new DuplicateKeyException(e.getMessage());
         }
+    }
+
+    public Optional<User> findUserByUserUuid(String uuid){
+        return userRepository.findUserByUserUuid(uuid);
     }
 
     public User save(User user) {
@@ -46,6 +53,9 @@ public class UserService {
 
     public Optional<User> findUserByUserId(String userId) {
         return userRepository.findUserByUserId(userId);
+    }
+    public Optional<User> findUserById(Integer Id) {
+        return userRepository.findById(Id);
     }
 
     public void deleteUserByUserId(String userId) {
@@ -60,4 +70,13 @@ public class UserService {
 
         return user.get();
     }
+
+    public List<Article> getParticipatingArticlesById(Integer userId){
+        return userRepository.findParticipatingArticlesById(userId);
+    }
+
+    public List<Article> getHostingArticlesById(Integer userId){
+        return userRepository.findHostingArticlesById(userId);
+    }
+
 }

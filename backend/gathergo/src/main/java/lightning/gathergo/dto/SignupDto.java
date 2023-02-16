@@ -16,6 +16,10 @@ public class SignupDto {
         private String password;
         private String email;
 
+        public SignupInput() {
+
+        }
+
         public SignupInput(String userId, String userName, String password, String email) {
             this.userId = userId;
             this.userName = userName;
@@ -37,6 +41,22 @@ public class SignupDto {
 
         public String getEmail() {
             return email;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
         }
     }
 

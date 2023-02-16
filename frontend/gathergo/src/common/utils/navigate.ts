@@ -1,15 +1,6 @@
-// export const navigate = (to: string, isReplace = false) => {
-//   const historyChangeEvent = new CustomEvent('historychange', {
-//     detail: {
-//       to,
-//       isReplace,
-//     },
-//   });
 
 import Router from "../../router";
-
-//   dispatchEvent(historyChangeEvent);
-// };
+import store from "../../store/store";
 
 class Navigate {
   router: Router;
@@ -17,13 +8,8 @@ class Navigate {
     this.router = router;
   }
   to(path: string) {
-    history.pushState({}, '', path);
+    history.pushState(store.getState(), '', path);
     this.router.route();
   }
 }
 export default Navigate;
-// type Navigate = (path: string) => void;
-// navigate: Navigate = (path) => {
-//   history.pushState({}, '', path);
-//   this.route();
-// };

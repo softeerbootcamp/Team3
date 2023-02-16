@@ -4,7 +4,6 @@ class TitleForm {
       this.element = document.createElement('div');
       this.element.classList.add('form-title');
       this.render();
-      // store.subscribe(() => this.render());
     }
     render(){
         this.element.innerHTML =
@@ -12,7 +11,8 @@ class TitleForm {
         <strong>만남 이름</strong>
     </h4>
     <div class="form-input">
-        <input class="form-control form-control-lg" type="text" placeholder="만남 이름을 설정해주세요." id="inputLarge">
+        <input class="form-control form-control-lg" type="text" placeholder="만남 이름을 설정해주세요." id="inputLarge"
+        value="">
     </div>`
     }
 }

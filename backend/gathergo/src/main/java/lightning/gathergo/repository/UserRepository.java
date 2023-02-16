@@ -16,6 +16,9 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query(value="select * from user u where u.userId = :userId")
     Optional<User> findUserByUserId(String userId);
 
+    @Query(value="select * from user u where u.uuid = :uuid")
+    Optional<User> findUserByUserUuid(String uuid);
+
     @Modifying
     @Query(value="delete from user u where u.userId = :userId")
     void deleteUserByUserId(String userId);
@@ -30,6 +33,9 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     // 호스팅 모임 조회
     @Query(value = "select a.* from article a where :id = a.hostId")
     List<Article> findHostingArticlesById(Integer id);
+
+    @Query("select * from user where uuid = :uuid")
+    User findByUuid(String uuid);
 
     @Query(value="insert into user (userId, userName, password, email)")
     void save(String userId, String userName, String password, String email);
