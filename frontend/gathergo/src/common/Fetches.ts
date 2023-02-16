@@ -281,20 +281,21 @@ export async function fetchGetUserInfo() {
 }
 
 export async function changeUserProfileImg(imageSrc: string, useruuId : string){
-
   const formData = new FormData();
-  formData.append("file", new Blob([JSON.stringify(imageSrc)]));
+  //formData.append("file", new Blob([JSON.stringify(imageSrc)]));
+  formData.append("file", new Blob([imageSrc],{type:'image/png'}));
 
-  try{
-    const response = await fetch(url + 'api/image/'+useruuId, {
+
+  try {
+    const response = await fetch(url + 'api/image/' + useruuId, {
       method: 'POST',
       credentials: 'include',
-      body : formData,
+      body: formData,
     });
     const postImgResponse = await response.json();
-    console.log(postImgResponse)
-    return changeProfileImg(imageSrc)
-  }catch(error){
+    console.log(postImgResponse);
+    return changeProfileImg(imageSrc);
+  } catch (error) {
     console.log(error);
     return fetchError(error);
   }
