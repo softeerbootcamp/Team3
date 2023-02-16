@@ -103,5 +103,8 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
 
     @Query("select u.* from user u join article a on u.id = a.hostId where a.uuid=:articleUuid")
     User findUserInfoByArticleHostId(String articleUuid);
+
+    @Query("select * from article where meetingDay=:currentTimestamp and isClosed=0")
+    List<Article> findClosableArticles(Timestamp currentTimestamp);
 }
 
