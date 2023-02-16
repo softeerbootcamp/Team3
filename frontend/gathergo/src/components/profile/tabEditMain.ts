@@ -38,14 +38,15 @@ class tabEditMain {
                     </div>
                 </div>
             </div>
+            <div class = "profile-textarea" id = "userid">
+                <div class = "profile-textarea-text" style = "width : 6.25rem">아이디</div>
+                <input type = "text" id = "profile-id-edit" value = ${this.userEditInfo.userId} class = "form-control" readonly>
+            </div>
             <div class = "profile-textarea" id = "name">
                 <div class = "profile-textarea-text" style = "width : 6.25rem">이름</div>
                 <input type = "text" value = ${this.userEditInfo.userName} class = "form-control" readonly>
             </div>
-            <div class = "profile-textarea" id = "userid">
-                <div class = "profile-textarea-text" style = "width : 6.25rem">아이디</div>
-                <input type = "text" id = "profile-id-edit" value = ${this.userEditInfo.userId} class = "form-control">
-            </div>
+
             <div class = "profile-textarea" id = "email">
                 <div class = "profile-textarea-text" style = "width : 6.25rem">이메일</div>
                 <input type = "text" id = "profile-email-edit" value = ${this.userEditInfo.email} class = "form-control" readonly>
@@ -83,7 +84,6 @@ class tabEditMain {
   }
   profileEditButton() {
     const profileEdit = this.element.querySelector('#profile-edit-button')
-    const emailEdit = this.element.querySelector('#profile-id-edit') as HTMLTextAreaElement;
     const descEdit = this.element.querySelector('#profile-desc-edit') as HTMLTextAreaElement;
     profileEdit?.addEventListener('click',()=>{
         const profileFileEdit = this.element.querySelector(
@@ -91,7 +91,6 @@ class tabEditMain {
             ) as HTMLImageElement;
         const EditFetch = {
             profile : profileFileEdit.src,
-            email : emailEdit.value,
             desc : descEdit.value
         };
         console.log(EditFetch);

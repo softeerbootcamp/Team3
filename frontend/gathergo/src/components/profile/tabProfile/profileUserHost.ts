@@ -20,7 +20,7 @@ class profileUserHost {
 
     this.element.innerHTML += `
         <td>${this.userHostData.meetingDay.getFullYear()}년 ${this.userHostData.meetingDay.getMonth()}월 ${this.userHostData.meetingDay.getDay()}일</td>
-`;
+        `;
     this.addHostLinkEvent()
   }
 

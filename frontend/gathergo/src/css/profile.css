@@ -168,7 +168,7 @@ thead {
   cursor : pointer;
 }
 
-tr:hover{
+tbody > tr:hover{
   background : #f8f9fa;
 }
   

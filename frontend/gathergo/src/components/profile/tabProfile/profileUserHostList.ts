@@ -22,6 +22,7 @@ class profileUserHostList {
     });
   }
   render() {
+
     this.element.innerHTML = `
         <h3 style = "padding : 1rem 0 0 0"><strong>내가 호스트한 만남</strong></h3>
         <table>
@@ -33,13 +34,17 @@ class profileUserHostList {
                     <th>만남 일정</th>
                 </tr>
             </thead>
+            <tbody>
+          </tbody>
         </table>
+
 `;
 
     this.userInfoData.userHostCards.forEach((e) => {
       const userHostElement = new profileUserHost(e);
-      this.element.querySelector('table')?.appendChild(userHostElement.element);
+      this.element.querySelector('tbody')?.appendChild(userHostElement.element);
     });
+
   }
 }
 export default profileUserHostList;

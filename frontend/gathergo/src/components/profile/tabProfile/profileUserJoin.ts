@@ -1,6 +1,5 @@
 import { TuserJoinCard } from '../../../common/constants';
-import store from '../../../store/store';
-import { fiterRegion } from '../../../store/actions';
+import { regionSi, category } from '../../../common/constants';
 
 
 class profileUserJoin {
@@ -25,10 +24,10 @@ class profileUserJoin {
         <strong class="scheduel-title">${this.userJoinData.title}</strong>
         <div class="schedule-data">
             <span class="badge rounded-pill bg-secondary">${
-              this.userJoinData.regionId
+              regionSi[this.userJoinData.regionId]
             }</span>
             <span class="badge rounded-pill bg-light">${
-              this.userJoinData.categoryId
+              category[this.userJoinData.categoryId]
             }</span>
             <div class="user-host-meet-peoples">
             <img class="people-icon icon" src="../../assets/Icons/peopleIcon.png" alt="User" />
