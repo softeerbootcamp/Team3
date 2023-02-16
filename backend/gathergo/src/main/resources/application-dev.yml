@@ -2,6 +2,9 @@ server:
   servlet:
     context-path: /api
 
+  tomcat:
+    max-http-form-post-size: 10MB
+
   session:
     cookie:
       same-site: none
