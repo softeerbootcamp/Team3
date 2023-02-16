@@ -125,7 +125,7 @@ public class GatheringDto {
             this.categoryId = categoryId;
         }
 
-        public ArticlePartialDto(Article article, int curr) {
+        public ArticlePartialDto(Article article, Integer curr) {
             this.uuid = article.getUuid();
             this.title = article.getTitle();
             this.curr = curr;
