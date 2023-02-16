@@ -1,6 +1,7 @@
 package lightning.gathergo.scheduler;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lightning.gathergo.model.Article;
 import lightning.gathergo.repository.ArticleRepository;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ public class ArticleScheduler {
     private final Logger logger = LoggerFactory.getLogger(ArticleScheduler.class);
 
     private ArticleRepository articleRepository;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private Timestamp currTimestamp;
     private LocalDateTime now;
 
@@ -41,7 +43,7 @@ public class ArticleScheduler {
         if(closableArticles.size()==0) return;
 
         System.out.println("after return");
-        
+
         closableArticles.forEach(article -> {
             articleRepository.updateArticleById(article.getTitle(), article.getTotal(), true, article.getContent(),
                     article.getMeetingDay(), article.getLocation(), article.getRegionId(), article.getCategoryId(),
