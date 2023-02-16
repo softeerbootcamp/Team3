@@ -105,4 +105,23 @@ public class UserDto {
         }
     }
 
+
+    public static class PutProfile {
+        private String introduction;
+
+        public PutProfile(String introduction) {
+            this.introduction = introduction;
+        }
+
+        public PutProfile() {
+        }
+
+        public String getIntroduction() {
+            return introduction;
+        }
+
+        public void setIntroduction(String introduction) {
+            this.introduction = introduction;
+        }
+    }
 }
