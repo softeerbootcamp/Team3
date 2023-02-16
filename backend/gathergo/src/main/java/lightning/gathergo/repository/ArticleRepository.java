@@ -56,6 +56,8 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
 
     @Query("select * from article where regionId = :regionId")
     List<Article> findCurrentRegionArticles(int regionId);
+    @Query("select * from article where categoryId = :categoryId")
+    List<Article> findArticlesByCategoryId(int categoryId);
 
     @Query("select * from article where regionId = :regionId and categoryId = :categoryId")
     List<Article> findArticlesByRegionAndCategory(int regionId, int categoryId);
