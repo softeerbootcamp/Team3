@@ -168,7 +168,7 @@
 .user-profile {
   background: var(--bs-body-bg);
   width: 2rem;
-  /* height: 2rem; */
+  height: 2rem;
   /* min-width: 5rem;
   min-height: 5rem; */
   border-radius: 50%;
@@ -176,7 +176,8 @@
 }
 
 .user-profile-img {
-  object-fit: cover;
+  overflow: hidden;
+  /* object-fit: cover;*/
   display: block;
   width: 100%;
   height: 100%;

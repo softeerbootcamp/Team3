@@ -1,5 +1,6 @@
 import { formMapGenerator, showMapEvent } from "../common/kakaoMapAPI/kakaoMapAPI";
 import Navigate from "../common/utils/navigate";
+import Fba from "../components/fba/fba";
 import PostingForm from "../components/form/postingForm";
 import HeaderDefault from "../components/header/headerDefault";
 import { checkLogin } from "../store/actions";
@@ -31,8 +32,11 @@ class Post {
     showMapEvent();
 
     
-    
+    this.setFBA();
     return;
+  }
+  setFBA(){
+    new Fba(this.$container)
   }
 }
 

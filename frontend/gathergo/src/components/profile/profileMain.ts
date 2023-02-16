@@ -2,6 +2,7 @@ import tabProfileMain from './tabProfileMain';
 import tabEditMain from './tabEditMain'
 import tabLogoutModal from './tabLogoutModal';
 import store from '../../store/store'
+import Fba from '../fba/fba';
 
 class profileMain {
   element: HTMLDivElement;
@@ -55,7 +56,6 @@ class profileMain {
         tabEditDom?.classList.remove('active');
         tabLogoutDom?.classList.add('active');   
     }
-
   }
 }
 export default profileMain;

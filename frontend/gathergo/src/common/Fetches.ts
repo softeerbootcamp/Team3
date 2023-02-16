@@ -182,6 +182,50 @@ export async function deleteComment(articleuuid:string|undefined,commentuuid:str
     return fetchError(error);
   }
 }
+export async function fetchJoin(articleuuid:string|undefined) {
+  try {
+    const response = await fetch(url + 'api/articles/'+articleuuid+'/users', {
+      method: 'PUT',
+      credentials: 'include',
+    });
+    const cardDetailData = await response.json();
+    
+    return fetchCardDetail(cardDetailData.data.articleUuid);
+    // return;// setModal('DELETE_COMMENT_SUCCESS');
+  } catch (error) {
+    console.log(error);
+    return fetchError(error);
+  }
+}
+export async function fetchJoinCancel(articleuuid:string|undefined) {
+  try {
+    const response = await fetch(url + 'api/articles/'+articleuuid+'/users', {
+      method: 'DELETE',
+      credentials: 'include',
+    });
+    const cardDetailData = await response.json();
+    
+    return fetchCardDetail(cardDetailData.data.articleUuid);
+  } catch (error) {
+    console.log(error);
+    return fetchError(error);
+  }
+}
+export async function fetchCloseMeeting(articleuuid:string|undefined) {
+  try {
+    // const response = 
+    await fetch(url + 'api/articles/'+articleuuid+'/close', {
+      method: 'PUT',
+      credentials: 'include',
+    });
+    // const cardDetailData = await response.json();
+    
+    return //fetchCardDetail(cardDetailData.data.articleUuid);
+  } catch (error) {
+    console.log(error);
+    return fetchError(error);
+  }
+}
 export async function fetchPostCard(postCardData: TpostCard) {
   try {
     const response = await fetch(url + 'api/articles', {

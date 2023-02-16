@@ -5,7 +5,7 @@ import CardList from '../components/card/CardList';
 import CardModal from '../components/card/CardModal';
 import HeaderHome from '../components/header/HeaderHome';
 import store from '../store/store';
-
+import Fba from '../components/fba/fba'
 class Home {
   $container: HTMLElement | null;
   navigate: Navigate;
@@ -39,6 +39,7 @@ class Home {
 
     this.matchSearchBarValue();
     this.keywordSearchEvent();
+    this.setFBA();
   }
   closeModalEvent(modalEle: HTMLElement) {
     modalEle.addEventListener('click', (e) => {
@@ -91,6 +92,9 @@ class Home {
     store.dispatch(await getArticles({...store.getState().filters, keyword:keywrodValue}))
 
     console.log('ljlkjlk')
+  }
+  setFBA(){
+    new Fba(this.$container)
   }
 }
 
