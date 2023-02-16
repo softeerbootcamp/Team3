@@ -123,7 +123,7 @@ public class ArticleController {
         data.setHost(new GatheringDto.UserDto(user.getUserId(), user.getIntroduction(), user.getProfilePath()));
         articleService.splitLocation(data);
 
-        if(null != sessionId){
+        if(!userId.isBlank()){
             articleService.setHasJoinedAndIsHost(data, userId);
         }
 
