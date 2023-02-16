@@ -11,7 +11,7 @@ class PeopleForm {
             <strong>모집 인원</strong>
         </h4>
         <div class="form-input">
-            <input class="form-control form-control-lg" type="number" placeholder="모집 인원을 설정해주세요." id="inputLarge">
+            <input class="form-control form-control-lg" type="number" min = "1" placeholder="모집 인원을 설정해주세요." id="inputLarge">
         </div>`
     }
 }

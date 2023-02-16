@@ -31,7 +31,8 @@ class CardList {
       const card = new Card(cardData);
       this.element.appendChild(card.element);
       card.element.addEventListener('click', async () => {
-        this.navigate.to(`/?feed=${cardData.uuid}`)
+        // this.navigate.to(`/?feed=${cardData.uuid}`)
+        history.replaceState(store.getState(), "", `/?feed=${cardData.uuid}`);
         this.openCardModal();
         store.dispatch( await fetchCardDetail(cardData.uuid));
       });

@@ -47,12 +47,19 @@ class Home {
       const closeIcon = target.closest('#modal-close-icon');
       if (closeIcon) this.closeModal(modalEle);
     });
+
+    window.addEventListener('popstate', () => {
+      // if(!modalEle.classList.contains('out'))
+        this.closeModal(modalEle);
+    });
   }
 
   closeModal(modalContainer: HTMLElement) {
     modalContainer.classList.add('out');
     document.body?.removeAttribute('class');
-    this.navigate.to('/')
+    // this.navigate.to('/')
+    history.replaceState(store.getState(), "", '/');
+
   }
 
   matchSearchBarValue(){

@@ -3,9 +3,11 @@ import {
   FETCH_ERROR,
   FILTER_SEARCH,
   GET_COMMENT,
+  POST_CARD,
   READ_CARD,
   SEND_COMMENT,
   SET_MODAL,
+  SET_NAVIGATE,
   UPDATE_CARDS,
   USER_LOGIN,
   USER_LOGOUT,
@@ -16,6 +18,11 @@ import { Taction } from '../common/constants';
 function reducer(state = initialState, action: Taction) {
 
   switch (action.type) {
+      case SET_NAVIGATE:
+        return {
+          ...state,
+          navigate: action.payload.navigate,
+        };
       case FILTER_SEARCH:
         return {
           ...state,
@@ -33,7 +40,7 @@ function reducer(state = initialState, action: Taction) {
         ...state,
         isLoading: false,
         error: action.payload.error,
-        modalAction: 'action.payload.modalAction',
+        modalAction: 'ERROR',
       };
     case READ_CARD:
       return { ...state, readingCard: action.payload.readingCard, comments:action.payload.commentsData };
@@ -52,11 +59,15 @@ function reducer(state = initialState, action: Taction) {
     case USER_LOGIN:
       return { ...state, sessionId: action.payload.cookie, redirect:'/' };
     case USER_LOGOUT:
-      //TODO: 쿠키의 세션id 제거
-      //home('/')으로 redirect하기
-      return { ...state, sessionId: '' };
+      return { ...state, sessionId: "", redirect:'/' };
     case SET_MODAL:
       return { ...state, modalAction: action.payload.modalAction };
+    case POST_CARD:
+      return { ...state, redirect:'/', filters:{
+        regionId: 0,
+        categoryId: 0,
+        keyword: "",
+    }};
     default:
       return state;
   }
