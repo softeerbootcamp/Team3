@@ -6,9 +6,6 @@ server:
     cookie:
       same-site: none
       secure: true
-  tomcat:
-    max-http-form-post-size: 10MB
-
 
 spring:
   datasource:
