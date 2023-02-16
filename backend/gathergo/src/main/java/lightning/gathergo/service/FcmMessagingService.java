@@ -65,6 +65,12 @@ public class FcmMessagingService {
         });
     }
 
+    /**
+     * 알림 수신 위한 토픽 구독
+     * @param topic 구독 토픽(게시글 id)
+     * @param deviceToken 기기 식별토큰
+     * @return 성공 여부
+     */
     public boolean subscribeToTopic(int topic, String deviceToken) {
         registrationTokens.computeIfAbsent(topic, k -> new HashSet<>()).add(deviceToken);
 
@@ -94,6 +100,12 @@ public class FcmMessagingService {
         return true;
     }
 
+    /**
+     * 알림 수신 위한 토픽 구독 해제
+     * @param topic 구독 토픽(게시글 id)
+     * @param deviceToken 기기 식별토큰
+     * @return 성공 여부
+     */
     public boolean unsubscribeFromTopic(int topic, String deviceToken) {
         Set<String> tokens = registrationTokens.get(topic);
         if (tokens == null || !tokens.contains(deviceToken)) {
