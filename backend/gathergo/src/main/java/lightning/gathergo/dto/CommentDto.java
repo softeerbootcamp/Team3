@@ -13,14 +13,16 @@ public class CommentDto {
         private String content;
         @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
         private Timestamp date;
+        private Boolean isMyComment = false;
 
-        public Response(){}
+        public Response(){isMyComment = false;}
 
         public Response(String uuid, String userId, String content, Timestamp date) {
             this.uuid = uuid;
             this.userId = userId;
             this.content = content;
             this.date = date;
+            isMyComment = false;
         }
 
         public String getUuid() {
@@ -53,6 +55,14 @@ public class CommentDto {
 
         public void setDate(Timestamp date) {
             this.date = date;
+        }
+
+        public Boolean getIsMyComment() {
+            return isMyComment;
+        }
+
+        public void setIsMyComment(Boolean myComment) {
+            isMyComment = myComment;
         }
     }
 
