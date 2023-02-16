@@ -44,7 +44,7 @@ public class FcmMessagingServiceTest {
         SoftAssertions softly = new SoftAssertions();
 
         // given
-        int topic = 'a';
+        String topic = "a";
         final String deviceToken = String.valueOf(UUID.randomUUID());
 
         // when
@@ -64,7 +64,7 @@ public class FcmMessagingServiceTest {
         SoftAssertions softly = new SoftAssertions();
 
         // given
-        int topic = 1;
+        String topic = "a";
         String deviceToken1 = "device_token1";
         String deviceToken2 = "device_token2";
 
@@ -80,6 +80,26 @@ public class FcmMessagingServiceTest {
         softly.assertThat(subscriptionRepository.findByArticleId(topic)).isNotNull().hasSize(2);
         softly.assertAll();
 
+    }
+
+    @Test
+    @DisplayName("구독에 푸시 알림 보내기")
+    public void sendPushNoticeToTopic() {
+        SoftAssertions softly = new SoftAssertions();
+
+        // given
+        String topic = "a";
+        final String deviceToken = String.valueOf(UUID.randomUUID());
+
+        // when
+        boolean result = messagingService.subscribeToTopic(topic, deviceToken);
+
+        when(subscriptionRepository.findByArticleId(topic)).thenReturn(List.of(new Subscription(topic, deviceToken)));
+        // cleanUp(List.of(deviceToken), topic);
+
+        softly.assertThat(result).isTrue();
+        softly.assertThat(subscriptionRepository.findByArticleId(topic)).isNotNull().hasSize(1);
+        softly.assertAll();
     }
 
     private void cleanUp(List<String> tokens, int topic) {
