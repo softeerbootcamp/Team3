@@ -43,6 +43,7 @@ public class ArticleScheduler {
             articleRepository.updateArticleById(article.getTitle(), article.getTotal(), true, article.getContent(),
                     article.getMeetingDay(), article.getLocation(), article.getRegionId(), article.getCategoryId(),
                     article.getId());
+            System.out.println("--------sth closed-----");
             logger.debug("article whose uuid is "+article.getUuid()+" was closed");
         });
     }
