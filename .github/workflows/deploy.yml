@@ -97,10 +97,6 @@ jobs:
             S3_SECRET_KEY=$S3_SECRET_KEY
             REDIS_HOST=$REDIS_HOST" | sudo tee .env
             
-            # Decrypt the Firebase credentials
-            # sudo chmod +x ./decrypt_firebase_credentials.sh
-            # sudo ./decrypt_firebase_credentials.sh
-            
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/gathergo-server:latest
             sudo docker compose down
             sudo docker-compose up -d
