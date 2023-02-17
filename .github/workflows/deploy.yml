@@ -25,8 +25,8 @@ jobs:
       - name: Set Firebase Credential
         run: |
           cd ./backend/gathergo/src/main/resources
-          touch ./firebase-credentials.json
-          echo "${{ secrets.FIREBASE_CREDENTIALS }}" > ./firebase-credentials.json
+          touch ./firebase_credentials.json
+          echo "${{ secrets.FIREBASE_CREDENTIALS }}" > ./firebase_credentials.json
         shell: bash
 
       - name: Grant execute permission for gradlew
