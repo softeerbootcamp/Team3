@@ -17,7 +17,7 @@ public class AuthConfig {
                 = new FilterRegistrationBean<>();
 
         registrationBean.setFilter(filter);
-        registrationBean.addUrlPatterns("/api/write");
+        registrationBean.addUrlPatterns("/article/test");  // DummyController.class의 테스트 메서드.
         registrationBean.setOrder(1);
 
         return registrationBean;

@@ -12,7 +12,7 @@ server:
 
 firebase:
   credential:
-    path: /home/ubuntu/secrets/firebase_credentials.json
+    path: /firebase_credentials.json
 
 spring:
   datasource:

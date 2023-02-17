@@ -22,6 +22,13 @@ jobs:
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
 
+      - name: Set Firebase Credential
+        run: |
+          cd ./backend/gathergo/src/main/resources
+          touch ./firebase-credentials.json
+          echo "${{ secrets.FIREBASE_KEY }}" > ./firebase-credentials.json
+          shell: bash
+
       - name: Grant execute permission for gradlew
         run:  cd ./backend/gathergo/ && chmod +x ./gradlew
         shell: bash
@@ -91,8 +98,8 @@ jobs:
             REDIS_HOST=$REDIS_HOST" | sudo tee .env
             
             # Decrypt the Firebase credentials
-            sudo chmod +x ./decrypt_firebase_credentials.sh
-            sudo ./decrypt_firebase_credentials.sh
+            # sudo chmod +x ./decrypt_firebase_credentials.sh
+            # sudo ./decrypt_firebase_credentials.sh
             
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/gathergo-server:latest
             sudo docker compose down
