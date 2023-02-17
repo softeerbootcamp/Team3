@@ -1,5 +1,5 @@
 
-import { fetchLogout, fetchGetUserInfo } from "../common/Fetches";
+import { fetchGetUserInfo } from "../common/Fetches";
 import profileLayout from "../components/profile/profileLayout"
 import HeaderDefault from "../components/header/headerDefault";
 // import { userLogout } from "../store/actions";

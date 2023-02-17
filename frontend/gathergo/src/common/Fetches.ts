@@ -305,6 +305,7 @@ export async function changeUserProfileIntroduction(
   introduction: string,
   id: string
 ) {
+  console.log(id)
   try {
     const response = await fetch(url + 'api/users', {
       method: 'PUT',

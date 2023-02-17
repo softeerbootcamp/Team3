@@ -1,6 +1,6 @@
 import { TuserInfo } from '../../common/constants';
 import store from '../../store/store';
-import { changeProfileTab, changeUserIntroduction } from '../../store/actions';
+import { changeProfileTab} from '../../store/actions';
 import {
   changeUserProfileImg,
   changeUserProfileIntroduction,
@@ -100,9 +100,6 @@ class tabEditMain {
       '#profile-desc-edit'
     ) as HTMLTextAreaElement;
     profileEdit?.addEventListener('click', async () => {
-    const profileFileEdit = this.element.querySelector(
-        '#profile-fix-image'
-    ) as HTMLImageElement;
         store.dispatch(
       await changeUserProfileImg(this.test, this.userEditInfo.uuid))
       store.dispatch(
@@ -124,8 +121,7 @@ class tabEditMain {
       const value = profileFileEdit as HTMLInputElement;
       if (value.files && value.files[0]) {
         this.test.append('file', value.files[0]);
-
-        this.reader.onload = function (e) {
+        this.reader.onload = function () {
           const imageDom = document.getElementById(
             'profile-fix-image'
           ) as HTMLImageElement;
