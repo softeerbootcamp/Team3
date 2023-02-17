@@ -6,6 +6,9 @@ server:
       same-site: none
       secure: true
 
+firebase:
+  credential:
+    path: /firebase_credentials.json
 
 spring:
   datasource:
