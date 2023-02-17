@@ -1,6 +1,8 @@
 package lightning.gathergo.service;
 
 import lightning.gathergo.dto.GatheringDto;
+import lightning.gathergo.exception.CustomGlobalException;
+import lightning.gathergo.exception.ErrorCode;
 import lightning.gathergo.model.Article;
 import lightning.gathergo.model.Comment;
 import lightning.gathergo.model.User;
@@ -39,6 +41,7 @@ public class ArticleService {
     public Article addArticle(Article article){
         article.setUuid(generateUuid());
         articleRepository.save(article);
+        relationshipRepository.save(article.getHostId(), article.getId());
         return articleRepository.findById(articleRepository.getLastInsertedId()).get();
     }
 
@@ -51,14 +54,12 @@ public class ArticleService {
 
     public List<Article> getArticlesByRegionAndCategory(Integer regionId, Integer categoryId){
         if(regionId == 0 && categoryId == 0)
-            return (List<Article>) articleRepository.findAll();
+            return articleRepository.findAllArticles();
         if(categoryId == 0)
-            return getArticlesByRegion(regionId);
+            return articleRepository.findCurrentRegionArticles(regionId);
+        if(regionId == 0)
+            return articleRepository.findArticlesByCategoryId(categoryId);
         return articleRepository.findArticlesByRegionAndCategory(regionId, categoryId);
-    }
-
-    public List<Article> getArticlesByRegion(Integer regionId){
-        return articleRepository.findCurrentRegionArticles(regionId);
     }
 
     private List<Article> searchArticlesByKeyword(Integer regionId, Integer categoryId, String keyword){
@@ -66,6 +67,8 @@ public class ArticleService {
             return articleRepository.findByKeyword(keyword);
         if(categoryId == 0)
             return articleRepository.findByKeywordAndRegion(keyword, regionId);
+        if(regionId == 0)
+            return articleRepository.findByKeywordAndCategory(keyword, categoryId);
         return articleRepository.findByKeywordAndRegionAndCategory(keyword, regionId, categoryId);
     }
 
@@ -95,7 +98,7 @@ public class ArticleService {
     public void addGuest(String userId, String articleUuid){
         if(countService.getCount(articleUuid) >=
                 articleRepository.findByUuid(articleUuid).get().getTotal()){
-            // throw exception
+            throw new CustomGlobalException(ErrorCode.ALREADY_FULLED);
         }
         relationshipRepository.save(
                 userRepository.findUserByUserId(userId).get().getId(),
@@ -137,6 +140,9 @@ public class ArticleService {
     public void mergeLocation(GatheringDto.CreateRequest request){
         request.setLocation(request.getLocation() + "-=-=-=-=-=" + request.getLocationDetail());
     }
+    public void mergeLocation(GatheringDto.UpdateRequest request){
+        request.setLocation(request.getLocation() + "-=-=-=-=-=" + request.getLocationDetail());
+    }
     public void splitLocation(GatheringDto.ArticleDetailResponse data){
         GatheringDto.ArticleFullDto article = data.getArticle();
         String location = article.getLocation();
@@ -148,7 +154,7 @@ public class ArticleService {
 
     public void setHasJoinedAndIsHost(GatheringDto.ArticleDetailResponse data, String sessionUserId){
         String hostId = data.getHost().getHostId();
-        Integer id = userRepository.findUserByUserId(hostId).get().getId();
+        Integer id = userRepository.findUserByUserId(sessionUserId).get().getId();
 
         if(hostId.equals(sessionUserId)){
             data.getArticle().setHasJoined(true);

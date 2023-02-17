@@ -16,6 +16,9 @@ services:
       resources:
         limits:
           memory: 800M
+    environment:
+      TZ: "Asia/Seoul"
+
   mysql:
     restart: always
     container_name: gathergo-mysql
@@ -27,6 +30,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ${SPRING_DATABASE_PASSWORD}
       MYSQL_DATABASE: ${SPRING_DATABASE_SCHEMA}
+      TZ: "Asia/Seoul"
     deploy:
       resources:
         limits:

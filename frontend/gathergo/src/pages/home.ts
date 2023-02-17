@@ -5,7 +5,7 @@ import CardList from '../components/card/CardList';
 import CardModal from '../components/card/CardModal';
 import HeaderHome from '../components/header/HeaderHome';
 import store from '../store/store';
-
+import Fba from '../components/fba/fba'
 class Home {
   $container: HTMLElement | null;
   navigate: Navigate;
@@ -39,6 +39,8 @@ class Home {
 
     this.matchSearchBarValue();
     this.keywordSearchEvent();
+    this.setFBA();
+    this.openSidebarEvent();
   }
   closeModalEvent(modalEle: HTMLElement) {
     modalEle.addEventListener('click', (e) => {
@@ -47,12 +49,19 @@ class Home {
       const closeIcon = target.closest('#modal-close-icon');
       if (closeIcon) this.closeModal(modalEle);
     });
+
+    window.addEventListener('popstate', () => {
+      // if(!modalEle.classList.contains('out'))
+        this.closeModal(modalEle);
+    });
   }
 
   closeModal(modalContainer: HTMLElement) {
     modalContainer.classList.add('out');
     document.body?.removeAttribute('class');
-    this.navigate.to('/')
+    // this.navigate.to('/')
+    history.replaceState(store.getState(), "", '/');
+
   }
 
   matchSearchBarValue(){
@@ -85,6 +94,23 @@ class Home {
 
     console.log('ljlkjlk')
   }
+  setFBA(){
+    new Fba(this.$container)
+  }
+  openSidebarEvent(){
+    const alarm = document.querySelector('#sidebar-tigger');
+    console.log(alarm);
+    
+    document.querySelector<HTMLElement>('#sidebar-tigger')?.addEventListener('click',()=>{
+      this.openSidebar();
+    })
+}
+openSidebar(){
+    document.querySelector('#alarm-sidebar')?.classList.add('active');
+    document.querySelector('.sidebar-container')?.classList.add('active');
+    document.body.classList.add('modal-active')
+    
+}
 }
 
 export default Home;

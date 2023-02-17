@@ -1,4 +1,3 @@
-// import { logIn, logOut } from "../../common/commonFunctions";
 
 import { fetchLogin, fetchSignup } from "../../common/Fetches";
 import store from "../../store/store";
@@ -91,10 +90,8 @@ class LoginForm {
     });
   }
   showSignIn() {
-    // window.location.assign('/login?action=login');
-    history.replaceState(null, "", '/login?action=login');
+    history.replaceState(store.getState(), "", '/login?action=login');
     
-    // logIn();
     this.element
       .querySelector('.login-content-signin')
       ?.classList.remove('ng-hide');
@@ -109,9 +106,7 @@ class LoginForm {
       ?.classList.remove('ng-hide');
   }
   showSignUp() {
-    // window.location.assign('/login?action=signup');
-    history.replaceState(null, "", '/login?action=signup');
-    // logOut();
+    history.replaceState(store.getState(), "", '/login?action=signup');
     this.element
       .querySelector('.login-content-signin')
       ?.classList.add('ng-hide');

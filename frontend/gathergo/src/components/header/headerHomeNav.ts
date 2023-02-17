@@ -31,9 +31,9 @@ class HeaderHomeNav {
             </li>
             <li class="nav-item divider"></li>
             <li class="nav-item">
-              <a class="nav-link alarm" href="#" data-hover="알람">
+              <div id="sidebar-tigger" class="nav-link alarm"  data-hover="알람">
                 <span>알람</span>
-              </a>
+              </div>
               <span class="dot unread"></span>
             </li>
             <li class="nav-item divider"></li>

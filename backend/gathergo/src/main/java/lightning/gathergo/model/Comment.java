@@ -1,5 +1,6 @@
 package lightning.gathergo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
@@ -15,6 +16,7 @@ public class Comment {
     private Integer articleId;
     @Column("userid")
     private Integer userId;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private Timestamp date;
     private String content;
     private String uuid;

@@ -6,7 +6,7 @@ import {
 } from '../../common/constants';
 import { fetchSendComment } from '../../common/Fetches';
 import { modalMapGenerator } from '../../common/kakaoMapAPI/kakaoMapAPI';
-import { setModal } from '../../store/actions';
+import { checkLogin, setModal } from '../../store/actions';
 import store from '../../store/store';
 import CommentInput from '../comment/commentInput';
 import CommentList from '../comment/commentList';
@@ -59,7 +59,7 @@ class CardModal {
       }
     })
     this.element.querySelector('.dropdown-item.delete')?.addEventListener('click',()=>{
-      store.dispatch(setModal('DELETE_MEETING'))
+      store.dispatch(setModal('CLOSE_MEETING'))
     })
 
     this.element.querySelector('.dropdown-item.edit')?.addEventListener('click',()=>{
@@ -114,7 +114,7 @@ class CardModal {
     }</span>
           </div>
         </div>
-        <button type="button" class="feed-info btn btn-primary btn-lg "><strong>참가하기</strong></button>
+        <button type="button" class="feed-info btn btn-primary btn-lg ${this.readingCard?.isHost ?`disabled`:``}"><strong>참가하기</strong></button>
       </div>
     </div>
     `;
@@ -140,7 +140,7 @@ class CardModal {
         aria-expanded="false">
         </div>
       <div class="dropdown-menu  modal-setting-dropdown">
-        <div class="dropdown-item delete" >삭제하기</div>
+        <div class="dropdown-item delete" >마감하기</div>
         <div class="dropdown-item edit" >수정하기</div>
       </div>
     </li>`
@@ -154,7 +154,7 @@ class CardModal {
     mainElement.innerHTML += `
     <div class="user-info container-md">
       <div class="user-profile">
-        <img class="user-profile-img" src="./assets/userProfileImg.jpeg" alt="User" />
+        <img class="user-profile-img" src="${this.readingCard?.hostProfile?this.readingCard?.hostProfile:`./assets/blankProfile.png`}" alt="User" />
       </div>
       <div class="container-sm">
         <strong class="user-id">${this.readingCard?.hostId}</strong>
@@ -180,7 +180,7 @@ class CardModal {
       if (!store.getState().sessionId) modaltype = 'NEED_LOGIN';
       else {
         if(this.readingCard?.hasJoined)
-          modaltype = 'CANCEL_JOIN';
+          modaltype = 'JOIN_CANCEL';
           else{
             modaltype = 'JOIN';
           }
@@ -195,38 +195,44 @@ class CardModal {
     const btnElement =
       this.element.querySelector<HTMLButtonElement>('.comment-send');
     if (inputElement === null) return;
-    inputElement.addEventListener('keyup', (e) => {
+    if (btnElement === null) return;
+    inputElement.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        this.sendComment(inputElement,btnElement);
+        return;
+      }
       if (inputElement.value.length == 0) {
         btnElement?.classList.add('disabled');
+        return;
       } else {
         btnElement?.classList.remove('disabled');
+        return;
       }
-      if (e.key == 'Enter') {
-        this.sendComment(inputElement.value);
-      }
+      
     });
     btnElement?.addEventListener('click', () => {
-      if (store.getState().sessionId) this.sendComment(inputElement.value);
-      else {
-        store.dispatch(setModal('NEED_LOGIN'));
-      }
+      this.sendComment(inputElement,btnElement);
     });
   }
-  async sendComment(text: string) {
-    const sessionId = store.getState().sessionId;
+  async sendComment(inputElement: HTMLInputElement,btnElement:HTMLButtonElement) {
+    // console.log('check')
     if (this.readingCard?.uuid == null) return;
-    if (sessionId == null) {
-      //TODO: login modal, => 로그인 페이지로 이동
+
+    store.dispatch(checkLogin(document.cookie));
+    
+    if (!store.getState().sessionId) {
+      store.dispatch(setModal('NEED_LOGIN'));
       return;
     }
     const date = new Date();
     const commentData = {
-      content: text,
+      content: inputElement.value,
       date: date.toISOString(),
     };
     store.dispatch(await fetchSendComment(this.readingCard.uuid, commentData));
 
-    console.log(text);
+    inputElement.value = ""
+    btnElement?.classList.add('disabled');
   }
 }
 export default CardModal;

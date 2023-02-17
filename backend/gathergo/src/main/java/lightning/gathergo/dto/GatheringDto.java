@@ -2,6 +2,7 @@ package lightning.gathergo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lightning.gathergo.model.Article;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -112,6 +113,32 @@ public class GatheringDto {
             this.categoryId = categoryId;
         }
 
+        public ArticlePartialDto(String uuid, String title, Integer curr, Integer total, Boolean isClosed, String content, Timestamp meetingDay, Integer regionId, Integer categoryId) {
+            this.uuid = uuid;
+            this.title = title;
+            this.curr = curr;
+            this.total = total;
+            this.isClosed = isClosed;
+            this.content = content;
+            this.meetingDay = meetingDay;
+            this.regionId = regionId;
+            this.categoryId = categoryId;
+        }
+
+        public ArticlePartialDto(Article article, Integer curr) {
+            this.uuid = article.getUuid();
+            this.title = article.getTitle();
+            this.curr = curr;
+            this.total = article.getTotal();
+            this.isClosed = article.getClosed();
+            this.content = article.getContent();
+            this.meetingDay = article.getMeetingDay();
+            this.regionId = article.getRegionId();
+            this.categoryId = article.getCategoryId();
+        }
+
+        public ArticlePartialDto() {
+        }
     }
 
     // 게시물 상세 조회 시 article 상세 정보
