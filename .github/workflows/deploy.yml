@@ -22,6 +22,13 @@ jobs:
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
 
+      - name: Set Firebase Credential
+        run: |
+          cd ./backend/gathergo/src/main/resources
+          touch ./firebase-credentials.json
+          echo "${{ secrets.FIREBASE_CREDENTIALS }}" > ./firebase-credentials.json
+        shell: bash
+
       - name: Grant execute permission for gradlew
         run:  cd ./backend/gathergo/ && chmod +x ./gradlew
         shell: bash
