@@ -27,7 +27,7 @@ jobs:
           cd ./backend/gathergo/src/main/resources
           touch ./firebase-credentials.json
           echo "${{ secrets.FIREBASE_KEY }}" > ./firebase-credentials.json
-          shell: bash
+        shell: bash
 
       - name: Grant execute permission for gradlew
         run:  cd ./backend/gathergo/ && chmod +x ./gradlew
