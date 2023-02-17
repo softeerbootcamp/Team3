@@ -1,7 +1,10 @@
 import { TuserInfo } from '../../common/constants';
 import store from '../../store/store';
 import { changeProfileTab, changeUserIntroduction } from '../../store/actions';
-import { changeUserProfileImg, changeUserProfileIntroduction } from '../../common/Fetches';
+import {
+  changeUserProfileImg,
+  changeUserProfileIntroduction,
+} from '../../common/Fetches';
 
 class tabEditMain {
   element: HTMLDivElement;
@@ -18,9 +21,9 @@ class tabEditMain {
     });
     this.render();
 
-    store.subscribe(()=>{
-        this.render;
-    })
+    store.subscribe(() => {
+      this.render;
+    });
   }
   render() {
     this.element.innerHTML = `    
@@ -87,39 +90,57 @@ class tabEditMain {
       store.dispatch(changeProfileTab(0));
     });
   }
-  profileEditButton() {
-    const profileEdit = this.element.querySelector('#profile-edit-button')
-    const descEdit = this.element.querySelector('#profile-desc-edit') as HTMLTextAreaElement;
-    profileEdit?.addEventListener('click',async()=>{
-        const profileFileEdit = this.element.querySelector(
-            '#profile-fix-image'
-            ) as HTMLImageElement;
-        store.dispatch(
-          await changeUserProfileImg(
-            profileFileEdit.src,
-            this.userEditInfo.uuid
-          )
-        );
-        store.dispatch(
-            await changeUserProfileIntroduction(descEdit.value,this.userEditInfo.uuid)
-        )
-        store.dispatch(changeProfileTab(0))
-    })
 
+  reader = new FileReader();
+  test = new FormData();
+
+  profileEditButton() {
+    const profileEdit = this.element.querySelector('#profile-edit-button');
+    const descEdit = this.element.querySelector(
+      '#profile-desc-edit'
+    ) as HTMLTextAreaElement;
+    profileEdit?.addEventListener('click', async () => {
+    const profileFileEdit = this.element.querySelector(
+        '#profile-fix-image'
+    ) as HTMLImageElement;
+        store.dispatch(
+      await changeUserProfileImg(this.test, this.userEditInfo.uuid))
+      store.dispatch(
+        await changeUserProfileIntroduction(
+          descEdit.value,
+          this.userEditInfo.uuid
+        )
+      );
+      store.dispatch(changeProfileTab(0));
+    });
   }
-    async addEventProfileEdit(){
-    const profileFileEdit = this.element.querySelector('#profile-file-input')
-    profileFileEdit?.addEventListener('change',()=>{
-        const value = profileFileEdit as HTMLInputElement;
-    if(value.files && value.files[0]){
-        const reader = new FileReader();
-        reader.onload = function(e){
-            const imageDom = document.getElementById('profile-fix-image') as HTMLImageElement;
-            imageDom.src = e.target?.result as string;
-        }
-        reader.readAsDataURL(value.files[0])
-        }
-    })
-}
+
+  async addEventProfileEdit() {
+    const profileFileEdit = this.element.querySelector('#profile-file-input');
+    const profileFileMainEdit = this.element.querySelector(
+    '#profile-fix-image'
+    ) as HTMLImageElement;
+    profileFileEdit?.addEventListener('change', () => {
+      const value = profileFileEdit as HTMLInputElement;
+      if (value.files && value.files[0]) {
+        this.test.append('file', value.files[0]);
+
+        this.reader.onload = function (e) {
+          const imageDom = document.getElementById(
+            'profile-fix-image'
+          ) as HTMLImageElement;
+
+          let a;
+
+          if (value.files && value.files[0])
+            a = URL.createObjectURL(value.files[0]);
+          imageDom.src = a as string;
+          profileFileMainEdit.src = a as string
+          //   imageDom.src = e.target?.result as string;
+        };
+        this.reader.readAsDataURL(value.files[0]);
+      }
+    });
+  }
 }
 export default tabEditMain;

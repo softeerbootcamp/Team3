@@ -27,7 +27,7 @@ class profileUserHost {
 
   addHostLinkEvent() {
     this.element.addEventListener('click', () => {
-        console.log(this.userHostData.id);
+        console.log(this.userHostData.uuid);
       });
   
   }

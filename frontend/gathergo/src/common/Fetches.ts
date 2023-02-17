@@ -280,12 +280,12 @@ export async function fetchGetUserInfo() {
   }
 }
 
-export async function changeUserProfileImg(imageSrc: string, useruuId : string){
-  const formData = new FormData();
-  //formData.append("file", new Blob([JSON.stringify(imageSrc)]));
-  formData.append("file", new Blob([imageSrc],{type:'image/png'}));
-
-
+export async function changeUserProfileImg(
+  formData: FormData,
+  useruuId: string
+) {
+  const PROFILE_BASE_URL =
+    'https://team3-gathergo.s3.ap-northeast-2.amazonaws.com/';
   try {
     const response = await fetch(url + 'api/image/' + useruuId, {
       method: 'POST',
@@ -294,32 +294,35 @@ export async function changeUserProfileImg(imageSrc: string, useruuId : string){
     });
     const postImgResponse = await response.json();
     console.log(postImgResponse);
-    return changeProfileImg(imageSrc);
+    return changeProfileImg(PROFILE_BASE_URL+useruuId+'.png');
   } catch (error) {
     console.log(error);
     return fetchError(error);
   }
 }
 
-export async function changeUserProfileIntroduction(introduction : string, id : string){
-    try {
-      const response = await fetch(url + 'api/users', {
-        method: 'PUT',
-        credentials: 'include',
-        headers : {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          "introduction" : introduction
-        }),
-      });
-      const postIntroResponse = await response.json();
-      console.log(postIntroResponse);
-      return changeUserIntroduction(introduction);
-    } catch (error) {
-      console.log(error);
-      return fetchError(error);
-    }
+export async function changeUserProfileIntroduction(
+  introduction: string,
+  id: string
+) {
+  try {
+    const response = await fetch(url + 'api/users', {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        introduction: introduction,
+      }),
+    });
+    const postIntroResponse = await response.json();
+    console.log(postIntroResponse);
+    return changeUserIntroduction(introduction);
+  } catch (error) {
+    console.log(error);
+    return fetchError(error);
+  }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

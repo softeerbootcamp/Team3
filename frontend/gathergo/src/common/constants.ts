@@ -92,7 +92,7 @@ type TuserInfo={
   uuid : string;
 }
 type TuserHostCard={
-  id : string;
+  uuid : string;
   title : string;
   curr : number;
   total : number;
@@ -100,7 +100,7 @@ type TuserHostCard={
   meetingDay : Date;
 }
 type TuserJoinCard = {
-  id: string;
+  uuid: string;
   title: string;
   curr: number;
   total: number;

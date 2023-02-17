@@ -27,7 +27,7 @@ export const initialState: TinitialState = {
       uuid : '',
       userHostCards: [
         {
-          id: '1',
+          uuid: '1',
           title: '점심 같이 드실분 점심 같이 드실분',
           curr: 1,
           total: 4,
@@ -37,7 +37,7 @@ export const initialState: TinitialState = {
       ],
       userJoinCards: [
         {
-          id: '4',
+          uuid: '4',
           title: '대전 유성국 독서모임',
           curr: 3,
           total: 4,
@@ -47,7 +47,7 @@ export const initialState: TinitialState = {
           categoryId: 6,
         },
         {
-          id: '6',
+          uuid: '6',
           title: '모각코',
           curr: 9,
           total: 49,
