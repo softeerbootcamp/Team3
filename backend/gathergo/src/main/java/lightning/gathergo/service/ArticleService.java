@@ -154,7 +154,7 @@ public class ArticleService {
 
     public void setHasJoinedAndIsHost(GatheringDto.ArticleDetailResponse data, String sessionUserId){
         String hostId = data.getHost().getHostId();
-        Integer id = userRepository.findUserByUserId(hostId).get().getId();
+        Integer id = userRepository.findUserByUserId(sessionUserId).get().getId();
 
         if(hostId.equals(sessionUserId)){
             data.getArticle().setHasJoined(true);
