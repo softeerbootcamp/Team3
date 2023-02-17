@@ -10,6 +10,10 @@ server:
       same-site: none
       secure: true
 
+firebase:
+  credential:
+    path: /home/ubuntu/secrets/firebase_credentials.json
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
