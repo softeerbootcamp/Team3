@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -44,8 +45,12 @@ public class FcmMessagingService {
     private void init() {
         // 1. FCM 연결
         try{
+            // 리플렉션을 이용한 파일 읽기
+            InputStream resourceStream = Objects.requireNonNull(getClass().getResourceAsStream(credentialPath));
+
             FirebaseOptions options = FirebaseOptions.builder()
-                    .setCredentials(GoogleCredentials.fromStream(new ClassPathResource(credentialPath).getInputStream())).build();
+                    .setCredentials(GoogleCredentials.fromStream(resourceStream))
+                    .build();
 
             if(FirebaseApp.getApps().isEmpty()){
                 FirebaseApp.initializeApp(options);
