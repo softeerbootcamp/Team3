@@ -2,6 +2,7 @@ import DropdownCategory from '../dropdown/DropdownCategory';
 import DropdownRegion from '../dropdown/DropdownRegion';
 import HeaderHomeNav from './headerHomeNav';
 import HeaderSearchSticky from './HeaderSearchSticky';
+import AlarmSidebar from '../sidebar/alarmSidebar'
 class HeaderHome {
   element: HTMLElement;
   constructor() {
@@ -47,7 +48,15 @@ class HeaderHome {
     const searchSticky = new HeaderSearchSticky();
     searchSticky.searchBarEvent(this.element.querySelector('.header'));
     this.element.appendChild(searchSticky.element);
+    this.sidebarEvent();
   }
+  sidebarEvent(){
+    const sidebar = new AlarmSidebar();
+
+    this.element.appendChild(sidebar.element)
+  }
+  
 }
+
 
 export default HeaderHome;

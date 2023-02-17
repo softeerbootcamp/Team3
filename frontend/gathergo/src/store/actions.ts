@@ -5,8 +5,7 @@ import {
   TcardDetail,
   Tcomment,
   Tfilters,
-  /*TloginData,*/ TsignupData,
-  TuserInfo
+  TuserInfo,
 } from '../common/constants';
 import Navigate from '../common/utils/navigate';
 
@@ -28,38 +27,38 @@ export const SET_MODAL = 'SET_MODAL';
 export const POST_CARD = 'POST_CARD';
 export const EDIT_CARD = 'EDIT_CARD';
 export const PROFILE_TAB = 'PROFILE_TAB';
-export const SET_PROFILE = 'SET_PROFIlE'
+export const SET_PROFILE = 'SET_PROFIlE';
 // export const REFRESH_CARDS = 'REFRESH_CARDS';
 
-export function setNavigate(navigate:Navigate) {
+export function setNavigate(navigate: Navigate) {
   return {
     type: SET_NAVIGATE,
     payload: {
-      navigate
+      navigate,
     },
   };
 }
-export function fiterRegion(regionId:number) {
+export function fiterRegion(regionId: number) {
   return {
     type: FILTER_REGION,
     payload: {
-      regionId
+      regionId,
     },
   };
 }
-export function filterCategory(categoryId:number) {
+export function filterCategory(categoryId: number) {
   return {
     type: FILTER_CATEGORY,
     payload: {
-      categoryId
+      categoryId,
     },
   };
 }
-export function filterSearch(filters:Tfilters) {
+export function filterSearch(filters: Tfilters) {
   return {
     type: FILTER_SEARCH,
     payload: {
-      filters
+      filters,
     },
   };
 }
@@ -78,7 +77,7 @@ export function filterSearch(filters:Tfilters) {
 //   };
 // }
 
-export function updateCards (cardsData:Tcard[]) {
+export function updateCards(cardsData: Tcard[]) {
   return {
     type: UPDATE_CARDS,
     payload: {
@@ -87,35 +86,35 @@ export function updateCards (cardsData:Tcard[]) {
   };
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function fetchError (error:any) {
+export function fetchError(error: any) {
   return {
     type: FETCH_ERROR,
     payload: {
-     error,
+      error,
     },
   };
 }
 
-export function readCard(readingCard: TcardDetail, commentsData:Tcomment[]) {
+export function readCard(readingCard: TcardDetail, commentsData: Tcomment[]) {
   // 모달창 띄워주기
-  console.log(commentsData)
+  console.log(commentsData);
   return {
     type: READ_CARD,
-    payload: {readingCard, commentsData},
+    payload: { readingCard, commentsData },
   };
 }
 
 export function checkLogin(cookie: string) {
   return {
     type: CHECK_LOGIN,
-    payload: {cookie}
+    payload: { cookie },
   };
 }
 
 export function userLogin(cookie: string) {
   return {
     type: USER_LOGIN,
-    payload: {cookie,}
+    payload: { cookie },
   };
 }
 
@@ -135,13 +134,13 @@ export function userLogin(cookie: string) {
 export function userLogout() {
   return {
     type: USER_LOGOUT,
-    payload: {}
+    payload: {},
   };
 }
 export function sendComment() {
   return {
     type: SEND_COMMENT,
-    payload: {}
+    payload: {},
   };
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -151,45 +150,44 @@ export function sendComment() {
 //     payload: {commendResponse}
 //   };
 // }
-export function getComments(commentData:Tcomment[]) {
+export function getComments(commentData: Tcomment[]) {
   return {
     type: GET_COMMENT,
-    payload: {commentData}
+    payload: { commentData },
   };
 }
 
-export function setModal(modalAction:string,uuid="") {
+export function setModal(modalAction: string, uuid = '') {
   return {
     type: SET_MODAL,
-    payload: {modalAction,uuid}
+    payload: { modalAction, uuid },
   };
 }
 
-export function postCard(modalAction:string) {
+export function postCard(modalAction: string) {
   return {
     type: POST_CARD,
-    payload: {modalAction}
+    payload: { modalAction },
   };
 }
 
-export function editCard(modalAction:string) {
+export function editCard(modalAction: string) {
   return {
     type: EDIT_CARD,
-    payload: {modalAction}
+    payload: { modalAction },
   };
 }
 
-
-export function changeProfileTab(tabNumber : number){
+export function changeProfileTab(tabNumber: number) {
   return {
-    type : PROFILE_TAB,
-    payload: {tabNumber}
-  }
+    type: PROFILE_TAB,
+    payload: { tabNumber },
+  };
 }
 
-export function getUserInfo(userInfoResponse : TuserInfo){
+export function getUserInfo(userInfoResponse: TuserInfo) {
   return {
-    type : SET_PROFILE,
-    payload : {userInfoResponse}
-  }
+    type: SET_PROFILE,
+    payload: { userInfoResponse },
+  };
 }

@@ -1,6 +1,11 @@
-import { deleteComment, fetchCloseMeeting, fetchJoin, fetchJoinCancel } from '../../common/Fetches';
+import {
+  deleteComment,
+  fetchCloseMeeting,
+  fetchJoin,
+  fetchJoinCancel,
+} from '../../common/Fetches';
 import Navigate from '../../common/utils/navigate';
-import { setModal } from '../../store/actions';
+import { fetchError, setModal } from '../../store/actions';
 import store from '../../store/store';
 
 class NotiModal {
@@ -81,7 +86,8 @@ class NotiModal {
         return () => {
           history.replaceState(store.getState(), '', '/login?action=login');
           this.modalClose();
-          document.body.classList.remove('modal-active');
+
+          document.body?.removeAttribute('class');
           document
             .querySelector('.login-content-signin')
             ?.classList.remove('ng-hide');
@@ -98,51 +104,64 @@ class NotiModal {
       case 'NEED_LOGIN':
         return () => {
           this.navigate.to('/login');
-          document.body.classList.remove('modal-active');
+
+          document.body?.removeAttribute('class');
         };
       case 'EDIT_MEETING':
         return () => {
           const queryString = new URLSearchParams(window.location.search);
           const feed = queryString.get('feed');
           this.navigate.to(`/post?feed=${feed}`);
-          document.body.classList.remove('modal-active');
+
+          document.body?.removeAttribute('class');
           // history.replaceState(store.getState(), "", `/post?feed=${cardData.uuid}`);
         };
       case 'DELETE_COMMENT':
         return async () => {
           store.dispatch(
-            await deleteComment(store.getState().readingCard?.uuid, store.getState().deleteCommentuuid)
-            );
+            await deleteComment(
+              store.getState().readingCard?.uuid,
+              store.getState().deleteCommentuuid
+            )
+          );
           this.modalClose();
           store.dispatch(setModal('DELETE_COMMENT_SUCCESS'));
-        }
+        };
       case 'JOIN':
-        return async () =>{
-          store.dispatch(
-            await fetchJoin(store.getState().readingCard?.uuid)
-            );
-            this.modalClose();
-            store.dispatch(setModal('JOIN_SUCCESS'));
-        }
+        return async () => {
+          store.dispatch(await fetchJoin(store.getState().readingCard?.uuid));
+          // console.log(store.getState());
+          const isError = store.getState().error;
+          this.modalClose();
+          if (!isError) store.dispatch(setModal('JOIN_SUCCESS'));
+          else {
+            store.dispatch(setModal('ERROR'));
+          }
+        };
       case 'JOIN_CANCEL':
-        return async () =>{
+        return async () => {
           store.dispatch(
             await fetchJoinCancel(store.getState().readingCard?.uuid)
-            );
-            this.modalClose();
-            store.dispatch(setModal('JOIN_CANCEL_SUCCESS'));
-        }
+          );
+          this.modalClose();
+          store.dispatch(setModal('JOIN_CANCEL_SUCCESS'));
+        };
       case 'CLOSE_MEETING':
-        return async () =>{
+        return async () => {
           // store.dispatch(
-            await fetchCloseMeeting(store.getState().readingCard?.uuid)
-            // );
-            this.modalClose();
-            this.navigate.to('/');
-            document.body.classList.remove('modal-active');
-        }
-      default:{
-        
+          await fetchCloseMeeting(store.getState().readingCard?.uuid);
+          // );
+          this.modalClose();
+          this.navigate.to('/');
+
+          document.body?.removeAttribute('class');
+        };
+      case 'ERROR':
+        return () => {
+          this.modalClose();
+          store.dispatch(fetchError(null));
+        };
+      default: {
         return this.modalClose;
       }
     }
@@ -171,7 +190,7 @@ class NotiModal {
       case 'JOIN':
         return '만남에 참가하시겠습니까?';
       case 'JOIN_SUCCESS':
-        return '참가에 성공했습니다. 감사합니다.'
+        return '참가에 성공했습니다. 감사합니다.';
       case 'EDIT_MEETING':
         return '만남을 수정하시겠습니까?';
       case 'CLOSE_MEETING':
