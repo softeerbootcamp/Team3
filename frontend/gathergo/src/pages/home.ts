@@ -40,6 +40,7 @@ class Home {
     this.matchSearchBarValue();
     this.keywordSearchEvent();
     this.setFBA();
+    this.openSidebarEvent();
   }
   closeModalEvent(modalEle: HTMLElement) {
     modalEle.addEventListener('click', (e) => {
@@ -96,6 +97,20 @@ class Home {
   setFBA(){
     new Fba(this.$container)
   }
+  openSidebarEvent(){
+    const alarm = document.querySelector('#sidebar-tigger');
+    console.log(alarm);
+    
+    document.querySelector<HTMLElement>('#sidebar-tigger')?.addEventListener('click',()=>{
+      this.openSidebar();
+    })
+}
+openSidebar(){
+    document.querySelector('#alarm-sidebar')?.classList.add('active');
+    document.querySelector('.sidebar-container')?.classList.add('active');
+    document.body.classList.add('modal-active')
+    
+}
 }
 
 export default Home;

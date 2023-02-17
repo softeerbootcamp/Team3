@@ -11,7 +11,6 @@ class CommentList {
     this.element.classList.add('feed-comment-container');
     this.render();
     store.subscribe(() => {
-      console.log(store.getState().comments)
       const newState = store.getState().comments;
       if (this.commentsState !== newState) {
         this.commentsState = newState;
@@ -30,13 +29,5 @@ class CommentList {
       this.element.appendChild(comment.element);
     });
   }
-  // TODO:마우스 우클릭시
-  //   openCardModal() {
-  //     const modalContainer =
-  //       document.querySelector<HTMLElement>('#modal-container');
-  //     modalContainer?.removeAttribute('class');
-  //     modalContainer?.classList.add('modal-animation');
-  //     document.body.classList.add('modal-active');
-  //   }
 }
 export default CommentList;

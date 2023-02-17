@@ -188,9 +188,9 @@ export async function fetchJoin(articleuuid:string|undefined) {
       method: 'PUT',
       credentials: 'include',
     });
-    const cardDetailData = await response.json();
-    
-    return fetchCardDetail(cardDetailData.data.articleUuid);
+    const responseData = await response.json();
+    if(responseData.status ==307) throw new Error(responseData.message)
+    return fetchCardDetail(responseData.data.articleUuid);
     // return;// setModal('DELETE_COMMENT_SUCCESS');
   } catch (error) {
     console.log(error);
