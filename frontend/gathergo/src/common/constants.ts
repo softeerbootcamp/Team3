@@ -84,14 +84,15 @@ type TloginData= {
 type TuserInfo={
   userName : string;
   email : string;
-  profileImg : string;
-  userDesc : string;
+  profilePath : string;
+  introduction : string;
   userId : string;
   userHostCards : TuserHostCard[];
   userJoinCards : TuserJoinCard[];
+  uuid : string;
 }
 type TuserHostCard={
-  id : string;
+  uuid : string;
   title : string;
   curr : number;
   total : number;
@@ -99,7 +100,7 @@ type TuserHostCard={
   meetingDay : Date;
 }
 type TuserJoinCard = {
-  id: string;
+  uuid: string;
   title: string;
   curr: number;
   total: number;

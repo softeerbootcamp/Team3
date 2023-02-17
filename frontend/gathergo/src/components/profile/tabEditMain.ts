@@ -1,6 +1,10 @@
 import { TuserInfo } from '../../common/constants';
 import store from '../../store/store';
-import { changeProfileTab } from '../../store/actions';
+import { changeProfileTab, changeUserIntroduction } from '../../store/actions';
+import {
+  changeUserProfileImg,
+  changeUserProfileIntroduction,
+} from '../../common/Fetches';
 
 class tabEditMain {
   element: HTMLDivElement;
@@ -16,6 +20,10 @@ class tabEditMain {
       this.render();
     });
     this.render();
+
+    store.subscribe(() => {
+      this.render;
+    });
   }
   render() {
     this.element.innerHTML = `    
@@ -28,7 +36,7 @@ class tabEditMain {
         <div class = "profile-context">
             <div class = "profile-img-name">
                 <div class = "image-button">
-                    <img class = "profile-fix-image" id = "profile-fix-image" src = ${this.userEditInfo.profileImg} alt = "USER">
+                    <img class = "profile-fix-image" id = "profile-fix-image" src = ${this.userEditInfo.profilePath} alt = "USER">
                     <div class = "image-upload">
                         <input type = "file" accept = ".png" id = "profile-file-input" style = "margin : 0 0 0 2.5rem;">
                         <!-- <label for="file-input">
@@ -55,7 +63,7 @@ class tabEditMain {
                 <div class = "profile-textarea-text" style = "width : 6.25rem; height : 6.25rem;">
                     한 줄 소개
                 </div>
-                <textarea id = "profile-desc-edit" onkeydown="resize()" onkeyup="resize()" value = "hihi" class = "form-control" style = "height : 6.25rem">${this.userEditInfo.userDesc}</textarea>
+                <textarea id = "profile-desc-edit" value = "hihi" class = "form-control" style = "height : 6.25rem">${this.userEditInfo.introduction}</textarea>
             </div>
             <div class = "profile-button">
                 <button type = "button" id = "profile-edit-button" class = "btn btn-primary register-button">
@@ -82,35 +90,57 @@ class tabEditMain {
       store.dispatch(changeProfileTab(0));
     });
   }
-  profileEditButton() {
-    const profileEdit = this.element.querySelector('#profile-edit-button')
-    const descEdit = this.element.querySelector('#profile-desc-edit') as HTMLTextAreaElement;
-    profileEdit?.addEventListener('click',()=>{
-        const profileFileEdit = this.element.querySelector(
-            '#profile-fix-image'
-            ) as HTMLImageElement;
-        const EditFetch = {
-            profile : profileFileEdit.src,
-            desc : descEdit.value
-        };
-        console.log(EditFetch);
-    
-    })
 
+  reader = new FileReader();
+  test = new FormData();
+
+  profileEditButton() {
+    const profileEdit = this.element.querySelector('#profile-edit-button');
+    const descEdit = this.element.querySelector(
+      '#profile-desc-edit'
+    ) as HTMLTextAreaElement;
+    profileEdit?.addEventListener('click', async () => {
+    const profileFileEdit = this.element.querySelector(
+        '#profile-fix-image'
+    ) as HTMLImageElement;
+        store.dispatch(
+      await changeUserProfileImg(this.test, this.userEditInfo.uuid))
+      store.dispatch(
+        await changeUserProfileIntroduction(
+          descEdit.value,
+          this.userEditInfo.uuid
+        )
+      );
+      store.dispatch(changeProfileTab(0));
+    });
   }
-    addEventProfileEdit(){
-    const profileFileEdit = this.element.querySelector('#profile-file-input')
-    profileFileEdit?.addEventListener('change',()=>{
-        const value = profileFileEdit as HTMLInputElement;
-    if(value.files && value.files[0]){
-        const reader = new FileReader();
-        reader.onload = function(e){
-            const imageDom = document.getElementById('profile-fix-image') as HTMLImageElement;
-            imageDom.src = e.target?.result as string;
-        }
-        reader.readAsDataURL(value.files[0])
-        }
-    })
-}
+
+  async addEventProfileEdit() {
+    const profileFileEdit = this.element.querySelector('#profile-file-input');
+    const profileFileMainEdit = this.element.querySelector(
+    '#profile-fix-image'
+    ) as HTMLImageElement;
+    profileFileEdit?.addEventListener('change', () => {
+      const value = profileFileEdit as HTMLInputElement;
+      if (value.files && value.files[0]) {
+        this.test.append('file', value.files[0]);
+
+        this.reader.onload = function (e) {
+          const imageDom = document.getElementById(
+            'profile-fix-image'
+          ) as HTMLImageElement;
+
+          let a;
+
+          if (value.files && value.files[0])
+            a = URL.createObjectURL(value.files[0]);
+          imageDom.src = a as string;
+          profileFileMainEdit.src = a as string
+          //   imageDom.src = e.target?.result as string;
+        };
+        this.reader.readAsDataURL(value.files[0]);
+      }
+    });
+  }
 }
 export default tabEditMain;

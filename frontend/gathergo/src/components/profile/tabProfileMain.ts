@@ -2,6 +2,7 @@ import profileUserInfo from './tabProfile/profileUserInfo';
 import profileUserDesc from './tabProfile/profileUserDesc';
 import profileUserHost from './tabProfile/profileUserHostList';
 import profileUserJoin from './tabProfile/profileUserJoinList';
+import store from '../../store/store';
 
 class tabProfileMain {
   element: HTMLDivElement;
@@ -13,6 +14,10 @@ class tabProfileMain {
     this.element.id = 'sidebar-profile-body';
 
     this.render();
+
+    store.subscribe(()=>{
+        this.render()
+    })
   }
   render() {
     const profileTitleText = document.createElement('div')

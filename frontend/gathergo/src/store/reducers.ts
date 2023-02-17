@@ -13,6 +13,8 @@ import {
   USER_LOGOUT,
   PROFILE_TAB,
   SET_PROFILE,
+  CHANGE_PROFILEIMG,
+  CHANGE_PROFILEINTRO,
 } from './actions';
 import { initialState } from '../server/initialstate';
 import { Taction } from '../common/constants';
@@ -88,12 +90,15 @@ function reducer(state = initialState, action: Taction) {
     case SET_PROFILE:
       console.log(action.payload.userInfoResponse);
       state.userInfo = action.payload.userInfoResponse;
-      state.userInfo.profileImg = action.payload.userInfoResponse.profilePath;
-      state.userInfo.userHostCards =
-        action.payload.userInfoResponse.hostingArticleList;
-      state.userInfo.userJoinCards =
-        action.payload.userInfoResponse.articleList;
-      return { ...state };
+      state.userInfo.userHostCards = action.payload.userInfoResponse.hostingArticleList;
+      state.userInfo.userJoinCards = action.payload.userInfoResponse.articleList;
+      return {...state}
+    case CHANGE_PROFILEIMG:
+      state.userInfo.profilePath = action.payload.imageSrc
+      return {...state}
+    case CHANGE_PROFILEINTRO:
+      state.userInfo.introduction = action.payload.introduction;
+      return {...state}
     default:
       return state;
   }

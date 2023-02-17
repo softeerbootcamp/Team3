@@ -43,7 +43,7 @@ this.addJoinLinkEvent()
 
   addJoinLinkEvent() {
       this.element.addEventListener('click', () => {
-        console.log(this.userJoinData.id);
+        console.log(this.userJoinData.uuid);
       });
   }
 }

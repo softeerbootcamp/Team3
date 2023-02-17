@@ -25,7 +25,7 @@ class profileUserDesc {
       <div class="user-profile-desc-header">
           <h3><strong>한 줄 소개</strong></h3>
       </div>
-    <small class="muted-text">${this.userInfoData.userDesc}</small>
+    <small class="muted-text">${this.userInfoData.introduction}</small>
         `;
   }
 }

@@ -1,4 +1,6 @@
 import {
+  changeProfileImg,
+  changeUserIntroduction,
   fetchError,
   getComments,
   getUserInfo,
@@ -272,6 +274,51 @@ export async function fetchGetUserInfo() {
     const userInfoResponse = await response.json();
     console.log(userInfoResponse);
     return getUserInfo(userInfoResponse.data);
+  } catch (error) {
+    console.log(error);
+    return fetchError(error);
+  }
+}
+
+export async function changeUserProfileImg(
+  formData: FormData,
+  useruuId: string
+) {
+  const PROFILE_BASE_URL =
+    'https://team3-gathergo.s3.ap-northeast-2.amazonaws.com/';
+  try {
+    const response = await fetch(url + 'api/image/' + useruuId, {
+      method: 'POST',
+      credentials: 'include',
+      body: formData,
+    });
+    const postImgResponse = await response.json();
+    console.log(postImgResponse);
+    return changeProfileImg(PROFILE_BASE_URL+useruuId+'.png');
+  } catch (error) {
+    console.log(error);
+    return fetchError(error);
+  }
+}
+
+export async function changeUserProfileIntroduction(
+  introduction: string,
+  id: string
+) {
+  try {
+    const response = await fetch(url + 'api/users', {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        introduction: introduction,
+      }),
+    });
+    const postIntroResponse = await response.json();
+    console.log(postIntroResponse);
+    return changeUserIntroduction(introduction);
   } catch (error) {
     console.log(error);
     return fetchError(error);
