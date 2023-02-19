@@ -3,6 +3,7 @@ import store from '../../store/store';
 import { Tcard } from '../../common/constants';
 import Navigate from '../../common/utils/navigate';
 import { fetchCardDetail } from '../../common/Fetches';
+import { cloneDeep } from 'lodash';
 class CardList {
   cardsState: Tcard[];
   element: HTMLDivElement;
@@ -29,7 +30,7 @@ class CardList {
   }
   generateCards() {
     const state = store.getState();
-    let cardDatas = state.cards;
+    let cardDatas = cloneDeep(state.cards);
     if(this.type==='RECENT'){
       cardDatas = cardDatas.sort((a:Tcard, b:Tcard) => a.meetingDay.getTime() - b.meetingDay.getTime() );
     }
