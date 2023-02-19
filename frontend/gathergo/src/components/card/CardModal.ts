@@ -1,4 +1,5 @@
 // import { checkLogin } from '../../common/commonFunctions';
+import { getKoreanTimeString } from '../../common/commonFunctions';
 import {
   category,
   regionSi,
@@ -224,10 +225,10 @@ class CardModal {
       store.dispatch(setModal('NEED_LOGIN'));
       return;
     }
-    const date = new Date();
+    // const date = new Date();
     const commentData = {
       content: inputElement.value,
-      date: date.toISOString(),
+      date: getKoreanTimeString(),//date.toISOString(),
     };
     store.dispatch(await fetchSendComment(this.readingCard.uuid, commentData));
 
