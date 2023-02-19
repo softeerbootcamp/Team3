@@ -65,6 +65,26 @@ public class ArticleController {
         return new ResponseEntity<> (new CommonResponseDTO<>(1, "조회 성공", data), HttpStatus.OK);
     }
 
+    // 마감임박 게시물
+    @GetMapping("/orderby")
+    ResponseEntity<CommonResponseDTO<?>> getImminentArticles(@RequestParam Map<String, String> queryParam){
+        GatheringDto.ArticleListResponse data;
+        List<Article> articles = new ArrayList<>();
+        Integer regionId = Integer.parseInt(queryParam.get("regionId"));
+        Integer categoryId = Integer.parseInt(queryParam.get("categoryId"));
+
+        articles = articleService.getImminentArticles(regionId, categoryId);
+        data = new GatheringDto.ArticleListResponse();
+        data.setArticles(articleMapper.toArticlePartialDtoList(articles));
+
+        Map<String, Integer> countMap = countService.getCounts();
+        data.getArticles().forEach(articlePartialDto -> {
+            articlePartialDto.setCurr(countMap.get(articlePartialDto.getUuid()));
+        });
+
+        return new ResponseEntity<> (new CommonResponseDTO<>(1, "마감임박 게시물 조회 성공", data), HttpStatus.OK);
+    }
+
     // 게시물 작성
     @PostMapping
     ResponseEntity<?> createArticle(
