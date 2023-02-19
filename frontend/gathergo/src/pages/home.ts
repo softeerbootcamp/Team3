@@ -7,6 +7,7 @@ import TabHome from '../components/tabs/tabHome';
 import TabContent from '../components/tabs/tabContent';
 import store from '../store/store';
 import Fba from '../components/fba/fba';
+import ChatBot from '../components/fba/ChatBot';
 class Home {
   $container: HTMLElement | null;
   navigate: Navigate;
@@ -47,6 +48,7 @@ class Home {
 
     this.matchSearchBarValue();
     this.keywordSearchEvent();
+    this.setChatBot();
     this.setFBA();
     this.openSidebarEvent();
   }
@@ -103,6 +105,9 @@ class Home {
     store.dispatch(
       await getArticles({ ...store.getState().filters, keyword: keywrodValue })
     );
+  }
+  setChatBot() {
+    new ChatBot(this.$container);
   }
   setFBA() {
     new Fba(this.$container);
