@@ -51,24 +51,56 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     @Query("select * from article where uuid = :uuid")
     Optional<Article> findByUuid(String uuid);
 
-    @Query("select * from article where isClosed = 0 order by meetingDay")
+    //region 모든 열려있는 게시물 반환
+    @Query("select * from article where isClosed = 0 order by id desc")
     List<Article> findAllArticles();
 
     // 지역만 주어진 경우
-    @Query("select * from article where regionId = :regionId and isClosed = 0 order by meetingDay")
+    @Query("select * from article where regionId = :regionId and isClosed = 0 order by id desc")
     List<Article> findCurrentRegionArticles(int regionId);
 
     // 카테고리만 주어진 경우
-    @Query("select * from article where categoryId = :categoryId and isClosed = 0 order by meetingDay")
+    @Query("select * from article where categoryId = :categoryId and isClosed = 0 order by id desc")
     List<Article> findArticlesByCategoryId(int categoryId);
+
     // 지역과 카테고리만 주어진 경우
-    @Query("select * from article where regionId = :regionId and categoryId = :categoryId and isClosed = 0 order by meetingDay")
+    @Query("select * from article where regionId = :regionId and categoryId = :categoryId and isClosed = 0 order by id desc")
     List<Article> findArticlesByRegionAndCategory(int regionId, int categoryId);
+    // 검색어와 카테고리만 주어진 경우
+    @Query("select a.* from article a where categoryId=:categoryId and title like CONCAT('%', :keyword, '%') and isClosed = 0 order by id desc")
+    List<Article> findByKeywordAndCategory(String keyword, Integer categoryId);
 
+    // 검색어와 지역만 주어진 경우
+    @Query("select a.* from article a where regionId=:regionId and title like CONCAT('%', :keyword, '%') and isClosed = 0 order by id desc")
+    List<Article> findByKeywordAndRegion(String keyword, Integer regionId);
 
-    // id, hostId, title, thumbnail, curr,
-    // total, isClosed, content, meetingDay, location,
-    // regionId, categoryId, uuid
+    // 검색어만 주어진 경우
+    @Query("select a.* from article a where title like CONCAT('%', :keyword, '%') and isClosed = 0 order by id desc")
+    List<Article> findByKeyword(String keyword);
+
+    // 검색어와 카테고리, 지역 모두 주어진 경우
+    @Query("select a.* from article a where regionId=:regionId and categoryId=:categoryId and title like CONCAT('%', :keyword, '%') and isClosed = 0 order by id desc")
+    List<Article> findByKeywordAndRegionAndCategory(String keyword, Integer regionId, Integer categoryId);
+    //endregion
+
+    //region 마감임박 게시물 반환
+    @Query("select * from article where isClosed = 0 order by meetingDay limit 8")
+    List<Article> findImminentArticles();
+
+    // 지역만 주어진 경우
+    @Query("select * from article where regionId = :regionId and isClosed = 0 order by meetingDay limit 8")
+    List<Article> findImminentArticlesByRegionId(Integer regionId);
+
+    // 카테고리만 주어진 경우
+    @Query("select * from article where categoryId = :categoryId and isClosed = 0 order by meetingDay limit 8")
+    List<Article> findImminentArticlesByCategoryId(Integer categoryId);
+
+    // 지역과 카테고리 모두 주어진 경우
+    @Query("select * from article where categoryId = :categoryId and regionId = :regionId and isClosed = 0 order by meetingDay limit 8")
+    List<Article> findImminentArticlesByCategoryIdRegionId(Integer categoryId, Integer regionId);
+
+    //endregion
+
     @Modifying
     @Query("update article " +
             "set title = :title, total = :total, " +
@@ -84,22 +116,6 @@ public interface ArticleRepository extends CrudRepository<Article, Integer> {
     // 게시물에 달린 댓글 조회
     @Query("select * from comment c join article a on c.articleId = a.id where a.uuid = :uuid order by c.date")
     List<Comment> findCommentsByArticleUuid(String uuid);
-
-    // 검색어와 카테고리만 주어진 경우
-    @Query("select a.* from article a where categoryId=:categoryId and title like CONCAT('%', :keyword, '%') and isClosed = 0 order by meetingDay")
-    List<Article> findByKeywordAndCategory(String keyword, Integer categoryId);
-
-
-    // 검색어와 지역만 주어진 경우
-    @Query("select a.* from article a where regionId=:regionId and title like CONCAT('%', :keyword, '%') and isClosed = 0 order by meetingDay")
-    List<Article> findByKeywordAndRegion(String keyword, Integer regionId);
-
-    @Query("select a.* from article a where title like CONCAT('%', :keyword, '%') and isClosed = 0 order by meetingDay")
-    List<Article> findByKeyword(String keyword);
-
-    // 검색어와 카테고리, 지역 모두 주어진 경우
-    @Query("select a.* from article a where regionId=:regionId and categoryId=:categoryId and title like CONCAT('%', :keyword, '%') and isClosed = 0 order by meetingDay")
-    List<Article> findByKeywordAndRegionAndCategory(String keyword, Integer regionId, Integer categoryId);
 
     @Query("select u.* from user u join article a on u.id = a.hostId where a.uuid=:articleUuid")
     User findUserInfoByArticleHostId(String articleUuid);

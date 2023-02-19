@@ -52,7 +52,7 @@ public class ArticleService {
         return searchArticlesByKeyword(regionId, categoryId, keyword);
     }
 
-    public List<Article> getArticlesByRegionAndCategory(Integer regionId, Integer categoryId){
+    private List<Article> getArticlesByRegionAndCategory(Integer regionId, Integer categoryId){
         if(regionId == 0 && categoryId == 0)
             return articleRepository.findAllArticles();
         if(categoryId == 0)
@@ -70,6 +70,16 @@ public class ArticleService {
         if(regionId == 0)
             return articleRepository.findByKeywordAndCategory(keyword, categoryId);
         return articleRepository.findByKeywordAndRegionAndCategory(keyword, regionId, categoryId);
+    }
+
+    public List<Article> getImminentArticles(Integer regionId, Integer categoryId){
+        if(regionId == 0 && categoryId == 0)
+            return articleRepository.findImminentArticles();
+        if(regionId == 0)
+            return articleRepository.findImminentArticlesByCategoryId(categoryId);
+        if(categoryId == 0)
+            return articleRepository.findImminentArticlesByRegionId(regionId);
+        return articleRepository.findImminentArticlesByCategoryIdRegionId(categoryId, regionId);
     }
 
     public Article getArticleByUuid(String uuid){
