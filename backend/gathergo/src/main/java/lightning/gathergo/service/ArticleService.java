@@ -13,8 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.UUID;
+import java.sql.Timestamp;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class ArticleService {
@@ -26,6 +27,8 @@ public class ArticleService {
     private final UserRepository userRepository;
     private final UserArticleRelationshipRepository relationshipRepository;
 
+    private List<Character> specialCharList;
+
     @Autowired
     ArticleService(ArticleRepository articleRepository, CommentService commentService, CountService countService,
                    UserRepository userRepository, UserArticleRelationshipRepository relationshipRepository, UserService userService){
@@ -35,6 +38,7 @@ public class ArticleService {
         this.countService = countService;
         this.userRepository = userRepository;
         this.userService = userService;
+        specialCharList = new ArrayList<Character>(Arrays.asList('%', '_', '[', ']', '^', '-', '"', '\''));
     }
 
     @Transactional
@@ -46,6 +50,9 @@ public class ArticleService {
     }
 
     public List<Article> getArticlesByRegionAndCategoryAndKeyword(Integer regionId, Integer categoryId, String keyword){
+        if(regionId < 0 || categoryId < 0 || regionId > 17 || categoryId > 19)
+            throw new CustomGlobalException(ErrorCode.BAD_REQUEST);
+
         if(keyword.equals("")){
             return getArticlesByRegionAndCategory(regionId, categoryId);
         }
@@ -53,6 +60,9 @@ public class ArticleService {
     }
 
     private List<Article> getArticlesByRegionAndCategory(Integer regionId, Integer categoryId){
+        if(regionId < 0 || categoryId < 0 || regionId > 17 || categoryId > 19)
+            throw new CustomGlobalException(ErrorCode.BAD_REQUEST);
+
         if(regionId == 0 && categoryId == 0)
             return articleRepository.findAllArticles();
         if(categoryId == 0)
@@ -63,6 +73,7 @@ public class ArticleService {
     }
 
     private List<Article> searchArticlesByKeyword(Integer regionId, Integer categoryId, String keyword){
+        keyword = handleSpecialChars(keyword);
         if(regionId == 0 && categoryId == 0)
             return articleRepository.findByKeyword(keyword);
         if(categoryId == 0)
@@ -83,7 +94,12 @@ public class ArticleService {
     }
 
     public Article getArticleByUuid(String uuid){
-        return articleRepository.findByUuid(uuid).get();
+        try{
+            Objects.nonNull(articleRepository.findByUuid(uuid).orElse(null));
+            return articleRepository.findByUuid(uuid).get();
+        }catch (NullPointerException e){
+            throw new CustomGlobalException(ErrorCode.NO_RESOURCE);
+        }
     }
 
     public Article setClosed(String uuid){
@@ -175,5 +191,34 @@ public class ArticleService {
     }
     private String generateUuid() {
         return UUID.randomUUID().toString();
+    }
+
+    // regex 등 검색어에서 문제가 될 수 있는 문자 치환
+    private String handleSpecialChars(String keyword){
+        AtomicReference<String> ret = new AtomicReference<>(keyword);
+
+        specialCharList.forEach(character -> {
+            String replacement = "";
+            ret.set(keyword.replaceAll(String.valueOf(character), replacement));
+        });
+
+        return ret.get();
+    }
+
+    public void validationCheckOn(GatheringDto.CreateRequest request){
+        // 요청으로 넘어온 모임 시간이 현재시간 이전일 경우
+        if(request.getMeetingDay().before(new Timestamp(System.currentTimeMillis())))
+            throw new CustomGlobalException(ErrorCode.INVALID_DATE);
+        // 유효하지 않은 모임 인원일 경우
+        if(request.getTotal() <= 1)
+            throw new CustomGlobalException(ErrorCode.INVALID_TOTAL);
+    }
+    public void validationCheckOn(GatheringDto.UpdateRequest request){
+        // 요청으로 넘어온 모임 시간이 현재시간 이전일 경우
+        if(request.getMeetingDay().before(new Timestamp(System.currentTimeMillis())))
+            throw new CustomGlobalException(ErrorCode.INVALID_DATE);
+        // 유효하지 않은 모임 인원일 경우
+        if(request.getTotal() <= 1)
+            throw new CustomGlobalException(ErrorCode.INVALID_TOTAL);
     }
 }

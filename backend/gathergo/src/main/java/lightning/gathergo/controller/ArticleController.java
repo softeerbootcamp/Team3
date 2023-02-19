@@ -91,6 +91,7 @@ public class ArticleController {
             @RequestBody GatheringDto.CreateRequest request,
             @CookieValue(name = "sessionId") String sessionId
     ){
+        articleService.validationCheckOn(request);
         String regionName = request.getLocation().split(" ")[0];
         articleService.mergeLocation(request);
         Article article = articleMapper.toArticle(request);
@@ -120,13 +121,11 @@ public class ArticleController {
         Session session;
         String userId = new String();
 
-        System.out.println("----------111--------");
         if(null != sessionId){
             session = sessionService.findSessionBySID(sessionId).get();
             userId = session.getUserId();
         }
 
-        System.out.println("----------222--------");
         // 게시물 디비에서 얻어오기
         Article article = articleService.getArticleByUuid(articleUuid);
         // 게시물에 달린 댓글 디비에서 얻어오기
@@ -138,7 +137,6 @@ public class ArticleController {
         // 유저 정보 얻어오기
         user = articleService.getUserInfoByFromArticle(article.getUuid());
 
-        System.out.println("----------333--------");
         data.setArticle(articleMapper.toArticleFullDto(article));
         data.setComments(commentsDto);
         data.setHost(new GatheringDto.UserDto(user.getUserId(), user.getIntroduction(), user.getProfilePath()));
@@ -149,13 +147,9 @@ public class ArticleController {
             commentService.setIsMyComment(data, userId);
         }
 
-
-        System.out.println("----------444--------");
         currCount = countService.getCount(articleUuid);
         data.getArticle().setCurr(currCount);
 
-
-        System.out.println("----------555--------");
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.ArticleDetailResponse>(
                                 1,
@@ -171,6 +165,7 @@ public class ArticleController {
                                     @RequestBody GatheringDto.UpdateRequest request,
                                     @CookieValue(name = "sessionId") String sessionId
     ){
+        articleService.validationCheckOn(request);
         articleService.mergeLocation(request);
         Session session;
         String userId = new String();
