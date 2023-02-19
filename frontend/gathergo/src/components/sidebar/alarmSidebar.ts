@@ -31,7 +31,7 @@ class AlarmSidebar {
     }
     
 closeSidebarEvent(){
-    this.element.querySelector('#alarm-sidebar-close')?.addEventListener('click',(e)=>{
+    this.element.querySelector('#alarm-sidebar-close')?.addEventListener('click',()=>{
         this.closeSidebar();
     })
     this.element.querySelector('.sidebar-background')?.addEventListener('click',(e)=>{

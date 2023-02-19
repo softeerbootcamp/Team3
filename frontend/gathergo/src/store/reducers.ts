@@ -88,13 +88,15 @@ function reducer(state = initialState, action: Taction) {
       state.tabNumber = action.payload.tabNumber;
       return { ...state, profileTab: action.payload.tabNumber };
     case SET_PROFILE:
-      console.log(action.payload.userInfoResponse);
       state.userInfo = action.payload.userInfoResponse;
+      state.userInfo.profilePath =
+        'https://team3-gathergo.s3.ap-northeast-2.amazonaws.com/'+action.payload.userInfoResponse.uuid+'.png';
       state.userInfo.userHostCards = action.payload.userInfoResponse.hostingArticleList;
       state.userInfo.userJoinCards = action.payload.userInfoResponse.articleList;
       return {...state}
     case CHANGE_PROFILEIMG:
       state.userInfo.profilePath = action.payload.imageSrc
+      console.log(state.userInfo.profilePath)
       return {...state}
     case CHANGE_PROFILEINTRO:
       state.userInfo.introduction = action.payload.introduction;

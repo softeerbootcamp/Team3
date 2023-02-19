@@ -2,7 +2,7 @@ import tabProfileMain from './tabProfileMain';
 import tabEditMain from './tabEditMain'
 import tabLogoutModal from './tabLogoutModal';
 import store from '../../store/store'
-import Fba from '../fba/fba';
+// import Fba from '../fba/fba';
 
 class profileMain {
   element: HTMLDivElement;

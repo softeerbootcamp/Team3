@@ -1,6 +1,6 @@
 
 import store from '../../store/store';
-import { changeProfileTab } from '../../store/actions';
+import { changeProfileTab, userLogout } from '../../store/actions';
 
 class tabLogoutModal {
   element: HTMLDivElement;
@@ -23,14 +23,33 @@ class tabLogoutModal {
         </div>
     </div>`;
 
-    this.logoutModalButton()
+    this.logoutModalCancelButton()
+    this.logoutModalAgreeButton()
+    this.logoutModalBackground()
   }
 
-    logoutModalButton(){
-    const cancelButton = this.element.querySelector('#button-cancel') as HTMLDivElement;
-    cancelButton.addEventListener('click',()=>{
-        store.dispatch(changeProfileTab(0));
-    })
+    logoutModalCancelButton(){
+        const cancelButton = this.element.querySelector('#button-cancel') as HTMLDivElement;
+        cancelButton.addEventListener('click',()=>{
+            store.dispatch(changeProfileTab(0));
+        })
+
+    }
+
+    logoutModalAgreeButton(){
+        const cancelButton = this.element.querySelector(
+          '#button-logout'
+        ) as HTMLDivElement;
+        cancelButton.addEventListener('click', () => {
+            store.dispatch(userLogout())
+        });
+    }
+
+    logoutModalBackground(){
+        this.element.addEventListener('click',(e)=>{
+            if(e.target != this.element.querySelector('.logout-modal-content'))
+                store.dispatch(changeProfileTab(0));
+        })
     }
 }
 export default tabLogoutModal;

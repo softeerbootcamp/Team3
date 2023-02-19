@@ -2,11 +2,12 @@
     display : flex;
     flex-direction: row;
     width : 100%;
-    height : 100vh;
+    height : 841px;
+    overflow : hidden;
 }
 
 .profile-sidebar{
-    height : 90%;
+    height : 100%;
     min-width : 200px;
     background-color : #FFF;
     border-right : solid 1px var(--bs-border-color);
@@ -95,7 +96,6 @@
   object-fit: cover;
   display: block;
   width: 35%;
-  border-radius : 70%;
 }
 
 .sidebar-user-info.container-md {

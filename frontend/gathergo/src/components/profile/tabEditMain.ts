@@ -1,6 +1,6 @@
 import { TuserInfo } from '../../common/constants';
 import store from '../../store/store';
-import { changeProfileTab, changeUserIntroduction } from '../../store/actions';
+import { changeProfileTab} from '../../store/actions';
 import {
   changeUserProfileImg,
   changeUserProfileIntroduction,
@@ -20,10 +20,6 @@ class tabEditMain {
       this.render();
     });
     this.render();
-
-    store.subscribe(() => {
-      this.render;
-    });
   }
   render() {
     this.element.innerHTML = `    
@@ -100,9 +96,6 @@ class tabEditMain {
       '#profile-desc-edit'
     ) as HTMLTextAreaElement;
     profileEdit?.addEventListener('click', async () => {
-    const profileFileEdit = this.element.querySelector(
-        '#profile-fix-image'
-    ) as HTMLImageElement;
         store.dispatch(
       await changeUserProfileImg(this.test, this.userEditInfo.uuid))
       store.dispatch(
@@ -122,21 +115,13 @@ class tabEditMain {
     ) as HTMLImageElement;
     profileFileEdit?.addEventListener('change', () => {
       const value = profileFileEdit as HTMLInputElement;
-      if (value.files && value.files[0]) {
+      if (value.files && value.files[0] && value.files[0].size < (10*1024*1024)) {
         this.test.append('file', value.files[0]);
-
-        this.reader.onload = function (e) {
-          const imageDom = document.getElementById(
-            'profile-fix-image'
-          ) as HTMLImageElement;
-
+        this.reader.onload = function () {
           let a;
-
           if (value.files && value.files[0])
             a = URL.createObjectURL(value.files[0]);
-          imageDom.src = a as string;
           profileFileMainEdit.src = a as string
-          //   imageDom.src = e.target?.result as string;
         };
         this.reader.readAsDataURL(value.files[0]);
       }
