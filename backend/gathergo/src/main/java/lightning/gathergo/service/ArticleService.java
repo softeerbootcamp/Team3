@@ -52,7 +52,7 @@ public class ArticleService {
         return searchArticlesByKeyword(regionId, categoryId, keyword);
     }
 
-    public List<Article> getArticlesByRegionAndCategory(Integer regionId, Integer categoryId){
+    private List<Article> getArticlesByRegionAndCategory(Integer regionId, Integer categoryId){
         if(regionId == 0 && categoryId == 0)
             return articleRepository.findAllArticles();
         if(categoryId == 0)
