@@ -20,10 +20,6 @@ class tabEditMain {
       this.render();
     });
     this.render();
-
-    store.subscribe(() => {
-      this.render;
-    });
   }
   render() {
     this.element.innerHTML = `    
@@ -119,20 +115,13 @@ class tabEditMain {
     ) as HTMLImageElement;
     profileFileEdit?.addEventListener('change', () => {
       const value = profileFileEdit as HTMLInputElement;
-      if (value.files && value.files[0]) {
+      if (value.files && value.files[0] && value.files[0].size < (10*1024*1024)) {
         this.test.append('file', value.files[0]);
         this.reader.onload = function () {
-          const imageDom = document.getElementById(
-            'profile-fix-image'
-          ) as HTMLImageElement;
-
           let a;
-
           if (value.files && value.files[0])
             a = URL.createObjectURL(value.files[0]);
-          imageDom.src = a as string;
           profileFileMainEdit.src = a as string
-          //   imageDom.src = e.target?.result as string;
         };
         this.reader.readAsDataURL(value.files[0]);
       }
