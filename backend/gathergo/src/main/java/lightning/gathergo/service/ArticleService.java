@@ -72,6 +72,16 @@ public class ArticleService {
         return articleRepository.findByKeywordAndRegionAndCategory(keyword, regionId, categoryId);
     }
 
+    public List<Article> getImminentArticles(Integer regionId, Integer categoryId){
+        if(regionId == 0 && categoryId == 0)
+            return articleRepository.findImminentArticles();
+        if(regionId == 0)
+            return articleRepository.findImminentArticlesByCategoryId(categoryId);
+        if(categoryId == 0)
+            return articleRepository.findImminentArticlesByRegionId(regionId);
+        return articleRepository.findImminentArticlesByCategoryIdRegionId(categoryId, regionId);
+    }
+
     public Article getArticleByUuid(String uuid){
         return articleRepository.findByUuid(uuid).get();
     }
