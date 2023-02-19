@@ -1,4 +1,4 @@
-import { getKeyByValue } from '../../common/commonFunctions';
+import { getKeyByValue, getKoreanTimeString } from '../../common/commonFunctions';
 import { category } from '../../common/constants';
 import { fetchEditCard, fetchPostCard } from '../../common/Fetches';
 import { setModal } from '../../store/actions';
@@ -137,7 +137,7 @@ class PostingForm {
       title: inputs[0].value,
       total: Number(inputs[6].value),
       categoryId: Number(categoryKey),
-      meetingDay: meetingDay.toISOString(),
+      meetingDay: getKoreanTimeString(meetingDay),//meetingDay.toISOString(),
       content: content?.value,
       location: inputs[3].value,
       locationDetail: inputs[4].value,
