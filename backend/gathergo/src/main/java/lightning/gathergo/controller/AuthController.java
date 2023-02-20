@@ -1,5 +1,6 @@
 package lightning.gathergo.controller;
 
+import lightning.gathergo.dto.CommonResponseDTO;
 import lightning.gathergo.dto.LoginDto;
 import lightning.gathergo.dto.SignupDto;
 import lightning.gathergo.mapper.SignupDtoMapper;
@@ -43,11 +44,11 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDto.LoginInput loginDto, HttpServletResponse response, CookieService cookieService) {
+    public ResponseEntity<CommonResponseDTO<?>> login(@RequestBody LoginDto.LoginInput loginDto, HttpServletResponse response, CookieService cookieService) {
         User loginUser = userService.loginUser(loginDto);
 
         if(loginUser == null)
-            return new ResponseEntity<>(new LoginDto.LoginFailedResponse("ID나 비밀번호가 일치하지 않습니다", ""), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new CommonResponseDTO<>(0, "ID나 비밀번호가 일치하지 않습니다", new LoginDto.LoginFailedResponse("ID나 비밀번호가 일치하지 않습니다")), HttpStatus.UNAUTHORIZED);
 
         Session session = sessionService.createSession(loginUser.getUserId(), loginUser.getUserName(), loginUser.getUuid());
 
@@ -56,19 +57,19 @@ public class AuthController {
 
         cookieService.createSessionCookie(CookieService.SESSION_ID, session.getSessionId(), response);
 
-        return new ResponseEntity<>(new LoginDto.LoginSuccessfulResponse("로그인 성공", session, "/"), headers, HttpStatus.OK);
+        return new ResponseEntity<>(new CommonResponseDTO<>(1, "로그인 성공", new LoginDto.LoginSuccessfulResponse("로그인 성공", session)), headers, HttpStatus.OK);
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody SignupDto.SignupInput signupDto) {
         User user = signupDtoMapper.toUser(signupDto);
 
-        userService.addUser(user);
+        userService.addUser(user);  // 중복 시 409, DUPLICATE_KEY
 
         HttpHeaders headers= new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
 
-        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "회원가입 성공", "/login"), headers, HttpStatus.OK);
+        return new ResponseEntity<>(new CommonResponseDTO<>(1, "회원가입 성공", new SignupDto.SignupSuccessfulResponse( "회원가입 성공")), headers, HttpStatus.OK);
     }
 
     @DeleteMapping("/logout")
@@ -78,7 +79,7 @@ public class AuthController {
         HttpHeaders headers= new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
 
-        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "로그아웃 성공", "/"), headers, HttpStatus.OK);
+        return new ResponseEntity<>(new CommonResponseDTO<>(1, "로그아웃 성공", new SignupDto.SignupSuccessfulResponse( "로그아웃 성공")), headers, HttpStatus.OK);
     }
 
         @ExceptionHandler(MethodArgumentNotValidException.class)

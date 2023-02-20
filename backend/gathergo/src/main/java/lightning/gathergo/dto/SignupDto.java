@@ -62,19 +62,17 @@ public class SignupDto {
 
     protected static class SignupResponse {
         protected String message;
-        protected String redirectUrl;
 
-        protected SignupResponse(String message, String redirectUrl) {
+        protected SignupResponse(String message) {
             this.message = message;
-            this.redirectUrl = redirectUrl;
         }
     }
 
     public static class SignupSuccessfulResponse extends SignupDto.SignupResponse {
         private Session session;
 
-        public SignupSuccessfulResponse(String message, String redirectUrl) {
-            super(message, redirectUrl);
+        public SignupSuccessfulResponse(String message) {
+            super(message);
         }
 
         public Session getSession() {
@@ -83,8 +81,8 @@ public class SignupDto {
     }
 
     public static class SignupFailedResponse extends SignupDto.SignupResponse {
-        public SignupFailedResponse(String message, String redirectUrl) {
-            super(message, redirectUrl);
+        public SignupFailedResponse(String message) {
+            super(message);
         }
 
         public String getMessage() {

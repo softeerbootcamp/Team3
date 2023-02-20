@@ -38,3 +38,5 @@ out/
 ### VS Code ###
 .vscode/
 
+### Local Dev env Credential ###
+/src/main/resources/firebase_credentials.json
