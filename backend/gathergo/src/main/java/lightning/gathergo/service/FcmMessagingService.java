@@ -146,6 +146,21 @@ public class FcmMessagingService {
         return affectedRows != 0;
     }
 
+    public boolean deleteTopicAndDeviceTokens(String topic) {  // 구독 삭제
+        if(topic == null)
+            return false;
+
+        Set<String> prevTokens = registrationTokens.remove(topic);
+
+        if(prevTokens == null)
+            return false;
+
+        notificationRepository.deleteByArticleUuid(topic);
+        int affectedRows = subscriptionRepository.deleteByArticleId(topic);
+
+        return affectedRows > 0;
+    }
+
     public String sendMessageToTopic(String topic, Map<String, String> datas) {
 
         // 1. 알림 내역 저장
