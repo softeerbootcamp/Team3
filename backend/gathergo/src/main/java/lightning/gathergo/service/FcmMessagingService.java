@@ -18,12 +18,16 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.*;
 
 @Service
 public class FcmMessagingService {
     private final Logger logger = LoggerFactory.getLogger(FcmMessagingService.class);
+
+    private final ExecutorService executorService = Executors.newFixedThreadPool(2);
 
     private final SubscriptionRepository subscriptionRepository;
 
@@ -175,12 +179,34 @@ public class FcmMessagingService {
         notificationRepository.save(topic, datas.get("title"), datas.get("body"));
 
         // 2. 알림 발송
-        Message message = Message.builder()
-                .putAllData(datas)
-                .setTopic(topic)
-                .build();  // .setCondition 추가하면 한 번에 여러 topic에도 전달 가능
 
-        return send(message);
+        sendAsyncMessageToTopic(datas, topic);
+    }
+
+
+
+    public void sendAsyncMessageToTopic(Map<String, String> datas, String topic) {
+        Instant start = Instant.now();
+
+        executorService.submit(() -> {
+            Message message = Message.builder()
+                    .putAllData(datas)
+                    .setTopic(topic)
+                    .build();
+
+            try {
+                String response = FirebaseMessaging.getInstance().send(message);
+
+                Instant end = Instant.now();
+                Duration duration = Duration.between(start, end);
+                logger.info("Successfully sent message to: {}, took: {}", topic, duration);
+
+                return response;
+            } catch (FirebaseMessagingException e) {
+                logger.error(e.getMessage());
+                throw e;
+            }
+        });
     }
 
     public String sendMessageToToken(String token, String body) {
