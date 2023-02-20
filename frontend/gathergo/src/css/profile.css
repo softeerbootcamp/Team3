@@ -95,7 +95,7 @@
 .user-profilepage-img {
   object-fit: cover;
   display: block;
-  width: 35%;
+  width: 100%;
 }
 
 .sidebar-user-info.container-md {
