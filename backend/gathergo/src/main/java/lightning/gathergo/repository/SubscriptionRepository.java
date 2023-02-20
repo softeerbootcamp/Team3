@@ -23,6 +23,10 @@ public interface SubscriptionRepository extends CrudRepository<Subscription, Str
     int deleteByArticleId(@Param("uuid") String articleUuid);
 
     @Modifying
+    @Query("delete from subscription where articleId in (:uuid)")
+    int deleteByArticleIds(@Param("uuid") List<String> articleUuid);
+
+    @Modifying
     @Query("delete from subscription where token = :token")
     int deleteByDeviceToken(@Param("token") String deviceToken);
 
