@@ -17,6 +17,7 @@ import {
   TloginData,
   TpostCard,
   TsignupData,
+  PROFILE_BASE_URL
 } from './constants';
 
 const url = 'https://gathergo.kro.kr/';
@@ -62,11 +63,14 @@ export async function fetchSignup(signupData: TsignupData) {
 }
 export async function fetchLogout() {
   try {
-    await fetch(url + 'api/logout', {
+    const response = await fetch(url + 'api/logout', {
       method: 'DELETE',
       credentials: 'include',
     });
     document.cookie = 'sessionId=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'sessionId=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+
+    console.log(response)
     return userLogout();
   } catch (error) {
     return fetchError(error);
@@ -284,8 +288,6 @@ export async function changeUserProfileImg(
   formData: FormData,
   useruuId: string
 ) {
-  const PROFILE_BASE_URL =
-    'https://team3-gathergo.s3.ap-northeast-2.amazonaws.com/';
   try {
     const response = await fetch(url + 'api/image/' + useruuId, {
       method: 'POST',
