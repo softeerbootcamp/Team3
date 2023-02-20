@@ -12,27 +12,34 @@ public class Session {
     protected final LocalDateTime createDate;
     @Value("${session.duration}")
     protected int duration;
+    protected Integer id;
     protected String userId;
     protected String userName;
     protected String userUuid;
 
-    public Session(String userId, String userName) {
+    public Session(Integer id, String userId, String userName) {
+        this.id = id;
         this.sessionId = String.valueOf(UUID.randomUUID());
         this.userId = userId;
         this.userName = userName;
         this.createDate = LocalDateTime.now();
     }
 
-    public Session(String sessionId, String userId, String userName, LocalDateTime createDate) {
+    public Session(Integer id, String sessionId, String userId, String userName, LocalDateTime createDate) {
+        this.id = id;
         this.sessionId = sessionId;
         this.userId = userId;
         this.userName = userName;
         this.createDate = createDate;
     }
 
-    public Session(String userId, String userName, String userUuid) {
-        this(userId, userName);
+    public Session(Integer id, String userId, String userName, String userUuid) {
+        this(id, userId, userName);
         this.userUuid = userUuid;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getSessionId() {
