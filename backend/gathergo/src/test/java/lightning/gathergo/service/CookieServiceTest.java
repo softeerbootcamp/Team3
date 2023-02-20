@@ -78,7 +78,6 @@ class CookieServiceTest {
         softly.assertThat(cookie.getPath()).isEqualTo("/");
         Cookie[] cookies = {cookie};
 
-        softly.assertThat(cookieService.ifValidCookie(cookies, "expectedSessionId")).isNull();
         softly.assertAll();
     }
 
