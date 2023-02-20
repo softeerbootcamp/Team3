@@ -138,7 +138,7 @@ public class AuthControllerTest {
         MockHttpServletResponse response = new MockHttpServletResponse();
 
         // given
-        Session createdSession = sessionService.createSession("asdf", "gildong");  // 세션 생성
+        Session createdSession = sessionService.createSession(1, "asdf", "gildong");  // 세션 생성
 
         cookieService.createSessionCookie(SESSION_ID, createdSession.getSessionId(), 0, response); // 쿠키 생성
         // when
@@ -161,7 +161,7 @@ public class AuthControllerTest {
         MockHttpServletResponse response = new MockHttpServletResponse();
 
         // given
-        Session createdSession = sessionService.createSession("asdf", "gildong");  // 세션 생성
+        Session createdSession = sessionService.createSession(1, "asdf", "gildong");  // 세션 생성
 
         cookieService.createSessionCookie(SESSION_ID, createdSession.getSessionId(), 3600, response); // 쿠키 생성
         // when
