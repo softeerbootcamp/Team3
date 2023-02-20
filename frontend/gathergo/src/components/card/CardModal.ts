@@ -4,6 +4,7 @@ import {
   category,
   regionSi,
   TcardDetail,
+  PROFILE_BASE_URL
 } from '../../common/constants';
 import { fetchSendComment } from '../../common/Fetches';
 import { modalMapGenerator } from '../../common/kakaoMapAPI/kakaoMapAPI';
@@ -157,7 +158,7 @@ class CardModal {
       <div class="user-profile">
         <img class="user-profile-img" src="${
           this.readingCard?.hostProfile
-            ? 'https://team3-gathergo.s3.ap-northeast-2.amazonaws.com/' +
+            ? PROFILE_BASE_URL +
               this.readingCard?.hostProfile +
               '.png?' +
               Math.random()

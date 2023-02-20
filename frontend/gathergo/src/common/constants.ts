@@ -4,7 +4,8 @@ import Login from '../pages/login';
 import Post from '../pages/post';
 
 const BASE_URL = 'http://localhost:5173';
-
+const PROFILE_BASE_URL =
+    'https://team3-gathergo.s3.ap-northeast-2.amazonaws.com/';
 const routes = [
   { path: /^\/$/, element: Home },
   { path: /^\/profile$/, element: Profile },
@@ -165,6 +166,7 @@ const category: TdropDown = {
 
 export {
   BASE_URL,
+  PROFILE_BASE_URL,
   routes,
   regionSi,
   category,

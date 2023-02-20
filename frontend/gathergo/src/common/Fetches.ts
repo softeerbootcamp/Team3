@@ -17,6 +17,7 @@ import {
   TloginData,
   TpostCard,
   TsignupData,
+  PROFILE_BASE_URL
 } from './constants';
 
 const url = 'https://gathergo.kro.kr/';
@@ -284,8 +285,6 @@ export async function changeUserProfileImg(
   formData: FormData,
   useruuId: string
 ) {
-  const PROFILE_BASE_URL =
-    'https://team3-gathergo.s3.ap-northeast-2.amazonaws.com/';
   try {
     const response = await fetch(url + 'api/image/' + useruuId, {
       method: 'POST',
