@@ -30,10 +30,11 @@ public class ArticleController {
     private final RegionService regionService;
     private final ArticleMapper articleMapper;
     private final CommentMapper commentMapper;
+    private final FcmMessagingService messagingService;
 
     @Autowired
     ArticleController(ArticleService articleService, SessionService sessionService, UserService userService, CountService countService,
-                      CommentService commentService, RegionService regionService, ArticleMapper articleMapper, CommentMapper commentMapper) {
+                      CommentService commentService, RegionService regionService, ArticleMapper articleMapper, CommentMapper commentMapper, FcmMessagingService messagingService) {
         this.articleService = articleService;
         this.sessionService = sessionService;
         this.userService = userService;
@@ -42,6 +43,7 @@ public class ArticleController {
         this.regionService = regionService;
         this.articleMapper = articleMapper;
         this.commentMapper = commentMapper;
+        this.messagingService = messagingService;
     }
 
     // 게시물 리스트 검색
@@ -182,6 +184,13 @@ public class ArticleController {
         data.setMessage("수정에 성공했습니다.");
         data.setArticleUuid(articleUuid);
 
+        // 알림 발송
+        Article article = articleService.getArticleByUuid(articleUuid);
+
+        Map<String, String> messagePayload = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", "참여한 모임 정보가 변경되었습니다."));
+
+        messagingService.sendMessageToTopic(articleUuid, messagePayload);
+
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.MessageResponse>(
                                 1,
@@ -200,6 +209,9 @@ public class ArticleController {
         data.setMessage("수정에 성공했습니다.");
         data.setArticleUuid(articleUuid);
 
+        // 구독 정보 삭제
+        messagingService.deleteTopicAndDeviceTokens(articleUuid);
+
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.MessageResponse>(
                                 1,
@@ -217,6 +229,13 @@ public class ArticleController {
         comment.setUserId(userService.findUserByUserId(session.getUserId()).get().getId());
 
         articleService.addComment(comment, articleUuid);
+
+        // 메시지 발송
+        Article article = articleService.getArticleByUuid(articleUuid);
+
+        Map<String, String> data = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", session.getUserName() + "님의 댓글이 추가되었습니다"));
+
+        messagingService.sendMessageToTopic(articleUuid, data);
 
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<String>(
@@ -280,6 +299,13 @@ public class ArticleController {
 
         data.setArticleUuid(articleUuid);
         data.setMessage("참가에 성공했습니다.");
+
+        // 알림 발송
+        Article article = articleService.getArticleByUuid(articleUuid);
+
+        Map<String, String> messagePayload = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", session.getUserName() + "님이 모임에 참가했습니다."));
+
+        messagingService.sendMessageToTopic(articleUuid, messagePayload);
 
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.MessageResponse>(

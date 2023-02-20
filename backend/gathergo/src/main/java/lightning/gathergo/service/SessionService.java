@@ -23,17 +23,17 @@ public class SessionService {
         this.sessionRepository = sessionRepository;
     }
 
-    public Session createSession(String userId, String userName) throws IllegalStateException {
+    public Session createSession(Integer id, String userId, String userName) throws IllegalStateException {
 
-        Session s = new Session(userId, userName);
+        Session s = new Session(id, userId, userName);
         sessionRepository.createSession(s);
 
         return s;
     }
 
-    public Session createSession(String userId, String userName, String userUuid) throws IllegalStateException {
+    public Session createSession(Integer id, String userId, String userName, String userUuid) throws IllegalStateException {
 
-        Session s = new Session(userId, userName, userUuid);
+        Session s = new Session(id, userId, userName, userUuid);
         sessionRepository.createSession(s);
 
         return s;

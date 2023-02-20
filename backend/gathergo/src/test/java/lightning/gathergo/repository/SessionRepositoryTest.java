@@ -28,7 +28,7 @@ public class SessionRepositoryTest {
     @DisplayName("정상 생성 테스트")
     public void create() {
         // given
-        Session s = new Session("a", "username");
+        Session s = new Session(1, "a", "username");
 
         // when
         boolean result = sessionRepository.createSession(s);
@@ -54,7 +54,7 @@ public class SessionRepositoryTest {
     public void deleteValidSession() {
         // given
         String sid = String.valueOf(UUID.randomUUID());
-        Session validSession = new Session("asdf", "asdf");
+        Session validSession = new Session(1, "asdf", "asdf");
         sessionRepository.sessions.put(sid, validSession);
 
         // when

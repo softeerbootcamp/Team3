@@ -1,64 +1,66 @@
 package lightning.gathergo.controller;
 
 import lightning.gathergo.dto.CommonResponseDTO;
-import lightning.gathergo.dto.SubscriptionDto;
-import lightning.gathergo.service.FcmMessagingService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lightning.gathergo.model.Article;
+import lightning.gathergo.model.Notification;
+import lightning.gathergo.model.Session;
+import lightning.gathergo.model.UserArticleRelationship;
+import lightning.gathergo.repository.NotificationRepository;
+import lightning.gathergo.repository.UserArticleRelationshipRepository;
+import lightning.gathergo.service.SessionService;
+import lightning.gathergo.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @RestController
-@RequestMapping(value = "/subscription", produces = APPLICATION_JSON_VALUE)
 public class NotificationController {
-    // FCM 메시지 구독 컨트롤러
-    private final Logger logger = LoggerFactory.getLogger(NotificationController.class);
-    private final FcmMessagingService messagingService;
+    private final SessionService sessionService;
+    private final UserService userService;
+    private final NotificationRepository notificationRepository;
 
-    public NotificationController(FcmMessagingService messagingService) {
-        this.messagingService = messagingService;
+    public NotificationController(SessionService sessionService, UserService userService, NotificationRepository notificationRepository) {
+        this.sessionService = sessionService;
+        this.userService = userService;
+        this.notificationRepository = notificationRepository;
     }
 
-    @PostMapping
-    public ResponseEntity<CommonResponseDTO<?>> subscribe(@RequestBody SubscriptionDto.Request request) {
-        CommonResponseDTO<Object> responseDto;
+    @GetMapping("/notifications")
+    public ResponseEntity<CommonResponseDTO<?>> getNotifications(@CookieValue("sessionId") String sessionId) {
+        Optional<Session> session = sessionService.findSessionBySID(sessionId);
 
-        String deviceToken = request.getDeviceToken();
-        String articleId = request.getArticleId();
+        if(session.isEmpty())
+            return new ResponseEntity<>(new CommonResponseDTO<>(0, "로그인이 안된 사용자입니다", null), HttpStatus.UNAUTHORIZED);
 
-        logger.info("topic 구독 {}, {}", articleId, deviceToken);
+        // 내가 참여(구독하는 게시글 정보)
+        List<Article> participatingArticles = userService.getParticipatingArticlesById(session.get().getId());
 
-        boolean subscribed = messagingService.subscribeToTopic(articleId, deviceToken);
+        List<String> articleUuids = participatingArticles.stream().map(Article::getUuid).collect(Collectors.toList());
+        List<Timestamp> meetingDateTime = participatingArticles.stream().map(Article::getMeetingDay).collect(Collectors.toList());
 
-        if(subscribed)
-            responseDto = new CommonResponseDTO<>(1, articleId + " 구독 성공", null);
-        else
-            responseDto = new CommonResponseDTO<>(0, articleId + " 구독 실패", null);
+        List<Notification> notifications;
 
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
-    }
+        if(!participatingArticles.isEmpty()) {
+            // 구독중인 알림
+            notifications = notificationRepository.findByArticleIds(articleUuids);
+            notifications.sort(Comparator.comparing(Notification::getIssueDateTime));
 
-    @DeleteMapping
-    public ResponseEntity<CommonResponseDTO<?>> unsubscribe(@RequestBody SubscriptionDto.Request request) {
-        CommonResponseDTO<Object> responseDto;
+            IntStream.range(0, Math.min(notifications.size(), meetingDateTime.size()))
+                    .forEach(i -> notifications.get(i).setMeetingDay(meetingDateTime.get(i)));
+        } else {
+            notifications = new ArrayList<>();
+        }
 
-        String deviceToken = request.getDeviceToken();
-        String articleId = request.getArticleId();
-
-        logger.info("topic 구독 해제 {}, {}", articleId, deviceToken);
-
-        boolean unSubscribed = messagingService.unsubscribeFromTopic(articleId, deviceToken);
-
-        if(unSubscribed)
-            responseDto = new CommonResponseDTO<>(1, articleId + " 구독 해제 성공", null);
-        else
-            responseDto = new CommonResponseDTO<>(0, articleId + " 구독 해제 실패", null);
-
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return new ResponseEntity<>(new CommonResponseDTO<>(1, "구독중인 모든 알림", notifications), HttpStatus.OK);
     }
 }

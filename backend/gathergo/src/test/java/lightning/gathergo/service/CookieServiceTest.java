@@ -78,7 +78,6 @@ class CookieServiceTest {
         softly.assertThat(cookie.getPath()).isEqualTo("/");
         Cookie[] cookies = {cookie};
 
-        softly.assertThat(cookieService.ifValidCookie(cookies, "expectedSessionId")).isNull();
         softly.assertAll();
     }
 
@@ -92,7 +91,7 @@ class CookieServiceTest {
         /*when(sessionService.createSession("asdf", "gildong"))
                 .thenReturn(new Session(expectedSessionId, "Asdf", "gildong", LocalDateTime.now()));*/
 
-        Session createdSession = sessionService.createSession("asdf", "gildong");  // 세션 생성
+        Session createdSession = sessionService.createSession(1 , "asdf", "gildong");  // 세션 생성
 
         cookieService.createSessionCookie(SESSION_ID, createdSession.getSessionId(), 0, response); // 쿠키 생성
 

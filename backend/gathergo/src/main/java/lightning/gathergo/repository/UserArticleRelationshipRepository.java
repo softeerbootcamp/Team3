@@ -24,6 +24,7 @@ public interface UserArticleRelationshipRepository extends CrudRepository<UserAr
     @Query("select * from user_article_relationship us where us.userId=:userId")
     List<UserArticleRelationship> findByUserId(Integer userId);
 
+    // 해당 게시글에 참여하는 모든 유저.Id 반환
     @Query("select uar.userId from user_article_relationship uar where uar.articleId in (select a.id from article a where uuid = :articleUuid)")
     List<Integer> findGuestsIdByArticleUuid(String articleUuid);
 

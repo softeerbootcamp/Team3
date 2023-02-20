@@ -6,13 +6,14 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.*;
 import lightning.gathergo.model.Subscription;
+import lightning.gathergo.repository.NotificationRepository;
 import lightning.gathergo.repository.SubscriptionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -26,6 +27,8 @@ public class FcmMessagingService {
 
     private final SubscriptionRepository subscriptionRepository;
 
+    private final NotificationRepository notificationRepository;
+
     private final static String notificationTitle = "알림이 도착했습니다";
 
     @Value("${firebase.credential.path}")
@@ -36,8 +39,9 @@ public class FcmMessagingService {
     private final Map<String, List<String>> pendingUpdates = new ConcurrentHashMap<>();
 
 
-    public FcmMessagingService(SubscriptionRepository subscriptionRepository, ObjectMapper objectMapper) {
+    public FcmMessagingService(SubscriptionRepository subscriptionRepository, NotificationRepository notificationRepository, ObjectMapper objectMapper) {
         this.subscriptionRepository = subscriptionRepository;
+        this.notificationRepository = notificationRepository;
         this.objectMapper = objectMapper;
     }
 
@@ -118,6 +122,7 @@ public class FcmMessagingService {
         TopicManagementResponse response = null;
         int affectedRows;  // DB에서 삭제된 구독 정보의 수, 정상 동작은 1을 반환
 
+        // 1. 구독 정보 삭제
         Set<String> tokens = registrationTokens.computeIfPresent(topic, (t, existingTokens) -> {  // atomic operation
             if (existingTokens.contains(deviceToken)) {
                 existingTokens.remove(deviceToken);
@@ -128,6 +133,7 @@ public class FcmMessagingService {
             }
         });
 
+        // 2. 테이블에서 구독 정보 삭제
         try {
             // 1. FCM에 추가
             response = FirebaseMessaging.getInstance()
@@ -143,7 +149,32 @@ public class FcmMessagingService {
         return affectedRows != 0;
     }
 
-    public String sendMessageToTopic(String topic, Map<String, String> datas) {  // TODO: Article의 멤버들에게 알림 발송
+    @Transactional
+    public boolean deleteTopicAndDeviceTokens(String topic) {  // 구독 삭제
+        if(topic == null)
+            return false;
+
+        // 1. 알림 내역 삭제
+        notificationRepository.deleteByArticleUuid(topic);
+
+        // 2. 구독 내역 모두 삭제
+        Set<String> prevTokens = this.registrationTokens.remove(topic);
+
+        if(prevTokens == null)
+            return false;
+
+        // 3. 구독 내역 DB에서 삭제
+        int affectedRows = subscriptionRepository.deleteByArticleId(topic);
+
+        return affectedRows > 0;
+    }
+
+    public String sendMessageToTopic(String topic, Map<String, String> datas) {
+
+        // 1. 알림 내역 저장
+        notificationRepository.save(topic, datas.get("title"), datas.get("body"));
+
+        // 2. 알림 발송
         Message message = Message.builder()
                 .putAllData(datas)
                 .setTopic(topic)
