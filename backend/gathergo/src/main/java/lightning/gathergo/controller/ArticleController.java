@@ -191,7 +191,7 @@ public class ArticleController {
         data.setMessage("수정에 성공했습니다.");
         data.setArticleUuid(articleUuid);
 
-        // 메시지 발송
+        // 알림 발송
         Article article = articleService.getArticleByUuid(articleUuid);
 
         Map<String, String> messagePayload = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", "참여한 모임 정보가 변경되었습니다."));
@@ -306,6 +306,13 @@ public class ArticleController {
 
         data.setArticleUuid(articleUuid);
         data.setMessage("참가에 성공했습니다.");
+
+        // 알림 발송
+        Article article = articleService.getArticleByUuid(articleUuid);
+
+        Map<String, String> messagePayload = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", session.getUserName() + "님이 모임에 참가했습니다."));
+
+        messagingService.sendMessageToTopic(articleUuid, messagePayload);
 
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.MessageResponse>(
