@@ -43,7 +43,7 @@ function reducer(state = initialState, action: Taction) {
         ...state,
         isLoading: false,
         error: action.payload.error,
-        // modalAction: 'ERROR',
+        modalAction: 'ERROR',
       };
     case READ_CARD:
       return {

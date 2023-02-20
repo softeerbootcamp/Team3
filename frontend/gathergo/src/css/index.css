@@ -388,8 +388,8 @@ li.nav-item.divider {
   max-height: 200px;
   object-fit: fill;
 
-  -webkit-filter: grayscale(100%);
-  filter: grayscale(100%);
+  -webkit-filter: grayscale(70%);
+  filter: grayscale(70%);
   -webkit-transform: scale(1);
   transform: scale(1);
   -webkit-transition: 0.2s ease-in-out;
@@ -511,16 +511,18 @@ li.nav-item.divider {
   justify-content: unset;
   align-items: unset;
   padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
+
 }
 #fba{
+  margin: 16px;
   justify-content: center;
   position: fixed;
-  bottom: 20px;
+  bottom: 80px;
   right: 20px;
   background: rgb(0, 0, 0);
   background: rgba(0, 0, 0, 0.7);
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   display: flex;
   text-decoration: none;
   -webkit-border-radius: 35px;
@@ -532,6 +534,7 @@ li.nav-item.divider {
   -ms-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2),0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 #fba img{
   width: 28px;

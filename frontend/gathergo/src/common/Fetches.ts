@@ -35,8 +35,7 @@ export async function fetchLogin(loginData: TloginData) {
     });
 
     const userLoginData = await response.json();
-    if (userLoginData.status == 500) throw new Error('비밀번호가 틀렸습니다.');
-    console.log(userLoginData.status);
+    if (userLoginData.status != 1) throw new Error(userLoginData.message);
     return userLogin(userLoginData);
   } catch (error) {
     return fetchError(error);
