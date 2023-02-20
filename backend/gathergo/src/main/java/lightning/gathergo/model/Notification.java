@@ -24,6 +24,10 @@ public class Notification {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private Timestamp issueDateTime;
 
+    @JsonSerialize(as = Timestamp.class)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+    private Timestamp meetingDay;
+
     public Notification(Integer id, String articleUuid, String title, String body, Timestamp issueDateTime) {
         this.id = id;
         this.articleUuid = articleUuid;
@@ -73,5 +77,13 @@ public class Notification {
 
     public void setIssueDateTime(Timestamp issueDateTime) {
         this.issueDateTime = issueDateTime;
+    }
+
+    public Timestamp getMeetingDay() {
+        return meetingDay;
+    }
+
+    public void setMeetingDay(Timestamp meetingDay) {
+        this.meetingDay = meetingDay;
     }
 }
