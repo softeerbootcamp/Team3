@@ -159,7 +159,7 @@ class NotiModal {
       case 'ERROR':
         return () => {
           this.modalClose();
-          store.dispatch(fetchError(null));
+          // store.dispatch(fetchError(null));
         };
       default: {
         return this.modalClose;
