@@ -54,7 +54,7 @@ public class LoginDto {
     public static class LoginFailedResponse {
         private String message;
 
-        public LoginFailedResponse(String message, String redirectUrl) {
+        public LoginFailedResponse(String message) {
             this.message = message;
         }
 
