@@ -139,7 +139,7 @@ public class ArticleController {
 
         data.setArticle(articleMapper.toArticleFullDto(article));
         data.setComments(commentsDto);
-        data.setHost(new GatheringDto.UserDto(user.getUserId(), user.getIntroduction(), user.getProfilePath()));
+        data.setHost(new GatheringDto.UserDto(user.getUserId(), user.getIntroduction(), user.getUuid()));
         articleService.splitLocation(data);
 
         if(!userId.isBlank()){
