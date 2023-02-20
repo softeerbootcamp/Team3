@@ -5,7 +5,7 @@ import {
   fetchJoinCancel,
 } from '../../common/Fetches';
 import Navigate from '../../common/utils/navigate';
-import { fetchError, setModal } from '../../store/actions';
+import { /*fetchError, */setModal } from '../../store/actions';
 import store from '../../store/store';
 
 class NotiModal {
@@ -179,6 +179,8 @@ class NotiModal {
         return '만남 이름을 입력해주세요';
       case 'INPUT_TIME':
         return '시간을 설정해주세요';
+      case 'INPUT_TIME_BEFORE':
+        return '만남 시간은 현재 시간보다 이전일 수 없습니다.';
       case 'INPUT_LOCATION':
         return '만남 장소를 설정해주세요';
       case 'INPUT_PEOPLE':

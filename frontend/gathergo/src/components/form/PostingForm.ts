@@ -106,6 +106,12 @@ class PostingForm {
     const categoryDropdown = this.element.querySelector(
       '.dropdown-toggle.category'
     );
+    console.log((meetingDay));
+    console.log((meetingDay.toISOString()));
+    console.log(getKoreanTimeString(meetingDay));
+    
+    
+
     const categoryKey = getKeyByValue(category, categoryDropdown?.innerHTML);
     if (inputs[0].value.length === 0) {
       store.dispatch(setModal('INPUT_TITLE'));
@@ -142,6 +148,10 @@ class PostingForm {
       location: inputs[3].value,
       locationDetail: inputs[4].value,
     };
+    if(meetingDay.getTime() > new Date().getDate()){
+      store.dispatch(setModal('INPUT_TIME_BEFORE'))
+      return;
+    }
     const queryString = new URLSearchParams(window.location.search);
     const feed = queryString.get('feed');
     if (feed) {

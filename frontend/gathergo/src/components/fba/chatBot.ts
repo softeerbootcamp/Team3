@@ -1,11 +1,13 @@
+import { chatBotText } from '../../common/constants';
+import {generateResponse} from './chatBotOpenAI.js';
 class ChatBot {
   element: HTMLElement;
   $container: HTMLElement | null;
-//   running: boolean;
   constructor($container: HTMLElement | null) {
     this.$container = $container;
     // this.running = false;
     this.element = document.createElement('div');
+
     this.render();
     // store.subscribe(() => this.render());
   }
@@ -25,7 +27,7 @@ class ChatBot {
             <path fill="currentColor" d="M32,224H64V416H32A31.96166,31.96166,0,0,1,0,384V256A31.96166,31.96166,0,0,1,32,224Zm512-48V448a64.06328,64.06328,0,0,1-64,64H160a64.06328,64.06328,0,0,1-64-64V176a79.974,79.974,0,0,1,80-80H288V32a32,32,0,0,1,64,0V96H464A79.974,79.974,0,0,1,544,176ZM264,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,264,256Zm-8,128H192v32h64Zm96,0H288v32h64ZM456,256a40,40,0,1,0-40,40A39.997,39.997,0,0,0,456,256Zm-8,128H384v32h64ZM640,256V384a31.96166,31.96166,0,0,1-32,32H576V224h32A31.96166,31.96166,0,0,1,640,256Z" />
           </svg>
         </div>
-        <span>Chatbot</span>
+        <span>GatherGO Chatbot</span>
     
       </div>
       <div class="chat-area" id="message-box">
@@ -43,52 +45,50 @@ class ChatBot {
     this.$container.appendChild(this.element);
     this.chatBotEvent();
     this.sendEvent();
+    console.log(generateResponse('what I need for posting?'));
   }
   chatBotEvent() {
     this.enterEvent();
     this.toggleEvent();
   }
-  sendEvent(){
+  sendEvent() {
     const sendBtn = document.querySelector('.input-send');
-    if(!sendBtn) return
-    sendBtn.addEventListener('click',()=>{
-        this.send();
-        console.log('ljkl')
-    })
+    if (!sendBtn) return;
+    sendBtn.addEventListener('click', () => {
+      this.send();
+      console.log('ljkl');
+    });
   }
-  enterEvent(){
+  enterEvent() {
     const message = this.element.querySelector<HTMLInputElement>('#message');
-    message?.addEventListener('keyup',(e)=>{
-        
-        if(e.key == 'Enter'){
-            // e.preventDefault();
-            this.send()
-        }
-    })
+    message?.addEventListener('keyup', (e) => {
+      if (e.key == 'Enter') {
+        // e.preventDefault();
+        this.send();
+      }
+    });
   }
-  toggleEvent(){
-    const chatbotToggle = this.element.querySelector<HTMLButtonElement>('#chatbot_toggle');
-    if(!chatbotToggle) return
+  toggleEvent() {
+    const chatbotToggle =
+      this.element.querySelector<HTMLButtonElement>('#chatbot_toggle');
+    if (!chatbotToggle) return;
     const icon1 = chatbotToggle.children[0] as HTMLElement;
     const icon2 = chatbotToggle.children[1] as HTMLElement;
-    chatbotToggle.onclick = ()=>{
-        if(this.element.classList.contains('collapsed')) {
-            this.element.classList.remove('collapsed');
-            icon1.style.display = 'none';
-            icon2.style.display = '';
-            setTimeout(this.addResponseMsg,1000,'hi'); //TODO: 처음 열었을때 보여질 메시지
-        }
-        else{
-            this.element.classList.add('collapsed');
-            icon2.style.display = 'none';
-            icon1.style.display = '';
-        }
-    }
-
+    chatbotToggle.onclick = () => {
+      if (this.element.classList.contains('collapsed')) {
+        this.element.classList.remove('collapsed');
+        icon1.style.display = 'none';
+        icon2.style.display = '';
+        setTimeout(this.addResponseMsg, 1000, chatBotText('DEFAULT')); //TODO: 처음 열었을때 보여질 메시지
+      } else {
+        this.element.classList.add('collapsed');
+        icon2.style.display = 'none';
+        icon1.style.display = '';
+      }
+    };
   }
 
-  send() {
-    
+  async send() {
     // if (this.running == true) return;
     const msg = this.element.querySelector<HTMLInputElement>('#message')?.value;
     if (!msg) return;
@@ -97,7 +97,8 @@ class ChatBot {
 
     //DELEAY MESSAGE RESPOSE Echo
     //TODO: msg의 값에 따라 아래 함수에 입력값 변경
-    setTimeout(this.addResponseMsg, 1000, msg);
+    // setTimeout(this.addResponseMsg, 1000, await generateResponse('what I need for posting?')/*chatBotText(msg)*/);
+    this.addResponseMsg(await generateResponse(msg))
   }
   addMsg(msg: string) {
     const div = document.createElement('div');
@@ -125,5 +126,7 @@ class ChatBot {
     messageBox.scrollTop = messageBox.scrollHeight;
     // this.running = false;
   }
+
+  
 }
 export default ChatBot;

@@ -181,3 +181,12 @@ export {
   TuserJoinCard,
   TpostCard
 };
+
+export function chatBotText(msg:string){
+  switch (msg){
+    case 'DEFAULT':
+      return `안녕하세요, 게더고 챗봇입니다.<br>궁금하신 서비스 메뉴를 영어로 대화창에 입력해주세요.<br>`;
+    default:
+      return '잘 못 알아들었습니다. 숫자만 입력해서'
+  }
+}

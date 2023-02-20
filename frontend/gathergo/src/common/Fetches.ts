@@ -34,9 +34,7 @@ export async function fetchLogin(loginData: TloginData) {
     });
 
     const userLoginData = await response.json();
-
-    if (userLoginData.status != 200) throw new Error(userLoginData.message);
-    console.log(userLoginData.status);
+    if (userLoginData.status != 1) throw new Error(userLoginData.message);
     return userLogin(userLoginData);
   } catch (error) {
     return fetchError(error);

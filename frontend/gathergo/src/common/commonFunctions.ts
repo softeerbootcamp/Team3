@@ -32,7 +32,7 @@ export function timeDiff(date: Date) {
 export function getKoreanTimeString(time= new Date()) {
 
   const koreaTime = new Date(
-    time.getTime() - time.getTimezoneOffset() * 60000 + 540 * 60000
+    time.getTime() + 540 * 60000
   );
   return koreaTime.toISOString();
 }

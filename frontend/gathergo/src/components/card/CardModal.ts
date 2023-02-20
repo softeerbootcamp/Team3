@@ -115,7 +115,7 @@ class CardModal {
     }</span>
           </div>
         </div>
-        <button type="button" class="feed-info btn btn-primary btn-lg ${this.readingCard?.isHost ?`disabled`:``}"><strong>참가하기</strong></button>
+        <button type="button" class="feed-info btn btn-primary btn-lg ${this.readingCard?.isHost ?`disabled`:``}"><strong>${this.readingCard?.hasJoined ?`참가 취소`:`참가하기`}</strong></button>
       </div>
     </div>
     `;
@@ -197,11 +197,11 @@ class CardModal {
       this.element.querySelector<HTMLButtonElement>('.comment-send');
     if (inputElement === null) return;
     if (btnElement === null) return;
-    inputElement.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        this.sendComment(inputElement,btnElement);
-        return;
-      }
+    inputElement.addEventListener('keydown', () => {
+      // if (e.key === 'Enter') {
+      //   this.sendComment(inputElement,btnElement);
+      //   return;
+      // }
       if (inputElement.value.length == 0) {
         btnElement?.classList.add('disabled');
         return;

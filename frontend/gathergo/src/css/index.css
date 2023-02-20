@@ -388,8 +388,8 @@ li.nav-item.divider {
   max-height: 200px;
   object-fit: fill;
 
-  -webkit-filter: grayscale(100%);
-  filter: grayscale(100%);
+  -webkit-filter: grayscale(70%);
+  filter: grayscale(70%);
   -webkit-transform: scale(1);
   transform: scale(1);
   -webkit-transition: 0.2s ease-in-out;
