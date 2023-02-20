@@ -6,6 +6,7 @@ import {
   changeUserProfileIntroduction,
 } from '../../common/Fetches';
 
+
 class tabEditMain {
   element: HTMLDivElement;
   userEditInfo: TuserInfo;
@@ -22,6 +23,7 @@ class tabEditMain {
     this.render();
   }
   render() {
+
     this.element.innerHTML = `    
     <div class = "profile-userInfo">
         <h2>
@@ -32,7 +34,7 @@ class tabEditMain {
         <div class = "profile-context">
             <div class = "profile-img-name">
                 <div class = "image-button">
-                    <img class = "profile-fix-image" id = "profile-fix-image" src = ${this.userEditInfo.profilePath+'?'+Math.random()} alt = "USER">
+                    <img class = "profile-fix-image" id = "profile-fix-image" src = ${this.userEditInfo.profilePath+'?'+Math.random()} alt = "USER" onerror="this.src = '../../assets/blankProfile.png'">
                     <div class = "image-upload">
                         <input type = "file" accept = ".png" id = "profile-file-input" style = "margin : 0 0 0 2.5rem;">
                         <!-- <label for="file-input">
@@ -72,10 +74,12 @@ class tabEditMain {
             </div>
         </div>
     </div>`;
+    
 
     this.profileEditButton();
     this.profileEditCancelButton();
     this.addEventProfileEdit();
+    
   }
 
   profileEditCancelButton() {
