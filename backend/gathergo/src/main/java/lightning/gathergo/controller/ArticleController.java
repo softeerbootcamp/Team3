@@ -171,8 +171,6 @@ public class ArticleController {
         String userId = new String();
         session = sessionService.findSessionBySID(sessionId).get();
         userId = session.getUserId();
-        // TODO sessionId validation
-
 
         Article replacement = articleMapper.toArticle(request); replacement.setUuid(articleUuid);
         String regionName = request.getLocation().split(" ")[0];
