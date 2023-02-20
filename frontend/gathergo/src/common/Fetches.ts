@@ -82,6 +82,7 @@ export async function getArticles(filters: Tfilters) {
       categoryId: filters.categoryId,
       keyword: filters.keyword,
     };
+    console.log(params)
     const query = getQuery(params);
     const response = await fetch(url + 'api/articles?' + query);
     //TODO: response 잘 들어오는지 확인하고 cardDatas에 넣어주고 return

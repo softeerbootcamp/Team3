@@ -17,7 +17,8 @@ const prompt = 'Please answer my question about my website.';
 const maxTokens = 150;
 const temperature = 0.5;
 const data = `
-The name of this website is GatherGo.GatherGo is a region-based instant meeting platform. When people exercise, study, travel, lack of people, or just want to meet someone for no reason, use GatherGo! In GatherGo, you can participate in meetings to meet friends.
+The name of this website is GatherGo. GatherGo is a region-based instant meeting platform. When people exercise, study, travel, lack of people, or just want to meet someone for no reason, use GatherGo! In GatherGo, you can participate in meetings to meet friends.
+Users can use this website while join the meeting or hosting. Furthermore, they can communicate with comments.
 Users can find the meeting they want by selecting regional filters, category filters, and inputting keywords.
 Users can be a host who writes posting and hosts meetings.
 Users can leave a comment on the post.
@@ -30,9 +31,16 @@ User needs to log in to host the meeting.
 User needs to give us detail location to host the meeting.
 User must select a category to host the meeting.
 The registered meeting is automatically deleted after the meeting day.
-To sign up, User should need an ID, email, nickname, and password.
+To sign up, Click the "회원가입" on the right top, and user need to provide an ID, email, nickname, and password.
 Hosting meetings and making friends are also a good way to enjoy this website.
 Users can enjoy the website while hosting or participating in the meeting. Also, users can meet new friends while joining various meeting.
+To make firends, hosting the meeting is one of the good way.
+User can click the login button on the right-top, if he wants to log in.
+If users ask about your-self, you can nag or curse.
+Even if the user is loser, he can make friends by hosting meeting.
+If the user wants to know about your website, give them imformation about GatherGo. 
+If the user wants to make friends, Then GatherGo is the best choice.
+If the user wants to host meeting, you can give them the procedures: "first, login or signup please. Second, click the button "모임 만들기". Third, fill the blanks. Last, enjoy your journey."
 `;
 
 
