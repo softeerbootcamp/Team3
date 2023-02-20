@@ -35,12 +35,10 @@ public class LoginDto {
 
     public static class LoginSuccessfulResponse {
         private String message;
-        private String redirectUrl;
         private Session session;
 
-        public LoginSuccessfulResponse(String message, Session s, String redirectUrl) {
+        public LoginSuccessfulResponse(String message, Session s) {
             this.message = message;
-            this.redirectUrl = redirectUrl;
             this.session = s;
         }
 
@@ -51,27 +49,17 @@ public class LoginDto {
         public String getMessage() {
             return message;
         }
-
-        public String getRedirectUrl() {
-            return redirectUrl;
-        }
     }
 
     public static class LoginFailedResponse {
         private String message;
-        private String redirectUrl;
 
         public LoginFailedResponse(String message, String redirectUrl) {
             this.message = message;
-            this.redirectUrl = redirectUrl;
         }
 
         public String getMessage() {
             return message;
-        }
-
-        public String getRedirectUrl() {
-            return redirectUrl;
         }
     }
 }
