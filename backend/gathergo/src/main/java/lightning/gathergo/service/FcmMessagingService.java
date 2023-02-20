@@ -6,11 +6,11 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.*;
 import lightning.gathergo.model.Subscription;
+import lightning.gathergo.repository.NotificationRepository;
 import lightning.gathergo.repository.SubscriptionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +26,8 @@ public class FcmMessagingService {
 
     private final SubscriptionRepository subscriptionRepository;
 
+    private final NotificationRepository notificationRepository;
+
     private final static String notificationTitle = "알림이 도착했습니다";
 
     @Value("${firebase.credential.path}")
@@ -36,8 +38,9 @@ public class FcmMessagingService {
     private final Map<String, List<String>> pendingUpdates = new ConcurrentHashMap<>();
 
 
-    public FcmMessagingService(SubscriptionRepository subscriptionRepository, ObjectMapper objectMapper) {
+    public FcmMessagingService(SubscriptionRepository subscriptionRepository, NotificationRepository notificationRepository, ObjectMapper objectMapper) {
         this.subscriptionRepository = subscriptionRepository;
+        this.notificationRepository = notificationRepository;
         this.objectMapper = objectMapper;
     }
 
@@ -143,7 +146,12 @@ public class FcmMessagingService {
         return affectedRows != 0;
     }
 
-    public String sendMessageToTopic(String topic, Map<String, String> datas) {  // TODO: Article의 멤버들에게 알림 발송
+    public String sendMessageToTopic(String topic, Map<String, String> datas) {
+
+        // 1. 알림 내역 저장
+        notificationRepository.save(topic, datas.get("title"), datas.get("body"));
+
+        // 2. 알림 발송
         Message message = Message.builder()
                 .putAllData(datas)
                 .setTopic(topic)
