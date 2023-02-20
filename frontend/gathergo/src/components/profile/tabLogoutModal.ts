@@ -49,7 +49,7 @@ class tabLogoutModal {
     logoutModalBackground(){
         this.element.addEventListener('click',(e)=>{
             if(e.target != this.element.querySelector('.logout-modal-content'))
-                store.dispatch(changeProfileTab(0));
+                window.location.reload()
         })
     }
 }

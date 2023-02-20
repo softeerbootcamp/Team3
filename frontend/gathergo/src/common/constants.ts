@@ -96,7 +96,7 @@ type TuserHostCard={
   title : string;
   curr : number;
   total : number;
-  isClosed : boolean;
+  closed : boolean;
   meetingDay : Date;
 }
 type TuserJoinCard = {
@@ -104,7 +104,7 @@ type TuserJoinCard = {
   title: string;
   curr: number;
   total: number;
-  isClosed: boolean;
+  closed: boolean;
   meetingDay: Date;
   regionId : number;
   categoryId : number;
