@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.PatternSyntaxException;
 
 @Service
 public class ArticleService {
@@ -27,7 +28,6 @@ public class ArticleService {
     private final UserRepository userRepository;
     private final UserArticleRelationshipRepository relationshipRepository;
 
-    private List<Character> specialCharList;
 
     @Autowired
     ArticleService(ArticleRepository articleRepository, CommentService commentService, CountService countService,
@@ -38,7 +38,6 @@ public class ArticleService {
         this.countService = countService;
         this.userRepository = userRepository;
         this.userService = userService;
-        specialCharList = new ArrayList<Character>(Arrays.asList('%', '_', '[', ']', '^', '-', '"', '\''));
     }
 
     @Transactional
@@ -73,7 +72,6 @@ public class ArticleService {
     }
 
     private List<Article> searchArticlesByKeyword(Integer regionId, Integer categoryId, String keyword){
-        keyword = handleSpecialChars(keyword);
         if(regionId == 0 && categoryId == 0)
             return articleRepository.findByKeyword(keyword);
         if(categoryId == 0)
@@ -191,18 +189,6 @@ public class ArticleService {
     }
     private String generateUuid() {
         return UUID.randomUUID().toString();
-    }
-
-    // regex 등 검색어에서 문제가 될 수 있는 문자 치환
-    private String handleSpecialChars(String keyword){
-        AtomicReference<String> ret = new AtomicReference<>(keyword);
-
-        specialCharList.forEach(character -> {
-            String replacement = "";
-            ret.set(keyword.replaceAll(String.valueOf(character), replacement));
-        });
-
-        return ret.get();
     }
 
     public void validationCheckOn(GatheringDto.CreateRequest request){
