@@ -69,8 +69,12 @@ public class UserService {
     }
 
     public User loginUser(LoginDto.LoginInput loginDto) {
+        if(loginDto.getUserId().isBlank())
+            return null;
+
         Optional<User> user = findUserByUserId(loginDto.getUserId());
 
+        // 아이디에 관련된 유저 정보가 없거나, 비밀번호가 일치하지 않으면
         if(user.isEmpty() || !passwordEncoder.matches(loginDto.getPassword(), user.get().getPassword()))
             return null;
 
