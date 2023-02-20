@@ -27,3 +27,4 @@ dist/
 .prettierrc.js
 .eslintrc.js
 env.d.ts
+key.ts

@@ -1,7 +1,9 @@
 
 // import { Configuration, OpenAIApi }from 'openai';
+import config from '../../key'
   export async function generateResponse(userInput) {
-const apiKey = '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';
+// eslint-disable-next-line no-undef
+const apiKey = config.openAIapikey;//'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';
 
 // const prompt = 'Your prompt goes here';
 
