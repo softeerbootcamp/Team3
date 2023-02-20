@@ -1,5 +1,3 @@
-##Team3-Frontend
-
 # GatherGo
 
 <br />
