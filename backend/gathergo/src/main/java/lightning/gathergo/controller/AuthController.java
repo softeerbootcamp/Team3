@@ -50,7 +50,7 @@ public class AuthController {
         if(loginUser == null)
             return new ResponseEntity<>(new CommonResponseDTO<>(0, "ID나 비밀번호가 일치하지 않습니다", new LoginDto.LoginFailedResponse("ID나 비밀번호가 일치하지 않습니다")), HttpStatus.UNAUTHORIZED);
 
-        Session session = sessionService.createSession(loginUser.getUserId(), loginUser.getUserName(), loginUser.getUuid());
+        Session session = sessionService.createSession(loginUser.getId(), loginUser.getUserId(), loginUser.getUserName(), loginUser.getUuid());
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

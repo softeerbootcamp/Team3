@@ -28,7 +28,7 @@ public class SessionServiceTest {
         // given
 
         // when
-        Session expected = sessionService.createSession("gildong", "Hong gildong");
+        Session expected = sessionService.createSession(1, "gildong", "Hong gildong");
         logger.debug("expected uid: {}", expected.getSessionId());
         logger.debug("getall: {}", sessionRepository.getSessions());
 
