@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -148,16 +149,21 @@ public class FcmMessagingService {
         return affectedRows != 0;
     }
 
+    @Transactional
     public boolean deleteTopicAndDeviceTokens(String topic) {  // 구독 삭제
         if(topic == null)
             return false;
 
-        Set<String> prevTokens = registrationTokens.remove(topic);
+        // 1. 알림 내역 삭제
+        notificationRepository.deleteByArticleUuid(topic);
+
+        // 2. 구독 내역 모두 삭제
+        Set<String> prevTokens = this.registrationTokens.remove(topic);
 
         if(prevTokens == null)
             return false;
 
-        notificationRepository.deleteByArticleUuid(topic);
+        // 3. 구독 내역 DB에서 삭제
         int affectedRows = subscriptionRepository.deleteByArticleId(topic);
 
         return affectedRows > 0;
