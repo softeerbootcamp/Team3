@@ -21,7 +21,8 @@
 
   <title>GatherGo</title>
 
-  <script defer type="module" src="./index.ts"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-messaging.js"></script>
 
 <script>
 
@@ -35,7 +36,7 @@
     measurementId: "G-44DYH3Z29Q"
   };
 
-  const store = {
+  const tokenStore = {
     token: null
   }
 
@@ -53,11 +54,12 @@
             })
             .then(async function(token) {
               console.log("requestForPermission", token);
-              store.token = token;
-              postSubscription(token);
-            })
+              tokenStore.token = token;
+            }).catch((err) => {
+    console.log('Unable to get permission to notify.', err);
+  });
   }
-  function postSubscription (token) {
+  function postSubscription (token, $articleuuid) {
     console.log('postSubscription', { token });
 
     if (!token) {
@@ -65,19 +67,41 @@
     }
 
     // TODO: 참여하기 누르면 동작, 매 번 동작 안하게 변경
-    const response = fetch('/api/subscription', {
+    const response = fetch('https://gathergo.kro.kr/api/subscription', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         deviceToken: token,
-        articleId: 1,
+        articleId: $articleuuid,
       })
     });
-
+    console.log(`Firebase response : + ${response}`)
     return response;
   }
+
+  function deleteSubscription (token, $articleuuid) {
+  console.log('postSubscription', { token });
+
+  if (!token) {
+    return 'postSubscription - subscription cannot be empty';
+  }
+
+  // TODO: 참여하기 누르면 동작, 매 번 동작 안하게 변경
+  const response = fetch('https://gathergo.kro.kr/api/subscription', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      deviceToken: token,
+      articleId: $articleuuid,
+    })
+  });
+  console.log(`Firebase response : + ${response}`)
+  return response;
+}
 
   messaging.onMessage(function(payload) {
     console.log("Message received. ", payload);
@@ -93,21 +117,26 @@
     await navigator.serviceWorker.register('/firebase-messaging-sw.js');
   }
 
-  const main = async () => {
+  const fireBaseFetch = async () => {
     requestForPermission();
     await registerServiceWorker();
   }
 
-  main();
+  fireBaseFetch()
+  console.log(tokenStore)
+  function returnTokenStore(){
+    return tokenStore;
+  }
 </script>
+  <script defer type="module" src="./index.ts"></script>
+
 </head>
 
 <body>
   <div id="app"></div>
   <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e025d257c750a5635c774ac925157964&libraries=services"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-messaging.js"></script>
+
   </body>
 
 </html>

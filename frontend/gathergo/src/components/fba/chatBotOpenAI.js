@@ -1,6 +1,6 @@
 
 // import { Configuration, OpenAIApi }from 'openai';
-import config from '../../key'
+import config from '../../../'
   export async function generateResponse(userInput) {
 // eslint-disable-next-line no-undef
 const apiKey = config.openAIapikey;//'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';
