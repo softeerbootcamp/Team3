@@ -1,6 +1,7 @@
 
 import store from '../../store/store';
-import { changeProfileTab, userLogout } from '../../store/actions';
+import { changeProfileTab} from '../../store/actions';
+import {fetchLogout} from '../../common/Fetches'
 
 class tabLogoutModal {
   element: HTMLDivElement;
@@ -40,8 +41,8 @@ class tabLogoutModal {
         const cancelButton = this.element.querySelector(
           '#button-logout'
         ) as HTMLDivElement;
-        cancelButton.addEventListener('click', () => {
-            store.dispatch(userLogout())
+        cancelButton.addEventListener('click', async() => {
+          store.dispatch(await fetchLogout())
         });
     }
 
