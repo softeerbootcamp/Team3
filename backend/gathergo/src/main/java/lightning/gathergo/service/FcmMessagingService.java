@@ -121,6 +121,7 @@ public class FcmMessagingService {
         TopicManagementResponse response = null;
         int affectedRows;  // DB에서 삭제된 구독 정보의 수, 정상 동작은 1을 반환
 
+        // 1. 구독 정보 삭제
         Set<String> tokens = registrationTokens.computeIfPresent(topic, (t, existingTokens) -> {  // atomic operation
             if (existingTokens.contains(deviceToken)) {
                 existingTokens.remove(deviceToken);
@@ -131,6 +132,7 @@ public class FcmMessagingService {
             }
         });
 
+        // 2. 테이블에서 구독 정보 삭제
         try {
             // 1. FCM에 추가
             response = FirebaseMessaging.getInstance()
