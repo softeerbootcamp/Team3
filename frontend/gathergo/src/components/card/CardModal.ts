@@ -155,7 +155,14 @@ class CardModal {
     mainElement.innerHTML += `
     <div class="user-info container-md">
       <div class="user-profile">
-        <img class="user-profile-img" src="${this.readingCard?.hostProfile?this.readingCard?.hostProfile:`./assets/blankProfile.png`}" alt="User" />
+        <img class="user-profile-img" src="${
+          this.readingCard?.hostProfile
+            ? 'https://team3-gathergo.s3.ap-northeast-2.amazonaws.com/' +
+              this.readingCard?.hostProfile +
+              '.png?' +
+              Math.random()
+            : `./assets/blankProfile.png`
+        }" alt="User" onerror="this.src = '../../assets/blankProfile.png'" />
       </div>
       <div class="container-sm">
         <strong class="user-id">${this.readingCard?.hostId}</strong>
