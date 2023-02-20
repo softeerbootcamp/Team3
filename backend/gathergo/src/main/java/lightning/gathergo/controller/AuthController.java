@@ -56,7 +56,7 @@ public class AuthController {
 
         cookieService.createSessionCookie(CookieService.SESSION_ID, session.getSessionId(), response);
 
-        return new ResponseEntity<>(new LoginDto.LoginSuccessfulResponse("로그인 성공", session, "/"), headers, HttpStatus.OK);
+        return new ResponseEntity<>(new LoginDto.LoginSuccessfulResponse("로그인 성공", session), headers, HttpStatus.OK);
     }
 
     @PostMapping("/signup")
@@ -68,7 +68,7 @@ public class AuthController {
         HttpHeaders headers= new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
 
-        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "회원가입 성공", "/login"), headers, HttpStatus.OK);
+        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "회원가입 성공"), headers, HttpStatus.OK);
     }
 
     @DeleteMapping("/logout")
@@ -78,7 +78,7 @@ public class AuthController {
         HttpHeaders headers= new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", StandardCharsets.UTF_8));
 
-        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "로그아웃 성공", "/"), headers, HttpStatus.OK);
+        return new ResponseEntity<>(new SignupDto.SignupSuccessfulResponse( "로그아웃 성공"), headers, HttpStatus.OK);
     }
 
         @ExceptionHandler(MethodArgumentNotValidException.class)
