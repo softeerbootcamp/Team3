@@ -14,7 +14,7 @@ class profileUserHost {
         <td><strong>${this.userHostData.title}</strong></td>
         <td>${this.userHostData.curr}/${this.userHostData.total}</td>`;
 
-    if (this.userHostData.isClosed)
+    if (this.userHostData.closed)
       this.element.innerHTML += `<td>진행 완료</td>`;
     else this.element.innerHTML += `<td>진행중</td>`;
 
