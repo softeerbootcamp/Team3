@@ -20,6 +20,10 @@ import {
   PROFILE_BASE_URL
 } from './constants';
 
+declare function postSubscription(token : string, $articleuuid: string): void;
+declare function deleteSubscription(token: string, $articleuuid: string): void;
+declare function returnTokenStore() : any;
+
 const url = 'https://gathergo.kro.kr/';
 
 export async function fetchLogin(loginData: TloginData) {
@@ -196,6 +200,9 @@ export async function fetchJoin(articleuuid:string|undefined) {
     });
     const responseData = await response.json();
     if(responseData.status ==307) throw new Error(responseData.message)
+    
+    postSubscription(returnTokenStore().token,articleuuid as string);
+
     return fetchCardDetail(responseData.data.articleUuid);
     // return;// setModal('DELETE_COMMENT_SUCCESS');
   } catch (error) {
@@ -211,6 +218,8 @@ export async function fetchJoinCancel(articleuuid:string|undefined) {
     });
     const cardDetailData = await response.json();
     
+    deleteSubscription(returnTokenStore().token,articleuuid as string)
+
     return fetchCardDetail(cardDetailData.data.articleUuid);
   } catch (error) {
     console.log(error);
