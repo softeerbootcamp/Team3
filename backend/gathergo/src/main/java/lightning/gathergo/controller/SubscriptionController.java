@@ -9,18 +9,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(value = "/subscription", produces = APPLICATION_JSON_VALUE)
-public class NotificationController {
+public class SubscriptionController {
     // FCM 메시지 구독 컨트롤러
-    private final Logger logger = LoggerFactory.getLogger(NotificationController.class);
+    private final Logger logger = LoggerFactory.getLogger(SubscriptionController.class);
     private final FcmMessagingService messagingService;
 
-    public NotificationController(FcmMessagingService messagingService) {
+    public SubscriptionController(FcmMessagingService messagingService) {
         this.messagingService = messagingService;
     }
 
