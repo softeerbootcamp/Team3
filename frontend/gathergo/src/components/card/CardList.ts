@@ -4,6 +4,7 @@ import { Tcard } from '../../common/constants';
 import Navigate from '../../common/utils/navigate';
 import { fetchCardDetail } from '../../common/Fetches';
 import { cloneDeep } from 'lodash';
+import { setModal } from '../../store/actions';
 class CardList {
   cardsState: Tcard[];
   element: HTMLDivElement;
@@ -55,6 +56,10 @@ class CardList {
     return cardDatas;
   }
   generateCards() {
+    if(this.cardDatas.length===0){
+      // store.dispatch(setModal('NEED_LOGIN'))
+      return;
+    }
     for(let i = this.cardIndex; i< this.cardDatas.length && i<(this.increment + this.cardIndex);i++){
       const card = new Card(this.cardDatas[i]);
     this.element.appendChild(card.element);

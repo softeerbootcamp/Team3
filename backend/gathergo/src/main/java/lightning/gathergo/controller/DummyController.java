@@ -39,7 +39,9 @@ public class DummyController {
     public ResponseEntity<CommonResponseDTO<?>> pushNotificationToTopic(@RequestBody String topic) {
         // 기기 토큰을 받고 메시지를 발행하는 테스트 컨트롤러
         System.out.println(topic);
-        String result = fcmMessagingService
+        String result = "";
+
+        fcmMessagingService
                 .sendMessageToTopic(topic, Map.ofEntries(Map.entry("title", "api test")));
         return new ResponseEntity<>(new CommonResponseDTO<>(result.isBlank()?0:1, "hello!", result), HttpStatus.OK);
     }  // 주어진 topic으로 push 보내는 더미 컨트롤러
