@@ -178,12 +178,9 @@ public class FcmMessagingService {
         // 1. 알림 내역 저장
         notificationRepository.save(topic, datas.get("title"), datas.get("body"));
 
-        // 2. 알림 발송
-
+        // 2. 알림 발송, 비동기 처리
         sendAsyncMessageToTopic(datas, topic);
     }
-
-
 
     public void sendAsyncMessageToTopic(Map<String, String> datas, String topic) {
         Instant start = Instant.now();
