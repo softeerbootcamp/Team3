@@ -3,16 +3,17 @@ import profileUserDesc from './tabProfile/profileUserDesc';
 import profileUserHost from './tabProfile/profileUserHostList';
 import profileUserJoin from './tabProfile/profileUserJoinList';
 import store from '../../store/store';
+import Navigate from '../../common/utils/navigate';
 
 class tabProfileMain {
   element: HTMLDivElement;
-
-  constructor() {
+  navigate : Navigate;
+  constructor(navigate : Navigate) {
     this.element = document.createElement('div');
     this.element.classList.add('tabcontent');
     this.element.classList.add('profile');
     this.element.id = 'sidebar-profile-body';
-
+    this.navigate = navigate
     this.render();
 
     store.subscribe(()=>{
@@ -36,13 +37,13 @@ class tabProfileMain {
 
     this.element.appendChild(lineDom)
 
-    const profileUserHostDom = new profileUserHost();
+    const profileUserHostDom = new profileUserHost(this.navigate);
     this.element.appendChild(profileUserHostDom.element);
 
 
     this.element.appendChild(lineDom.cloneNode(true))
 
-    const profileUserJoinDom = new profileUserJoin();
+    const profileUserJoinDom = new profileUserJoin(this.navigate);
     this.element.appendChild(profileUserJoinDom.element);
 
   }

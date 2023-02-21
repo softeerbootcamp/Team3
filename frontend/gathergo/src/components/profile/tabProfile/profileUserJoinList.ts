@@ -1,4 +1,5 @@
 import { TuserInfo } from '../../../common/constants';
+import Navigate from '../../../common/utils/navigate';
 import store from '../../../store/store';
 import profileUserJoin from './profileUserJoin'
 
@@ -6,11 +7,12 @@ class profileUserJoinList {
   element: HTMLDivElement;
   userScheduleList: HTMLElement;
   userInfoData: TuserInfo;
-
-  constructor() {
+  navigate : Navigate;
+  constructor(navigate : Navigate) {
     this.element = document.createElement('div');
     this.element.classList.add('user-schedule-wrapper');
     this.userInfoData = store.getState().userInfo;
+    this.navigate = navigate;
 
     this.userScheduleList = document.createElement('ul');
     this.userScheduleList.classList.add('user-schedule');
@@ -31,7 +33,7 @@ class profileUserJoinList {
     this.element.appendChild(this.userScheduleList);
 
     this.userInfoData.userJoinCards.forEach((e) => {
-      const userJoinElement = new profileUserJoin(e);
+      const userJoinElement = new profileUserJoin(e,this.navigate);
       this.userScheduleList.appendChild(userJoinElement.element);
     });
   }

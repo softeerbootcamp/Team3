@@ -1,12 +1,15 @@
 import { TuserJoinCard } from '../../../common/constants';
 import { regionSi, category } from '../../../common/constants';
-
+import Navigate from '../../../common/utils/navigate';
 
 class profileUserJoin {
   element: HTMLElement;
   userJoinData: TuserJoinCard;
+  
+  navigate : Navigate;  
+  constructor($userHostData: TuserJoinCard,navigate : Navigate) {
 
-  constructor($userHostData: TuserJoinCard) {
+    this.navigate = navigate;
     this.element = document.createElement('li');
     this.element.classList.add('user-schedule');
     this.element.classList.add('profile-user-join');
@@ -43,6 +46,7 @@ this.addJoinLinkEvent()
 
   addJoinLinkEvent() {
       this.element.addEventListener('click', () => {
+        this.navigate.to(`/?feed=${this.userJoinData.uuid}`)
         console.log(this.userJoinData.uuid);
       });
   }

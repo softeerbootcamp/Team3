@@ -163,7 +163,7 @@ class CardModal {
               '.png?' +
               Math.random()
             : `./assets/blankProfile.png`
-        }" alt="User" onerror="this.src = '../../assets/blankProfile.png'" />
+        }" alt="User" onerror="this.src = '../../assets/blankProfile.png'; return true;" />
       </div>
       <div class="container-sm">
         <strong class="user-id">${this.readingCard?.hostId}</strong>

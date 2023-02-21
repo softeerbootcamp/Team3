@@ -2,19 +2,18 @@
 import { fetchGetUserInfo } from "../common/Fetches";
 import profileLayout from "../components/profile/profileLayout"
 import HeaderDefault from "../components/header/headerDefault";
-// import { userLogout } from "../store/actions";
 import store from "../store/store";
 import { changeProfileTab } from "../store/actions";
+import Navigate from "../common/utils/navigate";
 
 class Profile {
   $container: HTMLElement;
-  constructor($container: HTMLElement) {
+  navigate : Navigate;
+  constructor($container: HTMLElement, navigate : Navigate) {
     this.$container = $container;
+    this.navigate = navigate;
     this.render();
 
-    // store.subscribe(async() => {
-    //   store.dispatch(await fetchGetUserInfo());
-    // });
   }
   setState = () => {
     this.render();
@@ -26,7 +25,7 @@ class Profile {
     const headerDefault = new HeaderDefault('profile');
     this.$container.appendChild(headerDefault.element);
 
-    const profilePageLayout = new profileLayout()
+    const profilePageLayout = new profileLayout(this.navigate)
     this.$container.appendChild(profilePageLayout.element)
     // this.$container.querySelector<HTMLButtonElement>('#logoutbtn')?.addEventListener(('click'),async ()=>{
     // // logOut();

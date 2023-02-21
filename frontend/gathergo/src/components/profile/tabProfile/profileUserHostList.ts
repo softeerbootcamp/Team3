@@ -1,16 +1,17 @@
 import { TuserInfo } from '../../../common/constants';
+import Navigate from '../../../common/utils/navigate';
 import store from '../../../store/store';
 import profileUserHost from './profileUserHost';
 
 class profileUserHostList {
   element: HTMLDivElement;
   userInfoData: TuserInfo;
-
-  constructor() {
+  navigate : Navigate;
+  constructor(navigate : Navigate) {
     this.element = document.createElement('div');
     this.element.classList.add('user-host-meet-list');
     this.userInfoData = store.getState().userInfo;
-
+    this.navigate = navigate;
     this.render();
 
     store.subscribe(() => {
@@ -41,7 +42,7 @@ class profileUserHostList {
 `;
 
     this.userInfoData.userHostCards.forEach((e) => {
-      const userHostElement = new profileUserHost(e);
+      const userHostElement = new profileUserHost(e,this.navigate);
       this.element.querySelector('tbody')?.appendChild(userHostElement.element);
     });
 
