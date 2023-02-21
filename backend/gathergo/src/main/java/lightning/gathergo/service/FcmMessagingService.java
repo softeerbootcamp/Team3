@@ -175,6 +175,36 @@ public class FcmMessagingService {
         return affectedRows > 0;
     }
 
+    @Transactional
+    public boolean deleteTopicAndDeviceTokens(List<String> topics) {
+        if(topics.isEmpty())
+            return false;
+
+        // 1. FCM 서버에서 삭제
+        topics.forEach(topic -> {
+            try {
+                // 1. FCM에 추가
+                TopicManagementResponse response = FirebaseMessaging.getInstance()
+                        .unsubscribeFromTopic(new ArrayList<>(registrationTokens.get(topic)), String.valueOf(topic));
+                logger.info("{} tokens were unsubscribed successfully", response.getSuccessCount());
+            } catch (FirebaseMessagingException e) {
+                logger.error("could not add token to given topic: {}, {}", topic, e.getMessage());
+            }
+        });
+
+        // 2. 알림 내역 삭제
+        notificationRepository.deleteByArticleUuids(topics);
+
+        // 3. 구독 내역 모두 삭제
+        topics.forEach(registrationTokens::remove);
+
+        // 4. 구독 내역 DB에서 삭제
+        int affectedRows = subscriptionRepository.deleteByArticleIds(topics);
+
+
+        return affectedRows > 0;
+    }
+
     public void sendMessageToTopic(String topic, Map<String, String> datas) {
 
         // 1. 알림 내역 저장
