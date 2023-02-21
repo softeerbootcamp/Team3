@@ -65,12 +65,9 @@ If the user wants to host meeting, you can give them the procedures: "first, log
     .then((response) => response.json())
     .then((data) => {
       return data;
-      //console.log(data.choices[0].text);
     })
     .catch((error) => {
       console.error('Error:', error);
     });
-  console.log(response);
-  // Extract and return the response text
   return response.choices[0].text.trim();
 }
