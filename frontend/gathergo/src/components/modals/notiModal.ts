@@ -129,14 +129,19 @@ class NotiModal {
         };
       case 'JOIN':
         return async () => {
+          this.modalClose();
           store.dispatch(await fetchJoin(store.getState().readingCard?.uuid));
           // console.log(store.getState());
           const isError = store.getState().error;
-          this.modalClose();
+          console.log(isError);
+
+          console.log(store.getState());
           if (!isError) store.dispatch(setModal('JOIN_SUCCESS'));
-          else {
-            store.dispatch(setModal('ERROR'));
-          }
+          // else {
+          //   console.log('콘솔에러');
+            
+          //   store.dispatch(setModal('ERROR'));
+          // }
         };
       case 'JOIN_CANCEL':
         return async () => {

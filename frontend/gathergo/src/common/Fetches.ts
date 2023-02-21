@@ -39,9 +39,11 @@ export async function fetchLogin(loginData: TloginData) {
     });
 
     const userLoginData = await response.json();
-    if (userLoginData.status != 1) throw new Error(userLoginData.message);
+    if (userLoginData.status == 0 || userLoginData.status == 401) throw new Error(userLoginData.message);
     return userLogin(userLoginData);
   } catch (error) {
+    console.log(error);
+    
     return fetchError(error);
   }
 }
@@ -58,7 +60,7 @@ export async function fetchSignup(signupData: TsignupData) {
     });
 
     const userSignupData = await response.json();
-    if (userSignupData.status == 409) throw new Error(userSignupData.message);
+    if (userSignupData.status ==0||userSignupData.status ==409) throw new Error(userSignupData.message);
     return setModal('SIGNUP_SUCCESS'); //(userSignupData);
   } catch (error) {
     return fetchError(error);
@@ -88,18 +90,22 @@ export async function getArticles(filters: Tfilters) {
     };
     console.log(params)
     const query = getQuery(params);
+    console.log('jlkjlk');
     const response = await fetch(url + 'api/articles?' + query);
+    console.log('jlkjlk');
+
     //TODO: response 잘 들어오는지 확인하고 cardDatas에 넣어주고 return
     // const cardDatas = await response.json();
 
     const articleDatas = await response.json();
+    if(articleDatas.status == 500 ||articleDatas.status == 400||articleDatas.status == 502 ) throw new Error(articleDatas.error)
     const cardDatas = articleDatas.data.articles.map(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (article: any) => {
         return { ...article, meetingDay: new Date(article.meetingDay) };
       }
     );
-    console.log(cardDatas);
+    
     return updateCards(cardDatas);
   } catch (error) {
     return fetchError(error);
@@ -199,7 +205,7 @@ export async function fetchJoin(articleuuid:string|undefined) {
       credentials: 'include',
     });
     const responseData = await response.json();
-    if(responseData.status ==307) throw new Error(responseData.message)
+    if(responseData.status ==307 ||responseData.status ==409) throw new Error(responseData.message)
     
     postSubscription(returnTokenStore().token,articleuuid as string);
 
@@ -252,6 +258,7 @@ export async function fetchPostCard(postCardData: TpostCard) {
       body: JSON.stringify(postCardData),
     });
     const cardDetailData = await response.json();
+    if(cardDetailData.status ==400) throw new Error(cardDetailData.message)
     console.log(cardDetailData);
     return postCard('POSTING');
   } catch (error) {
@@ -271,6 +278,7 @@ export async function fetchEditCard(postCardData: TpostCard, uuid: string) {
       body: JSON.stringify(postCardData),
     });
     const cardDetailData = await response.json();
+    if(cardDetailData.status ==400) throw new Error(cardDetailData.message)
     console.log(cardDetailData);
     return postCard('POSTING');
   } catch (error) {
