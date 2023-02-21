@@ -10,11 +10,11 @@ import java.util.Map;
 @Service
 @Transactional
 public class CountService {
-    private final RedisTemplate<String,Object> redisTemplate;
+    private final RedisTemplate<String,Integer> redisTemplate;
 
     private final HashOperations<String, String, Integer> hashOperations;
 
-    public CountService(RedisTemplate<String, Object> redisTemplate) {
+    public CountService(RedisTemplate<String, Integer> redisTemplate) {
         this.redisTemplate = redisTemplate;
         hashOperations = redisTemplate.opsForHash();
     }
@@ -60,10 +60,10 @@ public class CountService {
      * @param newValue
      * @return
      */
-    public Integer modifyCount(String articleId,Integer newValue){
-        hashOperations.put("count",articleId,newValue);
-        return this.getCount(articleId);
-    }
+//    public Integer modifyCount(String articleId,Integer newValue){
+//        hashOperations.put("count",articleId,newValue);
+//        return this.getCount(articleId);
+//    }
 
 
     /**
