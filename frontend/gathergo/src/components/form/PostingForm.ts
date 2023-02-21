@@ -127,9 +127,6 @@ class PostingForm {
       return store.dispatch(setModal('INPUT_TIME'));
     }
     if(meetingDay.getTime() < new Date().getTime()){
-      console.log(meetingDay.getTime());
-      console.log(new Date().getTime());
-      
       store.dispatch(setModal('INPUT_TIME_BEFORE'))
       return;
     }
