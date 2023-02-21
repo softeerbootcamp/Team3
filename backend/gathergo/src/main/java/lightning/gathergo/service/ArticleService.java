@@ -130,7 +130,7 @@ public class ArticleService {
                 articleRepository.findByUuid(articleUuid).get().getId()
         );
 
-        countService.plusCount(articleUuid);
+        countService.modifyCount(articleUuid, countService.getCount(articleUuid)+1);
     }
 
     public void deleteGuest(String userId, String articleUuid){
@@ -138,7 +138,7 @@ public class ArticleService {
                 userRepository.findUserByUserId(userId).get().getId(),
                 articleRepository.findByUuid(articleUuid).get().getId()
         );
-        countService.minusCount(articleUuid);
+        countService.modifyCount(articleUuid, countService.getCount(articleUuid)-1);
     }
     public List<Comment> getCommentsByUuid(String articleUuid){
         return articleRepository.findCommentsByArticleUuid(articleUuid);

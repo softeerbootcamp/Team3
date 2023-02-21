@@ -1,6 +1,5 @@
 package lightning.gathergo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -11,11 +10,10 @@ import java.util.Map;
 @Service
 @Transactional
 public class CountService {
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String,Object> redisTemplate;
 
     private final HashOperations<String, String, Integer> hashOperations;
 
-    @Autowired
     public CountService(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
         hashOperations = redisTemplate.opsForHash();
@@ -52,9 +50,21 @@ public class CountService {
      * @return
      */
     public Integer createCount(String articleId, Integer count){
-        hashOperations.put("count", articleId,count);
+        hashOperations.put("count",articleId,count);
         return this.getCount(articleId);
     }
+
+    /**
+     * 아티클의 참여 인원 수정
+     * @param articleId
+     * @param newValue
+     * @return
+     */
+    public Integer modifyCount(String articleId,Integer newValue){
+        hashOperations.put("count",articleId,newValue);
+        return this.getCount(articleId);
+    }
+
 
     /**
      * 아티클의 참여 인원 수정
