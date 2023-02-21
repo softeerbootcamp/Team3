@@ -222,7 +222,8 @@ tbody > tr:hover{
   }
 .user-schedule {
   display: flex;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  padding : 0.5rem;
 }
 
 .schedule-info {
