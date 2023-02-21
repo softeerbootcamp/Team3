@@ -175,7 +175,7 @@ public class FcmMessagingService {
         return affectedRows > 0;
     }
 
-    public String sendMessageToTopic(String topic, Map<String, String> datas) {
+    public void sendMessageToTopic(String topic, Map<String, String> datas) {
 
         // 1. 알림 내역 저장
         notificationRepository.save(topic, datas.get("title"), datas.get("body"));
