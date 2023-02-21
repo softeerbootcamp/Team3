@@ -46,7 +46,7 @@ this.addJoinLinkEvent()
 
   addJoinLinkEvent() {
       this.element.addEventListener('click', () => {
-        this.navigate.to(`/feed=${this.userJoinData.uuid}`)
+        this.navigate.to(`/?feed=${this.userJoinData.uuid}`)
         console.log(this.userJoinData.uuid);
       });
   }

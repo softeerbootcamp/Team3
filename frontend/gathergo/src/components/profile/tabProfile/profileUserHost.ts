@@ -29,7 +29,7 @@ class profileUserHost {
 
   addHostLinkEvent() {
     this.element.addEventListener('click', () => {
-      this.navigate.to(`/feed=${this.userHostData.uuid}`);
+      this.navigate.to(`/?feed=${this.userHostData.uuid}`);
 
       });
   

@@ -26,7 +26,7 @@ class profileUserInfo {
         <div class="user-profilepage">
             <img class="user-profilepage-img" src=${
               this.userInfoData.profilePath + '?' + Math.random()
-            } alt="User" onerror="this.src = '../../../assets/blankProfile.png'"/>
+            } alt="User" onerror="this.src = '../../../assets/blankProfile.png'; return true;"/>
         </div>
         <div class="container-sm">
             <strong class="user-id">${this.userInfoData.userId}</strong>
