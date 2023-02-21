@@ -23,12 +23,13 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<String,Integer> redisTemplate(){
-        RedisTemplate<String, Integer> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<String, ?> redisTemplate(){
+        RedisTemplate<String, ?> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(new GenericToStringSerializer<>(Number.class));
-        //redisTemplate.setHashValueSerializer(new GenericToStringSerializer<>(Integer.class));
+        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        //redisTemplate.setValueSerializer(new GenericToStringSerializer<>(Number.class));
+        redisTemplate.setHashValueSerializer(new GenericToStringSerializer<>(Integer.class));
         return redisTemplate;
     }
 
