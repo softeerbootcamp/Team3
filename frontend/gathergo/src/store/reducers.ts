@@ -32,12 +32,13 @@ function reducer(state = initialState, action: Taction) {
         filters: action.payload.filters,
         isLoading: true,
       };
-    case UPDATE_CARDS:
+    case UPDATE_CARDS:{
       return {
         ...state,
         isLoading: false,
         cards: action.payload.cardsData,
       };
+    }
     case FETCH_ERROR:
       return {
         ...state,
