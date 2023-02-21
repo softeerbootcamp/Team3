@@ -185,11 +185,7 @@ public class ArticleController {
         data.setArticleUuid(articleUuid);
 
         // 알림 발송
-        Article article = articleService.getArticleByUuid(articleUuid);
-
-        Map<String, String> messagePayload = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", "참여한 모임 정보가 변경되었습니다."));
-
-        messagingService.sendMessageToTopic(articleUuid, messagePayload);
+        sendNotification(articleUuid, "참여한 모임 정보가 변경되었습니다.");
 
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.MessageResponse>(
@@ -210,11 +206,7 @@ public class ArticleController {
         data.setArticleUuid(articleUuid);
 
         // 닫기 알림 발송
-        Article article = articleService.getArticleByUuid(articleUuid);
-
-        Map<String, String> payload = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", "호스트가 마감했습니다."));
-
-        messagingService.sendMessageToTopic(articleUuid, payload);
+        sendNotification(articleUuid, "호스트가 게시글을 마감했습니다.");
 
         // 구독 정보 삭제
         messagingService.deleteTopicAndDeviceTokens(articleUuid);
@@ -339,6 +331,15 @@ public class ArticleController {
                                 data
                         )
                 );
+    }
+
+    private void sendNotification(String articleUuid, String body) {
+        Article article = articleService.getArticleByUuid(articleUuid);
+
+        Map<String, String> payload = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", body));
+
+        // 비동기 요청
+        messagingService.sendMessageToTopic(articleUuid, payload);
     }
 
 }
