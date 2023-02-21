@@ -108,7 +108,6 @@ class tabEditMain {
       store.dispatch(
         await changeUserProfileIntroduction(
           descEdit.value,
-          this.userEditInfo.uuid
         )
       );
       store.dispatch(changeProfileTab(0));
