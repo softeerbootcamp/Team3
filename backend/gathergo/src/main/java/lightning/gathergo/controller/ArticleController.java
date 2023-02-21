@@ -300,13 +300,6 @@ public class ArticleController {
         data.setArticleUuid(articleUuid);
         data.setMessage("참가에 성공했습니다.");
 
-        // 알림 발송
-        Article article = articleService.getArticleByUuid(articleUuid);
-
-        Map<String, String> messagePayload = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", session.getUserName() + "님이 모임에 참가했습니다."));
-
-        messagingService.sendMessageToTopic(articleUuid, messagePayload);
-
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.MessageResponse>(
                                 1,
