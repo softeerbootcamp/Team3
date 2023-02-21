@@ -3,7 +3,6 @@ import tabEditMain from './tabEditMain'
 import tabLogoutModal from './tabLogoutModal';
 import store from '../../store/store'
 import Navigate from '../../common/utils/navigate';
-// import Fba from '../fba/fba';
 
 class profileMain {
   element: HTMLDivElement;

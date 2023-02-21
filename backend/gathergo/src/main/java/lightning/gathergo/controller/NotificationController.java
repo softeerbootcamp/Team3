@@ -16,12 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @RestController
 public class NotificationController {
@@ -46,17 +42,20 @@ public class NotificationController {
         List<Article> participatingArticles = userService.getParticipatingArticlesById(session.get().getId());
 
         List<String> articleUuids = participatingArticles.stream().map(Article::getUuid).collect(Collectors.toList());
-        List<Timestamp> meetingDateTime = participatingArticles.stream().map(Article::getMeetingDay).collect(Collectors.toList());
+
+        Map<String, Timestamp> meetingDateMap = participatingArticles.stream().collect(
+                Collectors.toMap(Article::getUuid, Article::getMeetingDay));
 
         List<Notification> notifications;
 
         if(!participatingArticles.isEmpty()) {
             // 구독중인 알림
             notifications = notificationRepository.findByArticleIds(articleUuids);
-            notifications.sort(Comparator.comparing(Notification::getIssueDateTime));
 
-            IntStream.range(0, Math.min(notifications.size(), meetingDateTime.size()))
-                    .forEach(i -> notifications.get(i).setMeetingDay(meetingDateTime.get(i)));
+            notifications.forEach(notification -> notification.setMeetingDay(meetingDateMap.get(notification.getArticleUuid())));
+
+            // 알림 생성일자가 늦은 순 정렬, 만남 일자 빠른 순 정렬
+            Collections.sort(notifications);
         } else {
             notifications = new ArrayList<>();
         }

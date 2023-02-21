@@ -1,4 +1,7 @@
-import { getKeyByValue, getKoreanTimeString } from '../../common/commonFunctions';
+import {
+  getKeyByValue,
+  getKoreanTimeString,
+} from '../../common/commonFunctions';
 import { category } from '../../common/constants';
 import { fetchEditCard, fetchPostCard } from '../../common/Fetches';
 import { setModal } from '../../store/actions';
@@ -18,8 +21,8 @@ class PostingForm {
     this.element = document.createElement('div');
     this.element.classList.add('form-wrapper');
     this.formBtn = document.createElement('button');
-    this.render();
     this.buttonEvent();
+    this.render();
   }
   render() {
     // const editPostData = feed? store.getState().readingCard:null;
@@ -77,6 +80,7 @@ class PostingForm {
       inputs[4].value = postCardData.locationDetail;
       inputs[6].value = postCardData.total.toString();
       content.value = postCardData.content;
+      this.formBtn.innerHTML = `<strong>만남 수정하기</strong>`;
     }
   }
   buttonEvent() {
@@ -87,7 +91,7 @@ class PostingForm {
       'btn-lg',
       'form-control-lg'
     );
-    this.formBtn.innerHTML = `<strong>모임
+    this.formBtn.innerHTML = `<strong>만남
       만들기</strong>`;
 
     this.formBtn.addEventListener('click', this.postMeeting.bind(this));
@@ -106,11 +110,6 @@ class PostingForm {
     const categoryDropdown = this.element.querySelector(
       '.dropdown-toggle.category'
     );
-    console.log((meetingDay));
-    console.log((meetingDay.toISOString()));
-    console.log(getKoreanTimeString(meetingDay));
-    
-    
 
     const categoryKey = getKeyByValue(category, categoryDropdown?.innerHTML);
     if (inputs[0].value.length === 0) {
@@ -126,8 +125,8 @@ class PostingForm {
     } catch (error) {
       return store.dispatch(setModal('INPUT_TIME'));
     }
-    if(meetingDay.getTime() < new Date().getTime()){
-      store.dispatch(setModal('INPUT_TIME_BEFORE'))
+    if (meetingDay.getTime() < new Date().getTime()) {
+      store.dispatch(setModal('INPUT_TIME_BEFORE'));
       return;
     }
     if (inputs[3].value.length === 0 || inputs[4].value.length === 0) {
@@ -147,7 +146,7 @@ class PostingForm {
       title: inputs[0].value,
       total: Number(inputs[6].value),
       categoryId: Number(categoryKey),
-      meetingDay: getKoreanTimeString(meetingDay),//meetingDay.toISOString(),
+      meetingDay: getKoreanTimeString(meetingDay), //meetingDay.toISOString(),
       content: content?.value,
       location: inputs[3].value,
       locationDetail: inputs[4].value,
@@ -159,7 +158,6 @@ class PostingForm {
     } else {
       store.dispatch(await fetchPostCard(newPostData));
     }
-    console.log(newPostData);
     return;
   }
 }

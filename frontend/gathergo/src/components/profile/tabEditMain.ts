@@ -1,11 +1,10 @@
 import { TuserInfo } from '../../common/constants';
 import store from '../../store/store';
-import { changeProfileTab} from '../../store/actions';
+import { changeProfileTab } from '../../store/actions';
 import {
   changeUserProfileImg,
   changeUserProfileIntroduction,
 } from '../../common/Fetches';
-
 
 class tabEditMain {
   element: HTMLDivElement;
@@ -23,7 +22,6 @@ class tabEditMain {
     this.render();
   }
   render() {
-
     this.element.innerHTML = `    
     <div class = "profile-userInfo">
         <h2>
@@ -35,14 +33,10 @@ class tabEditMain {
             <div class = "profile-img-name">
                 <div class = "image-button">
                   <img class="profile-fix-image" id="profile-fix-image" src="${
-                        this.userEditInfo.profilePath + '?' + Math.random()
-                      }" alt="USER" onerror="this.src='../../assets/blankProfile.png'; return true;">
+                    this.userEditInfo.profilePath + '?' + Math.random()
+                  }" alt="USER" onerror="this.src='../../assets/blankProfile.png'; return true;">
                     <div class = "image-upload">
                         <input type = "file" accept = ".png" id = "profile-file-input" style = "margin : 0 0 0 2.5rem;">
-                        <!-- <label for="file-input">
-                            <img class = "profile-fix-image-button" src = "../../assets/profileEdit.svg">
-                        </label>
-                        <input style="display:none" id = "file-input" type = "file"/> -->
                     </div>
                 </div>
             </div>
@@ -84,12 +78,10 @@ class tabEditMain {
             </div>
         </div>
     </div>`;
-    
 
     this.profileEditButton();
     this.profileEditCancelButton();
     this.addEventProfileEdit();
-    
   }
 
   profileEditCancelButton() {
@@ -110,8 +102,9 @@ class tabEditMain {
       '#profile-desc-edit'
     ) as HTMLTextAreaElement;
     profileEdit?.addEventListener('click', async () => {
-        store.dispatch(
-      await changeUserProfileImg(this.test, this.userEditInfo.uuid))
+      store.dispatch(
+        await changeUserProfileImg(this.test, this.userEditInfo.uuid)
+      );
       store.dispatch(
         await changeUserProfileIntroduction(
           descEdit.value,
@@ -125,17 +118,21 @@ class tabEditMain {
   async addEventProfileEdit() {
     const profileFileEdit = this.element.querySelector('#profile-file-input');
     const profileFileMainEdit = this.element.querySelector(
-    '#profile-fix-image'
+      '#profile-fix-image'
     ) as HTMLImageElement;
     profileFileEdit?.addEventListener('change', () => {
       const value = profileFileEdit as HTMLInputElement;
-      if (value.files && value.files[0] && value.files[0].size < (10*1024*1024)) {
+      if (
+        value.files &&
+        value.files[0] &&
+        value.files[0].size < 10 * 1024 * 1024
+      ) {
         this.test.append('file', value.files[0]);
         this.reader.onload = function () {
           let a;
           if (value.files && value.files[0])
             a = URL.createObjectURL(value.files[0]);
-          profileFileMainEdit.src = a as string
+          profileFileMainEdit.src = a as string;
         };
         this.reader.readAsDataURL(value.files[0]);
       }

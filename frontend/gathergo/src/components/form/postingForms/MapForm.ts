@@ -1,16 +1,15 @@
 class MapForm {
-    element: HTMLElement;
-    location:string;
-    constructor(location="현대자동차본사") {
-        this.location = location;
-      this.element = document.createElement('div');
-      this.element.id= 'form-map-wrapper'
-      this.element.classList.add('show');
-      this.render();
-    }
-    render(){
-        this.element.innerHTML =
-        `<div id="form-map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+  element: HTMLElement;
+  location: string;
+  constructor(location = '현대자동차본사') {
+    this.location = location;
+    this.element = document.createElement('div');
+    this.element.id = 'form-map-wrapper';
+    this.element.classList.add('show');
+    this.render();
+  }
+  render() {
+    this.element.innerHTML = `<div id="form-map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
         <div id="menu_wrap" class="bg_white">
             <div class="option">
                 <div>
@@ -24,9 +23,8 @@ class MapForm {
             <hr>
             <ul id="placesList"></ul>
             <div id="pagination"></div>
-        </div>`
-    }
-    
+        </div>`;
+  }
 }
 
 export default MapForm;

@@ -9,6 +9,8 @@ class profileUserJoin {
   navigate : Navigate;  
   constructor($userHostData: TuserJoinCard,navigate : Navigate) {
 
+  navigate: Navigate;
+  constructor($userHostData: TuserJoinCard, navigate: Navigate) {
     this.navigate = navigate;
     this.element = document.createElement('li');
     this.element.classList.add('user-schedule');
@@ -20,8 +22,14 @@ class profileUserJoin {
   render() {
     this.element.innerHTML = `
         <div class="schedule-time-badge badge bg-light">
-        <span class="schedule-date">${new Date(this.userJoinData.meetingDay).getMonth()+1}.${new Date(this.userJoinData.meetingDay).getDate()}</span>
-        <span class="schedule-time">${new Date(this.userJoinData.meetingDay).getHours()}:${new Date(this.userJoinData.meetingDay).getMinutes()}</span>
+        <span class="schedule-date">${
+          new Date(this.userJoinData.meetingDay).getMonth() + 1
+        }.${new Date(this.userJoinData.meetingDay).getDate()}</span>
+        <span class="schedule-time">${new Date(
+          this.userJoinData.meetingDay
+        ).getHours()}:${new Date(
+      this.userJoinData.meetingDay
+    ).getMinutes()}</span>
         </div>
         <div class="schedule-info">
         <strong class="scheduel-title">${this.userJoinData.title}</strong>
@@ -41,14 +49,13 @@ class profileUserJoin {
         </div>
         </div>
 `;
-this.addJoinLinkEvent()
+    this.addJoinLinkEvent();
   }
 
   addJoinLinkEvent() {
-      this.element.addEventListener('click', () => {
-        this.navigate.to(`/?feed=${this.userJoinData.uuid}`)
-        console.log(this.userJoinData.uuid);
-      });
+    this.element.addEventListener('click', () => {
+      this.navigate.to(`/?feed=${this.userJoinData.uuid}`);
+    });
   }
 }
 export default profileUserJoin;

@@ -1,21 +1,18 @@
-
 import { Datepicker } from 'vanillajs-datepicker';
-// import fg from '../common/fg.timepicker-master/fg.timepicker.js';
 import fg from '../../../common/fg.timepicker-master/fg.timepicker.js';
 
 class DateTimeForm {
-    element: HTMLElement;
-    constructor() {
-      this.element = document.createElement('div');
-      this.element.classList.add('form-date-time','calendar-toggle');
-      this.render();
+  element: HTMLElement;
+  constructor() {
+    this.element = document.createElement('div');
+    this.element.classList.add('form-date-time', 'calendar-toggle');
+    this.render();
     this.datePickerEvent();
     this.timePickerEvent();
     this.timePickerGenerate();
-    }
-    render(){
-        this.element.innerHTML =
-        `<h4 class="leading-text">
+  }
+  render() {
+    this.element.innerHTML = `<h4 class="leading-text">
         <strong>만남 시간</strong>
     </h4>
     <div class="form-input">
@@ -32,40 +29,41 @@ class DateTimeForm {
                 </div>
             </div>
         </div>
-    </div>`
-    }
-    datePickerEvent(){
-        const dateInput = this.element.querySelector<HTMLElement>('#readOnlyDateInput')
-        if(!dateInput) return
-        new Datepicker(dateInput);
-    }
-     timePickerGenerate() {
-        new fg.Timepicker({
-          bindContainer: this.element.querySelector('#timePicker'),
-          bindInput: this.element.querySelector('#readOnlyTimeInput'),
-        });
+    </div>`;
+  }
+  datePickerEvent() {
+    const dateInput =
+      this.element.querySelector<HTMLElement>('#readOnlyDateInput');
+    if (!dateInput) return;
+    new Datepicker(dateInput);
+  }
+  timePickerGenerate() {
+    new fg.Timepicker({
+      bindContainer: this.element.querySelector('#timePicker'),
+      bindInput: this.element.querySelector('#readOnlyTimeInput'),
+    });
+  }
+  timePickerEvent() {
+    const timePicker = this.element.querySelector<HTMLElement>('#timePicker');
+    if (timePicker === null) return;
+    document.addEventListener('mousedown', (e) => {
+      const target = e.target as Element;
+      const readOnlyTimeInput = target?.closest('#readOnlyTimeInput');
+      const formInputTime = target?.closest('.form-input-time');
+
+      if (readOnlyTimeInput) {
+        this.timePickerOpen(timePicker);
+        return;
       }
-    timePickerEvent() {
-        const timePicker = this.element.querySelector<HTMLElement>('#timePicker');
-        if (timePicker === null) return;
-        document.addEventListener('mousedown', (e) => {
-          const target = e.target as Element;
-          const readOnlyTimeInput = target?.closest('#readOnlyTimeInput');
-          const formInputTime = target?.closest('.form-input-time');
-      
-          if (readOnlyTimeInput) {
-            this.timePickerOpen(timePicker);
-            return;
-          }
-          if (timePicker.classList.contains('show') && formInputTime === null)
-            this.timePickerClose(timePicker);
-        });
-      }
-       timePickerOpen(timePicker: HTMLElement) {
-        timePicker.classList.add('show');
-      }
-       timePickerClose(timePicker: HTMLElement) {
-        timePicker.classList.remove('show');
-      }
+      if (timePicker.classList.contains('show') && formInputTime === null)
+        this.timePickerClose(timePicker);
+    });
+  }
+  timePickerOpen(timePicker: HTMLElement) {
+    timePicker.classList.add('show');
+  }
+  timePickerClose(timePicker: HTMLElement) {
+    timePicker.classList.remove('show');
+  }
 }
-export default DateTimeForm
+export default DateTimeForm;

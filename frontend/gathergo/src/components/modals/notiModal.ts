@@ -3,9 +3,10 @@ import {
   fetchCloseMeeting,
   fetchJoin,
   fetchJoinCancel,
+  fetchLogout,
 } from '../../common/Fetches';
 import Navigate from '../../common/utils/navigate';
-import { /*fetchError, */setModal } from '../../store/actions';
+import { setModal } from '../../store/actions';
 import store from '../../store/store';
 
 class NotiModal {
@@ -29,10 +30,8 @@ class NotiModal {
     this.btnMessage = this.setBtnMessage(type);
     this.element = document.createElement('div');
     this.render();
-    // store.subscribe(() => this.render());
   }
   render() {
-    // console.log(store.getState().error);
     if (this.$container === null) return;
     this.element.innerHTML = `<div class = "noti-modal-container">
             <div class = "noti-modal-background">
@@ -80,7 +79,6 @@ class NotiModal {
     );
   }
   mainBtnCallback(type: string) {
-    // store.dispatch(setModal(''));
     switch (type) {
       case 'SIGNUP_SUCCESS':
         return () => {
@@ -101,6 +99,10 @@ class NotiModal {
             .querySelector('.login-switcher-signup')
             ?.classList.remove('ng-hide');
         };
+      case 'LOGOUT':
+        return async () => {
+          store.dispatch(await fetchLogout());
+        };
       case 'NEED_LOGIN':
         return () => {
           this.navigate.to('/login');
@@ -114,7 +116,15 @@ class NotiModal {
           this.navigate.to(`/post?feed=${feed}`);
 
           document.body?.removeAttribute('class');
-          // history.replaceState(store.getState(), "", `/post?feed=${cardData.uuid}`);
+        };
+
+      case 'POSTING_SUCCESS':
+        return () => {
+          this.navigate.to('/');
+        };
+      case 'POSTING_EDIT_SUCCESS':
+        return () => {
+          this.navigate.to('/');
         };
       case 'DELETE_COMMENT':
         return async () => {
@@ -129,14 +139,11 @@ class NotiModal {
         };
       case 'JOIN':
         return async () => {
-          store.dispatch(await fetchJoin(store.getState().readingCard?.uuid));
-          // console.log(store.getState());
-          const isError = store.getState().error;
           this.modalClose();
+          store.dispatch(await fetchJoin(store.getState().readingCard?.uuid));
+          const isError = store.getState().error;
+
           if (!isError) store.dispatch(setModal('JOIN_SUCCESS'));
-          else {
-            store.dispatch(setModal('ERROR'));
-          }
         };
       case 'JOIN_CANCEL':
         return async () => {
@@ -148,9 +155,7 @@ class NotiModal {
         };
       case 'CLOSE_MEETING':
         return async () => {
-          // store.dispatch(
           await fetchCloseMeeting(store.getState().readingCard?.uuid);
-          // );
           this.modalClose();
           this.navigate.to('/');
 
@@ -159,7 +164,6 @@ class NotiModal {
       case 'ERROR':
         return () => {
           this.modalClose();
-          // store.dispatch(fetchError(null));
         };
       default: {
         return this.modalClose;
@@ -168,11 +172,15 @@ class NotiModal {
   }
 
   modalClose() {
+    if (this.type == 'POSTING_SUCCESS' || this.type == 'POSTING_EDIT_SUCCESS')
+      this.navigate.to('/');
     store.dispatch(setModal(''));
     this.element.remove();
   }
   setMessage(type: string): string {
     switch (type) {
+      case 'LOGOUT':
+        return '로그아웃 하시겠습니까?';
       case 'INPUT_CATEGORY':
         return '카테고리를 선택해주세요';
       case 'INPUT_TITLE':
@@ -207,6 +215,10 @@ class NotiModal {
         return '이미 참가 신청한 만남입니다.<br>참가를 취소하시겠습니까?';
       case 'JOIN_CANCEL_SUCCESS':
         return '참가가 취소되었습니다.';
+      case 'POSTING_SUCCESS':
+        return '만남이 성공적으로 생성되었습니다. 감사합니다.';
+      case 'POSTING_EDIT_SUCCESS':
+        return '만남이 성공적으로 수정되었습니다. 감사합니다.';
       case 'ERROR': {
         if (store.getState().error !== null)
           return store.getState().error?.message as string;
@@ -220,6 +232,8 @@ class NotiModal {
   setNeed2btns(type: string): boolean {
     switch (type) {
       case 'NEED_LOGIN':
+        return true;
+      case 'LOGOUT':
         return true;
       case 'JOIN':
         return true;
@@ -239,6 +253,8 @@ class NotiModal {
     switch (type) {
       case 'NEED_LOGIN':
         return '로그인';
+      case 'LOGOUT':
+        return '로그아웃';
       case 'JOIN':
         return '참가';
       case 'EDIT_MEETING':

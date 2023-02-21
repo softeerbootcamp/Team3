@@ -1,15 +1,12 @@
 import { chatBotText } from '../../common/constants';
-import {generateResponse} from './chatBotOpenAI.js';
+import { generateResponse } from './chatBotOpenAI.js';
 class ChatBot {
   element: HTMLElement;
   $container: HTMLElement | null;
   constructor($container: HTMLElement | null) {
     this.$container = $container;
-    // this.running = false;
     this.element = document.createElement('div');
-
     this.render();
-    // store.subscribe(() => this.render());
   }
 
   render() {
@@ -63,7 +60,6 @@ class ChatBot {
     const message = this.element.querySelector<HTMLInputElement>('#message');
     message?.addEventListener('keyup', (e) => {
       if (e.key == 'Enter') {
-        // e.preventDefault();
         this.send();
       }
     });
@@ -79,7 +75,7 @@ class ChatBot {
         this.element.classList.remove('collapsed');
         icon1.style.display = 'none';
         icon2.style.display = '';
-        setTimeout(this.addResponseMsg, 1000, chatBotText('DEFAULT')); //TODO: 처음 열었을때 보여질 메시지
+        setTimeout(this.addResponseMsg, 1000, chatBotText('DEFAULT')); 
       } else {
         this.element.classList.add('collapsed');
         icon2.style.display = 'none';
@@ -89,16 +85,10 @@ class ChatBot {
   }
 
   async send() {
-    // if (this.running == true) return;
     const msg = this.element.querySelector<HTMLInputElement>('#message')?.value;
     if (!msg) return;
-    // this.running = true;
     this.addMsg(msg);
-
-    //DELEAY MESSAGE RESPOSE Echo
-    //TODO: msg의 값에 따라 아래 함수에 입력값 변경
-    // setTimeout(this.addResponseMsg, 1000, await generateResponse('what I need for posting?')/*chatBotText(msg)*/);
-    this.addResponseMsg(await generateResponse(msg))
+    this.addResponseMsg(await generateResponse(msg));
   }
   addMsg(msg: string) {
     const div = document.createElement('div');
@@ -110,7 +100,6 @@ class ChatBot {
     const messageBox = this.element.querySelector<HTMLElement>('#message-box');
     if (!messageBox) return;
     messageBox.appendChild(div);
-    //SEND MESSAGE TO API
     const message = this.element.querySelector<HTMLInputElement>('#message');
     if (!message) return;
     message.value = '';
@@ -124,9 +113,6 @@ class ChatBot {
     if (!messageBox) return;
     messageBox.appendChild(div);
     messageBox.scrollTop = messageBox.scrollHeight;
-    // this.running = false;
   }
-
-  
 }
 export default ChatBot;

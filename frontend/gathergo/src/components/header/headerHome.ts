@@ -2,14 +2,13 @@ import DropdownCategory from '../dropdown/DropdownCategory';
 import DropdownRegion from '../dropdown/DropdownRegion';
 import HeaderHomeNav from './headerHomeNav';
 import HeaderSearchSticky from './HeaderSearchSticky';
-import AlarmSidebar from '../sidebar/alarmSidebar'
+import AlarmSidebar from '../sidebar/alarmSidebar';
 class HeaderHome {
   element: HTMLElement;
   constructor() {
     this.element = document.createElement('div');
     this.element.classList.add('headerhome');
     this.render();
-    // store.subscribe(() => this.render());
   }
   render() {
     this.element.innerHTML = `
@@ -33,7 +32,9 @@ class HeaderHome {
     </nav>
     `;
     const headerHomeNav = new HeaderHomeNav();
-    this.element.querySelector('#header-nav')?.appendChild(headerHomeNav.element);
+    this.element
+      .querySelector('#header-nav')
+      ?.appendChild(headerHomeNav.element);
 
     const dropdownRegion = new DropdownRegion();
     const dropdownRegionLI = this.element.querySelector('#dropdown-region');
@@ -50,13 +51,11 @@ class HeaderHome {
     this.element.appendChild(searchSticky.element);
     this.sidebarEvent();
   }
-  sidebarEvent(){
+  sidebarEvent() {
     const sidebar = new AlarmSidebar();
 
-    this.element.appendChild(sidebar.element)
+    this.element.appendChild(sidebar.element);
   }
-  
 }
-
 
 export default HeaderHome;

@@ -13,7 +13,6 @@ class MyComment {
     this.render();
   }
   render() {
-    console.log(this.commentsData.isMyComment);
     this.element.innerHTML = `<strong class="comment-user-id">${
       this.commentsData.userId
     }</strong>
@@ -32,9 +31,7 @@ class MyComment {
   closeEvent() {
     const closeBtn = this.element.querySelector<HTMLElement>('.circle');
     closeBtn?.addEventListener('click', () => {
-     store.dispatch( setModal('DELETE_COMMENT',closeBtn.dataset.commentuuid))
-    //  console.log(closeBtn.dataset.commentuuid);
-      
+     store.dispatch( setModal('DELETE_COMMENT',closeBtn.dataset.commentuuid))      
     });
   }
 }

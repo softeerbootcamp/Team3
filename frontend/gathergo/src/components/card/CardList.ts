@@ -30,7 +30,7 @@ class CardList {
     store.subscribe(() => {
       const newState = store.getState().cards;
       if (this.cardsState !== newState) {
-    this.cardIndex = 0;
+        this.cardIndex = 0;
 
         this.cardsState = newState;
         this.render();
@@ -41,11 +41,8 @@ class CardList {
     this.element.innerHTML = '';
     this.cardDatas = this.getCardDatas();
     this.generateCards();
-    console.log(this.cardDatas);
-    
   }
-  getCardDatas(){
-    // const state = store.getState();
+  getCardDatas() {
     let cardDatas = cloneDeep(this.cardsState);
     if (this.type === 'RECENT') {
       cardDatas = cardDatas.sort(
@@ -55,16 +52,24 @@ class CardList {
     return cardDatas;
   }
   generateCards() {
-    for(let i = this.cardIndex; i< this.cardDatas.length && i<(this.increment + this.cardIndex);i++){
+    if (this.cardDatas.length === 0) return;
+    for (
+      let i = this.cardIndex;
+      i < this.cardDatas.length && i < this.increment + this.cardIndex;
+      i++
+    ) {
       const card = new Card(this.cardDatas[i]);
-    this.element.appendChild(card.element);
-    card.element.addEventListener('click', async () => {
-      // this.navigate.to(`/?feed=${cardData.uuid}`)
-      history.replaceState(store.getState(), '', `/?feed=${this.cardDatas[i].uuid}`);
-      this.openCardModal();
-      store.dispatch(await fetchCardDetail(this.cardDatas[i].uuid));
-    });
-      if(i==this.increment + this.cardIndex-1){
+      this.element.appendChild(card.element);
+      card.element.addEventListener('click', async () => {
+        history.replaceState(
+          store.getState(),
+          '',
+          `/?feed=${this.cardDatas[i].uuid}`
+        );
+        this.openCardModal();
+        store.dispatch(await fetchCardDetail(this.cardDatas[i].uuid));
+      });
+      if (i == this.increment + this.cardIndex - 1) {
         this.observer.observe(card.element);
       }
     }
@@ -73,9 +78,7 @@ class CardList {
   handleIntersection(entries: IntersectionObserverEntry[]) {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        console.log('확인');
         const lastCard = entry.target;
-        // thumbnail.src = thumbnail.dataset.src!;
         this.generateCards();
         this.observer.unobserve(lastCard);
       }

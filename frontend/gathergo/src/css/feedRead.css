@@ -1,23 +1,16 @@
 .feed-main-wrapper {
   overflow: auto;
   width: 100%;
-  /* height: 0;
-  width: 50%; */
-  /* flex-basis: 0;
-    flex-grow: 1; */
   display: flex;
   justify-content: space-between;
-  /* margin: 5rem 10rem 0 10rem; */
 }
 
 .feed-main-info {
   overflow: auto;
   flex-basis: 0;
   flex-grow: 1;
-  /* width: 60%; */
   display: flex;
   flex-direction: column;
-  /* align-items: ; */
 }
 
 .feed-main-divider {
@@ -30,7 +23,6 @@
   position: relative;
   width: 100%;
   height: 100%;
-  /* padding-bottom: 66.67%; */
   background: var(--bs-secondary);
 
   margin-bottom: 1rem;
@@ -38,7 +30,6 @@
 
 .feed-main-content {
   overflow-y: auto;
-  /* overflow-x: auto; */
   flex-basis: 0;
   flex-grow: 1;
   display: flex;
@@ -50,17 +41,21 @@
   height: 100%;
   width: 100%;
   border-radius: 5px;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
+
 .feed-main-content-scrollable::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera*/
+  display: none;
+  /* Chrome, Safari, Opera*/
 }
+
 .schedule-synthesis {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
 }
 
 .schedule-info {
@@ -115,17 +110,8 @@
   bottom: 0;
 }
 
-/* .join-buttons {
-  display: flex;
-  justify-content: flex-end;
-} */
 .feed-info.btn {
   min-width: 101px;
-  /* position: absolute;
-  right: 0; */
-  /* display: flex;
-  justify-self: flex-end; */
-  /* width: 100%; */
   margin: 2rem 0;
 }
 
@@ -146,18 +132,12 @@
 }
 
 .user-info .container-sm {
-  /* width: 100%; */
   display: flex;
 
   align-items: flex-start;
   flex-direction: column;
   justify-content: center;
 }
-
-/* .space {
-    min-width: 2rem;
-    width: 100%;
-  } */
 
 .user-info button {
   min-height: 2.25rem;
@@ -169,15 +149,12 @@
   background: var(--bs-body-bg);
   width: 2rem;
   height: 2rem;
-  /* min-width: 5rem;
-  min-height: 5rem; */
   border-radius: 50%;
   overflow: hidden;
 }
 
 .user-profile-img {
   overflow: hidden;
-  /* object-fit: cover;*/
   display: block;
   width: 100%;
   height: 100%;
@@ -203,9 +180,11 @@
   margin: 1rem;
   margin-right: 0;
 }
-.comment-icon-delete{
+
+.comment-icon-delete {
   margin: 0 0.5rem;
 }
+
 .comment-user-id {
   min-width: 6rem;
 }
@@ -248,16 +227,13 @@
 /* tooltip */
 [tooltip] {
   position: relative;
-  /* opinion 1 */
 }
 
 /* Applies to all tooltips */
 [tooltip]::before,
 [tooltip]::after {
   text-transform: none;
-  /* opinion 2 */
   font-size: 0.9em;
-  /* opinion 3 */
   line-height: 1;
   user-select: none;
   pointer-events: none;
@@ -269,9 +245,7 @@
 [tooltip]::before {
   content: '';
   border: 5px solid transparent;
-  /* opinion 4 */
   z-index: 1001;
-  /* absurdity 1 */
 }
 
 [tooltip]::after {
@@ -282,25 +256,13 @@
   font-family: Helvetica, sans-serif;
   text-align: center;
 
-  /* 
-      Let the content set the size of the tooltips 
-      but this will also keep them from being obnoxious
-      */
-  /* min-width: 3em;
-  max-width: 21em; */
   width: 12rem;
-  /* left: 0; */
-  /* calc(-100%); */
-  /* white-space: nowrap; */
-  /* overflow: hidden; */
-  /* text-overflow: ellipsis; */
   padding: 1ch 1.5ch;
   border-radius: 5px;
   box-shadow: 0 1em 2em -0.5em rgba(0, 0, 0, 0.35);
   background: #fff;
   border: 1px solid var(--bs-primary);
   z-index: 1000;
-  /* absurdity 2 */
 }
 
 /* Make the tooltips respond to hover */
@@ -355,68 +317,77 @@
   animation: tooltips-vert 300ms ease-out forwards;
 }
 
- .container {
-	 max-width: 560px;
-	 display: inline-block;
+.container {
+  max-width: 560px;
+  display: inline-block;
 }
- .circCont {
-	 display: inline-block;
+
+.circCont {
+  display: inline-block;
 }
- .circle {
-	 width: 1.2rem;
-	 height: 1.2rem;
-	 background: transparent;
-	 border: 0px solid var(--bs-gray-400);
-	 border-radius: 50%;
-	 position: relative;
-	 cursor: pointer;
-	 display: inline-block;
-	 margin: 0.3rem;
+
+.circle {
+  width: 1.2rem;
+  height: 1.2rem;
+  background: transparent;
+  border: 0px solid var(--bs-gray-400);
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0.3rem;
 }
- .circle:after {
-	 width: 1.2rem;
-	 height: 2px;
-	 background-color: var(--bs-secondary);
-	 content: "";
-	 left: 50%;
-	 top: 50%;
-	 margin-left: -0.6rem;
-	 margin-top: -1px;
-	 position: absolute;
-	 transform: rotate(-45deg);
+
+.circle:after {
+  width: 1.2rem;
+  height: 2px;
+  background-color: var(--bs-secondary);
+  content: "";
+  left: 50%;
+  top: 50%;
+  margin-left: -0.6rem;
+  margin-top: -1px;
+  position: absolute;
+  transform: rotate(-45deg);
 }
- .circle:before {
-	 left: 50%;
-	 top: 50%;
-	 margin-left: -0.6rem;
-	 margin-top: -1px;
-	 width: 1.2rem;
-	 height: 2px;
-	 background-color: var(--bs-secondary);
-	 content: "";
-	 position: absolute;
-	 transform: rotate(45deg);
+
+.circle:before {
+  left: 50%;
+  top: 50%;
+  margin-left: -0.6rem;
+  margin-top: -1px;
+  width: 1.2rem;
+  height: 2px;
+  background-color: var(--bs-secondary);
+  content: "";
+  position: absolute;
+  transform: rotate(45deg);
 }
- .circle + p {
-	 text-transform: lowercase;
-	 font-size: 14px;
-	 margin-bottom: 10px;
+
+.circle+p {
+  text-transform: lowercase;
+  font-size: 14px;
+  margin-bottom: 10px;
 }
- .simpleRotate {
-	 animation: rotate 0.1s 2 ease-in-out alternate;
+
+.simpleRotate {
+  animation: rotate 0.1s 2 ease-in-out alternate;
 }
- @keyframes rotate {
-	 0% {
-		 transform: scale(1);
-	}
-	 100% {
-		 transform: scale(0.8);
-	}
+
+@keyframes rotate {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0.8);
+  }
 }
- .circle[data-animation="simpleRotate"]:not(.simpleRotate) {
-	 transition: transform 200ms cubic-bezier(0.175, 0.885, 0.52, 1.775);
+
+.circle[data-animation="simpleRotate"]:not(.simpleRotate) {
+  transition: transform 200ms cubic-bezier(0.175, 0.885, 0.52, 1.775);
 }
- .circle[data-animation="simpleRotate"]:not(.simpleRotate):hover {
-	 transform: scale(1.2);
+
+.circle[data-animation="simpleRotate"]:not(.simpleRotate):hover {
+  transform: scale(1.2);
 }
- 

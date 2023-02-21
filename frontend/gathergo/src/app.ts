@@ -5,16 +5,14 @@ import NotiModal from '../src/components/modals/notiModal';
 import { checkLogin } from './store/actions';
 class App {
   $container: HTMLElement | null;
-  // loadingState: boolean;
   modalActionState: string;
-  router:Router;
-  navigate:Navigate;
+  router: Router;
+  navigate: Navigate;
   redirectState: string | null;
   constructor($container: HTMLElement | null) {
     this.$container = $container;
     this.router = new Router(this.$container);
     this.navigate = new Navigate(this.router);
-    // this.loadingState = store.getState().isLoading;
     this.modalActionState = store.getState().modalAction;
     this.redirectState = store.getState().redirect;
     this.init();
@@ -22,34 +20,25 @@ class App {
       const newState = store.getState().modalAction;
       if (this.modalActionState !== newState) {
         this.modalActionState = newState;
-        if (this.modalActionState !== '') this.setNotiModal(this.modalActionState);
+        if (this.modalActionState !== '')
+          this.setNotiModal(this.modalActionState);
       }
     });
     store.subscribe(() => {
       const newState = store.getState().redirect;
       if (this.redirectState !== newState) {
         this.redirectState = newState;
-        if (this.redirectState !== null) 
-          this.navigate.to(this.redirectState);
+        if (this.redirectState !== null) this.navigate.to(this.redirectState);
       }
     });
   }
   init = () => {
-    console.log(store.getState().sessionId)
     store.dispatch(checkLogin(document.cookie));
-    console.log(store.getState().sessionId)
-    // const router = new Router(this.$container);
-    // const navigate = new Navigate(router);
-
-    // store.dispatch(setNavigate(this.navigate))
-    console.log(store.getState())
     window.addEventListener('popstate', (e) => {
-     
-      if(document.body.classList.contains('modal-active')) {
-         e.preventDefault();
-      }
-      else{
-      this.router.route();
+      if (document.body.classList.contains('modal-active')) {
+        e.preventDefault();
+      } else {
+        this.router.route();
       }
     });
     document.querySelectorAll('a').forEach((link) => {
@@ -60,14 +49,9 @@ class App {
         this.navigate.to(path);
       });
     });
-    // this.setNotiModal("NEED_LOGIN");
   };
   setNotiModal(type: string) {
-    new NotiModal(this.$container,this.navigate, type);
+    new NotiModal(this.$container, this.navigate, type);
   }
-  // openLoadingModal(isLoading:boolean){
-  //   const errorModal = new LoadingModal("error?.message")
-  //   this.$container?.appendChild(errorModal.element)
-  // }
 }
 export default App;

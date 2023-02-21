@@ -13,11 +13,11 @@ class Router {
     this.route();
   }
   route() {
-    if(this.$container === null) return
+    if (this.$container === null) return;
 
     this.$container.innerHTML = '';
     const TargetPage = this.findMatchedRoute()?.element || NotFound;
-    new TargetPage(this.$container,this.navigate);
+    new TargetPage(this.$container, this.navigate);
   }
   findMatchedRoute() {
     return routes.find((route) => route.path.test(location.pathname));

@@ -1,16 +1,15 @@
-import HeaderDefaultNav from "./headerDefaultNav";
+import HeaderDefaultNav from './headerDefaultNav';
 
 class HeaderDefault {
   element: HTMLElement;
-  type:string
-  constructor(type:string) {
-    this.type=type;
+  type: string;
+  constructor(type: string) {
+    this.type = type;
     this.element = document.createElement('div');
     this.element.classList.add('headerDefault');
     this.render();
-    // store.subscribe(() => this.render());
   }
-  render(){
+  render() {
     this.element.innerHTML = `
     <nav class="header navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-lg">
@@ -20,9 +19,11 @@ class HeaderDefault {
             <div class="container-fluid"></div>
         </div>
     </nav>
-    `
+    `;
     const headerDefaultNav = new HeaderDefaultNav(this.type);
-    this.element.querySelector('.container-fluid')?.appendChild(headerDefaultNav.element)
+    this.element
+      .querySelector('.container-fluid')
+      ?.appendChild(headerDefaultNav.element);
   }
 }
 export default HeaderDefault;

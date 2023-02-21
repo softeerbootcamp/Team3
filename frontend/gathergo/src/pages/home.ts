@@ -1,4 +1,8 @@
-import { fetchCardDetail, getArticles } from '../common/Fetches';
+import {
+  fetchCardDetail,
+  getArticles,
+  getNoticeSidebar,
+} from '../common/Fetches';
 import Navigate from '../common/utils/navigate';
 import CardList from '../components/card/CardList';
 import CardModal from '../components/card/CardModal';
@@ -22,14 +26,10 @@ class Home {
     const headerHome = new HeaderHome();
     this.$container.appendChild(headerHome.element);
 
-
     store.dispatch(await getArticles(store.getState().filters));
-    const cardList = new CardList(this.navigate,'NEW');
-    // this.$container.appendChild(cardList.element);
-    const cardList2 = new CardList(this.navigate,'RECENT');
-    // this.$container.appendChild(cardList2.element);
-    const tabContent = new TabContent(cardList.element,cardList2.element);
-    // this.$container.appendChild(tabContent.element);
+    const cardList = new CardList(this.navigate, 'NEW');
+    const cardList2 = new CardList(this.navigate, 'RECENT');
+    const tabContent = new TabContent(cardList.element, cardList2.element);
 
     const homeTab = new TabHome(tabContent);
     this.$container.appendChild(homeTab.element);
@@ -61,7 +61,6 @@ class Home {
     });
 
     window.addEventListener('popstate', () => {
-      // if(!modalEle.classList.contains('out'))
       this.closeModal(modalEle);
     });
   }
@@ -69,7 +68,6 @@ class Home {
   closeModal(modalContainer: HTMLElement) {
     modalContainer.classList.add('out');
     document.body?.removeAttribute('class');
-    // this.navigate.to('/')
     history.replaceState(store.getState(), '', '/');
   }
 
@@ -113,8 +111,6 @@ class Home {
     new Fba(this.$container);
   }
   openSidebarEvent() {
-    const alarm = document.querySelector('#sidebar-tigger');
-    console.log(alarm);
 
     document
       .querySelector<HTMLElement>('#sidebar-tigger')
@@ -122,10 +118,11 @@ class Home {
         this.openSidebar();
       });
   }
-  openSidebar() {
+  async openSidebar() {
     document.querySelector('#alarm-sidebar')?.classList.add('active');
     document.querySelector('.sidebar-container')?.classList.add('active');
     document.body.classList.add('modal-active');
+    store.dispatch(await getNoticeSidebar());
   }
 }
 

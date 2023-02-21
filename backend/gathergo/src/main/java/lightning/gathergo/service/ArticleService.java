@@ -19,6 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.PatternSyntaxException;
 
 @Service
+@Transactional
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
@@ -43,7 +44,7 @@ public class ArticleService {
     @Transactional
     public Article addArticle(Article article){
         article.setUuid(generateUuid());
-        articleRepository.save(article);
+        article = articleRepository.save(article);
         relationshipRepository.save(article.getHostId(), article.getId());
         return articleRepository.findById(articleRepository.getLastInsertedId()).get();
     }
@@ -120,14 +121,17 @@ public class ArticleService {
 
 
     public void addGuest(String userId, String articleUuid){
-        if(countService.getCount(articleUuid) >=
-                articleRepository.findByUuid(articleUuid).get().getTotal()){
+
+        if(articleRepository.findByUuid(articleUuid).get().getTotal() < countService.plusCount(articleUuid)){
+            countService.minusCount(articleUuid);
             throw new CustomGlobalException(ErrorCode.ALREADY_FULLED);
         }
+
         relationshipRepository.save(
                 userRepository.findUserByUserId(userId).get().getId(),
                 articleRepository.findByUuid(articleUuid).get().getId()
         );
+
     }
 
     public void deleteGuest(String userId, String articleUuid){
@@ -135,6 +139,7 @@ public class ArticleService {
                 userRepository.findUserByUserId(userId).get().getId(),
                 articleRepository.findByUuid(articleUuid).get().getId()
         );
+        countService.minusCount(articleUuid);
     }
     public List<Comment> getCommentsByUuid(String articleUuid){
         return articleRepository.findCommentsByArticleUuid(articleUuid);

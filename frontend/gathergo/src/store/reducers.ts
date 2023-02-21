@@ -15,10 +15,11 @@ import {
   SET_PROFILE,
   CHANGE_PROFILEIMG,
   CHANGE_PROFILEINTRO,
+  GET_NOTICE,
 } from './actions';
 import { initialState } from '../server/initialstate';
 import { Taction } from '../common/constants';
-
+const awsURL = 'https://team3-gathergo.s3.ap-northeast-2.amazonaws.com/';
 function reducer(state = initialState, action: Taction) {
   switch (action.type) {
     case SET_NAVIGATE:
@@ -32,7 +33,7 @@ function reducer(state = initialState, action: Taction) {
         filters: action.payload.filters,
         isLoading: true,
       };
-    case UPDATE_CARDS:{
+    case UPDATE_CARDS: {
       return {
         ...state,
         isLoading: false,
@@ -58,10 +59,8 @@ function reducer(state = initialState, action: Taction) {
         isLoading: true,
       };
     case GET_COMMENT:
-      console.log(action.payload.commentData);
       return { ...state, comments: action.payload.commentData };
     case CHECK_LOGIN:
-      console.log(action.payload.cookie);
       return { ...state, sessionId: action.payload.cookie };
 
     case USER_LOGIN:
@@ -78,7 +77,7 @@ function reducer(state = initialState, action: Taction) {
     case POST_CARD:
       return {
         ...state,
-        redirect: '/',
+        modalAction: action.payload.modalAction,
         filters: {
           regionId: 0,
           categoryId: 0,
@@ -91,17 +90,21 @@ function reducer(state = initialState, action: Taction) {
     case SET_PROFILE:
       state.userInfo = action.payload.userInfoResponse;
       state.userInfo.profilePath =
-        'https://team3-gathergo.s3.ap-northeast-2.amazonaws.com/'+action.payload.userInfoResponse.uuid+'.png';
-      state.userInfo.userHostCards = action.payload.userInfoResponse.hostingArticleList;
-      state.userInfo.userJoinCards = action.payload.userInfoResponse.articleList;
-      return {...state}
+        awsURL + action.payload.userInfoResponse.uuid + '.png';
+      state.userInfo.userHostCards =
+        action.payload.userInfoResponse.hostingArticleList;
+      state.userInfo.userJoinCards =
+        action.payload.userInfoResponse.articleList;
+      return { ...state };
     case CHANGE_PROFILEIMG:
-      state.userInfo.profilePath = action.payload.imageSrc
-      console.log(state.userInfo.profilePath)
-      return {...state}
+      state.userInfo.profilePath = action.payload.imageSrc;
+      return { ...state };
     case CHANGE_PROFILEINTRO:
       state.userInfo.introduction = action.payload.introduction;
-      return {...state}
+      return { ...state };
+    case GET_NOTICE:
+      state.notice = action.payload.noticeList;
+      return { ...state };
     default:
       return state;
   }
