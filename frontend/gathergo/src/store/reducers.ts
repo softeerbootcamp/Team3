@@ -15,6 +15,7 @@ import {
   SET_PROFILE,
   CHANGE_PROFILEIMG,
   CHANGE_PROFILEINTRO,
+  GET_NOTICE,
 } from './actions';
 import { initialState } from '../server/initialstate';
 import { Taction } from '../common/constants';
@@ -101,6 +102,9 @@ function reducer(state = initialState, action: Taction) {
       return {...state}
     case CHANGE_PROFILEINTRO:
       state.userInfo.introduction = action.payload.introduction;
+      return {...state}
+    case GET_NOTICE:
+      state.notice = action.payload.noticeList
       return {...state}
     default:
       return state;

@@ -1,31 +1,35 @@
 import { timeDiff } from '../../common/commonFunctions';
+import { Tnotice, monthNames } from '../../common/constants';
 class Log {
     element: HTMLElement;
-    constructor() {
+    $notice : Tnotice;
+    constructor(notice : Tnotice) {
       this.element = document.createElement('div');
       this.element.classList.add( "alarm-sidebar-log")
+      this.$notice = notice;
       this.render();
+
       // store.subscribe(() => this.render());
     }
     render() {
-        this.element.innerHTML=`
+        this.element.innerHTML = `
         <li>
             <a href="#" target="_blank">
               <div class="date">
-                <p class="day">23</p>
-                <p class="month">nov</p>
+                <p class="day">${new Date(this.$notice.meetingDay).getDate()}</p>
+                <p class="month">${monthNames[new Date(this.$notice.meetingDay).getMonth()]}</p>
               </div>
               <div class="item-info-container">
-                <h1>만남 제목입니다.</h1>
+                <h1>${this.$notice.title}</h1>
                 <p class="item-description">
-                  알람 내용입니다. ex) aa님이 모임에 참가했습니다.
+                  ${this.$notice.body}
                 </p>
                  <p class="item-description">
-                 ${timeDiff(new Date())}
+                 ${timeDiff(new Date(this.$notice.issueDateTime))}
                 </p>
               </div>
             </a>            
-          </li>`
+          </li>`;
     }
 }
 export default Log;

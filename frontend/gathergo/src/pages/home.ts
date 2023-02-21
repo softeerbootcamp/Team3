@@ -1,4 +1,4 @@
-import { fetchCardDetail, getArticles } from '../common/Fetches';
+import { fetchCardDetail, getArticles, getNoticeSidebar } from '../common/Fetches';
 import Navigate from '../common/utils/navigate';
 import CardList from '../components/card/CardList';
 import CardModal from '../components/card/CardModal';
@@ -122,10 +122,12 @@ class Home {
         this.openSidebar();
       });
   }
-  openSidebar() {
+  async openSidebar() {
     document.querySelector('#alarm-sidebar')?.classList.add('active');
     document.querySelector('.sidebar-container')?.classList.add('active');
     document.body.classList.add('modal-active');
+    store.dispatch(await getNoticeSidebar());
+
   }
 }
 

@@ -69,6 +69,7 @@ type TinitialState = {
   userInfo : TuserInfo;
   tabNumber : number;
   deleteCommentuuid: string;
+  notice : Tnotice[];
 };
 type TsignupData= {
   userId: string;
@@ -81,7 +82,6 @@ type TloginData= {
   password: string;
 }
 
-
 type TuserInfo={
   userName : string;
   email : string;
@@ -91,6 +91,7 @@ type TuserInfo={
   userHostCards : TuserHostCard[];
   userJoinCards : TuserJoinCard[];
   uuid : string;
+  
 }
 type TuserHostCard={
   uuid : string;
@@ -121,6 +122,13 @@ meetingDay: string,
 content: string
 }
 
+type Tnotice = {
+  articleUuid : string,
+  title : string,
+  body : string,
+  issueDateTime : string,
+  meetingDay : string
+}
 const regionSi: TdropDown = {
   1: '서울특별시',
   2: '부산광역시',
@@ -141,6 +149,21 @@ const regionSi: TdropDown = {
   17: '제주특별자치도',
     0: '지역을 선택하세요',
 };
+
+const monthNames = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
 const category: TdropDown = {
   1: '아웃도어 / 여행',
   2: '운동 / 스포츠',
@@ -170,6 +193,7 @@ export {
   routes,
   regionSi,
   category,
+  monthNames,
   Tfilters,
   Tcard,
   TcardDetail,
@@ -181,7 +205,8 @@ export {
   TuserInfo,
   TuserHostCard,
   TuserJoinCard,
-  TpostCard
+  TpostCard,
+  Tnotice
 };
 
 export function chatBotText(msg:string){
