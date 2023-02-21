@@ -185,11 +185,7 @@ public class ArticleController {
         data.setArticleUuid(articleUuid);
 
         // 알림 발송
-        Article article = articleService.getArticleByUuid(articleUuid);
-
-        Map<String, String> messagePayload = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", "참여한 모임 정보가 변경되었습니다."));
-
-        messagingService.sendMessageToTopic(articleUuid, messagePayload);
+        sendNotification(articleUuid, "참여한 모임 정보가 변경되었습니다.");
 
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.MessageResponse>(
@@ -210,6 +206,9 @@ public class ArticleController {
         GatheringDto.MessageResponse data = new GatheringDto.MessageResponse();
         data.setMessage("수정에 성공했습니다.");
         data.setArticleUuid(articleUuid);
+
+        // 닫기 알림 발송
+        sendNotification(articleUuid, "호스트가 게시글을 마감했습니다.");
 
         // 구독 정보 삭제
         messagingService.deleteTopicAndDeviceTokens(articleUuid);
@@ -299,13 +298,6 @@ public class ArticleController {
         data.setArticleUuid(articleUuid);
         data.setMessage("참가에 성공했습니다.");
 
-        // 알림 발송
-        Article article = articleService.getArticleByUuid(articleUuid);
-
-        Map<String, String> messagePayload = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", session.getUserName() + "님이 모임에 참가했습니다."));
-
-        messagingService.sendMessageToTopic(articleUuid, messagePayload);
-
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.MessageResponse>(
                                 1,
@@ -335,6 +327,15 @@ public class ArticleController {
                                 data
                         )
                 );
+    }
+
+    private void sendNotification(String articleUuid, String body) {
+        Article article = articleService.getArticleByUuid(articleUuid);
+
+        Map<String, String> payload = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", body));
+
+        // 비동기 요청
+        messagingService.sendMessageToTopic(articleUuid, payload);
     }
 
 }
