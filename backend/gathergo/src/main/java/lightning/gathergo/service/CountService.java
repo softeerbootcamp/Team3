@@ -10,11 +10,11 @@ import java.util.Map;
 @Service
 @Transactional
 public class CountService {
-    private final RedisTemplate<String, ?> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     private final HashOperations<String, String, Integer> hashOperations;
 
-    public CountService(RedisTemplate<String, ?> redisTemplate) {
+    public CountService(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
         hashOperations = redisTemplate.opsForHash();
     }
