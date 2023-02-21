@@ -59,7 +59,7 @@ public class FcmMessagingServiceTest {
         logger.info("Successfully subscribed to topic : {}, it took: {}", topic, duration);
 
         when(subscriptionRepository.findByArticleId(topic)).thenReturn(List.of(new Subscription(topic, deviceToken)));
-        // cleanUp(List.of(deviceToken), topic);
+        cleanUp(List.of(deviceToken), topic);
 
         softly.assertThat(result).isTrue();
         softly.assertThat(subscriptionRepository.findByArticleId(topic)).isNotNull().hasSize(1);
@@ -82,7 +82,7 @@ public class FcmMessagingServiceTest {
 
         when(subscriptionRepository.findByArticleId(topic)).thenReturn(List.of(new Subscription(topic, deviceToken1), new Subscription(topic, deviceToken2)));
 
-        // cleanUp(List.of(deviceToken1, deviceToken2), topic);
+        cleanUp(List.of(deviceToken1, deviceToken2), topic);
 
         softly.assertThat(result).isTrue();
         softly.assertThat(subscriptionRepository.findByArticleId(topic)).isNotNull().hasSize(2);
@@ -103,18 +103,18 @@ public class FcmMessagingServiceTest {
         boolean result = messagingService.subscribeToTopic(topic, deviceToken);
 
         when(subscriptionRepository.findByArticleId(topic)).thenReturn(List.of(new Subscription(topic, deviceToken)));
-        // cleanUp(List.of(deviceToken), topic);
+        cleanUp(List.of(deviceToken), topic);
 
         softly.assertThat(result).isTrue();
         softly.assertThat(subscriptionRepository.findByArticleId(topic)).isNotNull().hasSize(1);
         softly.assertAll();
     }
 
-    private void cleanUp(List<String> tokens, int topic) {
+    private void cleanUp(List<String> tokens, String topic) {
 
         try {
             FirebaseMessaging.getInstance()
-                    .unsubscribeFromTopic(tokens, String.valueOf(topic));
+                    .unsubscribeFromTopic(tokens, topic);
         } catch (FirebaseMessagingException e) {
             logger.error("could not add token to given topic: {}, {}", topic, e.getMessage());
         }
