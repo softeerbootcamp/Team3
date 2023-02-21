@@ -559,6 +559,10 @@ li.nav-item.divider {
 #nav-tab{
   background: var(--bs-light);
 }
+#nav-tab1{
+  margin-left: 2rem;
+}
+
 #nav-tab1, #nav-tab2{
   cursor: pointer;
 }

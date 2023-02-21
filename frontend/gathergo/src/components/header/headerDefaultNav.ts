@@ -1,3 +1,5 @@
+import AlarmSidebar from "../sidebar/alarmSidebar";
+
 class HeaderDefaultNav {
   type: string;
   element: HTMLElement;
@@ -9,6 +11,8 @@ class HeaderDefaultNav {
   }
   render() {
     this.element.innerHTML = this.genertateNav(this.type);
+    this.sidebarEvent();
+
   }
   genertateNav(type: string) {
     switch (type) {
@@ -18,13 +22,6 @@ class HeaderDefaultNav {
                 <a class="nav-link cancel" href="/" data-hover="취소">
                   <span>취소</span>
                 </a>
-              </li>
-              <li class="nav-item divider"></li>
-              <li class="nav-item">
-                <a class="nav-link alarm" href="#" data-hover="알람">
-                  <span>알람</span>
-                </a>
-                <span class="dot unread"></span>
               </li>
               <li class="nav-item divider"></li>
               <li class="nav-item profile-icon">
@@ -47,14 +44,19 @@ class HeaderDefaultNav {
       </li>
       <li class="nav-item divider"></li>
       <li class="nav-item">
-        <a class="nav-link alarm" href="#" data-hover="알람">
+        <div id="sidebar-tigger" class="nav-link alarm"  data-hover="알람">
           <span>알람</span>
-        </a>
+        </div>
         <span class="dot unread"></span>
       </li>`;
       default:
         return '';
     }
+  }
+  sidebarEvent(){
+    const sidebar = new AlarmSidebar();
+
+    // this.element.appendChild(sidebar.element)
   }
 }
 export default HeaderDefaultNav;
