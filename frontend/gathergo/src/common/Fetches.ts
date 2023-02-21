@@ -20,11 +20,7 @@ import {
   TsignupData,
   PROFILE_BASE_URL
 } from './constants';
-
-declare function postSubscription(token : string, $articleuuid: string): void;
-declare function deleteSubscription(token: string, $articleuuid: string): void;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare function returnTokenStore() : any;
+import {postSubscription,deleteSubscription,returnTokenStore} from '../firebaseEvent.js'
 
 const url = 'https://gathergo.kro.kr/';
 const ERRORCODE = [0,307,400,401,404,409,500,502]
