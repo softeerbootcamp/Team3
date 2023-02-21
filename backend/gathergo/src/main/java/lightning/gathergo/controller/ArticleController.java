@@ -202,8 +202,10 @@ public class ArticleController {
 
     // 게시물 닫기(soft delete)
     @PutMapping("/{articleUuid}/close")
-    ResponseEntity<?> closeArticle(@PathVariable String articleUuid){
-        Article closed = articleService.setClosed(articleUuid);
+    ResponseEntity<?> closeArticle(@PathVariable String articleUuid, @CookieValue(name = "sessionId") String sessionId){
+        sessionService.findSessionBySID(sessionId);
+
+        articleService.setClosed(articleUuid);
 
         GatheringDto.MessageResponse data = new GatheringDto.MessageResponse();
         data.setMessage("수정에 성공했습니다.");
@@ -294,9 +296,6 @@ public class ArticleController {
 
         articleService.addGuest(userId, articleUuid);
 
-        currCount = countService.getCount(articleUuid);
-        countService.modifyCount(articleUuid, currCount+1);
-
         data.setArticleUuid(articleUuid);
         data.setMessage("참가에 성공했습니다.");
 
@@ -325,9 +324,6 @@ public class ArticleController {
         String userId = session.getUserId();
         Map<String, Object> response = new HashMap<>();
         articleService.deleteGuest(userId, articleUuid);
-
-        currCount = countService.getCount(articleUuid);
-        countService.modifyCount(articleUuid, currCount-1);
 
         data.setArticleUuid(articleUuid);
         data.setMessage("모임 나가기에 성공했습니다.");

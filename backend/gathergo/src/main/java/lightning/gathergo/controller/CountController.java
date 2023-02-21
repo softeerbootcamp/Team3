@@ -43,13 +43,6 @@ public class CountController {
         return ResponseEntity.ok().body(ob);
     }
 
-    @PutMapping
-    public ResponseEntity<?> modifyCount(@RequestBody CountDto.Request in) {
-        JSONObject ob = new JSONObject();
-        ob.put("articleUuid",in.getArticleId());
-        ob.put("count",countService.modifyCount(in.getArticleId(),in.getCount()));
-        return ResponseEntity.ok().body(ob);
-    }
 
     @DeleteMapping("/{articleId}")
     public ResponseEntity<?> deleteCount(@PathVariable String articleId) {

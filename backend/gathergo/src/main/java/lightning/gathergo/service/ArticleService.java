@@ -19,6 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.PatternSyntaxException;
 
 @Service
+@Transactional
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
@@ -128,6 +129,8 @@ public class ArticleService {
                 userRepository.findUserByUserId(userId).get().getId(),
                 articleRepository.findByUuid(articleUuid).get().getId()
         );
+
+        countService.plusCount(articleUuid);
     }
 
     public void deleteGuest(String userId, String articleUuid){
@@ -135,6 +138,7 @@ public class ArticleService {
                 userRepository.findUserByUserId(userId).get().getId(),
                 articleRepository.findByUuid(articleUuid).get().getId()
         );
+        countService.minusCount(articleUuid);
     }
     public List<Comment> getCommentsByUuid(String articleUuid){
         return articleRepository.findCommentsByArticleUuid(articleUuid);

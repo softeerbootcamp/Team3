@@ -57,11 +57,16 @@ public class CountService {
     /**
      * 아티클의 참여 인원 수정
      * @param articleId
-     * @param newValue
+     * @param
      * @return
      */
-    public Integer modifyCount(String articleId,Integer newValue){
-        hashOperations.put("count",articleId,newValue);
+    public Integer plusCount(String articleId){
+        hashOperations.increment("count",articleId,1);
+        return this.getCount(articleId);
+    }
+
+    public Integer minusCount(String articleId){
+        hashOperations.increment("count",articleId,-1);
         return this.getCount(articleId);
     }
 
