@@ -104,14 +104,6 @@
   return response;
 }
 
-  messaging.onMessage(function(payload) {
-    console.log("Message received. ", payload);
-
-    const data = payload.notification
-
-    const alarm = data;
-  });
-
   async function registerServiceWorker () {  // 백그라운드 데몬 등록
     await navigator.serviceWorker.register('/firebase-messaging-sw.js');
   }
