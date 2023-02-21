@@ -258,7 +258,7 @@ export async function fetchPostCard(postCardData: TpostCard) {
     const cardDetailData = await response.json()
     postSubscription(returnTokenStore().token, cardDetailData.data);
     if (ERRORCODE.includes( cardDetailData.status)) throw new Error(cardDetailData.message)
-    return postCard('POSTING');
+    return postCard('POSTING_SUCCESS');
   } catch (error) {
     console.log(error);
     return fetchError(error);
@@ -277,7 +277,7 @@ export async function fetchEditCard(postCardData: TpostCard, uuid: string) {
     });
     const cardDetailData = await response.json();
     if (ERRORCODE.includes( cardDetailData.status)) throw new Error(cardDetailData.message)
-    return postCard('POSTING');
+    return postCard('POSTING_EDIT_SUCCESS');
   } catch (error) {
     console.log(error);
     return fetchError(error);
