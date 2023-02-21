@@ -85,6 +85,7 @@ public class FcmMessagingService {
      * @param deviceToken 기기 식별토큰
      * @return 성공 여부
      */
+    @Transactional
     public boolean subscribeToTopic(String topic, String deviceToken) {
         registrationTokens.computeIfAbsent(topic, k -> new HashSet<>()).add(deviceToken);
 
@@ -122,6 +123,7 @@ public class FcmMessagingService {
      * @param deviceToken 기기 식별토큰
      * @return 성공 여부
      */
+    @Transactional
     public boolean unsubscribeFromTopic(String topic, String deviceToken) {
         TopicManagementResponse response = null;
         int affectedRows;  // DB에서 삭제된 구독 정보의 수, 정상 동작은 1을 반환
