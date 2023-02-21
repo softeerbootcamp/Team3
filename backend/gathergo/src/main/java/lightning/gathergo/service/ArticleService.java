@@ -44,7 +44,7 @@ public class ArticleService {
     @Transactional
     public Article addArticle(Article article){
         article.setUuid(generateUuid());
-        articleRepository.save(article);
+        article = articleRepository.save(article);
         relationshipRepository.save(article.getHostId(), article.getId());
         return articleRepository.findById(articleRepository.getLastInsertedId()).get();
     }
