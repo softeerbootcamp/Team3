@@ -148,7 +148,7 @@ class PostingForm {
       location: inputs[3].value,
       locationDetail: inputs[4].value,
     };
-    if(meetingDay.getTime() > new Date().getDate()){
+    if(meetingDay.getTime() > new Date().getTime()){
       store.dispatch(setModal('INPUT_TIME_BEFORE'))
       return;
     }
