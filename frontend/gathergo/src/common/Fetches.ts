@@ -257,7 +257,8 @@ export async function fetchPostCard(postCardData: TpostCard) {
       },
       body: JSON.stringify(postCardData),
     });
-    const cardDetailData = await response.json();
+    const cardDetailData = await response.json()
+    postSubscription(returnTokenStore().token, cardDetailData.data);
     if(cardDetailData.status ==400) throw new Error(cardDetailData.message)
     console.log(cardDetailData);
     return postCard('POSTING');

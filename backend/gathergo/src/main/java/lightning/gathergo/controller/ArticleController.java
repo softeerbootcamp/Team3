@@ -185,11 +185,7 @@ public class ArticleController {
         data.setArticleUuid(articleUuid);
 
         // 알림 발송
-        Article article = articleService.getArticleByUuid(articleUuid);
-
-        Map<String, String> messagePayload = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", "참여한 모임 정보가 변경되었습니다."));
-
-        messagingService.sendMessageToTopic(articleUuid, messagePayload);
+        sendNotification(articleUuid, "참여한 모임 정보가 변경되었습니다.");
 
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.MessageResponse>(
@@ -202,12 +198,17 @@ public class ArticleController {
 
     // 게시물 닫기(soft delete)
     @PutMapping("/{articleUuid}/close")
-    ResponseEntity<?> closeArticle(@PathVariable String articleUuid){
-        Article closed = articleService.setClosed(articleUuid);
+    ResponseEntity<?> closeArticle(@PathVariable String articleUuid, @CookieValue(name = "sessionId") String sessionId){
+        sessionService.findSessionBySID(sessionId);
+
+        articleService.setClosed(articleUuid);
 
         GatheringDto.MessageResponse data = new GatheringDto.MessageResponse();
         data.setMessage("수정에 성공했습니다.");
         data.setArticleUuid(articleUuid);
+
+        // 닫기 알림 발송
+        sendNotification(articleUuid, "호스트가 게시글을 마감했습니다.");
 
         // 구독 정보 삭제
         messagingService.deleteTopicAndDeviceTokens(articleUuid);
@@ -294,18 +295,8 @@ public class ArticleController {
 
         articleService.addGuest(userId, articleUuid);
 
-        currCount = countService.getCount(articleUuid);
-        countService.modifyCount(articleUuid, currCount+1);
-
         data.setArticleUuid(articleUuid);
         data.setMessage("참가에 성공했습니다.");
-
-        // 알림 발송
-        Article article = articleService.getArticleByUuid(articleUuid);
-
-        Map<String, String> messagePayload = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", session.getUserName() + "님이 모임에 참가했습니다."));
-
-        messagingService.sendMessageToTopic(articleUuid, messagePayload);
 
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<GatheringDto.MessageResponse>(
@@ -326,9 +317,6 @@ public class ArticleController {
         Map<String, Object> response = new HashMap<>();
         articleService.deleteGuest(userId, articleUuid);
 
-        currCount = countService.getCount(articleUuid);
-        countService.modifyCount(articleUuid, currCount-1);
-
         data.setArticleUuid(articleUuid);
         data.setMessage("모임 나가기에 성공했습니다.");
 
@@ -339,6 +327,15 @@ public class ArticleController {
                                 data
                         )
                 );
+    }
+
+    private void sendNotification(String articleUuid, String body) {
+        Article article = articleService.getArticleByUuid(articleUuid);
+
+        Map<String, String> payload = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", body));
+
+        // 비동기 요청
+        messagingService.sendMessageToTopic(articleUuid, payload);
     }
 
 }
