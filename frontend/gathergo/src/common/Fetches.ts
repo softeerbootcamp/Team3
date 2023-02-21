@@ -3,6 +3,7 @@ import {
   changeUserIntroduction,
   fetchError,
   getComments,
+  getNotice,
   getUserInfo,
   postCard,
   readCard,
@@ -337,6 +338,23 @@ export async function changeUserProfileIntroduction(
     console.log(postIntroResponse);
     return changeUserIntroduction(introduction);
   } catch (error) {
+    console.log(error);
+    return fetchError(error);
+  }
+}
+
+export async function getNoticeSidebar(){
+  try{
+    const response = await fetch(url+'api/notifications',{
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    const getNoticeResponse = await response.json();
+    return getNotice(getNoticeResponse.data)
+  }catch(error){
     console.log(error);
     return fetchError(error);
   }

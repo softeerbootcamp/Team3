@@ -17,6 +17,7 @@ export const initialState: TinitialState = {
   redirect: null,
   deleteCommentuuid: '',
   tabNumber : 0,
+  notice : [],
   userInfo: 
     {
       userName: 'testUser',
