@@ -192,7 +192,7 @@ export async function deleteComment(articleuuid:string|undefined,commentuuid:str
     return fetchError(error);
   }
 }
-export async function fetchJoin(articleuuid:string|undefined) {
+export async function fetchJoin(articleuuid:string|undefined,useruuid : string|undefined) {
   try {
     const response = await fetch(url + 'api/articles/'+articleuuid+'/users', {
       method: 'PUT',
@@ -201,7 +201,7 @@ export async function fetchJoin(articleuuid:string|undefined) {
     const responseData = await response.json();
     if(responseData.status ==307) throw new Error(responseData.message)
     
-    postSubscription(returnTokenStore().token,articleuuid as string);
+    postSubscription(returnTokenStore().token,useruuid as string);
 
     return fetchCardDetail(responseData.data.articleUuid);
     // return;// setModal('DELETE_COMMENT_SUCCESS');
@@ -210,7 +210,7 @@ export async function fetchJoin(articleuuid:string|undefined) {
     return fetchError(error);
   }
 }
-export async function fetchJoinCancel(articleuuid:string|undefined) {
+export async function fetchJoinCancel(articleuuid:string|undefined,useruuid : string|undefined) {
   try {
     const response = await fetch(url + 'api/articles/'+articleuuid+'/users', {
       method: 'DELETE',
@@ -218,7 +218,7 @@ export async function fetchJoinCancel(articleuuid:string|undefined) {
     });
     const cardDetailData = await response.json();
     
-    deleteSubscription(returnTokenStore().token,articleuuid as string)
+    deleteSubscription(returnTokenStore().token,useruuid as string)
 
     return fetchCardDetail(cardDetailData.data.articleUuid);
   } catch (error) {

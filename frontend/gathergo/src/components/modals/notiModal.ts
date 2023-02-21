@@ -129,7 +129,7 @@ class NotiModal {
         };
       case 'JOIN':
         return async () => {
-          store.dispatch(await fetchJoin(store.getState().readingCard?.uuid));
+          store.dispatch(await fetchJoin(store.getState().readingCard?.uuid,store.getState().userInfo.uuid));
           // console.log(store.getState());
           const isError = store.getState().error;
           this.modalClose();
@@ -141,7 +141,7 @@ class NotiModal {
       case 'JOIN_CANCEL':
         return async () => {
           store.dispatch(
-            await fetchJoinCancel(store.getState().readingCard?.uuid)
+            await fetchJoinCancel(store.getState().readingCard?.uuid,store.getState().userInfo.uuid)
           );
           this.modalClose();
           store.dispatch(setModal('JOIN_CANCEL_SUCCESS'));
