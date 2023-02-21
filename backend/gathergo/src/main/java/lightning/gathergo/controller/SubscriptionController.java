@@ -29,6 +29,9 @@ public class SubscriptionController {
         String deviceToken = request.getDeviceToken();
         String articleId = request.getArticleId();
 
+        if(deviceToken == null || deviceToken.isBlank() || articleId == null || articleId.isBlank())
+            return new ResponseEntity<>(new CommonResponseDTO<>(0, articleId + " 구독 실패", null), HttpStatus.BAD_REQUEST);
+
         logger.info("topic 구독 {}, {}", articleId, deviceToken);
 
         boolean subscribed = messagingService.subscribeToTopic(articleId, deviceToken);
@@ -47,6 +50,9 @@ public class SubscriptionController {
 
         String deviceToken = request.getDeviceToken();
         String articleId = request.getArticleId();
+
+        if(deviceToken == null || deviceToken.isBlank() || articleId == null || articleId.isBlank())
+            return new ResponseEntity<>(new CommonResponseDTO<>(0, articleId + " 구독 해제 실패", null), HttpStatus.BAD_REQUEST);
 
         logger.info("topic 구독 해제 {}, {}", articleId, deviceToken);
 
