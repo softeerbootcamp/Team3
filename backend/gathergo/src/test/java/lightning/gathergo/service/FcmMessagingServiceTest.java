@@ -17,6 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 
 import static org.mockito.Mockito.when;
@@ -48,7 +50,13 @@ public class FcmMessagingServiceTest {
         final String deviceToken = String.valueOf(UUID.randomUUID());
 
         // when
+        Instant start = Instant.now();
+
         boolean result = messagingService.subscribeToTopic(topic, deviceToken);
+        Instant end = Instant.now();
+
+        Duration duration = Duration.between(start, end);
+        logger.info("Successfully subscribed to topic : {}, it took: {}", topic, duration);
 
         when(subscriptionRepository.findByArticleId(topic)).thenReturn(List.of(new Subscription(topic, deviceToken)));
         // cleanUp(List.of(deviceToken), topic);
