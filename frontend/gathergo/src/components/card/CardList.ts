@@ -4,7 +4,7 @@ import { Tcard } from '../../common/constants';
 import Navigate from '../../common/utils/navigate';
 import { fetchCardDetail } from '../../common/Fetches';
 import { cloneDeep } from 'lodash';
-import { setModal } from '../../store/actions';
+// import { setModal } from '../../store/actions';
 class CardList {
   cardsState: Tcard[];
   element: HTMLDivElement;
