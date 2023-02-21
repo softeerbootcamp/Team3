@@ -2,13 +2,13 @@
     display : flex;
     flex-direction: row;
     width : 100%;
-    height : 841px;
+    height : 920px;
     overflow : hidden;
 }
 
 .profile-sidebar{
-    height : 100%;
     min-width : 200px;
+    height : 920px;
     background-color : #FFF;
     border-right : solid 1px var(--bs-border-color);
     
@@ -73,6 +73,10 @@
     overflow : auto;
 }
 
+.profile-main::-webkit-scrollbar{
+  display : none;
+}
+
 #sidebar-profile-body{
     right : 0;
     position : relative;
@@ -88,13 +92,13 @@
   min-width: 3rem;
   overflow: hidden; */
   display : flex;
-  flex-direction :row-reverse
 }
 
 .user-profilepage-img {
   object-fit: cover;
   display: block;
   width: 33%;
+  margin : 0;
 
 }
 

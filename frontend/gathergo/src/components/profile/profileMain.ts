@@ -2,16 +2,19 @@ import tabProfileMain from './tabProfileMain';
 import tabEditMain from './tabEditMain'
 import tabLogoutModal from './tabLogoutModal';
 import store from '../../store/store'
+import Navigate from '../../common/utils/navigate';
 // import Fba from '../fba/fba';
 
 class profileMain {
   element: HTMLDivElement;
   tabNumber : number;
+  navigate : Navigate;
 
-  constructor() {
+  constructor(navigate : Navigate) {
     this.element = document.createElement('div');
     this.element.classList.add('profile-main');
     this.tabNumber = store.getState().tabNumber;
+    this.navigate = navigate;
 
     store.subscribe(()=>{
         const newtabNumber = store.getState().tabNumber;
@@ -31,7 +34,7 @@ class profileMain {
     
     if(this.tabNumber == 0){
         this.element.innerHTML = ''
-        const tabProfileMainDom = new tabProfileMain()
+        const tabProfileMainDom = new tabProfileMain(this.navigate)
         this.element.appendChild(tabProfileMainDom.element);
     
         tabMainDom?.classList.add('active');

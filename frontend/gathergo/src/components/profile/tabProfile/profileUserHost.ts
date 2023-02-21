@@ -1,12 +1,14 @@
 import { TuserHostCard } from '../../../common/constants';
+import Navigate from '../../../common/utils/navigate';
 
 class profileUserHost {
   element: HTMLDivElement;
   userHostData: TuserHostCard;
-
-  constructor($userHostData: TuserHostCard) {
+  navigate : Navigate;
+  constructor($userHostData: TuserHostCard,navigate:Navigate) {
     this.element = document.createElement('tr');
     this.userHostData = $userHostData;
+    this.navigate = navigate;
     this.render();
   }
   render() {
@@ -27,7 +29,8 @@ class profileUserHost {
 
   addHostLinkEvent() {
     this.element.addEventListener('click', () => {
-        console.log(this.userHostData.uuid);
+      this.navigate.to(`/feed=${this.userHostData.uuid}`);
+
       });
   
   }
