@@ -233,7 +233,6 @@ fg.Timepicker = function Timepicker(options) {
 
   // hide / destroy the timepicker div element
   this.destroyPopup = function destroyPopup() {
-    //console.log('removing popupEl');
     popupEl.remove();
     visible = false;
   };
@@ -325,7 +324,6 @@ fg.Timepicker = function Timepicker(options) {
       let top = bindInput.offsetTop + bindInput.offsetHeight;
       let left = bindInput.offsetLeft;
       newDomEl.style.position = 'absolute';
-      //console.log('top : ' + top + ', left : ' + left);
       newDomEl.style.left = left + 'px';
       newDomEl.style.top = top + 'px';
     }
@@ -418,14 +416,10 @@ fg.Timepicker = function Timepicker(options) {
 
   let inputChangeHandle = function () {
     newTime = tpInst.parseTime(bindInput.value);
-    //console.log('new Time : ');
-    //console.log(newTime);
     tpInst.setTime(newTime.hour, newTime.minute);
   };
 
   let inputFocusHandle = function (e) {
-    //console.log('bindInput got focus');
-    //console.log(e);
     if (bindContainer) {
       return;
     }
@@ -438,8 +432,7 @@ fg.Timepicker = function Timepicker(options) {
     tpInst.redraw();
   };
 
-  let inputBlurHandle = function (e) {
-    //console.log('bindInput blur event');
+  let inputBlurHandle = function () {
     if (bindContainer) {
       return;
     }
@@ -450,15 +443,12 @@ fg.Timepicker = function Timepicker(options) {
   if (bindContainer) {
     bindContainer.appendChild(buildTPDom());
     visible = true;
-    // trigger onshow
-    //console.log(this.onShow);
     if (this.onShow) {
       this.onShow.apply();
     }
   }
 
   if (bindInput) {
-    //console.log(bindInput);
 
     bindInput.addEventListener('change', inputChangeHandle);
     bindInput.addEventListener('focus', inputFocusHandle);

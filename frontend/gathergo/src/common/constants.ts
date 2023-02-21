@@ -5,7 +5,7 @@ import Post from '../pages/post';
 
 const BASE_URL = 'http://localhost:5173';
 const PROFILE_BASE_URL =
-    'https://team3-gathergo.s3.ap-northeast-2.amazonaws.com/';
+  'https://team3-gathergo.s3.ap-northeast-2.amazonaws.com/';
 const routes = [
   { path: /^\/$/, element: Home },
   { path: /^\/profile$/, element: Profile },
@@ -21,10 +21,10 @@ type TdropDown = {
   [key: number]: string;
 };
 type Tfilters = {
-  regionId: number,
-  categoryId: number,
-  keyword: string,
-}
+  regionId: number;
+  categoryId: number;
+  keyword: string;
+};
 type Tcard = {
   uuid: string;
   title: string;
@@ -39,20 +39,20 @@ type TcardDetail =
   | (Tcard & {
       hostId: string;
       hostDesc: string;
-      hostProfile:string;
+      hostProfile: string;
       content: string;
       location: string;
       locationDetail: string;
-      hasJoined:boolean;
-      isHost:boolean;
+      hasJoined: boolean;
+      isHost: boolean;
     })
   | null;
 type Tcomment = {
-  uuid: string|undefined;
+  uuid: string | undefined;
   userId: string;
   content: string;
   date: Date;
-  isMyComment:boolean;
+  isMyComment: boolean;
 };
 
 type TinitialState = {
@@ -63,44 +63,43 @@ type TinitialState = {
   filters: Tfilters;
   isLoading: boolean;
   sessionId: string;
-  error: Error|null;
+  error: Error | null;
   modalAction: string;
-  redirect: string| null;
-  userInfo : TuserInfo;
-  tabNumber : number;
+  redirect: string | null;
+  userInfo: TuserInfo;
+  tabNumber: number;
   deleteCommentuuid: string;
-  notice : Tnotice[];
+  notice: Tnotice[];
 };
-type TsignupData= {
+type TsignupData = {
   userId: string;
   userName: string;
   password: string;
   email: string;
-}
-type TloginData= {
+};
+type TloginData = {
   userId: string;
   password: string;
-}
+};
 
-type TuserInfo={
-  userName : string;
-  email : string;
-  profilePath : string;
-  introduction : string;
-  userId : string;
-  userHostCards : TuserHostCard[];
-  userJoinCards : TuserJoinCard[];
-  uuid : string;
-  
-}
-type TuserHostCard={
-  uuid : string;
-  title : string;
-  curr : number;
-  total : number;
-  closed : boolean;
-  meetingDay : Date;
-}
+type TuserInfo = {
+  userName: string;
+  email: string;
+  profilePath: string;
+  introduction: string;
+  userId: string;
+  userHostCards: TuserHostCard[];
+  userJoinCards: TuserJoinCard[];
+  uuid: string;
+};
+type TuserHostCard = {
+  uuid: string;
+  title: string;
+  curr: number;
+  total: number;
+  closed: boolean;
+  meetingDay: Date;
+};
 type TuserJoinCard = {
   uuid: string;
   title: string;
@@ -108,27 +107,27 @@ type TuserJoinCard = {
   total: number;
   closed: boolean;
   meetingDay: Date;
-  regionId : number;
-  categoryId : number;
+  regionId: number;
+  categoryId: number;
 };
 
-type TpostCard= {
-  title: string,
-categoryId: number,
-location: string,
-locationDetail: string,
-total: number,
-meetingDay: string,
-content: string
-}
+type TpostCard = {
+  title: string;
+  categoryId: number;
+  location: string;
+  locationDetail: string;
+  total: number;
+  meetingDay: string;
+  content: string;
+};
 
 type Tnotice = {
-  articleUuid : string,
-  title : string,
-  body : string,
-  issueDateTime : string,
-  meetingDay : string
-}
+  articleUuid: string;
+  title: string;
+  body: string;
+  issueDateTime: string;
+  meetingDay: string;
+};
 const regionSi: TdropDown = {
   1: '서울특별시',
   2: '부산광역시',
@@ -147,7 +146,7 @@ const regionSi: TdropDown = {
   15: '경상북도',
   16: '경상남도',
   17: '제주특별자치도',
-    0: '지역을 선택하세요',
+  0: '지역을 선택하세요',
 };
 
 const monthNames = [
@@ -184,7 +183,7 @@ const category: TdropDown = {
   17: '요리 / 제조',
   18: '반려동물',
   19: '자유주제',
-    0: '카테고리를 선택하세요',
+  0: '카테고리를 선택하세요',
 };
 
 export {
@@ -206,14 +205,14 @@ export {
   TuserHostCard,
   TuserJoinCard,
   TpostCard,
-  Tnotice
+  Tnotice,
 };
 
-export function chatBotText(msg:string){
-  switch (msg){
+export function chatBotText(msg: string) {
+  switch (msg) {
     case 'DEFAULT':
       return `안녕하세요, 게더고 챗봇입니다.<br>궁금하신 서비스 메뉴를 영어로 대화창에 입력해주세요.<br>`;
     default:
-      return '다시 한 번 입력해주세요.'
+      return '다시 한 번 입력해주세요.';
   }
 }

@@ -6,7 +6,7 @@ import {
   fetchLogout,
 } from '../../common/Fetches';
 import Navigate from '../../common/utils/navigate';
-import { /*fetchError, */setModal } from '../../store/actions';
+import { setModal } from '../../store/actions';
 import store from '../../store/store';
 
 class NotiModal {
@@ -30,10 +30,8 @@ class NotiModal {
     this.btnMessage = this.setBtnMessage(type);
     this.element = document.createElement('div');
     this.render();
-    // store.subscribe(() => this.render());
   }
   render() {
-    // console.log(store.getState().error);
     if (this.$container === null) return;
     this.element.innerHTML = `<div class = "noti-modal-container">
             <div class = "noti-modal-background">
@@ -81,7 +79,6 @@ class NotiModal {
     );
   }
   mainBtnCallback(type: string) {
-    // store.dispatch(setModal(''));
     switch (type) {
       case 'SIGNUP_SUCCESS':
         return () => {
@@ -103,10 +100,9 @@ class NotiModal {
             ?.classList.remove('ng-hide');
         };
       case 'LOGOUT':
-        return async ()=>{
-          store.dispatch(await fetchLogout())
-          // history.replaceState(store.getState(), '', '/');
-        }
+        return async () => {
+          store.dispatch(await fetchLogout());
+        };
       case 'NEED_LOGIN':
         return () => {
           this.navigate.to('/login');
@@ -120,7 +116,6 @@ class NotiModal {
           this.navigate.to(`/post?feed=${feed}`);
 
           document.body?.removeAttribute('class');
-          // history.replaceState(store.getState(), "", `/post?feed=${cardData.uuid}`);
         };
 
       case 'POSTING_SUCCESS':
@@ -146,17 +141,9 @@ class NotiModal {
         return async () => {
           this.modalClose();
           store.dispatch(await fetchJoin(store.getState().readingCard?.uuid));
-          // console.log(store.getState());
           const isError = store.getState().error;
-          console.log(isError);
 
-          console.log(store.getState());
           if (!isError) store.dispatch(setModal('JOIN_SUCCESS'));
-          // else {
-          //   console.log('콘솔에러');
-            
-          //   store.dispatch(setModal('ERROR'));
-          // }
         };
       case 'JOIN_CANCEL':
         return async () => {
@@ -168,9 +155,7 @@ class NotiModal {
         };
       case 'CLOSE_MEETING':
         return async () => {
-          // store.dispatch(
           await fetchCloseMeeting(store.getState().readingCard?.uuid);
-          // );
           this.modalClose();
           this.navigate.to('/');
 
@@ -179,7 +164,6 @@ class NotiModal {
       case 'ERROR':
         return () => {
           this.modalClose();
-          // store.dispatch(fetchError(null));
         };
       default: {
         return this.modalClose;
@@ -188,7 +172,7 @@ class NotiModal {
   }
 
   modalClose() {
-    if(this.type =='POSTING_SUCCESS'||this.type =='POSTING_EDIT_SUCCESS')
+    if (this.type == 'POSTING_SUCCESS' || this.type == 'POSTING_EDIT_SUCCESS')
       this.navigate.to('/');
     store.dispatch(setModal(''));
     this.element.remove();

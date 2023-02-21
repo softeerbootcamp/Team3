@@ -1,12 +1,10 @@
-import { setModal } from "../../store/actions";
-import store from "../../store/store";
+import { setModal } from '../../store/actions';
+import store from '../../store/store';
 
 class HeaderHomeNav {
-  // islogin: boolean;
   element: HTMLElement;
-  sessionIdState: string|null;
-  constructor(/*islogin = false*/) {
-    // this.islogin = islogin;
+  sessionIdState: string | null;
+  constructor() {
     this.sessionIdState = store.getState().sessionId;
     this.element = document.createElement('ul');
     this.element.classList.add('nav-link-wrapper', 'me-auto');
@@ -20,9 +18,7 @@ class HeaderHomeNav {
     });
   }
   render() {
-    // console.log(store.getState().sessionId)
-    if (this.sessionIdState !="") {
-      // console.log("store.getState()")
+    if (this.sessionIdState != '') {
       this.element.classList.add('login');
       this.element.innerHTML = `
             <li class="nav-item">
@@ -66,11 +62,12 @@ class HeaderHomeNav {
     }
     this.logoutEvent();
   }
-  logoutEvent(){
-    this.element.querySelector('#nav-home-logout')?.addEventListener('click',()=>{
-      console.log('ljkljkl');
-      store.dispatch(setModal('LOGOUT'))
-    })
+  logoutEvent() {
+    this.element
+      .querySelector('#nav-home-logout')
+      ?.addEventListener('click', () => {
+        store.dispatch(setModal('LOGOUT'));
+      });
   }
 }
 export default HeaderHomeNav;

@@ -1,5 +1,3 @@
-// import { TcardDetail } from '../common/constants';
-
 import {
   Tcard,
   TcardDetail,
@@ -33,8 +31,6 @@ export const CHANGE_PROFILEIMG = 'CHANGE_PROFILEIMG';
 export const CHANGE_PROFILEINTRO = 'CHANGE_PROFILEINTRO';
 export const GET_NOTICE = 'GET_NOTICE';
 
-// export const REFRESH_CARDS = 'REFRESH_CARDS';
-
 export function setNavigate(navigate: Navigate) {
   return {
     type: SET_NAVIGATE,
@@ -67,21 +63,6 @@ export function filterSearch(filters: Tfilters) {
     },
   };
 }
-// export function fetchCardsRequest() {
-//   return {
-//     type: FETCH_CARDS_REQUEST,
-//     payload: {},
-//   };
-// }
-// export function fetchCardsSuccess (cardsData:Tcard[]) {
-//   return {
-//     type: FETCH_CARDS_SUCCESS,
-//     payload: {
-//      cardsData,
-//     },
-//   };
-// }
-
 export function updateCards(cardsData: Tcard[]) {
   return {
     type: UPDATE_CARDS,
@@ -101,8 +82,6 @@ export function fetchError(error: any) {
 }
 
 export function readCard(readingCard: TcardDetail, commentsData: Tcomment[]) {
-  // 모달창 띄워주기
-  console.log(commentsData);
   return {
     type: READ_CARD,
     payload: { readingCard, commentsData },
@@ -122,20 +101,6 @@ export function userLogin(cookie: string) {
     payload: { cookie },
   };
 }
-
-// export function userLogin(userLoginData: TloginData) {
-//   return {
-//     type: USER_LOGIN,
-//     payload: {userLoginData,}
-//   };
-// }
-
-// export function userSignup(userSingupData: TsignupData) {
-//   return {
-//     type: USER_SIGNUP,
-//     payload: {userSingupData,}
-//   };
-// }
 export function userLogout() {
   return {
     type: USER_LOGOUT,
@@ -148,13 +113,6 @@ export function sendComment() {
     payload: {},
   };
 }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// export function updateComments(commendResponse:any) {
-//   return {
-//     type: UPDATE_COMMENT,
-//     payload: {commendResponse}
-//   };
-// }
 export function getComments(commentData: Tcomment[]) {
   return {
     type: GET_COMMENT,
@@ -197,23 +155,23 @@ export function getUserInfo(userInfoResponse: TuserInfo) {
   };
 }
 
-export function changeProfileImg(imageSrc : string){
-  return{
-    type : CHANGE_PROFILEIMG,
-    payload :{imageSrc}
-  }
+export function changeProfileImg(imageSrc: string) {
+  return {
+    type: CHANGE_PROFILEIMG,
+    payload: { imageSrc },
+  };
 }
 
-export function changeUserIntroduction(introduction : string){
+export function changeUserIntroduction(introduction: string) {
   return {
-    type : CHANGE_PROFILEINTRO,
-    payload : {introduction}
-  }
+    type: CHANGE_PROFILEINTRO,
+    payload: { introduction },
+  };
 }
 
-export function getNotice(noticeList : Tnotice[]){
+export function getNotice(noticeList: Tnotice[]) {
   return {
-    type : GET_NOTICE,
-    payload : {noticeList}
-  }
+    type: GET_NOTICE,
+    payload: { noticeList },
+  };
 }

@@ -1,7 +1,6 @@
-
 import store from '../../store/store';
-import { changeProfileTab} from '../../store/actions';
-import {fetchLogout} from '../../common/Fetches'
+import { changeProfileTab } from '../../store/actions';
+import { fetchLogout } from '../../common/Fetches';
 
 class tabLogoutModal {
   element: HTMLDivElement;
@@ -24,35 +23,36 @@ class tabLogoutModal {
         </div>
     </div>`;
 
-    this.logoutModalCancelButton()
-    this.logoutModalAgreeButton()
-    this.logoutModalBackground()
+    this.logoutModalCancelButton();
+    this.logoutModalAgreeButton();
+    this.logoutModalBackground();
   }
 
-    logoutModalCancelButton(){
-        const cancelButton = this.element.querySelector('#button-cancel') as HTMLDivElement;
-        cancelButton.addEventListener('click',()=>{
-            store.dispatch(changeProfileTab(0));
-        })
+  logoutModalCancelButton() {
+    const cancelButton = this.element.querySelector(
+      '#button-cancel'
+    ) as HTMLDivElement;
+    cancelButton.addEventListener('click', () => {
+      store.dispatch(changeProfileTab(0));
+    });
+  }
 
-    }
+  logoutModalAgreeButton() {
+    const cancelButton = this.element.querySelector(
+      '#button-logout'
+    ) as HTMLDivElement;
+    cancelButton.addEventListener('click', async () => {
+      console.log('logout 누름');
+      store.dispatch(await fetchLogout());
+      window.location.reload();
+    });
+  }
 
-    logoutModalAgreeButton(){
-        const cancelButton = this.element.querySelector(
-          '#button-logout'
-        ) as HTMLDivElement;
-        cancelButton.addEventListener('click', async() => {
-          console.log("logout 누름")
-          store.dispatch(await fetchLogout())
-          window.location.reload()
-        });
-    }
-
-    logoutModalBackground(){
-        this.element.addEventListener('click',(e)=>{
-            if(e.target != this.element.querySelector('.logout-modal-content'))
-                window.location.reload()
-        })
-    }
+  logoutModalBackground() {
+    this.element.addEventListener('click', (e) => {
+      if (e.target != this.element.querySelector('.logout-modal-content'))
+        window.location.reload();
+    });
+  }
 }
 export default tabLogoutModal;

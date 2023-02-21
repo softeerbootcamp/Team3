@@ -1,7 +1,6 @@
 import Log from './log';
 import store from '../../store/store';
 import { Tnotice } from '../../common/constants';
-import { getNoticeSidebar } from '../../common/Fetches';
 
 class AlarmSidebar {
   element: HTMLElement;
@@ -14,15 +13,10 @@ class AlarmSidebar {
     this.render();
     store.subscribe(() => {
       const newList = store.getState().notice;
-      if (this.noticeList != newList)
-        this.generateLogs(newList)
+      if (this.noticeList != newList) this.generateLogs(newList);
     });
   }
   render() {
-    // store.dispatch(await getNoticeSidebar());
-    // this.noticeList = store.getState().notice;
-
-    console.log(this.noticeList);
 
     this.element.innerHTML = `
       <div class = "sidebar-background">
@@ -34,11 +28,12 @@ class AlarmSidebar {
       <ul class="scale-up-hover-list"></ul>
       </div>
       </div>`;
-    // this.generateLogs(this.noticeList);
     this.closeSidebarEvent();
   }
   generateLogs(noticeList: Tnotice[]) {
-    const logList = this.element.querySelector('.scale-up-hover-list') as HTMLElement;
+    const logList = this.element.querySelector(
+      '.scale-up-hover-list'
+    ) as HTMLElement;
     logList.innerHTML = '';
     for (let i = 0; i < noticeList.length; i++) {
       const log = new Log(noticeList[i]);

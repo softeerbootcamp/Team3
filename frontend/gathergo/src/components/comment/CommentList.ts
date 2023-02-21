@@ -6,7 +6,6 @@ class CommentList {
   commentsState: Tcomment[];
   constructor() {
     this.commentsState = store.getState().comments;
-    console.log(this.commentsState)
     this.element = document.createElement('div');
     this.element.classList.add('feed-comment-container');
     this.render();
@@ -20,7 +19,6 @@ class CommentList {
   }
   render() {
     this.element.innerHTML = '';
-    console.log(this.element)
     this.generateComments();
   }
   generateComments() {

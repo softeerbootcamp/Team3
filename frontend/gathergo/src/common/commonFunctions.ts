@@ -29,10 +29,7 @@ export function timeDiff(date: Date) {
   }
   return `${Math.floor(timeDiffDay / 365)}년 전`;
 }
-export function getKoreanTimeString(time= new Date()) {
-
-  const koreaTime = new Date(
-    time.getTime() + 540 * 60000
-  );
+export function getKoreanTimeString(time = new Date()) {
+  const koreaTime = new Date(time.getTime() + 540 * 60000);
   return koreaTime.toISOString();
 }

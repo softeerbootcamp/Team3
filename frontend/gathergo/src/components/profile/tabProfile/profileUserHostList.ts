@@ -6,8 +6,8 @@ import profileUserHost from './profileUserHost';
 class profileUserHostList {
   element: HTMLDivElement;
   userInfoData: TuserInfo;
-  navigate : Navigate;
-  constructor(navigate : Navigate) {
+  navigate: Navigate;
+  constructor(navigate: Navigate) {
     this.element = document.createElement('div');
     this.element.classList.add('user-host-meet-list');
     this.userInfoData = store.getState().userInfo;
@@ -23,7 +23,6 @@ class profileUserHostList {
     });
   }
   render() {
-
     this.element.innerHTML = `
         <h3 style = "padding : 1rem 0 0 0"><strong>내가 호스트한 만남</strong></h3>
         <table>
@@ -42,10 +41,9 @@ class profileUserHostList {
 `;
 
     this.userInfoData.userHostCards.forEach((e) => {
-      const userHostElement = new profileUserHost(e,this.navigate);
+      const userHostElement = new profileUserHost(e, this.navigate);
       this.element.querySelector('tbody')?.appendChild(userHostElement.element);
     });
-
   }
 }
 export default profileUserHostList;

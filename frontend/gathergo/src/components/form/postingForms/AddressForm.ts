@@ -1,13 +1,12 @@
 class AddressForm {
-    element: HTMLElement;
-    constructor() {
-      this.element = document.createElement('div');
-      this.element.classList.add('form-address');
-      this.render();
-    }
-    render(){
-        this.element.innerHTML =
-        `<h4 class="leading-text">
+  element: HTMLElement;
+  constructor() {
+    this.element = document.createElement('div');
+    this.element.classList.add('form-address');
+    this.render();
+  }
+  render() {
+    this.element.innerHTML = `<h4 class="leading-text">
         <strong>만남 장소</strong>
     </h4>
     <div class="form-input">
@@ -21,7 +20,7 @@ class AddressForm {
                     </div><input class="form-control form-control-lg" id="detailAddressInput" type="text"
                         placeholder="상세 주소를 설정해주세요." value="">
                 </div>
-            </div>`
-    }
+            </div>`;
   }
-  export default AddressForm;
+}
+export default AddressForm;
