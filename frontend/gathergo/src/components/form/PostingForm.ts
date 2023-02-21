@@ -152,7 +152,6 @@ class PostingForm {
       location: inputs[3].value,
       locationDetail: inputs[4].value,
     };
-    
     const queryString = new URLSearchParams(window.location.search);
     const feed = queryString.get('feed');
     if (feed) {
