@@ -126,6 +126,13 @@ class PostingForm {
     } catch (error) {
       return store.dispatch(setModal('INPUT_TIME'));
     }
+    if(meetingDay.getTime() < new Date().getTime()){
+      console.log(meetingDay.getTime());
+      console.log(new Date().getTime());
+      
+      store.dispatch(setModal('INPUT_TIME_BEFORE'))
+      return;
+    }
     if (inputs[3].value.length === 0 || inputs[4].value.length === 0) {
       store.dispatch(setModal('INPUT_LOCATION'));
       return;
@@ -148,10 +155,7 @@ class PostingForm {
       location: inputs[3].value,
       locationDetail: inputs[4].value,
     };
-    if(meetingDay.getTime() > new Date().getTime()){
-      store.dispatch(setModal('INPUT_TIME_BEFORE'))
-      return;
-    }
+    
     const queryString = new URLSearchParams(window.location.search);
     const feed = queryString.get('feed');
     if (feed) {
