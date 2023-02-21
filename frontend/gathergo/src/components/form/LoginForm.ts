@@ -1,6 +1,5 @@
-
-import { fetchLogin, fetchSignup } from "../../common/Fetches";
-import store from "../../store/store";
+import { fetchLogin, fetchSignup } from '../../common/Fetches';
+import store from '../../store/store';
 
 class LoginForm {
   element: HTMLElement;
@@ -53,32 +52,30 @@ class LoginForm {
     this.switchButtonEvent();
     this.subminButtonEvent();
   }
-  subminButtonEvent(){
-    const signinBtn = this.element.querySelector('#btn-submit-signin')
-    signinBtn?.addEventListener('click',this.submitSignin.bind(this))
-    const signupBtn = this.element.querySelector('#btn-submit-signup')
-    signupBtn?.addEventListener('click',this.submitSignup.bind(this))
+  subminButtonEvent() {
+    const signinBtn = this.element.querySelector('#btn-submit-signin');
+    signinBtn?.addEventListener('click', this.submitSignin.bind(this));
+    const signupBtn = this.element.querySelector('#btn-submit-signup');
+    signupBtn?.addEventListener('click', this.submitSignup.bind(this));
   }
-  async submitSignin(){
-    const inputs =this.element.querySelectorAll('input');
+  async submitSignin() {
+    const inputs = this.element.querySelectorAll('input');
     const loginData = {
-        "userId": inputs[0].value,
-        "password": inputs[1].value,
-      };
-      console.log(loginData)
-      store.dispatch(await fetchLogin(loginData));
+      userId: inputs[0].value,
+      password: inputs[1].value,
+    };
+    store.dispatch(await fetchLogin(loginData));
   }
 
-  async submitSignup(){
-    const inputs =this.element.querySelectorAll('input');
+  async submitSignup() {
+    const inputs = this.element.querySelectorAll('input');
     const signupData = {
-        "userId": inputs[2].value,
-        "userName": inputs[3].value,
-        "password": inputs[4].value,
-        "email": inputs[5].value,
-      };
-      console.log(signupData)
-      store.dispatch(await fetchSignup(signupData));
+      userId: inputs[2].value,
+      userName: inputs[3].value,
+      password: inputs[4].value,
+      email: inputs[5].value,
+    };
+    store.dispatch(await fetchSignup(signupData));
   }
   switchButtonEvent() {
     const btns = this.element.querySelectorAll('.login-switcher-button');
@@ -90,8 +87,8 @@ class LoginForm {
     });
   }
   showSignIn() {
-    history.replaceState(store.getState(), "", '/login?action=login');
-    
+    history.replaceState(store.getState(), '', '/login?action=login');
+
     this.element
       .querySelector('.login-content-signin')
       ?.classList.remove('ng-hide');
@@ -106,7 +103,7 @@ class LoginForm {
       ?.classList.remove('ng-hide');
   }
   showSignUp() {
-    history.replaceState(store.getState(), "", '/login?action=signup');
+    history.replaceState(store.getState(), '', '/login?action=signup');
     this.element
       .querySelector('.login-content-signin')
       ?.classList.add('ng-hide');

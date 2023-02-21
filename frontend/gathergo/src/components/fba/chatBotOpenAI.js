@@ -1,16 +1,7 @@
-// import { Configuration, OpenAIApi }from 'openai';
 import config from '../../key';
 export async function generateResponse(userInput) {
   // eslint-disable-next-line no-undef
-  const apiKey = config.openAIapikey; //'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';
-
-  // const prompt = 'Your prompt goes here';
-
-  // const configuration = new Configuration({
-  //     apiKey: apiKey,
-  //   });
-  //   const openai = new OpenAIApi(configuration);
-
+  const apiKey = config.openAIapikey;
   const model = 'davinci';
   const prompt = 'Please answer my question about my website.';
   const maxTokens = 150;

@@ -2,7 +2,7 @@ class profileSidebar {
   element: HTMLDivElement;
   constructor() {
     this.element = document.createElement('div');
-    this.element.classList.add('profile-sidebar')
+    this.element.classList.add('profile-sidebar');
     this.render();
   }
   render() {

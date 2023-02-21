@@ -44,7 +44,6 @@ class DropdownRegion {
       const newregionId = this.getClickedItemIndex(target);
       if(newregionId!==-1) {
         store.dispatch(filterSearch({...this.filtersState, regionId:newregionId}))
-        console.log(this.filtersState)
         store.dispatch(await getArticles(store.getState().filters));
       }
     });

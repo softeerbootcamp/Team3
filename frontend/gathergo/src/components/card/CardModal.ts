@@ -1,4 +1,3 @@
-// import { checkLogin } from '../../common/commonFunctions';
 import { getKoreanTimeString } from '../../common/commonFunctions';
 import {
   category,
@@ -217,10 +216,6 @@ class CardModal {
     if (inputElement === null) return;
     if (btnElement === null) return;
     inputElement.addEventListener('keydown', () => {
-      // if (e.key === 'Enter') {
-      //   this.sendComment(inputElement,btnElement);
-      //   return;
-      // }
       if (inputElement.value.length == 0) {
         btnElement?.classList.add('disabled');
         return;
@@ -237,7 +232,6 @@ class CardModal {
     inputElement: HTMLInputElement,
     btnElement: HTMLButtonElement
   ) {
-    // console.log('check')
     if (this.readingCard?.uuid == null) return;
 
     store.dispatch(checkLogin(document.cookie));
@@ -246,10 +240,9 @@ class CardModal {
       store.dispatch(setModal('NEED_LOGIN'));
       return;
     }
-    // const date = new Date();
     const commentData = {
       content: inputElement.value,
-      date: getKoreanTimeString(), //date.toISOString(),
+      date: getKoreanTimeString(),
     };
     store.dispatch(await fetchSendComment(this.readingCard.uuid, commentData));
 

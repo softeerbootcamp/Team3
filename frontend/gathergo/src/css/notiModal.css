@@ -1,133 +1,135 @@
 /*삭제 버튼 관련*/
 
-.comment-delete{
+.comment-delete {
   position: fixed;
   z-index: 10000;
-  margin : 0 0 0 0;
+  margin: 0 0 0 0;
 }
 
 .custom-btn {
-width: 130px;
-height: 40px;
-padding: 10px 25px;
-border: 2px solid #000;
-font-family: 'Lato', sans-serif;
-font-weight: 500;
-background: #fff;
-cursor: pointer;
-transition: all 0.3s ease;
-position: relative;
-display: inline-block;
+  width: 130px;
+  height: 40px;
+  padding: 10px 25px;
+  border: 2px solid #000;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
 }
 
 .btn-1 {
-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
+
 .btn-1:hover {
- box-shadow:
- -7px -7px 20px 0px #fff9,
- -4px -4px 5px 0px #fff9,
- 7px 7px 20px 0px #0002,
- 4px 4px 5px 0px #0001;
+  box-shadow:
+    -7px -7px 20px 0px #fff9,
+    -4px -4px 5px 0px #fff9,
+    7px 7px 20px 0px #0002,
+    4px 4px 5px 0px #0001;
 }
 
 /*모달 관련*/
-/* .error-modal-container, .loginCheck-modal-container, .joinCheck-modal-container, .gatheringEdit-modal-container, .gatheringDelete-modal-container,.commentDelete-modal-container,.joinCancel-modal-container{ */
-.noti-modal-container{
-  position : fixed;
-  display : flex;
-  align-items : center;
+.noti-modal-container {
+  position: fixed;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  left : 0;
-  top : 0;
-  width : 100%;
-  height : 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
   z-index: 10002;
 
 }
 
-/* .error-modal-background, .loginCheck-modal-background, .joinCheck-modal-background, .gatheringEdit-modal-background, .gatheringDelete-modal-background,.commentDelete-modal-background,.joinCancel-modal-background{ */
-.noti-modal-background{
-  position : fixed;
-  display : flex;
-  align-items : center;
+.noti-modal-background {
+  position: fixed;
+  display: flex;
+  align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.3);
   animation: fadeIn 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
   transition: 0.7s;
-  width : 100%;
-  height : 100%;
+  width: 100%;
+  height: 100%;
 
 }
 
-/* .error-modal, .loginCheck-modal, .joinCheck-modal, .gatheringEdit-modal, .gatheringDelete-modal,.commentDelete-modal,.joinCancel-modal{ */
-  .noti-modal{
-overflow: hidden;
-background-color: white;
-/* padding: 20px; */
-border-radius: 10px;
-position: absolute;
-top: 50%;
-left: 50%;
-width: 400px;
--webkit-transform: translate(-50%, -50%);
--moz-transform: translate(-50%, -50%);
--ms-transform: translate(-50%, -50%);
--o-transform: translate(-50%, -50%);
-transform: translate(-50%, -50%);
--webkit-transition: -webkit-transform 300ms, box-shadow 300ms;
--moz-transition: -moz-transform 300ms, box-shadow 300ms;
-transition: transform 300ms, box-shadow 300ms;
-box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
+.noti-modal {
+  overflow: hidden;
+  background-color: white;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: -webkit-transform 300ms, box-shadow 300ms;
+  -moz-transition: -moz-transform 300ms, box-shadow 300ms;
+  transition: transform 300ms, box-shadow 300ms;
+  box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
 }
-.noti-modal{
+
+.noti-modal {
   padding-top: 0.5rem;
 }
-/* .error-modal > div , .loginCheck-modal > div, .joinCheck-modal > div, .gatheringEdit-modal > div, .gatheringDelete-modal > div,.commentDelete-modal > div,.joinCancel-modal > div{ */
-  .noti-modal > div{
-font-weight : 600; 
-padding: 0 1rem;
-margin : 1rem;
-font-size:19px;
+
+.noti-modal>div {
+  font-weight: 600;
+  padding: 0 1rem;
+  margin: 1rem;
+  font-size: 19px;
 }
-.noti-modal > div > button{
+
+.noti-modal>div>button {
   min-width: 5.5rem;
   margin-bottom: 1rem;
-  }
-  .noti-modal-message{
-    
-    line-height: 2.5rem;
-  }
-.error-modal > div > button{
-cursor: pointer;
-color: #fff;
-font-size: 13px;
-text-transform: uppercase;
-width: 66px;
-border: 0;
-padding: 8px 0;
-border-radius: 5px;
-background-color: #d9534f;
--webkit-transition: background-color 300ms;
--moz-transition: background-color 300ms;
-transition: background-color 300ms;
-
-}
-.error-modal > div > button:hover{
-background-color: #bb4743;
 }
 
-.noti-modal-header{
-height : 2rem;
+.noti-modal-message {
+
+  line-height: 2.5rem;
+}
+
+.error-modal>div>button {
+  cursor: pointer;
+  color: #fff;
+  font-size: 13px;
+  text-transform: uppercase;
+  width: 66px;
+  border: 0;
+  padding: 8px 0;
+  border-radius: 5px;
+  background-color: #d9534f;
+  -webkit-transition: background-color 300ms;
+  -moz-transition: background-color 300ms;
+  transition: background-color 300ms;
+
+}
+
+.error-modal>div>button:hover {
+  background-color: #bb4743;
+}
+
+.noti-modal-header {
+  height: 2rem;
 }
 
 
-.error-modal-divider{
-margin : 10px 0 20px 0;
+.error-modal-divider {
+  margin: 10px 0 20px 0;
 }
 
-.noti-modal-button-divider{
-padding : 0.5rem;
+.noti-modal-button-divider {
+  padding: 0.5rem;
 }
 
 
@@ -138,20 +140,21 @@ padding : 0.5rem;
 }
 
 .modal-join-button {
-min-width: 3rem;
+  min-width: 3rem;
 }
 
 
 .setting-icon {
-transform: rotate(0deg);
-transition: 0.3s;
+  transform: rotate(0deg);
+  transition: 0.3s;
 }
-.nav-item.dropdown{
-cursor: pointer;
+
+.nav-item.dropdown {
+  cursor: pointer;
 
 }
 
 .rotate .setting-icon {
-transform: rotate(-45deg);
-transition: 0.3s;
+  transform: rotate(-45deg);
+  transition: 0.3s;
 }
