@@ -53,6 +53,9 @@ public class NotificationController {
             notifications = notificationRepository.findByArticleIds(articleUuids);
 
             notifications.forEach(notification -> notification.setMeetingDay(meetingDateMap.get(notification.getArticleUuid())));
+
+            // 알림 생성일자가 늦은 순 정렬, 만남 일자 빠른 순 정렬
+            Collections.sort(notifications);
         } else {
             notifications = new ArrayList<>();
         }
