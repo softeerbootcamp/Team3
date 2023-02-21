@@ -3,7 +3,7 @@ import { fetchGetUserInfo } from "../common/Fetches";
 import profileLayout from "../components/profile/profileLayout"
 import HeaderDefault from "../components/header/headerDefault";
 import store from "../store/store";
-import { changeProfileTab } from "../store/actions";
+import { changeProfileTab, checkLogin } from "../store/actions";
 import Navigate from "../common/utils/navigate";
 
 class Profile {
@@ -20,6 +20,11 @@ class Profile {
   };
 
   async render(){
+    store.dispatch(checkLogin(document.cookie))
+    if(!store.getState().sessionId) {
+      this.navigate.to('/')
+      return
+    }
     store.dispatch(await fetchGetUserInfo());
     if (!this.$container) return;
     const headerDefault = new HeaderDefault('profile');

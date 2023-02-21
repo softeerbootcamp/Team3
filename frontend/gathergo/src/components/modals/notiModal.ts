@@ -3,6 +3,7 @@ import {
   fetchCloseMeeting,
   fetchJoin,
   fetchJoinCancel,
+  fetchLogout,
 } from '../../common/Fetches';
 import Navigate from '../../common/utils/navigate';
 import { /*fetchError, */setModal } from '../../store/actions';
@@ -101,6 +102,12 @@ class NotiModal {
             .querySelector('.login-switcher-signup')
             ?.classList.remove('ng-hide');
         };
+      case 'LOGOUT':
+        return async ()=>{
+          store.dispatch(await fetchLogout())
+          // history.replaceState(store.getState(), '', '/');
+          console.log('kljlkj')
+        }
       case 'NEED_LOGIN':
         return () => {
           this.navigate.to('/login');
@@ -178,6 +185,8 @@ class NotiModal {
   }
   setMessage(type: string): string {
     switch (type) {
+      case 'LOGOUT':
+        return '로그아웃 하시겠습니까?';
       case 'INPUT_CATEGORY':
         return '카테고리를 선택해주세요';
       case 'INPUT_TITLE':
@@ -226,6 +235,8 @@ class NotiModal {
     switch (type) {
       case 'NEED_LOGIN':
         return true;
+      case 'LOGOUT':
+        return true;
       case 'JOIN':
         return true;
       case 'EDIT_MEETING':
@@ -244,6 +255,8 @@ class NotiModal {
     switch (type) {
       case 'NEED_LOGIN':
         return '로그인';
+      case 'LOGOUT':
+        return '로그아웃';
       case 'JOIN':
         return '참가';
       case 'EDIT_MEETING':
