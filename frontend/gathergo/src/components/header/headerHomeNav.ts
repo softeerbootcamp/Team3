@@ -1,3 +1,4 @@
+import { setModal } from "../../store/actions";
 import store from "../../store/store";
 
 class HeaderHomeNav {
@@ -41,6 +42,12 @@ class HeaderHomeNav {
               <a class="nav-link" href="/profile" data-hover="내 프로필">
                 <span>내 프로필</span>
               </a>
+            </li>
+            <li class="nav-item divider"></li>
+            <li class="nav-item profile-icon">
+              <div id="nav-home-logout" class="nav-link cancel" data-hover="로그아웃">
+                <span>로그아웃</span>
+              </div>
             </li>`;
     } else {
       this.element.classList.add('logout');
@@ -51,12 +58,19 @@ class HeaderHomeNav {
               </a>
             </li>
             <li class="nav-item divider"></li>
-            <li class="nav-item profile-icon">
+            <li class="nav-item">
               <a class="nav-link" href="/login?action=signup" data-hover="회원가입">
                 <span>회원가입</span>
               </a>
             </li>`;
     }
+    this.logoutEvent();
+  }
+  logoutEvent(){
+    this.element.querySelector('#nav-home-logout')?.addEventListener('click',()=>{
+      console.log('ljkljkl');
+      store.dispatch(setModal('LOGOUT'))
+    })
   }
 }
 export default HeaderHomeNav;

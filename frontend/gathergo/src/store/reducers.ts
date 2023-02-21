@@ -79,7 +79,7 @@ function reducer(state = initialState, action: Taction) {
     case POST_CARD:
       return {
         ...state,
-        redirect: '/',
+        modalAction: action.payload.modalAction,
         filters: {
           regionId: 0,
           categoryId: 0,

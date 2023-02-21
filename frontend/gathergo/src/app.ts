@@ -35,14 +35,14 @@ class App {
     });
   }
   init = () => {
-    console.log(store.getState().sessionId)
+    // console.log(store.getState().sessionId)
     store.dispatch(checkLogin(document.cookie));
-    console.log(store.getState().sessionId)
+    // console.log(store.getState().sessionId)
     // const router = new Router(this.$container);
     // const navigate = new Navigate(router);
 
     // store.dispatch(setNavigate(this.navigate))
-    console.log(store.getState())
+    // console.log(store.getState())
     window.addEventListener('popstate', (e) => {
      
       if(document.body.classList.contains('modal-active')) {

@@ -121,16 +121,17 @@ public class ArticleService {
 
 
     public void addGuest(String userId, String articleUuid){
-        if(countService.getCount(articleUuid) >=
-                articleRepository.findByUuid(articleUuid).get().getTotal()){
+
+        if(articleRepository.findByUuid(articleUuid).get().getTotal() < countService.plusCount(articleUuid)){
+            countService.minusCount(articleUuid);
             throw new CustomGlobalException(ErrorCode.ALREADY_FULLED);
         }
+
         relationshipRepository.save(
                 userRepository.findUserByUserId(userId).get().getId(),
                 articleRepository.findByUuid(articleUuid).get().getId()
         );
 
-        countService.modifyCount(articleUuid, countService.getCount(articleUuid)+1);
     }
 
     public void deleteGuest(String userId, String articleUuid){
@@ -138,7 +139,7 @@ public class ArticleService {
                 userRepository.findUserByUserId(userId).get().getId(),
                 articleRepository.findByUuid(articleUuid).get().getId()
         );
-        countService.modifyCount(articleUuid, countService.getCount(articleUuid)-1);
+        countService.minusCount(articleUuid);
     }
     public List<Comment> getCommentsByUuid(String articleUuid){
         return articleRepository.findCommentsByArticleUuid(articleUuid);

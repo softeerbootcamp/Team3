@@ -232,11 +232,7 @@ public class ArticleController {
         articleService.addComment(comment, articleUuid);
 
         // 메시지 발송
-        Article article = articleService.getArticleByUuid(articleUuid);
-
-        Map<String, String> data = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", session.getUserName() + "님의 댓글이 추가되었습니다"));
-
-        messagingService.sendMessageToTopic(articleUuid, data);
+        sendNotification(articleUuid, session.getUserName() + "님의 댓글이 추가되었습니다.");
 
         return ResponseEntity.ok()
                 .body(new CommonResponseDTO<String>(

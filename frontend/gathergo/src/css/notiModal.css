@@ -52,7 +52,7 @@ transition: all 0.3s ease;
   display : flex;
   align-items : center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0.3);
   animation: fadeIn 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
   transition: 0.7s;
   width : 100%;

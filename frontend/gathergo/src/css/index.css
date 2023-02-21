@@ -519,7 +519,7 @@ li.nav-item.divider {
   position: fixed;
   bottom: 80px;
   right: 20px;
-  background: rgb(0, 0, 0);
+  /* background: rgb(0, 0, 0); */
   background: rgba(0, 0, 0, 0.7);
   width: 48px;
   height: 48px;
