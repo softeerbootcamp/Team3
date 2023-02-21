@@ -5,11 +5,7 @@ import Navigate from '../../../common/utils/navigate';
 class profileUserJoin {
   element: HTMLElement;
   userJoinData: TuserJoinCard;
-  
   navigate : Navigate;  
-  constructor($userHostData: TuserJoinCard,navigate : Navigate) {
-
-  navigate: Navigate;
   constructor($userHostData: TuserJoinCard, navigate: Navigate) {
     this.navigate = navigate;
     this.element = document.createElement('li');
@@ -58,4 +54,5 @@ class profileUserJoin {
     });
   }
 }
+
 export default profileUserJoin;
