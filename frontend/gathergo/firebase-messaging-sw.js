@@ -23,12 +23,13 @@ self.addEventListener('activate', async () => {
 })
 
 self.addEventListener('push', async (event) => {
-    console.log(event.data.text());
-    const data = event.data.text()
+    console.log(event.data.json());
+    const data = event.data.json().data
+    // console.log("JSON : " + JSON.stringify(data))
     if(data) {
         event.waitUntil(
-            self.registration.showNotification("알림이 도착했습니다", {
-                body: "body",
+            self.registration.showNotification(data.title, {
+                body: data.body,
                 tag: Date.now()
             })
         );
