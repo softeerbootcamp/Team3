@@ -9,7 +9,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.sql.Timestamp;
 
 @Table("notification")
-public class Notification {
+public class Notification implements Comparable<Notification> {
     @Id
     private Integer id;
 
@@ -85,5 +85,13 @@ public class Notification {
 
     public void setMeetingDay(Timestamp meetingDay) {
         this.meetingDay = meetingDay;
+    }
+
+
+
+    @Override
+    public int compareTo(Notification n) {
+        int result = this.issueDateTime.compareTo(n.issueDateTime);
+        return (result != 0) ? -result : this.meetingDay.compareTo(n.meetingDay);
     }
 }
