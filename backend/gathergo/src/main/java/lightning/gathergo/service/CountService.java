@@ -1,5 +1,6 @@
 package lightning.gathergo.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ public class CountService {
 
     private final HashOperations<String, String, Integer> hashOperations;
 
+    @Autowired
     public CountService(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
         hashOperations = redisTemplate.opsForHash();
@@ -50,7 +52,7 @@ public class CountService {
      * @return
      */
     public Integer createCount(String articleId, Integer count){
-        hashOperations.put("count",articleId,count);
+        hashOperations.put("count", articleId,count);
         return this.getCount(articleId);
     }
 
