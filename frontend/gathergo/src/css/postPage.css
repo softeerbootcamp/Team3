@@ -66,7 +66,9 @@
   color: var(--bs-primary);
 }
 
+.nav-link-wrapper div.cancel:hover,
 .nav-link-wrapper a.cancel:hover {
+  cursor: pointer;
   color: var(--bs-danger);
 }
 
@@ -76,7 +78,9 @@
   transform: translateY(-100%);
 }
 
+.nav-link-wrapper div.cancel:hover span,
 .nav-link-wrapper a.cancel:hover span {
+  cursor: pointer;
   color: var(--bs-danger);
 }
 
