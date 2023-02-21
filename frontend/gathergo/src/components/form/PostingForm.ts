@@ -18,8 +18,8 @@ class PostingForm {
     this.element = document.createElement('div');
     this.element.classList.add('form-wrapper');
     this.formBtn = document.createElement('button');
-    this.render();
     this.buttonEvent();
+    this.render();
   }
   render() {
     // const editPostData = feed? store.getState().readingCard:null;
@@ -77,6 +77,7 @@ class PostingForm {
       inputs[4].value = postCardData.locationDetail;
       inputs[6].value = postCardData.total.toString();
       content.value = postCardData.content;
+      this.formBtn.innerHTML = `<strong>만남 수정하기</strong>`;
     }
   }
   buttonEvent() {
@@ -87,7 +88,7 @@ class PostingForm {
       'btn-lg',
       'form-control-lg'
     );
-    this.formBtn.innerHTML = `<strong>모임
+    this.formBtn.innerHTML = `<strong>만남
       만들기</strong>`;
 
     this.formBtn.addEventListener('click', this.postMeeting.bind(this));
