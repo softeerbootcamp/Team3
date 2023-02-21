@@ -24,44 +24,40 @@ public class SubscriptionController {
 
     @PostMapping
     public ResponseEntity<CommonResponseDTO<?>> subscribe(@RequestBody SubscriptionDto.Request request) {
-        CommonResponseDTO<Object> responseDto;
-
-        String deviceToken = request.getDeviceToken();
-        String articleId = request.getArticleId();
-
-        if(deviceToken == null || deviceToken.isBlank() || articleId == null || articleId.isBlank())
-            return new ResponseEntity<>(new CommonResponseDTO<>(0, articleId + " 구독 실패", null), HttpStatus.BAD_REQUEST);
-
-        logger.info("topic 구독 {}, {}", articleId, deviceToken);
-
-        boolean subscribed = messagingService.subscribeToTopic(articleId, deviceToken);
-
-        if(subscribed)
-            responseDto = new CommonResponseDTO<>(1, articleId + " 구독 성공", null);
-        else
-            responseDto = new CommonResponseDTO<>(0, articleId + " 구독 실패", null);
-
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return handleSubscriptionRequest(request, true);
     }
 
     @DeleteMapping
     public ResponseEntity<CommonResponseDTO<?>> unsubscribe(@RequestBody SubscriptionDto.Request request) {
+        return handleSubscriptionRequest(request, false);
+    }
+
+    private ResponseEntity<CommonResponseDTO<?>> handleSubscriptionRequest(SubscriptionDto.Request request, boolean isSubscribe) {
         CommonResponseDTO<Object> responseDto;
+        boolean success;
 
         String deviceToken = request.getDeviceToken();
         String articleId = request.getArticleId();
 
-        if(deviceToken == null || deviceToken.isBlank() || articleId == null || articleId.isBlank())
-            return new ResponseEntity<>(new CommonResponseDTO<>(0, articleId + " 구독 해제 실패", null), HttpStatus.BAD_REQUEST);
+        // validation
+        if(deviceToken == null || deviceToken.isBlank() || articleId == null || articleId.isBlank()) {
+            return new ResponseEntity<>(new CommonResponseDTO<>(0, articleId + (isSubscribe ? " 구독 실패" : " 구독 해제 실패"), null), HttpStatus.BAD_REQUEST);
+        }
 
-        logger.info("topic 구독 해제 {}, {}", articleId, deviceToken);
+        logger.info("topic {} {}, {}", articleId, (isSubscribe ? "구독" : "구독 해제"), deviceToken);
 
-        boolean unSubscribed = messagingService.unsubscribeFromTopic(articleId, deviceToken);
+        String action;
 
-        if(unSubscribed)
-            responseDto = new CommonResponseDTO<>(1, articleId + " 구독 해제 성공", null);
-        else
-            responseDto = new CommonResponseDTO<>(0, articleId + " 구독 해제 실패", null);
+        if (isSubscribe) {
+            success = messagingService.subscribeToTopic(articleId, deviceToken);
+            action = "구독";
+        } else {
+            success = messagingService.unsubscribeFromTopic(articleId, deviceToken);
+            action = "구독 해제";
+        }
+
+        String message = articleId + (success ? " " + action + " 성공" : " " + action + " 실패");
+        responseDto = new CommonResponseDTO<>(success ? 1 : 0, message, null);
 
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
