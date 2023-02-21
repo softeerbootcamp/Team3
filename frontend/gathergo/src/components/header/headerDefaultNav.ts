@@ -1,5 +1,3 @@
-import AlarmSidebar from "../sidebar/alarmSidebar";
-
 class HeaderDefaultNav {
   type: string;
   element: HTMLElement;
@@ -11,8 +9,6 @@ class HeaderDefaultNav {
   }
   render() {
     this.element.innerHTML = this.genertateNav(this.type);
-    this.sidebarEvent();
-
   }
   genertateNav(type: string) {
     switch (type) {
@@ -44,19 +40,13 @@ class HeaderDefaultNav {
       </li>
       <li class="nav-item divider"></li>
       <li class="nav-item">
-        <div id="sidebar-tigger" class="nav-link alarm"  data-hover="알람">
-          <span>알람</span>
-        </div>
-        <span class="dot unread"></span>
-      </li>`;
+              <a class="nav-link" href="./post" data-hover="모임 만들기">
+                <span>모임 만들기</span>
+              </a>
+            </li>`;
       default:
         return '';
     }
-  }
-  sidebarEvent(){
-    const sidebar = new AlarmSidebar();
-
-    // this.element.appendChild(sidebar.element)
   }
 }
 export default HeaderDefaultNav;

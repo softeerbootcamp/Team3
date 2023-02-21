@@ -4,7 +4,7 @@ import {
   category,
   regionSi,
   TcardDetail,
-  PROFILE_BASE_URL
+  PROFILE_BASE_URL,
 } from '../../common/constants';
 import { fetchSendComment } from '../../common/Fetches';
 import { modalMapGenerator } from '../../common/kakaoMapAPI/kakaoMapAPI';
@@ -34,7 +34,7 @@ class CardModal {
 
     const feedWrapper = document.createElement('div');
     feedWrapper.classList.add('feed-main-wrapper');
-    
+
     feedWrapper.appendChild(this.setFeedLeftElement());
     feedWrapper.appendChild(this.setFeedDivderElement());
     feedWrapper.appendChild(this.setFeedRightElement());
@@ -45,28 +45,34 @@ class CardModal {
     this.joinBtnEvent();
     this.modalDropDownEvent();
   }
-  modalDropDownEvent(){
+  modalDropDownEvent() {
     const dropdownToggle = this.element.querySelector('.nav-item.dropdown');
     const dropdownItem = this.element.querySelector('.modal-setting-dropdown');
-    dropdownToggle?.addEventListener('click',()=>{
+    dropdownToggle?.addEventListener('click', () => {
       dropdownItem?.classList.toggle('show');
       dropdownToggle.classList.toggle('rotate');
-    })
-    document.addEventListener('click',(e)=>{
+    });
+    document.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
-      if(target.closest('.nav-item.dropdown')!=dropdownToggle&&dropdownItem?.classList.contains('show')){
-
-      dropdownItem?.classList.toggle('show');
-      dropdownToggle?.classList.toggle('rotate');
+      if (
+        target.closest('.nav-item.dropdown') != dropdownToggle &&
+        dropdownItem?.classList.contains('show')
+      ) {
+        dropdownItem?.classList.toggle('show');
+        dropdownToggle?.classList.toggle('rotate');
       }
-    })
-    this.element.querySelector('.dropdown-item.delete')?.addEventListener('click',()=>{
-      store.dispatch(setModal('CLOSE_MEETING'))
-    })
+    });
+    this.element
+      .querySelector('.dropdown-item.delete')
+      ?.addEventListener('click', () => {
+        store.dispatch(setModal('CLOSE_MEETING'));
+      });
 
-    this.element.querySelector('.dropdown-item.edit')?.addEventListener('click',()=>{
-      store.dispatch(setModal('EDIT_MEETING'))
-    })
+    this.element
+      .querySelector('.dropdown-item.edit')
+      ?.addEventListener('click', () => {
+        store.dispatch(setModal('EDIT_MEETING'));
+      });
   }
   setDefaultModalElement() {
     const modalContainer = document.createElement('div');
@@ -111,12 +117,18 @@ class CardModal {
           </div>
           <div class="peoples">
             <img class="people-icon icon" src="./assets/Icons/peopleIcon.png" alt="User" />
-            <span class="peoples-status">${this.readingCard?.curr}/${
-      this.readingCard?.total
-    }</span>
+            <span class="peoples-status">${
+              this.readingCard?.curr <= this.readingCard?.total
+                ? `${this.readingCard?.curr}`
+                : `${this.readingCard?.total}`
+            }/${this.readingCard?.total}</span>
           </div>
         </div>
-        <button type="button" class="feed-info btn btn-primary btn-lg ${this.readingCard?.isHost ?`disabled`:``}"><strong>${this.readingCard?.hasJoined ?`참가 취소`:`참가하기`}</strong></button>
+        <button type="button" class="feed-info btn btn-primary btn-lg ${
+          this.readingCard?.isHost ? `disabled` : ``
+        }"><strong>${
+      this.readingCard?.hasJoined ? `참가 취소` : `참가하기`
+    }</strong></button>
       </div>
     </div>
     `;
@@ -125,7 +137,7 @@ class CardModal {
   setFeedDivderElement() {
     const divider = document.createElement('div');
     divider.classList.add('feed-main-divider');
-    return divider; 
+    return divider;
   }
   setFeedRightElement() {
     const commentList = new CommentList();
@@ -188,11 +200,10 @@ class CardModal {
       let modaltype = '';
       if (!store.getState().sessionId) modaltype = 'NEED_LOGIN';
       else {
-        if(this.readingCard?.hasJoined)
-          modaltype = 'JOIN_CANCEL';
-          else{
-            modaltype = 'JOIN';
-          }
+        if (this.readingCard?.hasJoined) modaltype = 'JOIN_CANCEL';
+        else {
+          modaltype = 'JOIN';
+        }
       }
 
       store.dispatch(setModal(modaltype));
@@ -217,18 +228,20 @@ class CardModal {
         btnElement?.classList.remove('disabled');
         return;
       }
-      
     });
     btnElement?.addEventListener('click', () => {
-      this.sendComment(inputElement,btnElement);
+      this.sendComment(inputElement, btnElement);
     });
   }
-  async sendComment(inputElement: HTMLInputElement,btnElement:HTMLButtonElement) {
+  async sendComment(
+    inputElement: HTMLInputElement,
+    btnElement: HTMLButtonElement
+  ) {
     // console.log('check')
     if (this.readingCard?.uuid == null) return;
 
     store.dispatch(checkLogin(document.cookie));
-    
+
     if (!store.getState().sessionId) {
       store.dispatch(setModal('NEED_LOGIN'));
       return;
@@ -236,11 +249,11 @@ class CardModal {
     // const date = new Date();
     const commentData = {
       content: inputElement.value,
-      date: getKoreanTimeString(),//date.toISOString(),
+      date: getKoreanTimeString(), //date.toISOString(),
     };
     store.dispatch(await fetchSendComment(this.readingCard.uuid, commentData));
 
-    inputElement.value = ""
+    inputElement.value = '';
     btnElement?.classList.add('disabled');
   }
 }
