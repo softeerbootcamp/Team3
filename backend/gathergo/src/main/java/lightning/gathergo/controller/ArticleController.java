@@ -209,6 +209,13 @@ public class ArticleController {
         data.setMessage("수정에 성공했습니다.");
         data.setArticleUuid(articleUuid);
 
+        // 닫기 알림 발송
+        Article article = articleService.getArticleByUuid(articleUuid);
+
+        Map<String, String> payload = Map.ofEntries(Map.entry("title", article.getTitle()), Map.entry("body", "호스트가 마감했습니다."));
+
+        messagingService.sendMessageToTopic(articleUuid, payload);
+
         // 구독 정보 삭제
         messagingService.deleteTopicAndDeviceTokens(articleUuid);
 
