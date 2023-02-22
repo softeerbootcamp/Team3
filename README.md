@@ -74,6 +74,10 @@
 ## API 스펙 관리
 <img width="1682" alt="api_spec" src="https://user-images.githubusercontent.com/63828202/220229036-b9a05262-b556-4050-8936-62ba5823865f.png">
 
+## 이슈 관리
+ZenHub를 바탕으로 칸반 보드를 통한 이슈 관리를 하고 있습니다.
+<img width="1728" alt="image" src="https://user-images.githubusercontent.com/63828202/220507143-38976464-8c37-4cb8-bc56-d882e2266537.png">
+
 ## 팀원 소개
 
 ##### FRONTEND 
