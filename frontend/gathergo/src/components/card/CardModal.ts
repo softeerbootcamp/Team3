@@ -17,7 +17,7 @@ class CardModal {
   readingCard: TcardDetail;
   constructor() {
     this.element = this.setDefaultModalElement();
-    this.readingCard = null;
+    this.readingCard = store.getState().readingCard;
     store.subscribe(() => {
       const newReadingCard = store.getState().readingCard;
       if (this.readingCard !== newReadingCard) {
@@ -123,10 +123,9 @@ class CardModal {
             }/${this.readingCard?.total}</span>
           </div>
         </div>
-        <button type="button" class="feed-info btn btn-primary btn-lg ${
-          this.readingCard?.isHost ? `disabled` : ``
-        }"><strong>${
-      this.readingCard?.hasJoined ? `참가 취소` : `참가하기`
+        <button type="button" class="feed-info btn btn-primary btn-lg 
+        ${this.readingCard?.isHost || this.readingCard.closed ? `disabled` : ``}">
+        <strong>${this.readingCard?.hasJoined ? `참가 취소` : `참가하기`
     }</strong></button>
       </div>
     </div>
@@ -144,19 +143,16 @@ class CardModal {
     const feedRigntElement = document.createElement('div');
     feedRigntElement.classList.add('feed-main-content');
     const modalIconHTML = this.readingCard?.isHost
-      ? `
-                
-    <li class="nav-item dropdown">
-      <img class="user-info-icon icon setting-icon" src="./assets/Icons/setting icon.png" alt="User" />
-
-      <div class="nav-link dropdown-toggle modal-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-        aria-expanded="false">
-        </div>
-      <div class="dropdown-menu  modal-setting-dropdown">
-        <div class="dropdown-item delete" >마감하기</div>
-        <div class="dropdown-item edit" >수정하기</div>
-      </div>
-    </li>`
+      ? this.readingCard.closed?"":`<li class="nav-item dropdown">
+          <img class="user-info-icon icon setting-icon" src="./assets/Icons/setting icon.png" alt="User" />
+          <div class="nav-link dropdown-toggle modal-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+            aria-expanded="false">
+            </div>
+          <div class="dropdown-menu  modal-setting-dropdown">
+            <div class="dropdown-item delete" >마감하기</div>
+            <div class="dropdown-item edit" >수정하기</div>
+          </div>
+        </li>`
       : `<div>
     <div class="user-info-icon" tooltip="${this.readingCard?.hostDesc}" flow="down">
       <img class="user-info-icon icon" src="./assets/Icons/who.png" alt="User" />
@@ -189,7 +185,7 @@ class CardModal {
     </div>`;
     mainElement.appendChild(commentList.element);
     feedRigntElement.appendChild(mainElement);
-    feedRigntElement.appendChild(commentInput.element);
+    if(!this.readingCard?.closed)feedRigntElement.appendChild(commentInput.element);
     return feedRigntElement;
   }
   joinBtnEvent() {

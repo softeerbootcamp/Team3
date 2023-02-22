@@ -30,7 +30,7 @@ type Tcard = {
   title: string;
   curr: number;
   total: number;
-  isClosed: boolean;
+  closed: boolean;
   categoryId: number;
   regionId: number;
   meetingDay: Date;

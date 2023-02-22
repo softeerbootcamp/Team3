@@ -42,8 +42,9 @@ class Home {
     const queryString = new URLSearchParams(window.location.search);
     const feed = queryString.get('feed');
     if (feed) {
-      cardList.openCardModal();
       store.dispatch(await fetchCardDetail(feed));
+      cardList.openCardModal();
+      
     }
 
     this.matchSearchBarValue();
