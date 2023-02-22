@@ -172,6 +172,16 @@ public class FcmMessagingService {
         // 3. 구독 내역 DB에서 삭제
         int affectedRows = subscriptionRepository.deleteByArticleId(topic);
 
+        // 4. FCM 구독정보 삭제
+        try {
+            TopicManagementResponse response = FirebaseMessaging.getInstance()
+                    .unsubscribeFromTopic(new ArrayList<>(prevTokens), topic);
+            logger.info("{} tokens were unsubscribed successfully", response.getSuccessCount());
+        } catch (FirebaseMessagingException e) {
+            logger.error("cannot unsubscribe tokens from given topic: {}, {}", topic, e.getMessage());
+            return false;
+        }
+
         return affectedRows > 0;
     }
 
