@@ -25,14 +25,25 @@
 
 ## Built With
 ##### FRONTEND
+[![Html][Html]][Html-url]
 [![Vite][Vite]][Vite-url]
 [![TypeScript][TypeScript]][TypeScript-url]
+[![Css][Css]][Css-url]
+[![Prettier][Prettier]][Css-url]
+![Redux][Redux]
+![npm][npm]
 
 
 ##### BACKEND
 [![Spring][Spring]][Spring-url]
 [![Firebase][Firebase]][Firebase-url]
-
+![java][java]
+![junit5][junit5]
+![redis][redis]
+![mysql][mysql]
+![ec2][ec2]
+![nginx][nginx]
+![docker][docker]
 
 ## 기능
 
@@ -139,6 +150,81 @@
 ZenHub를 바탕으로 칸반 보드를 통한 이슈 관리를 하고 있습니다.
 <img width="1728" alt="image" src="https://user-images.githubusercontent.com/63828202/220507143-38976464-8c37-4cb8-bc56-d882e2266537.png">
 
+## 디렉토리 구조 
+
+### 프론트 디렉토리 구조
+```
+gathergo
+ ┣ public
+ ┃ ┗ assets
+ ┃   ┣ Icons
+ ┃   ┣ Logo
+ ┃   ┗ category
+ ┃     ┣ icons
+ ┃     ┗ thumbnails
+ ┣ src
+ ┃ ┣ common
+ ┃ ┃ ┣ fg.timepicker-master
+ ┃ ┃ ┣ kakaoMapAPI
+ ┃ ┃ ┗ utils
+ ┃ ┣ components
+ ┃ ┃ ┣ card
+ ┃ ┃ ┣ comment
+ ┃ ┃ ┣ dropdown
+ ┃ ┃ ┣ fba
+ ┃ ┃ ┣ form
+ ┃ ┃ ┃ ┗ postingForms
+ ┃ ┃ ┣ header
+ ┃ ┃ ┣ modals
+ ┃ ┃ ┣ profile
+ ┃ ┃ ┃ ┣ tabEdit
+ ┃ ┃ ┃ ┣ tabProfile
+ ┃ ┃ ┗ sidebar
+ ┃ ┣ css
+ ┃ ┣ pages
+ ┃ ┣ server
+ ┃ ┗ store
+ ┣ index.html
+ ┣ index.ts
+ ┣ package-lock.json
+ ┣ package.json
+ ┗ tsconfig.json
+ ```
+
+### 백엔드 디렉토리 구조
+```
+├── main
+│   ├── java
+│   │   └── lightning
+│   │       └── gathergo
+│   │           ├── Utils
+│   │           ├── config
+│   │           ├── controller
+│   │           ├── dto
+│   │           ├── exception
+│   │           ├── filter
+│   │           ├── interceptor
+│   │           ├── mapper
+│   │           ├── model
+│   │           ├── repository
+│   │           ├── scheduler
+│   │           └── service
+│   └── resources
+│       ├── static
+│       └── templates
+└── test
+    └── java
+        └── lightning
+            └── gathergo
+                ├── controller
+                ├── firebase
+                ├── mapper
+                ├── repository
+                └── service
+ ```
+
+
+
 ## 팀원 소개
 
 ##### FRONTEND 
@@ -159,9 +245,23 @@ ZenHub를 바탕으로 칸반 보드를 통한 이슈 관리를 하고 있습니
 <!-- MARKDOWN LINKS & IMAGES -->
 [Vite]: https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white
 [Vite-url]: https://vitejs-kr.github.io/guide/
+[Html]: https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=HTML5&logoColor=white
+[Html-url]: https://developer.mozilla.org/ko/docs/Web/HTML
+[Css]: https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=CSS3&logoColor=white
+[Css-url]: https://getbootstrap.com/
+[Redux]: https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white"
+[npm]: https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white"
+[Prettier]: https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=white"
 [TypeScript]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
 [TypeScript-url]: https://www.typescriptlang.org/
 [Spring]: https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white
 [Spring-url]: https://spring.io/
 [Firebase]: https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white
 [Firebase-url]: https://firebase.google.com/?hl=ko
+[java]: https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=OpenJDK&logoColor=white"
+[junit5]: https://img.shields.io/badge/JUnit5-25A162?style=for-the-badge&logo=JUnit5&logoColor=white
+[redis]: https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=Redis&logoColor=white"
+[mysql]: https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white
+[ec2]: https://img.shields.io/badge/AmazonEC2-FF9900?style=for-the-badge&logo=AmazonEC2&logoColor=white
+[nginx]: https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=NGINX&logoColor=white
+[docker]: https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white
