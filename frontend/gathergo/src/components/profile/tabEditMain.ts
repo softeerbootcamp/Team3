@@ -32,9 +32,11 @@ class tabEditMain {
         <div class = "profile-context">
             <div class = "profile-img-name">
                 <div class = "image-button">
-                  <img class="profile-fix-image" id="profile-fix-image" src="${
-                    this.userEditInfo.profilePath + '?' + Math.random()
-                  }" alt="USER" onerror="this.src='../../assets/blankProfile.png'; return true;">
+                  <div class = "profile-fix-image-setting">
+                    <img class="profile-fix-image" id="profile-fix-image" src="${
+                      this.userEditInfo.profilePath + '?' + Math.random()
+                    }" alt="USER" onerror="this.src='../../assets/blankProfile.png'; return true;">
+                  </div>
                     <div class = "image-upload">
                         <input type = "file" accept = ".png" id = "profile-file-input" style = "margin : 0 0 0 2.5rem;">
                     </div>
@@ -52,7 +54,6 @@ class tabEditMain {
                   this.userEditInfo.userName
                 } class = "form-control" disabled>
             </div>
-
             <div class = "profile-textarea" id = "email">
                 <div class = "profile-textarea-text" style = "width : 6.25rem">이메일</div>
                 <input type = "text" id = "profile-email-edit" value = ${
@@ -105,11 +106,7 @@ class tabEditMain {
       store.dispatch(
         await changeUserProfileImg(this.test, this.userEditInfo.uuid)
       );
-      store.dispatch(
-        await changeUserProfileIntroduction(
-          descEdit.value,
-        )
-      );
+      store.dispatch(await changeUserProfileIntroduction(descEdit.value));
       store.dispatch(changeProfileTab(0));
     });
   }
@@ -126,6 +123,7 @@ class tabEditMain {
         value.files[0] &&
         value.files[0].size < 10 * 1024 * 1024
       ) {
+        this.test.delete('file')
         this.test.append('file', value.files[0]);
         this.reader.onload = function () {
           let a;
