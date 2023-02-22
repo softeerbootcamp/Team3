@@ -65,8 +65,9 @@
 ✨ 웹 사이트에 대한 사용자의 질문에 답변 </br>
 
 ## 아키텍처
-### 웹 푸시 알림 아키텍처
-<img width="696" alt="image" src="https://user-images.githubusercontent.com/63828202/220231157-ca5ed7f6-9b62-4de4-9d81-670ada1095e5.png">
+
+### 프로젝트 아키텍처
+![image](https://user-images.githubusercontent.com/63828202/220517449-3005347b-0418-4994-97f5-b92653db4a93.png)
 
 ## ERD
 추가 예정
