@@ -95,6 +95,8 @@ function reducer(state = initialState, action: Taction) {
         action.payload.userInfoResponse.hostingArticleList;
       state.userInfo.userJoinCards =
         action.payload.userInfoResponse.articleList;
+      if(state.userInfo.introduction == "null" || !state.userInfo.introduction)
+        state.userInfo.introduction = "한 줄 소개를 입력해주세요!"
       return { ...state };
     case CHANGE_PROFILEIMG:
       state.userInfo.profilePath = action.payload.imageSrc;

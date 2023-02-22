@@ -95,9 +95,10 @@
 }
 
 .user-profilepage-img {
+  max-width : 400px;
   object-fit: cover;
   display: block;
-  width: 33%;
+  width: 100%;
   margin: 0;
 
 }
