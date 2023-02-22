@@ -42,7 +42,6 @@ class tabLogoutModal {
       '#button-logout'
     ) as HTMLDivElement;
     cancelButton.addEventListener('click', async () => {
-      console.log('logout 누름');
       store.dispatch(await fetchLogout());
       window.location.reload();
     });

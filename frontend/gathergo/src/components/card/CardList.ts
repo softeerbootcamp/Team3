@@ -66,9 +66,9 @@ class CardList {
           '',
           `/?feed=${this.cardDatas[i].uuid}`
         );
-        this.openCardModal();
         store.dispatch(await fetchCardDetail(this.cardDatas[i].uuid));
-      });
+      this.openCardModal();
+        });
       if (i == this.increment + this.cardIndex - 1) {
         this.observer.observe(card.element);
       }

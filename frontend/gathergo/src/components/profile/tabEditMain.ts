@@ -44,20 +44,20 @@ class tabEditMain {
                 <div class = "profile-textarea-text" style = "width : 6.25rem">아이디</div>
                 <input type = "text" id = "profile-id-edit" value = ${
                   this.userEditInfo.userId
-                } class = "form-control" readonly>
+                } class = "form-control" disabled>
             </div>
             <div class = "profile-textarea" id = "name">
                 <div class = "profile-textarea-text" style = "width : 6.25rem">이름</div>
                 <input type = "text" value = ${
                   this.userEditInfo.userName
-                } class = "form-control" readonly>
+                } class = "form-control" disabled>
             </div>
 
             <div class = "profile-textarea" id = "email">
                 <div class = "profile-textarea-text" style = "width : 6.25rem">이메일</div>
                 <input type = "text" id = "profile-email-edit" value = ${
                   this.userEditInfo.email
-                } class = "form-control" readonly>
+                } class = "form-control" disabled>
             </div>
             <div class = "profile-textarea" id = "sentence">
                 <div class = "profile-textarea-text" style = "width : 6.25rem; height : 6.25rem;">
