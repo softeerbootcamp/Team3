@@ -374,7 +374,12 @@ li.nav-item.divider {
 }
 
 .card-text strong {
+  width: 265px;
   font-size: 1.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
 }
 
 .card-thumbnail {
