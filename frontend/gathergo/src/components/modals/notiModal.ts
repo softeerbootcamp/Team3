@@ -101,6 +101,7 @@ class NotiModal {
         };
       case 'LOGOUT':
         return async () => {
+          this.modalClose();
           store.dispatch(await fetchLogout());
         };
       case 'NEED_LOGIN':
