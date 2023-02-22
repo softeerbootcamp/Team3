@@ -87,20 +87,16 @@
 }
 
 .user-profilepage {
-  /* background: var(--bs-body-bg);
-  width: 30%;
-  min-width: 3rem;
-  overflow: hidden; */
+  width : 20rem;
   display: flex;
+  min-width : 5rem;
 }
 
 .user-profilepage-img {
-  max-width : 400px;
+  overflow : hidden;
   object-fit: cover;
   display: block;
   width: 100%;
-  margin: 0;
-
 }
 
 .sidebar-user-info.container-md {
@@ -284,7 +280,6 @@ ul.user-schedule {
   align-items: center;
   justify-content: center;
   padding-right: 100px;
-  overflow: hidden;
 }
 
 .profile-context {
@@ -296,11 +291,19 @@ ul.user-schedule {
 
 .profile-fix-image {
   position: relative;
-  width: 136px;
-  height: 200px;
-  min-width: 136px;
+  width : 100%;
+  overflow : hidden;
+
 }
 
+.profile-fix-image-setting{
+  min-width : 20rem;
+  min-height : 20rem;
+  width : 20rem;
+  display : flex;
+  justify-content: center;
+  align-items: center;
+}
 .profile-textarea {
   display: flex;
   flex-direction: row;
