@@ -86,7 +86,7 @@ type TuserInfo = {
   userName: string;
   email: string;
   profilePath: string;
-  introduction: string;
+  introduction: string | null | undefined;
   userId: string;
   userHostCards: TuserHostCard[];
   userJoinCards: TuserJoinCard[];
