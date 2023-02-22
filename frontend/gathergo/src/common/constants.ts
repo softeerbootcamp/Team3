@@ -30,7 +30,7 @@ type Tcard = {
   title: string;
   curr: number;
   total: number;
-  isClosed: boolean;
+  closed: boolean;
   categoryId: number;
   regionId: number;
   meetingDay: Date;
@@ -86,7 +86,7 @@ type TuserInfo = {
   userName: string;
   email: string;
   profilePath: string;
-  introduction: string;
+  introduction: string | null | undefined;
   userId: string;
   userHostCards: TuserHostCard[];
   userJoinCards: TuserJoinCard[];

@@ -42,7 +42,6 @@ class ChatBot {
     this.$container.appendChild(this.element);
     this.chatBotEvent();
     this.sendEvent();
-    console.log(generateResponse('what I need for posting?'));
   }
   chatBotEvent() {
     this.enterEvent();
@@ -53,7 +52,6 @@ class ChatBot {
     if (!sendBtn) return;
     sendBtn.addEventListener('click', () => {
       this.send();
-      console.log('ljkl');
     });
   }
   enterEvent() {
