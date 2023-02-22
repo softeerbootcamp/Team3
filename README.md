@@ -36,6 +36,8 @@
 
 ## 기능
 
+### 메인 페이지
+![image](https://user-images.githubusercontent.com/63828202/220541084-33d3e8d0-7884-4af3-b302-c2af6e99bbe3.png)
 <details>
 <summary> 메인 페이지 상세 설명 </summary>
 <div markdown="1">       
@@ -49,6 +51,9 @@
 </div>
 </details>
 
+
+### 마이페이지
+![image](https://user-images.githubusercontent.com/63828202/220541868-be4947a3-3e7e-4228-b102-d252f85776b1.png)
 <details>
 <summary> 마이 페이지 상세 설명 </summary>
 <div markdown="1">       
@@ -62,6 +67,8 @@
 </div>
 </details>
 
+### 번개 상세 모달
+![image](https://user-images.githubusercontent.com/63828202/220543435-d6fbb10b-13da-4492-b30c-3a382e5d36cc.png)
 <details>
 <summary> 번개 상세 모달 설명 </summary>
 <div markdown="1">       
@@ -77,16 +84,22 @@
 </div>
 </details>
 
+### 알람 기능
+![image](https://user-images.githubusercontent.com/63828202/220544601-6d57bfaf-60e4-4ff8-9c21-aa3496da45ea.png)
+
 <details>
 <summary> 알람 상세 설명 </summary>
 <div markdown="1">       
 
-✨ 현재 유저가 참여하고 있는 글에 대한 알림이 있을 경우, 알림을 받을 수 있다.</br>
+✨ 현재 유저가 참여하고 있는 글에 대한 알림이 있을 경우, 웹 푸시 알림을 받을 수 있다.</br>
+✨ 유저가 받은 알람 내역들은 알림 사이드 바를 통해 확인할 수 있다.</br>
 ✨ e.g. 모임 상세가 수정되었을 때, 호스트가 마감했을 때 , 댓글이 달렸을 때 <br/>
 
 </div>
 </details>
 
+### 번개 만들기
+![image](https://user-images.githubusercontent.com/63828202/220545466-8a5404a4-b09b-4352-bb5b-6a2d5d40fa1a.png)
 <details>
 <summary>  번개 만들기 상세 설명 </summary>
 <div markdown="1">       
@@ -98,6 +111,8 @@
 </div>
 </details>
 
+### 챗봇 
+![image](https://user-images.githubusercontent.com/63828202/220545927-66a7da09-f171-4f61-a465-cc7f5fde5a2d.png)
 <details>
 <summary>  챗봇 상세 설명 </summary>
 <div markdown="1">       
