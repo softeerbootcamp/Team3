@@ -16,6 +16,8 @@ public class SignupDtoMapper {
     }
 
     public User toUser(SignupDto.SignupInput dto) {
-        return modelMapper.map(dto, User.class);
+        User user = modelMapper.map(dto, User.class);
+        user.setIntroduction("한 줄 소개입니다");
+        return user;
     }
 }
